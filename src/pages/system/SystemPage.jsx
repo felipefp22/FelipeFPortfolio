@@ -1,12 +1,41 @@
+import { Table } from "react-bootstrap";
 
 
 export default function SystemPage() {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignItems: 'center' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', height: '100%' }}>
-                    <button style={{ backgroundColor: '#333', border: "2px solid white", color: "white", padding: "10px 20px", marginBottom: '20px', height: '40px' }} onClick={() => window.location.reload()}>Recarregar</button>
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1 }}>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
+                    <button style={{ backgroundColor: '#333', border: "2px solid white", color: "white", padding: "10px 20px", marginBottom: '20px', height: '40px' }} onClick={() => window.location.reload()}>New Order</button>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
+                    <h3 style={{ color: "white", marginBottom: '10px' }}>Orders Cooking</h3>
+
+                    {/* <div style={{ display: 'flex', flexDirection: 'row', margin: '20px', backgroundColor: "white", color: "black", padding: '5px', borderRadius: '10px' }}> */}
+                    <Table responsive="sm" style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', minWidth: '80%', minHeight: '200px', maxHeight: '300px', overflow: 'auto',}}>
+                        <thead>
+                            <tr>
+                                <th style={{ width: "40px"}}>Num</th>
+                                <th>Customer</th>
+                                <th>Minutes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Alexandro</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Thornton</td>
+                                <td>10</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    {/* </div> */}
                 </div>
             </div>
         </>

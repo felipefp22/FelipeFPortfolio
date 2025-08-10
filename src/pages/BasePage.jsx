@@ -8,13 +8,13 @@ export default function BasePage() {
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 20 }}>
+      <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 20, flexGrow: 1, }}>
 
-        {screenOnFocus !== "map" && <div style={{ display: 'flex', height: '100%', width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative' }}>
+        {screenOnFocus !== "map" && <div style={{ display: 'flex', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative' }}>
           <button style={{ position: 'absolute', top: 0, right: -25, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px" }}
             onClick={() => setScreenOnFocus(screenOnFocus === "system" ? "" : "system")}>{screenOnFocus === "system" ? "<-" : "->"}</button>
 
-          <div style={{ marginTop: 30, }} >
+          <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 35, }} >
             <SystemPage />
           </div>
         </div>}
