@@ -17,43 +17,55 @@ export default function MapaDelivery() {
   const [zoom, setZoom] = useState(null); // State to hold the zoom level
   const markersRef = useRef(null); // Reference to manage markers
 
-  // useEffect(() => {
+  useEffect(() => {
+    if (myVariables && zoom && myVariables.mainLocationLatitude && myVariables.mainLocationLongitude) {
+      // Inicializa o mapa
+      mapRef.current = L.map('mapa').setView([myVariables.mainLocationLatitude, myVariables.mainLocationLongitude], zoom); // Define a centralização do mapa
 
-  //   if (myVariables && zoom && myVariables.mainLocationLatitude && myVariables.mainLocationLongitude) {
-  //     // Inicializa o mapa
-  //     mapRef.current = L.map('mapa').setView([myVariables.mainLocationLatitude, myVariables.mainLocationLongitude], zoom); // Define a centralização do mapa
+      // Adiciona uma camada de tiles do OpenStreetMap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        minZoom: 12,
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors',
+      }).addTo(mapRef.current);
 
-  //     // Adiciona uma camada de tiles do OpenStreetMap
-  //     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  //       minZoom: 12,
-  //       maxZoom: 19,
-  //       attribution: '&copy; OpenStreetMap contributors',
-  //     }).addTo(mapRef.current);
+      // Adicionando marcador principal
+      const pizzaIcon = L.icon({
+        iconUrl: PizzaFav,
+        iconSize: [70, 70],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -40],
+      });
+      L.marker([myVariables.mainLocationLatitude, myVariables.mainLocationLongitude], { icon: pizzaIcon })
+        .addTo(mapRef.current)
+        .bindPopup('RESTAURANTE')
+        .openPopup();
+      //------------------------------
+      // Marcadores lugares de entrega
 
-  //     // Adicionando marcador principal
-  //     const pizzaIcon = L.icon({
-  //       iconUrl: PizzaFav,
-  //       iconSize: [70, 70],
-  //       iconAnchor: [20, 40],
-  //       popupAnchor: [0, -40],
-  //     });
-  //     L.marker([myVariables.mainLocationLatitude, myVariables.mainLocationLongitude], { icon: pizzaIcon })
-  //       .addTo(mapRef.current)
-  //       .bindPopup('RESTAURANTE')
-  //       .openPopup();
-  //     //------------------------------
-  //     // Marcadores lugares de entrega
+      markersRef.current = L.layerGroup().addTo(mapRef.current);
 
-  //     markersRef.current = L.layerGroup().addTo(mapRef.current);
+      fetchDataToLocation();
 
-  //     fetchDataToLocation();
+    setTimeout(() => {
+      mapRef.current.invalidateSize();
+    }, 0);
+      //------------------------------
+      return () => {
+        mapRef.current.remove(); // Remove o mapa ao desmontar para evitar leaks de memória
+      };
+    }
+  }, [myVariables, zoom]);
 
-  //     //------------------------------
-  //     return () => {
-  //       mapRef.current.remove(); // Remove o mapa ao desmontar para evitar leaks de memória
-  //     };
-  //   }
-  // }, [myVariables, zoom]);
+  useEffect(() => {
+  const handleResize = () => {
+    if (mapRef.current) {
+      mapRef.current.invalidateSize();
+    }
+  };
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
 
   useEffect(() => {
     // Load settings when the component mounts
@@ -184,46 +196,11 @@ export default function MapaDelivery() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '97%', width: '100%' }}>
-{/* 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(246, 236, 255)', height: '60px', }}>
-        <button className='btn-light' onClick={() => handleOpenModal()}>Save-Place</button>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '97%', width: '100%', paddingTop: 45, overflow: 'hidden',  }}>
 
-        <input style={{ maxWidth: "170px" }} value={newLatRestaurant} type="text"
-          onChange={(e) => { const value = e.target.value.replace(',', '.'); if (/^-?\d*\.?\d*$/.test(value)) { setNewLatRestaurant(value); } }} placeholder="Latitude" />
-
-        <input style={{ maxWidth: "170px" }} value={newLngRestaurant} type="text"
-          onChange={(e) => { const value = e.target.value.replace(',', '.'); if (/^-?\d*\.?\d*$/.test(value)) { setNewLngRestaurant(value); } }} placeholder="Longitude" />
-
-        <h4>|</h4>
-        <h4></h4>
-        <h4></h4>
-        <h4></h4>
-        <h4></h4>
-        <h4></h4>
-        <h4></h4>
-        <h4></h4>
-
-        <select className='selectZoom' value={zoom} onChange={handleZoomChange}>
-          <option value="14">1 - Zoom</option>
-          <option value="15">2 - Zoom</option>
-          <option value="16">3 - Zoom</option>
-          <option value="17">4 - Zoom</option>
-          <option value="18">5 - Zoom</option>
-        </select>
-
-        <button className='btn-light' onClick={centralizarMapa}>Center Map</button>
-
-        <button onClick={fetchDataToLocation} className='btn-light'>UPDATE</button>
-      </div> */}
-
-
-
-      <div style={{ display: 'flex', flex: 1, }}>
-        {/* {myVariables && <div style={{ flex: 1, height: '100%', width: '100%' }} id='mapa' ></div>} */}
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden' }}>
+        <div id="mapa" style={{ width: '1000px', height: '1000px' }} />
       </div>
-
-
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(246, 236, 255)', height: '65px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.714)', }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -254,20 +231,6 @@ export default function MapaDelivery() {
 
         </div>
       </div>
-
-      {/* {isModalVisible && (
-        <div className="popup-modal">
-          <div className="popup-content">
-            <h3>Sure to change restaurant location? That can mess up the map</h3>
-            <h4>Latitude: {newLatRestaurant}</h4>
-            <h4>Longitude: {newLngRestaurant}</h4>
-            <div className="popup-actions">
-              <button className="btn-confirm" onClick={saveNewRestaurantLocation}>OK</button>
-              <button className="btn-cancel" onClick={() => { setModalVisible(false); setNewLatRestaurant(null); setNewLngRestaurant(null); }}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 }
