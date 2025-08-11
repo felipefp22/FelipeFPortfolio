@@ -1,7 +1,10 @@
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
+import { Table } from "react-bootstrap";
 
 export default function NewOrderModal({ }) {
-    
+
     const [disabled, setDisabled] = useState(false);
 
     const [customerSelectedToNewOrder, setCustomerSelectedToNewOrder] = useState("");
@@ -35,6 +38,10 @@ export default function NewOrderModal({ }) {
             }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
+                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Create new customer</button>
+                    </div>
+
                     <span style={{ fontWeight: "600" }}>Customer</span>
                     <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%' }}>
                         <input
@@ -72,17 +79,46 @@ export default function NewOrderModal({ }) {
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
-                            <span style={{ fontWeight: "600" }}>Customer Address</span>
+                            <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
                             <input type="text" className="form-control" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerInputToSearch.number : ""} disabled={true}
-                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
+                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                             />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
-                            <span style={{ fontWeight: "600", whiteSpace: 'nowrap' }}>Customer Phone</span>
+                            <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Customer Phone</span>
                             <input type="text" className="form-control" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.phone : ""} disabled={true}
-                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
+                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                             />
+                        </div>
+                    </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
+                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "2px solid white", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>ADD Item</button>
+                        </div>
+                        <span style={{ fontWeight: "600", marginBottom: '5px' }}>Itens on Order</span>
+                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', }}>
+                            <Table responsive="sm" >
+                                <thead>
+                                    <tr>
+                                        <th style={{ width: "100%" }}>Item</th>
+                                        <th style={{ width: "40px" }}>Price</th>
+                                        <th style={{ width: "40px" }}><FontAwesomeIcon icon={faTrash} /></th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr>
+                                        <td>Peperoni</td>
+                                        <td>25.99</td>
+                                        <td><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                    </tr>
+
+                                </tbody>
+                            </Table>
                         </div>
                     </div>
                 </div>
