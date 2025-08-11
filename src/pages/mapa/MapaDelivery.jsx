@@ -196,7 +196,7 @@ export default function MapaDelivery() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '97%', width: '100%', paddingTop: 45, overflow: 'hidden',  }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', paddingTop: 45, overflow: 'hidden',  }}>
 
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden' }}>
         <div id="mapa" style={{ width: '1000px', height: '1000px' }} />

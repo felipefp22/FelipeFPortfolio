@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Form, Table } from "react-bootstrap";
+import NewOrderModal from "./components/NewOrderModal";
 
 
 export default function SystemPage() {
@@ -54,14 +55,9 @@ export default function SystemPage() {
 
 
             </div >
-            
-            {newOrderModal && <div style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 9 }} >
-                <div ref={newOrderModalRef} style={{ display: 'flex', flexDirection: 'column', width: 400, border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)", color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10 }}>
-                    <h1>New Order</h1>
-                    <h1>New Order</h1>
-                    <h1>New Order</h1>
 
-                </div>
+            {!newOrderModal && <div ref={newOrderModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 9 }} >
+                <NewOrderModal />
             </div>}
         </>
     );
