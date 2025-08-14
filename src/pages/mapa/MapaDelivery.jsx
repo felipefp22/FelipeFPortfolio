@@ -196,13 +196,13 @@ export default function MapaDelivery() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', paddingTop: 45, overflow: 'hidden',  }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '99%', width: '99%', paddingTop: 45, overflow: 'hidden',  }}>
 
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden' }}>
         <div id="mapa" style={{ width: '1000px', height: '1000px' }} />
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(246, 236, 255)', height: '65px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.714)', }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255, 255, 255, 1)', height: '65px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.714)', borderRadius: '0px 0px 3px 3px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 
           <div style={{ width: '35px', height: '35px', backgroundColor: selectMarkerColor(3), borderRadius: '50%', marginLeft: 10, marginRight: 2 }}></div> <h4 style={{ color: 'black' }}> 1-5 min </h4>

@@ -2,10 +2,13 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
+import NewCustomerModal from "./NewCustomerModal";
 
 export default function NewOrderModal({ }) {
 
     const [disabled, setDisabled] = useState(false);
+    const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
+    const newCustomerModalRef = useRef(null);
 
     const [customerSelectedToNewOrder, setCustomerSelectedToNewOrder] = useState("");
 
@@ -39,7 +42,7 @@ export default function NewOrderModal({ }) {
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Create new customer</button>
+                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Create new customer</button>
                     </div>
 
                     <span style={{ fontWeight: "600" }}>Customer</span>
@@ -94,11 +97,13 @@ export default function NewOrderModal({ }) {
                     </div>
                 </div>
 
+                <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
+
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "2px solid white", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>ADD Item</button>
+                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>ADD Item</button>
                         </div>
                         <span style={{ fontWeight: "600", marginBottom: '5px' }}>Itens on Order</span>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', }}>
@@ -123,7 +128,22 @@ export default function NewOrderModal({ }) {
                     </div>
                 </div>
 
+                <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
+                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Cancel Order</button>
+                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Save Order</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            {!showNewCustomerModal && <div ref={newCustomerModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
+                <NewCustomerModal />
+            </div>}
         </>
     );
 }
