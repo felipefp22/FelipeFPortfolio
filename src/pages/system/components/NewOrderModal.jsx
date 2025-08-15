@@ -3,17 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 import NewCustomerModal from "./NewCustomerModal";
+import SelectItemsModal from "./SelectItemsModal";
 
-export default function NewOrderModal({ }) {
+export default function NewOrderModal({ closeNewOrderModal }) {
 
     const [disabled, setDisabled] = useState(false);
     const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
     const newCustomerModalRef = useRef(null);
 
+    const [showSelectItemsModal, setShowSelectItemsModal] = useState(false);
+    const selectItemsModalRef = useRef(null);
+
     const [customerSelectedToNewOrder, setCustomerSelectedToNewOrder] = useState("");
 
     const [customerInputToSearch, setCustomerInputToSearch] = useState("");
     const [customersFound, setCustomersFound] = useState([]);
+    
     const [showCustomerSelectorDropdown, setShowCustomerSelectorDropdown] = useState(false);
     const customerSelectorDropdownRef = useRef(null);
 
@@ -42,7 +47,7 @@ export default function NewOrderModal({ }) {
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Create new customer</button>
+                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowNewCustomerModal(true)}>Create new customer</button>
                     </div>
 
                     <span style={{ fontWeight: "600" }}>Customer</span>
@@ -56,10 +61,10 @@ export default function NewOrderModal({ }) {
                             onBlur={() => { setCustomerInputToSearch(""); setShowCustomerSelectorDropdown(false); }}
                             placeholder="Search Customer by Name or Phone"
                             disabled={disabled}
-                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "0px" }}
+                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "0px", }}
                         />
                         {showCustomerSelectorDropdown && (
-                            <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 1000, borderRadius: "0px 0px 5px 5px" }}>
+                            <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 1000, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
                                 {customersFound?.length > 0 ? (
                                     customersFound.map((customerOpt) => (
                                         <li
@@ -103,10 +108,10 @@ export default function NewOrderModal({ }) {
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>ADD Item</button>
+                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowSelectItemsModal(true)}>ADD Item</button>
                         </div>
                         <span style={{ fontWeight: "600", marginBottom: '5px' }}>Itens on Order</span>
-                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', }}>
+                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', border: '1px solid lightgray' }}>
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>
@@ -133,7 +138,7 @@ export default function NewOrderModal({ }) {
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Cancel Order</button>
+                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => closeNewOrderModal()}>Cancel Order</button>
                             <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Save Order</button>
                         </div>
                     </div>
@@ -141,8 +146,12 @@ export default function NewOrderModal({ }) {
 
             </div>
 
-            {!showNewCustomerModal && <div ref={newCustomerModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
-                <NewCustomerModal />
+            {showNewCustomerModal && <div ref={newCustomerModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
+                <NewCustomerModal close={() => setShowNewCustomerModal(false)} />
+            </div>}
+
+            {!showSelectItemsModal && <div ref={selectItemsModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
+                <SelectItemsModal close={() => setShowSelectItemsModal(false)} />
             </div>}
         </>
     );

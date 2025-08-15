@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 
-export default function NewCustomerModal({ }) {
+export default function NewCustomerModal({ close }) {
 
     const [disabled, setDisabled] = useState(false);
 
@@ -14,6 +14,8 @@ export default function NewCustomerModal({ }) {
     const [complement, setComplement] = useState("");
     const [lat, setLat] = useState("");
     const [lng, setLng] = useState("");
+
+    const [showBoxCreateFakesCustomers, setShowBoxCreateFakesCustomers] = useState(false);
 
     async function handleCustomerSearchInputChange(e) {
         setCustomerInputToSearch(e.target.value);
@@ -39,7 +41,7 @@ export default function NewCustomerModal({ }) {
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Create FAKES Customers To Test</button>
+                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowBoxCreateFakesCustomers(true)}>Create FAKES Customers To Test</button>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
@@ -88,19 +90,29 @@ export default function NewCustomerModal({ }) {
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Cancel</button>
+                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
                             <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Save Customer</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {<div style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 100 }} >
+            {showBoxCreateFakesCustomers && <div style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.8)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 100 }} >
                 <div style={{
-                    display: 'flex', flexDirection: 'column', maxWidth: "85%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
+                    display: 'flex', flexDirection: 'column', maxWidth: "45%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
                     color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto"
                 }}>
-                    Alert custom
+                    <span>Will create a 10 fake custumers to you test system.</span>
+                    <span>(This system is just to recruiters see skills)</span>
+                    <br/>
+
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
+                        <button style={{ backgroundColor: 'rgba(189, 13, 0, 0)', border: "none", color: "rgba(255, 69, 56, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }} 
+                        onClick={() => setShowBoxCreateFakesCustomers(false)}>Cancel</button>
+
+                        <button style={{ backgroundColor: 'rgba(15, 107, 56, 0)', border: "none", color: "rgba(38, 233, 35, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
+                         onClick={() => ""}>Yes Create</button>
+                    </div>
                 </div>
             </div>}
         </>

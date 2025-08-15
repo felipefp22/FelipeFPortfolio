@@ -7,16 +7,16 @@ export default function SystemPage() {
     const [newOrderModal, setNewOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (newOrderModalRef.current && !newOrderModalRef.current.contains(event.target)) {
-                setNewOrderModal(false);
-            }
-        };
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (newOrderModalRef.current && !newOrderModalRef.current.contains(event.target)) {
+    //             setNewOrderModal(false);
+    //         }
+    //     };
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     return () => document.removeEventListener("mousedown", handleClickOutside);
+    // }, []);
 
     return (
         <>
@@ -56,8 +56,8 @@ export default function SystemPage() {
 
             </div >
 
-            {!newOrderModal && <div ref={newOrderModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 9 }} >
-                <NewOrderModal />
+            {!newOrderModal && <div ref={newOrderModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 9 }} >
+                <NewOrderModal closeNewOrderModal={() => setNewOrderModal(false)} />
             </div>}
         </>
     );
