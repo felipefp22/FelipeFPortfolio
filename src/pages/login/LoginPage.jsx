@@ -39,10 +39,9 @@ export default function LoginPage({ setActualPage }) {
       return;
     }
 
-    const loginData = await login(email, password)
-    if (loginData && loginData.access_token) {
-      await updateLocalStorage(loginData);
-      // await GetOwnProfileDatas()
+    const response = await login(email, password)
+    if (response.status === 200) {
+
 
     } else {
       // alertIncorrectLoginDatas()
@@ -62,18 +61,18 @@ export default function LoginPage({ setActualPage }) {
           display: 'flex', flexDirection: 'column', minWidth: "350px", width: "auto", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
           color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center',
         }}>
-          <div className="login-container" style={{ maxWidth: '450px', width: '96%' }}>
-            <h2 className="form-title">Entre com</h2>
+          <div style={{ maxWidth: '450px', width: '96%' }}>
+            <h2 >Entre com</h2>
             <GoogleLogin />
-            <p className="separator" style={{ color: 'white' }}><span>ou</span></p>
+            <p style={{ color: 'white', marginTop: '10px', marginBottom: '10px' }}><span>ou</span></p>
 
             {/* {props.errorMessage && (
-              <div className='bg-red-300 text-red-900 border border-red-900 p-1 my-2'>
+              <div >
                 {props.errorMessage}
               </div>
             )}
             {props.successMessage && (
-              <div className='bg-green-300 text-green-900 border border-green-900 p-1 my-2'>
+              <div>
                 {props.successMessage}
               </div>
             )} */}
@@ -84,7 +83,7 @@ export default function LoginPage({ setActualPage }) {
                   <label>Email</label>
                   <span style={{ color: 'red' }}> *</span>
                 </div>
-                <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '28px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
+                <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '38px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
                   onInvalid={(e) => e.target.setCustomValidity('Digite email Valido.')} 
                 />
                 {errors.email && <div>{errors.email}</div>}
@@ -104,9 +103,9 @@ export default function LoginPage({ setActualPage }) {
               </div>
 
               <div>
-                <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px' }}> {disableEnter ? <Spinner animation="border" role="status" />	: "Entrar"} </button>
+                <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px' }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
+                 style={{ width: '25px', height: '25px' }} />	: "Entrar"} </button>
               </div>
-
 
             </form>
             <div>

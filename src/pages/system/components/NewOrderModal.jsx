@@ -54,7 +54,6 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                     <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%' }}>
                         <input
                             type="text"
-                            className="form-control"
                             value={customerInputToSearch}
                             onChange={handleCustomerSearchInputChange}
                             onFocus={() => setShowCustomerSelectorDropdown(true)}
@@ -88,14 +87,14 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
                             <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
-                            <input type="text" className="form-control" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerInputToSearch.number : ""} disabled={true}
+                            <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerInputToSearch.number : ""} disabled={true}
                                 style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                             />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
                             <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Customer Phone</span>
-                            <input type="text" className="form-control" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.phone : ""} disabled={true}
+                            <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.phone : ""} disabled={true}
                                 style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                             />
                         </div>

@@ -3,11 +3,11 @@ import { logOutAction, updateLocalStorage } from './../AuthService';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const axiosInstanceHiring = axios.create({
+const axiosInstanceRestaurantSystem = axios.create({
     withCredentials: true,
 });
 
-axiosInstanceHiring.interceptors.request.use(async (config) => {
+axiosInstanceRestaurantSystem.interceptors.request.use(async (config) => {
     const token = localStorage.getItem('access_token');
     // config.baseURL = await getServer();
     config.baseURL = API_URL;
@@ -20,22 +20,21 @@ axiosInstanceHiring.interceptors.request.use(async (config) => {
 
 let refreshTokenPromise = null;
 
-axiosInstanceHiring.interceptors.response.use(
-
+axiosInstanceRestaurantSystem.interceptors.response.use(
     (response) => {
         return response;
     },
     async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status == 409 || error.response?.status == 404) {
-            async function getNewConfigsFromFireBase() {
-                await fetchRemoteConfig();
-                // originalRequest.baseURL =  await getServer();
-                originalRequest.headers['code'] = await getUUID();
-            }
-            await getNewConfigsFromFireBase();
-        }
+        // if (error.response?.status == 409 || error.response?.status == 404) {
+        //     async function getNewConfigsFromFireBase() {
+        //         await fetchRemoteConfig();
+        //         // originalRequest.baseURL =  await getServer();
+        //         // originalRequest.headers['code'] = await getUUID();
+        //     }
+        //     await getNewConfigsFromFireBase();
+        // }
 
         if (error.response && !originalRequest._retry) {
             originalRequest._retry = true;
@@ -53,7 +52,7 @@ axiosInstanceHiring.interceptors.response.use(
                 await new Promise(resolve => setTimeout(resolve, 400)); // little delay to 
 
                 originalRequest.headers['Authorization'] = `Bearer ${ localStorage.getItem('access_token')}`;
-                return axiosInstanceHiring(originalRequest);
+                return axiosInstanceRestaurantSystem(originalRequest);
 
             } catch (refreshError) {
 
@@ -78,7 +77,7 @@ async function refreshAccessToken() {
         const response = await axios.post(`${API_URL}/auth/refresh-token`, postData,
             {
                 headers: {
-                  'code': await getUUID()
+                //   'code': await getUUID()
                 }
             }
         );
@@ -94,4 +93,4 @@ async function refreshAccessToken() {
     }
 }
 
-export default axiosInstanceHiring;
+export default axiosInstanceRestaurantSystem;

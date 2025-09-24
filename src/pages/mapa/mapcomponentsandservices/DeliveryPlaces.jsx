@@ -14,7 +14,6 @@ export const PutDeliveryPlaces = ({ map, markersGroup, lat, lng, label, minutes 
         iconSize: [40, 40],
         iconAnchor: [20, 40],
         popupAnchor: [0, -40],
-        className: '',
     });
     const marker = L.marker([lat, lng], { icon: pizzaIcon }).bindPopup(`${minutes}min`);
 

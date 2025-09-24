@@ -9,39 +9,52 @@ export default function Index() {
   // const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
-  const isAdmAuthenticated = localStorage.getItem('access_token') ? true : false;
-  const isAdmMasterAuthenticated = localStorage.getItem('isAdmMasterAuthenticated') === 'true' ? true : false;
 
-  useEffect(() => {
-    const verifyAuthentication = async () => {
-      if (localStorage.getItem('access_token') && !isAdmAuthenticated) {
-        const ifIsAdmin = await verifyIfIsAdmin();
-        if (ifIsAdmin?.status === 200) {
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('access_token') ? true : false);
+  const [isAdmAuthenticated, setIsAdmAuthenticated] = useState(localStorage.getItem('isAdmMasterAuthenticated') ? true : false);
+  const [isAdmMasterAuthenticated, setIsAdmMasterAuthenticated] = useState(localStorage.getItem('isAdmMasterAuthenticated') === 'true' ? true : false);
 
+  const verifyAuthentication = async () => {
+    setIsLoading(true);
 
-          // dispatch(setIsAdmAuthenticated(ifIsAdmin.data.isAdmAuthenticated));
-          // dispatch(setIsAdmMasterAuthenticated(ifIsAdmin.data.isAdmMasterAuthenticated));
-        }
-      }
-
-      setIsLoading(false);
+    console.log('Verifying authentication...');
+    if (localStorage.getItem('access_token')) {
+      setIsAuthenticated(true);
+      setIsAdmAuthenticated(localStorage.getItem('isAdmAuthenticated') === 'true' ? true : false);
+      setIsAdmMasterAuthenticated(localStorage.getItem('isAdmMasterAuthenticated') === 'true' ? true : false);
     }
 
+    if (!localStorage.getItem('access_token')) {
+      setIsAuthenticated(false);
+      setIsAdmAuthenticated(false);
+      setIsAdmMasterAuthenticated(false);
+    }
+
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
     verifyAuthentication();
+
+    window.addEventListener("profileUpdated", verifyAuthentication);
+
+    return () => {
+      window.removeEventListener("profileUpdated", verifyAuthentication);
+    };
   }, []);
 
 
   return (
     <Router>
       <Routes>
-        {!isAdmAuthenticated &&
+        {!isAuthenticated &&
           <Route path="/" element={<Layout />}>
             <Route path="*" element={<LoginOrRegisterPage />} />
             <Route path="/" element={<LoginOrRegisterPage />} />
 
           </Route>}
 
-        {isAdmAuthenticated &&
+        {isAuthenticated &&
           <Route path="/" element={<Layout />}>
             <Route path="*" element={<BasePage />} />
             <Route path="/" element={<BasePage />} />

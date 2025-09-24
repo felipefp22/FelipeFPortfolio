@@ -1,5 +1,5 @@
-import axiosInstanceHiring from './axiosConfiguration/AxiosInstanceRestaurantSystem';
-import axiosInstanceHiringWithoutAuth from './axiosConfiguration/AxiosInstanceRestaurantSystemWithoutAuth';
+import axiosInstanceRestaurantSystem from './axiosConfiguration/AxiosInstanceRestaurantSystem';
+import axiosInstanceRestaurantSystemWithoutAuth from './axiosConfiguration/AxiosInstanceRestaurantSystemWithoutAuth';
 
 export async function signUp(name, email, password) {
 
@@ -9,7 +9,7 @@ export async function signUp(name, email, password) {
         password
     };
     try {
-        const response = await axiosInstanceHiringWithoutAuth.post(`/auth/register`, postData,
+        const response = await axiosInstanceRestaurantSystemWithoutAuth.post(`/auth/register`, postData,
             {
                 headers: {
                     'fcmToken': "a",
@@ -34,7 +34,7 @@ export async function login(emailOrUsername, password) {
     };
 
     try {
-        const response = await axiosInstanceHiringWithoutAuth.post(`/auth/login`, postData,
+        const response = await axiosInstanceRestaurantSystemWithoutAuth.post(`/auth/login`, postData,
             {
                 headers: {
                     'fcmToken': "a",
@@ -54,7 +54,7 @@ export async function login(emailOrUsername, password) {
 export async function verifyIfIsAdmin() {
 
     try {
-        const response = await axiosInstanceHiring.get(`/auth/is-admin`, {},
+        const response = await axiosInstanceRestaurantSystem.get(`/user-actions/is-admin`, {},
             {
 
             }
@@ -72,7 +72,7 @@ export async function verifyIfIsAdmin() {
 export async function logoutOnBackEnd() {
 
     try {
-        const response = await axiosInstanceHiring.patch(`/auth/logout`, {},
+        const response = await axiosInstanceRestaurantSystem.patch(`/auth/logout`, {},
             {
                 headers: {
                     'refreshToken': localStorage.getItem('refresh_token'),
@@ -107,7 +107,7 @@ export async function logoutOnBackEnd() {
 
 export async function requestPasswordReset(email) {
     try {
-        const response = await axiosInstanceHiringWithoutAuth.patch(`/auth/request-reset-password`, postData,
+        const response = await axiosInstanceRestaurantSystemWithoutAuth.patch(`/auth/request-reset-password`, postData,
             {
                 headers: {
                     'emailToResetPassword': email,
@@ -124,7 +124,7 @@ export async function requestPasswordReset(email) {
 
 export async function getTokenToResetPassword(email, confirmationCode) {
     try {
-        const response = await axiosInstanceHiringWithoutAuth.patch(`/auth/get-token-reset-password/` + confirmationCode, {},
+        const response = await axiosInstanceRestaurantSystemWithoutAuth.patch(`/auth/get-token-reset-password/` + confirmationCode, {},
             {
                 headers: {
                     'emailToResetPassword': email,
@@ -149,7 +149,7 @@ export async function resetPassword(newPassword, confirmPassword, tokenID) {
 
 
     try {
-        const response = await axiosInstanceHiringWithoutAuth.put(`/auth/reset-password`, postData,
+        const response = await axiosInstanceRestaurantSystemWithoutAuth.put(`/auth/reset-password`, postData,
             {
 
             }
@@ -166,7 +166,7 @@ export async function resetPassword(newPassword, confirmPassword, tokenID) {
 export async function requestConfirmationCode() {
 
     try {
-        const response = await axiosInstanceHiring.patch(`/auth/request-confirm-account`, {},
+        const response = await axiosInstanceRestaurantSystem.patch(`/auth/request-confirm-account`, {},
             {
 
             }
@@ -182,7 +182,7 @@ export async function requestConfirmationCode() {
 export async function confirmAccount(confirmationCode) {
 
     try {
-        const response = await axiosInstanceHiring.put(`/auth/confirm-account-via-code/` + confirmationCode,
+        const response = await axiosInstanceRestaurantSystem.put(`/auth/confirm-account-via-code/` + confirmationCode,
             {
 
             }
@@ -199,7 +199,7 @@ export async function confirmAccount(confirmationCode) {
 export async function requestPhoneChangeCode(phone) {
 
     try {
-        const response = await axiosInstanceHiring.patch(`/auth/request-change-and-confirm-phone`, {},
+        const response = await axiosInstanceRestaurantSystem.patch(`/auth/request-change-and-confirm-phone`, {},
             {
                 headers: {
                     'phoneToConfirm': phone,
@@ -217,7 +217,7 @@ export async function requestPhoneChangeCode(phone) {
 export async function confirmPhone(confirmationCode) {
 
     try {
-        const response = await axiosInstanceHiring.put(`/auth/confirm-phone-via-code/` + confirmationCode,
+        const response = await axiosInstanceRestaurantSystem.put(`/auth/confirm-phone-via-code/` + confirmationCode,
             {
 
             }

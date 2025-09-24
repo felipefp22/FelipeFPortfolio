@@ -13,13 +13,13 @@ export default function Layout() {
         display: "flex", flexDirection: "column", justifyContent: "center",
         // alignItems: "center",
       }}>
-        <div style={{ display: "flex", flexDirection: "column", height: "100dvh", margin: "0 auto", width: "100%", }}>
+        <div style={{ display: "flex", flexDirection: "column", height: "100%", margin: "0 auto", width: "100%", }}>
 
-          <Container style={{ flexGrow: 1, overflow: "hidden", width: "100%", height: "100%", paddingBottom: 10 }}>
+          <Container fluid style={{ flex: 1, overflow: "hidden", width: "100%",  paddingBottom: 1 }}>
             <Outlet /> {/* This will render the page-specific body */}
           </Container>
 
-          <footer style={{ backgroundColor: "#333", color: "white", height: "20px", padding: "5px 0", textAlign: "center", }}>
+          <footer style={{ backgroundColor: "#333", color: "white", height: "35px", padding: "5px 0", textAlign: "center", }}>
             <p style={{ margin: 0 }}>Developed by: <a href="https://github.com/felipefp22" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", padding: 0, margin: 0 }}>felipefp22</a></p>
           </footer>
         </div>

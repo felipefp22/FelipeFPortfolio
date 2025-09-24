@@ -64,21 +64,21 @@ export default function NewCustomerModal({ close }) {
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '72%', }}>
                             <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
-                            <input type="text" className="form-control" value={address} onChange={(e) => setAddress(e.target.value)}
+                            <input type="text"  value={address} onChange={(e) => setAddress(e.target.value)}
                                 style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                             />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
                             <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Number</span>
-                            <input type="text" className="form-control" value={number} onChange={(e) => setNumber(e.target.value)}
+                            <input type="text"  value={number} onChange={(e) => setNumber(e.target.value)}
                                 style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                             />
                         </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '95%' }}>
                         <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Complement</span>
-                        <input type="text" className="form-control" value={complement} onChange={(e) => setComplement(e.target.value)}
+                        <input type="text" value={complement} onChange={(e) => setComplement(e.target.value)}
                             style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                         />
                     </div>

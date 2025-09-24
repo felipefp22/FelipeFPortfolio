@@ -4,11 +4,11 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const axiosInstanceHiringWithoutAuth = axios.create({
+const axiosInstanceRestaurantSystemWithoutAuth = axios.create({
     withCredentials: true,
 });
 
-axiosInstanceHiringWithoutAuth.interceptors.request.use(async (config) => {
+axiosInstanceRestaurantSystemWithoutAuth.interceptors.request.use(async (config) => {
     config.baseURL = API_URL;
     config.headers = config.headers || {};
     // config.headers['code'] = `${await getUUID()}`;
@@ -17,7 +17,7 @@ axiosInstanceHiringWithoutAuth.interceptors.request.use(async (config) => {
     return config;
 });
 
-axiosInstanceHiringWithoutAuth.interceptors.response.use(
+axiosInstanceRestaurantSystemWithoutAuth.interceptors.response.use(
  
     (response) => {
         return response;
@@ -40,7 +40,7 @@ axiosInstanceHiringWithoutAuth.interceptors.response.use(
             try {
                 await new Promise(resolve => setTimeout(resolve, 400)); // little delay to 
 
-                return axiosInstanceHiringWithoutAuth(originalRequest);
+                return axiosInstanceRestaurantSystemWithoutAuth(originalRequest);
 
             } catch (refreshError) {
 
@@ -52,4 +52,4 @@ axiosInstanceHiringWithoutAuth.interceptors.response.use(
     }
 );
 
-export default axiosInstanceHiringWithoutAuth;
+export default axiosInstanceRestaurantSystemWithoutAuth;
