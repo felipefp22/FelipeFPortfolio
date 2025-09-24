@@ -150,7 +150,7 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                 <NewCustomerModal close={() => setShowNewCustomerModal(false)} />
             </div>}
 
-            {!showSelectItemsModal && <div ref={selectItemsModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
+            {showSelectItemsModal && <div ref={selectItemsModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} />
             </div>}
         </>
