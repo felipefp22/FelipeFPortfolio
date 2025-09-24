@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
 import BasePage from './pages/BasePage';
 import { verifyIfIsAdmin } from './services/AuthService';
-import LoginPage from './pages/LoginPage';
+import LoginOrRegisterPage from './pages/LoginOrRegisterPage';
 
 export default function Index() {
   // const dispatch = useDispatch();
@@ -36,8 +36,8 @@ export default function Index() {
       <Routes>
         {!isAdmAuthenticated &&
           <Route path="/" element={<Layout />}>
-            <Route path="*" element={<LoginPage />} />
-            <Route path="/" element={<LoginPage />} />
+            <Route path="*" element={<LoginOrRegisterPage />} />
+            <Route path="/" element={<LoginOrRegisterPage />} />
 
           </Route>}
 
