@@ -15,6 +15,7 @@ export default function UserOptions() {
                 <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                     <h3 style={{ color: "white", marginBottom: '10px' }}>Welcome</h3>
 
+                    
 
                 </div>
             </div >

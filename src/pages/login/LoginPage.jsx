@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../services/AuthService.jsx';
+import { login } from '../../services/AuthService.js';
 import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 

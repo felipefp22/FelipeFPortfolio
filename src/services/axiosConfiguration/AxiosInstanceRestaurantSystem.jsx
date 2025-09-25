@@ -36,7 +36,7 @@ axiosInstanceRestaurantSystem.interceptors.response.use(
         //     await getNewConfigsFromFireBase();
         // }
 
-        if (error.response && !originalRequest._retry) {
+        if (error.response && !originalRequest._retry && error.response.status !== 400 && error.response.status !== 500) {
             originalRequest._retry = true;
  
             if (!refreshTokenPromise) {
@@ -73,6 +73,8 @@ async function refreshAccessToken() {
             refreshToken: localStorage.getItem('refresh_token'),
             associatedToken: localStorage.getItem('access_token')
         };
+
+        console.log("Refreshing token...", postData);
 
         const response = await axios.post(`${API_URL}/auth/refresh-token`, postData,
             {

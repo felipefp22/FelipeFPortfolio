@@ -1,28 +1,84 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, Table } from "react-bootstrap";
 import NewOrderModal from "./components/NewOrderModal";
+import { getCompanyOperation } from "../../services/CompanySevice";
+import { getOrderOperation } from "../../services/OrderService";
+import { getShiftOperation, openNewShift } from "../../services/ShiftService";
 
 
-export default function SystemPage() {
+export default function SystemPage({ orders, setOrders, companyAddress, setCompanyAddress, companyLat, setCompanyLat, companyLng, setCompanyLng }) {
+    const [companyName, setCompanyName] = useState("");
+    const [companyEmail, setCompanyEmail] = useState("");
+    const [companyPhone, setCompanyPhone] = useState("");
+    const [urlCompanyLogo, setUrlCompanyLogo] = useState("");
+    const [productsCategories, setProductsCategories] = useState([]);
+    const [customers, setCustomers] = useState([]);
+    const [currentShift, setCurrentShift] = useState(null);
+    const [numberOfTables, setNumberOfTables] = useState(0);
+
     const [newOrderModal, setNewOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);
 
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (newOrderModalRef.current && !newOrderModalRef.current.contains(event.target)) {
-    //             setNewOrderModal(false);
-    //         }
-    //     };
+    async function getCompanyOperationData(retryCount = 0) {
+        const response = await getCompanyOperation();
+        if (response?.status === 200) {
+            const companyOperationData = response?.data;
+            console.log("Company Operation Data: ", companyOperationData);
+            setCompanyName(companyOperationData?.name);
+            setCompanyEmail(companyOperationData?.email);
+            setCompanyPhone(companyOperationData?.phone);
+            setCompanyAddress(companyOperationData?.address);
+            setCompanyLat(companyOperationData?.lat);
+            setCompanyLng(companyOperationData?.lng);
+            setUrlCompanyLogo(companyOperationData?.urlCompanyLogo);
+            setProductsCategories(companyOperationData?.productsCategories || []);
+            setCustomers(companyOperationData?.customers || []);
+            setCurrentShift(companyOperationData?.currentShift || null);
+            setNumberOfTables(companyOperationData?.numberOfTables || 0);
+        } else if (response?.status === 400 && response?.data === "noActiveShift") {
+            //IfOneDayRealOperationRemoveThis all this second "else if" and just leave the "if" above and the "else" below
+            if (retryCount < 2) {
+                const res = await openNewShift();
+                return getCompanyOperationData(retryCount + 1);
+            } else {
+                alert("Error fetching company operation data");
+            }
+        } else {
+            // alert("Error fetching company operation data");
+        }
+    }
 
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => document.removeEventListener("mousedown", handleClickOutside);
-    // }, []);
+    async function getShiftOperationData() {
+        const response = await getShiftOperation();
+        if (response?.status === 200) {
+            const shiftOperationData = response?.data;
+            setCurrentShift(shiftOperationData?.currentShift || null);
+            setOrders(shiftOperationData?.orders || []);
+        } else {
+            // alert("Error fetching orders operation data");
+        }
+    }
+
+    useEffect(() => {
+        getCompanyOperationData();
+    }, []);
+
+    useEffect(() => {
+        // run immediately once
+        getShiftOperationData();
+
+        const interval = setInterval(() => {
+            getShiftOperationData();
+        }, 12000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: 5 }}>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
-                    <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white",  marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
+                    <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
