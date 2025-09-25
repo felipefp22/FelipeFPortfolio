@@ -4,9 +4,10 @@ import Layout from './Layout';
 import BasePage from './pages/BasePage';
 import { verifyIfIsAdmin } from './services/AuthService';
 import LoginOrRegisterPage from './pages/LoginOrRegisterPage';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Index() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +43,6 @@ export default function Index() {
       window.removeEventListener("profileUpdated", verifyAuthentication);
     };
   }, []);
-
 
   return (
     <Router>

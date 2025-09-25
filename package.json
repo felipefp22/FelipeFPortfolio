@@ -18,6 +18,7 @@
     "@mui/material": "^7.3.1",
     "@mui/styled-engine-sc": "^7.3.1",
     "@mui/x-data-grid": "^8.10.0",
+    "@reduxjs/toolkit": "^2.9.0",
     "axios": "^1.12.2",
     "bootstrap": "^5.3.7",
     "leaflet": "^1.9.4",
