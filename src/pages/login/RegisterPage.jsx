@@ -4,12 +4,10 @@ import { login } from '../../services/AuthService.jsx';
 import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 
-export default function RegisterPage({ setActualPage }) {
+export default function RegisterPage({ setActualPage, email, setEmail, password, setPassword }) {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
   let errorsObj = { email: '', password: '' };
   const [errors, setErrors] = useState(errorsObj);
-  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [disableEnter, setDisableEnter] = useState(false);
   const [showLginErrosMessage, setShowLginErrosMessage] = useState(false);

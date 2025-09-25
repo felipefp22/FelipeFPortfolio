@@ -4,12 +4,10 @@ import { login } from '../../services/AuthService.jsx';
 import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 
-export default function LoginPage({ setActualPage }) {
+export default function LoginPage({ setActualPage, email, setEmail, password, setPassword }) {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
   let errorsObj = { email: '', password: '' };
   const [errors, setErrors] = useState(errorsObj);
-  const [password, setPassword] = useState('');
   const [disableEnter, setDisableEnter] = useState(false);
   const [showLginErrosMessage, setShowLginErrosMessage] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
@@ -41,8 +39,9 @@ export default function LoginPage({ setActualPage }) {
 
     const response = await login(email, password)
     if (response.status === 200) {
-
-
+      const companiesCoumpound = response.data.compoundsYouAreOwner || [];
+      localStorage.setItem('companyOperatingID', companiesCoumpound[0]?.companies[0]?.companyID || null);
+      window.dispatchEvent(new CustomEvent("profileUpdated"));
     } else {
       // alertIncorrectLoginDatas()
       setShowLginErrosMessage(true);
@@ -53,6 +52,8 @@ export default function LoginPage({ setActualPage }) {
       }, 2000); // 2000 milliseconds = 2 seconds
     }
   }
+
+
 
   return (
     <>
@@ -84,13 +85,13 @@ export default function LoginPage({ setActualPage }) {
                   <span style={{ color: 'red' }}> *</span>
                 </div>
                 <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '38px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
-                  onInvalid={(e) => e.target.setCustomValidity('Digite email Valido.')} 
+                  onInvalid={(e) => e.target.setCustomValidity('Digite email Valido.')}
                 />
                 {errors.email && <div>{errors.email}</div>}
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
-                <div style={{ display: 'flex', flexDirection: 'row',  width: '90%' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', width: '90%' }}>
                   <label>Senha</label>
                   <span style={{ color: 'red' }}> *</span>
                 </div>
@@ -104,7 +105,7 @@ export default function LoginPage({ setActualPage }) {
 
               <div>
                 <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px' }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
-                 style={{ width: '25px', height: '25px' }} />	: "Entrar"} </button>
+                  style={{ width: '25px', height: '25px' }} /> : "Entrar"} </button>
               </div>
 
             </form>
@@ -112,7 +113,7 @@ export default function LoginPage({ setActualPage }) {
               <p>Ainda não é usuario? <Link to={"/register"} onClick={() => setActualPage('register')} style={{ color: 'white' }}>Registre-se</Link></p>
             </div>
             <div style={{ visibility: showLginErrosMessage ? 'visible' : 'hidden', transition: 'visibility 0.5s ease-in-out', }}>
-                <strong style={{ color: 'red' }}>Erro! </strong> Dados de login invalidos.
+              <strong style={{ color: 'red' }}>Erro! </strong> Dados de login invalidos.
             </div>
 
           </div>

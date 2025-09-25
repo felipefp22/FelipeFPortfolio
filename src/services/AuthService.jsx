@@ -237,20 +237,13 @@ export async function updateLocalStorage(data) {
 
     if (data.access_token) localStorage.setItem('access_token', data.access_token);
     if (data.refresh_token) localStorage.setItem('refresh_token', data.refresh_token);
-    if (data.email) localStorage.setItem('userLoggedEmail', data.email);
-    if (data.urlProfilePhoto) localStorage.setItem('urlProfilePhoto', data.urlProfilePhoto);
+    if (data.userLoggedEmail) localStorage.setItem('userLoggedEmail', data.userLoggedEmail);
     if (data.isEmailConfirmed) localStorage.setItem('isEmailConfirmed', data.isEmailConfirmed);
     if (data.isPhoneConfirmed) localStorage.setItem('isPhoneConfirmed', data.isPhoneConfirmed);
-    if (data.categories) localStorage.setItem('categories', JSON.stringify(data.categories));
-    if (data.isCategoriesFilterActive) localStorage.setItem('isCategoriesFilterActive', JSON.stringify(data.isCategoriesFilterActive));
-    
-    if (data.creditsHelper) localStorage.setItem('creditsHelper', data.creditsHelper);
-    if (data.advertisesWorkFlowHelper) localStorage.setItem('advertisesWorkFlowHelper', data.advertisesWorkFlowHelper);
-    if (data.advertisesDeactivateActionHelper) localStorage.setItem('advertisesDeactivateActionHelper', data.advertisesDeactivateActionHelper);
-    if (data.advertisesPostNoCreditHelper) localStorage.setItem('advertisesPostNoCreditHelper', data.advertisesPostNoCreditHelper);
-    if (data.advertisesPostFreeCreditHelper) localStorage.setItem('advertisesPostFreeCreditHelper', data.advertisesPostFreeCreditHelper);
-    if (data.advertisesPostPaidCreditHelper) localStorage.setItem('advertisesPostPaidCreditHelper', data.advertisesPostPaidCreditHelper);
-    
+    if (data.compoundsYouAreOwner) localStorage.setItem('compoundsYouAreOwner', JSON.stringify(data.compoundsYouAreOwner));
+    if (data.companiesYouWorks) localStorage.setItem('companiesYouWorks', JSON.stringify(data.companiesYouWorks));
+
+
     window.dispatchEvent(new CustomEvent("profileUpdated"));
 }
 
@@ -258,18 +251,12 @@ export async function logOutAction() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('userLoggedEmail');
-    localStorage.removeItem('urlProfilePhoto');
     localStorage.removeItem('isEmailConfirmed');
     localStorage.removeItem('isPhoneConfirmed');
-    localStorage.removeItem('categories');
-    localStorage.removeItem('isCategoriesFilterActive');
+    localStorage.removeItem('compoundsYouAreOwner');
+    localStorage.removeItem('companiesYouWorks');
 
-    localStorage.removeItem('creditsHelper');
-    localStorage.removeItem('advertisesWorkFlowHelper');
-    localStorage.removeItem('advertisesDeactivateActionHelper');
-    localStorage.removeItem('advertisesPostNoCreditHelper');
-    localStorage.removeItem('advertisesPostFreeCreditHelper');
-    localStorage.removeItem('advertisesPostPaidCreditHelper');
+    localStorage.removeItem('companyOperatingID');
 
     window.dispatchEvent(new CustomEvent("profileUpdated"));
 
