@@ -1,14 +1,32 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 import noFoodImg from "./../../../assets/noFood.jpg";
 
-export default function SelectItemsModal({ close }) {
+export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd }) {
 
     const [buttonFilter, setButtonFilter] = useState("All");
-    const [filterSearchItem, setFilterSearchItem] = useState("")
+    const [inputSearchItem, setInputSearchItem] = useState("")
 
+    const [productsFiltered, setProductsFiltered] = useState([]);
+    const [selectedProducts, setSelectedProducts] = useState([]);
+
+    useEffect(() => {
+        if (buttonFilter === "All") {
+            const filteredProducts = allCompanyProductsCategories?.flatMap(category => category?.products || []);
+            setProductsFiltered(filteredProducts?.filter(product => product?.name.toLowerCase().includes(inputSearchItem.toLowerCase())));
+        } else {
+            const category = allCompanyProductsCategories?.find(cat => cat === buttonFilter);
+            const filteredProducts = category?.products || [];
+            setProductsFiltered(filteredProducts?.filter(product => product?.name.toLowerCase().includes(inputSearchItem.toLowerCase())));
+        }
+    }, [allCompanyProductsCategories, buttonFilter, inputSearchItem]);
+
+    async function addItemsToOrderAction() {
+        setSelectedProductsToAdd([...selectedProductsToAdd, ...selectedProducts]);
+        close();        
+    }
 
     return (
         <>
@@ -22,28 +40,28 @@ export default function SelectItemsModal({ close }) {
                         <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px', border: buttonFilter === "All" ? "2px solid white" : "none" }}
                             onClick={() => setButtonFilter("All")}>All</button>
 
-                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px', border: buttonFilter === "Pizzas" ? "2px solid white" : "none" }}
-                            onClick={() => setButtonFilter("Pizzas")}>Pizzas</button>
+                        {allCompanyProductsCategories && allCompanyProductsCategories?.map((category) => (
+                            <button key={category?.id} style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px', border: buttonFilter === category ? "2px solid white" : "none" }}
+                                onClick={() => setButtonFilter(category)}>{category?.categoryName}</button>
+                        ))}
 
-                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px', border: buttonFilter === "Beverages" ? "2px solid white" : "none" }}
-                            onClick={() => setButtonFilter("Beverages")}>Beverages</button>
-
-                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px', border: buttonFilter === "Alcoholic Beverage" ? "2px solid white" : "none" }}
-                            onClick={() => setButtonFilter("Alcoholic Beverage")}>Alcoholic Beverage</button>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '300px', backgroundColor: 'white', borderRadius: '5px', padding: 3, overflowY: 'auto' }}>
-                        <input type="text" value={filterSearchItem} onChange={(e) => setFilterSearchItem(e.target.value)} placeholder="Filter Item"
+                        <input type="text" value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
                             style={{
                                 height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', height: 40, paddingLeft: '10px', borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto',
-                                border: '2px solid lightgray', borderRadius: '5px', margin: 0, boxSizing: 'border-box', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)'
+                                border: '2px solid lightgray', borderRadius: '5px', margin: 0, boxSizing: 'border-box', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)', color: 'red'
                             }} />
 
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', width: '80px', height: "96px", margin: 5, cursor: 'pointer' }}>
-                                <img src={noFoodImg} alt={""} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
-                                <span style={{ fontWeight: 'bold', fontSize: "16px", textAlign: 'center', color: 'black' }}>Peperoni</span>
-                            </div>
+                            {productsFiltered && productsFiltered?.map((product) => (
+                                <div style={{ display: 'flex', flexDirection: 'column', width: '80px', height: "96px", margin: 5, cursor: 'pointer' }} onClick={() => { setSelectedProducts([...selectedProducts, product]); }}>
+                                    <img src={noFoodImg} alt={""} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
+                                    <span style={{ fontWeight: 'bold', fontSize: "16px", textAlign: 'center', color: 'black' }}>{product?.name}</span>
+                                </div>
+                            ))
+                            }
                         </div>
                     </div>
                 </div>
@@ -61,23 +79,25 @@ export default function SelectItemsModal({ close }) {
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr>
-                                    <td>Peperoni</td>
-                                    <td>25.99</td>
-                                    <td><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
-                                </tr>
+                                {selectedProducts.map((product, index) => (
+                                    <tr key={product.id}>
+                                        <td>{product.name}</td>
+                                        <td>{product.price}</td>
+                                        <td onClick={() => { setSelectedProducts(selectedProducts.filter((p) => p.id !== product.id)); }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </Table>
                     </div>
                 </div>
-                
+
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
                             <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Add items</button>
+                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => { addItemsToOrderAction(); }}>Add items</button>
                         </div>
                     </div>
                 </div>

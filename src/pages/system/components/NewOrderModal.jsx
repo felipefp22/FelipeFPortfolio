@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
+import { getAllCompanyCustomers } from "../../../services/CustomerSevice";
+import { getAllProductsCategories } from "../../../services/ProductsCategory";
 
 export default function NewOrderModal({ closeNewOrderModal }) {
 
@@ -14,28 +16,58 @@ export default function NewOrderModal({ closeNewOrderModal }) {
     const [showSelectItemsModal, setShowSelectItemsModal] = useState(false);
     const selectItemsModalRef = useRef(null);
 
-    const [customerSelectedToNewOrder, setCustomerSelectedToNewOrder] = useState("");
+    const [customerSelectedToNewOrder, setCustomerSelectedToNewOrder] = useState(null);
 
+    const [allCompanyCustomers, setAllCompanyCustomers] = useState([]);
     const [customerInputToSearch, setCustomerInputToSearch] = useState("");
-    const [customersFound, setCustomersFound] = useState([]);
-    
+    const [customersMatched, setCustomersMatched] = useState([]);
+
     const [showCustomerSelectorDropdown, setShowCustomerSelectorDropdown] = useState(false);
     const customerSelectorDropdownRef = useRef(null);
 
+    const [allCompanyProductsCategories, setAllCompanyProductsCategories] = useState([]);
+    const [selectedProductsToAdd, setSelectedProductsToAdd] = useState([]);
 
-    async function handleCustomerSearchInputChange(e) {
-        setCustomerInputToSearch(e.target.value);
+    async function fetchCustomers() {
+        try {
+            const response = await getAllCompanyCustomers();
+            if (response?.status === 200) {
+                setAllCompanyCustomers(response?.data || []);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-        const lowerInput = e.target.value.toLowerCase();
+    async function fetchProductsCategories() {
+        try {
+            const response = await getAllProductsCategories();
+            if (response?.status === 200) {
+                setAllCompanyProductsCategories(response?.data || []);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-        // const filtered = doctorSpecialitiesOpts
-        //     .filter(opt =>
-        //         opt.ptbrLabel.toLowerCase().includes(lowerInput) &&
-        //         !doctorSpecialties.includes(opt.doctorSpecialty)
-        //     )
-        //     .map(opt => opt.doctorSpecialty);
+    useEffect(() => {
+        fetchProductsCategories();
+        fetchCustomers();
+    }, []);
 
-        // setFilteredSpecialities(filtered);
+    useEffect(() => {
+        handleCustomerSearchInputChange();
+    }, [allCompanyCustomers, customerInputToSearch]);
+
+    async function handleCustomerSearchInputChange() {
+
+        const filtered = allCompanyCustomers
+            .filter(opt =>
+                opt.customerName?.toLowerCase().includes(customerInputToSearch.toLowerCase()) ||
+                opt.phone?.toLowerCase().replace(/\D/g, "").includes(customerInputToSearch.toLowerCase())
+            );
+
+        setCustomersMatched(filtered);
     };
 
     return (
@@ -54,8 +86,8 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                     <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%' }}>
                         <input
                             type="text"
-                            value={customerInputToSearch}
-                            onChange={handleCustomerSearchInputChange}
+                            value={showCustomerSelectorDropdown ? customerInputToSearch : (customerSelectedToNewOrder ? customerSelectedToNewOrder?.customerName + " / " + customerSelectedToNewOrder?.phone : "")}
+                            onChange={e => setCustomerInputToSearch(e.target.value)}
                             onFocus={() => setShowCustomerSelectorDropdown(true)}
                             onBlur={() => { setCustomerInputToSearch(""); setShowCustomerSelectorDropdown(false); }}
                             placeholder="Search Customer by Name or Phone"
@@ -63,19 +95,19 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                             style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "0px", }}
                         />
                         {showCustomerSelectorDropdown && (
-                            <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 1000, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
-                                {customersFound?.length > 0 ? (
-                                    customersFound.map((customerOpt) => (
+                            <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 100, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
+                                {customersMatched?.length > 0 ? (
+                                    customersMatched.map((customerOpt) => (
                                         <li
                                             key={customerOpt.id}
-                                            onClick={() => customerSelectedToNewOrder(customerOpt)}
+                                            onMouseDown={() => { setCustomerSelectedToNewOrder(customerOpt); }}
                                             style={{ cursor: "pointer" }}
                                         >
-                                            {customerOpt.name + " / " + customerOpt.phone}
+                                            {customerOpt?.customerName + " / " + customerOpt?.phone}
                                         </li>
                                     ))
                                 ) : (
-                                    <li style={{ fontWeight: "600" }} >No matches found</li>
+                                    <li style={{ fontWeight: "600" }} >{customersMatched?.length > 0 ? "No matches found" : "Type Name or Phone to search"}</li>
                                 )}
                             </ul>
                         )}
@@ -87,14 +119,14 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
                             <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
-                            <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerInputToSearch.number : ""} disabled={true}
+                            <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
                                 style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                             />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
                             <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Customer Phone</span>
-                            <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.phone : ""} disabled={true}
+                            <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
                                 style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                             />
                         </div>
@@ -149,8 +181,8 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                 <NewCustomerModal close={() => setShowNewCustomerModal(false)} />
             </div>}
 
-            {showSelectItemsModal && <div ref={selectItemsModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
-                <SelectItemsModal close={() => setShowSelectItemsModal(false)} />
+            {!showSelectItemsModal && <div ref={selectItemsModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
+                <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
             </div>}
         </>
     );

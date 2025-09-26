@@ -34,7 +34,6 @@ export default function SystemPage({ }) {
             dispatch(changeCustomers(companyOperationData?.customers || []));
             dispatch(changeCurrentShift(companyOperationData?.currentShift || null));
             dispatch(changeNumberOfTables(companyOperationData?.numberOfTables || 0));
-            dispatch(changeOrders(companyOperationData?.orders || []));
 
         } else if (response?.status === 400 && response?.data === "noActiveShift") {
             //IfOneDayRealOperationRemoveThis all this second "else if" and just leave the "if" above and the "else" below
@@ -68,6 +67,7 @@ export default function SystemPage({ }) {
         // run immediately once
         getShiftOperationData();
 
+
         const interval = setInterval(() => {
             getShiftOperationData();
         }, 12000);
@@ -95,16 +95,14 @@ export default function SystemPage({ }) {
                             </tr>
                         </thead>
                         <tbody style={{ textAlign: 'left', height: '100%', maxHeight: '400px', overflowY: 'auto' }}>
-                            <tr>
-                                <td>1</td>
-                                <td>Alexandro</td>
-                                <td>5</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Thornton</td>
-                                <td>10</td>
-                            </tr>
+                            {orders && orders.length > 0 && orders.map((order, index) => (
+                                <tr key={order.orderID} style={{ backgroundColor: order.status === "cooking" ? '#f0ad4e' : order.status === "ready" ? '#5cb85c' : 'white', color: order.status === "delivered" ? 'gray' : 'black' }}>
+                                    <td>{order.orderNumberOnShift}</td>
+                                    <td>{order.customer?.customerName || "No Name"}</td>
+                                    <td>{Math.floor((Date.now() - Date.parse(order.openOrderDateUtc + "Z")) / 60000)}</td>
+                                </tr>
+
+                            ))}
                         </tbody>
                     </Table>
                     {/* </div> */}
@@ -113,7 +111,7 @@ export default function SystemPage({ }) {
 
             </div >
 
-            {newOrderModal && <div ref={newOrderModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 9 }} >
+            {!newOrderModal && <div ref={newOrderModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 9 }} >
                 <NewOrderModal closeNewOrderModal={() => setNewOrderModal(false)} />
             </div>}
         </>
