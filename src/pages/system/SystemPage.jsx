@@ -11,7 +11,7 @@ import {
 } from './../../redux/companyOperationSlice.js';
 
 
-export default function SystemPage({ }) {
+export default function SystemPage({ screenOnFocus }) {
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);
@@ -78,14 +78,15 @@ export default function SystemPage({ }) {
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: 5 }}>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
+                {screenOnFocus !== "map" &&<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                     <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
-                </div>
+                </div>}
 
-                <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
+                {screenOnFocus !== "map" &&<div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                     <h3 style={{ color: "white", marginBottom: '10px' }}>Orders Cooking</h3>
 
                     {/* <div style={{ display: 'flex', flexDirection: 'row', margin: '20px', backgroundColor: "white", color: "black", padding: '5px', borderRadius: '10px' }}> */}
+
                     <Table responsive="sm" style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '400px', overflow: 'auto', }}>
                         <thead>
                             <tr>
@@ -105,7 +106,7 @@ export default function SystemPage({ }) {
                         </tbody>
                     </Table>
                     {/* </div> */}
-                </div>
+                </div>}
 
 
             </div >

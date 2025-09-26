@@ -34,9 +34,6 @@ export default function BasePage() {
           <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#e43636ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 50 }}
             onClick={() => logOutAction()}>{<FontAwesomeIcon icon={faPowerOff} />}</button>
 
-          <button style={{ position: 'absolute', top: 0, right: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
-            onClick={() => setScreenOnFocus(screenOnFocus === "system" ? "" : "system")}>{screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
-
           <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 35, }} >
             <UserOptions />
           </div>
@@ -50,19 +47,20 @@ export default function BasePage() {
           {/* <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
             onClick={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); }}>{<FontAwesomeIcon icon={faArrowLeft} /> } {"Quit"}</button> */}
 
-          <button style={{ position: 'absolute', top: 0, right: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
-            onClick={() => setScreenOnFocus(screenOnFocus === "system" ? "" : "system")}>{screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
+          {screenOnFocus !== "map" && <button style={{ position: 'absolute', top: 0, right: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+            onClick={() => setScreenOnFocus(screenOnFocus === "system" ? "" : "system")}>
+              {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>}
 
           <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 35, }} >
-            <SystemPage />
+            <SystemPage screenOnFocus={screenOnFocus} />
           </div>
         </div>}
 
         <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: 'white', borderRadius: 50, margin: "0px 5px" }} />
 
         {<div style={{ display: 'flex', height: '100%', width: screenOnFocus === "system" ? '0%' : screenOnFocus === "map" ? '100%' : '50%', position: 'relative' }}>
-          <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
-            onClick={() => setScreenOnFocus(screenOnFocus === "map" ? "" : "map")}>{screenOnFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>
+          {screenOnFocus !== "system" && <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+            onClick={() => setScreenOnFocus(screenOnFocus === "map" ? "" : "map")}>{screenOnFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
 
           <MapaDelivery />
         </div>}
