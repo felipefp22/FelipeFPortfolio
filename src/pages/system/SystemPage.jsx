@@ -101,7 +101,6 @@ export default function SystemPage({ }) {
                                     <td>{order.customer?.customerName || "No Name"}</td>
                                     <td>{Math.floor((Date.now() - Date.parse(order.openOrderDateUtc + "Z")) / 60000)}</td>
                                 </tr>
-
                             ))}
                         </tbody>
                     </Table>
