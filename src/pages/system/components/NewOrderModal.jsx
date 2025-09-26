@@ -6,6 +6,7 @@ import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
 import { getAllCompanyCustomers } from "../../../services/CustomerSevice";
 import { getAllProductsCategories } from "../../../services/ProductsCategory";
+import { createOrder } from "../../../services/OrderService";
 
 export default function NewOrderModal({ closeNewOrderModal }) {
 
@@ -69,6 +70,51 @@ export default function NewOrderModal({ closeNewOrderModal }) {
 
         setCustomersMatched(filtered);
     };
+
+    async function saveOrder() {
+        if (!customerSelectedToNewOrder) {
+            alert("Select a customer to create the order");
+            return;
+        }
+        if (selectedProductsToAdd.length === 0) {
+            alert("Add at least one item to create the order");
+            return;
+        }
+
+        const itemsIdAndQuantity = Object.values(
+            selectedProductsToAdd.reduce((acc, item) => {
+                if (!acc[item.id]) {
+                    acc[item.id] = { productID: item.id, quantity: 0, productName: item.name };
+                }
+                acc[item.id].quantity += item.quantity ?? 1; // add quantity if exists, otherwise +1
+                return acc;
+            }, {})
+        );
+
+        console.log("itemsIdAndQuantity: ", itemsIdAndQuantity);
+        const response = createOrder(
+            "delivery",
+            customerSelectedToNewOrder?.id,
+            customerSelectedToNewOrder?.customerName,
+            itemsIdAndQuantity,
+            " "
+        );
+
+        if(response?.status === 200){
+            alert("Order created successfully!");
+            closeNewOrderModal();
+        }
+    }
+
+        async function removeProduct(productID) {
+        const index = selectedProductsToAdd.findIndex(p => p.id === productID);
+
+        if (index !== -1) {
+            const newSelectedProducts = [...selectedProductsToAdd];
+            newSelectedProducts.splice(index, 1); // remove only the first occurrence
+            setSelectedProductsToAdd(newSelectedProducts);
+        }
+    }
 
     return (
         <>
@@ -152,12 +198,13 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    <tr>
-                                        <td>Peperoni</td>
-                                        <td>25.99</td>
-                                        <td><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
-                                    </tr>
-
+                                    {selectedProductsToAdd.map((product, index) => (
+                                        <tr key={index}>
+                                            <td>{product.name}</td>
+                                            <td>{product.price}</td>
+                                            <td onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </Table>
                         </div>
@@ -170,7 +217,7 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
                             <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => closeNewOrderModal()}>Cancel Order</button>
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => ""}>Save Order</button>
+                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => saveOrder()}>Save Order</button>
                         </div>
                     </div>
                 </div>
@@ -181,7 +228,7 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                 <NewCustomerModal close={() => setShowNewCustomerModal(false)} />
             </div>}
 
-            {!showSelectItemsModal && <div ref={selectItemsModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
+            {showSelectItemsModal && <div ref={selectItemsModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
             </div>}
         </>

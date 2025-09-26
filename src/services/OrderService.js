@@ -8,7 +8,33 @@ export async function getOrderOperation() {
     //     email
     // };
     try {
-        const response = await axiosInstanceRestaurantSystem.get(`/company/get-company-operation/${localStorage.getItem('companyOperatingID')}`, {},
+        const response = await axiosInstanceRestaurantSystem.get(`/order/get-company-operation/${localStorage.getItem('companyOperatingID')}`, {},
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
+
+export async function createOrder( tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, notes ) {
+
+    const postData = {
+        companyID: localStorage.getItem('companyOperatingID'),
+        tableNumberOrDeliveryOrPickup: tableNumberOrDeliveryOrPickup,
+        customerID: customerID,
+        pickupName: pickupName,
+        orderItemsIDs: orderItemsIDs,
+        notes: notes,
+    };
+    try {
+        const response = await axiosInstanceRestaurantSystem.post(`/order/create-order`, postData,
             {
                 headers: {
 

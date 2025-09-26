@@ -25,7 +25,17 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
     async function addItemsToOrderAction() {
         setSelectedProductsToAdd([...selectedProductsToAdd, ...selectedProducts]);
-        close();        
+        close();
+    }
+
+    async function removeProduct(productID) {
+        const index = selectedProducts.findIndex(p => p.id === productID);
+
+        if (index !== -1) {
+            const newSelectedProducts = [...selectedProducts];
+            newSelectedProducts.splice(index, 1); // remove only the first occurrence
+            setSelectedProducts(newSelectedProducts);
+        }
     }
 
     return (
@@ -80,10 +90,10 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                             </thead>
                             <tbody >
                                 {selectedProducts.map((product, index) => (
-                                    <tr key={product.id}>
+                                    <tr key={index}>
                                         <td>{product.name}</td>
                                         <td>{product.price}</td>
-                                        <td onClick={() => { setSelectedProducts(selectedProducts.filter((p) => p.id !== product.id)); }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                        <td onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                     </tr>
                                 ))}
                             </tbody>

@@ -111,7 +111,7 @@ export default function SystemPage({ }) {
 
             </div >
 
-            {!newOrderModal && <div ref={newOrderModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 9 }} >
+            {newOrderModal && <div ref={newOrderModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 9 }} >
                 <NewOrderModal closeNewOrderModal={() => setNewOrderModal(false)} />
             </div>}
         </>
