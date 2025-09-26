@@ -11,11 +11,6 @@ export default function BasePage() {
   const [screenOnFocus, setScreenOnFocus] = useState("");
   const [companySelected, setCompanySelected] = useState(localStorage.getItem('companyOperatingID'));
 
-  const [companyAddress, setCompanyAddress] = useState("");
-  const [companyLat, setCompanyLat] = useState("");
-  const [companyLng, setCompanyLng] = useState("");
-  const [orders, setOrders] = useState([]);
-
   useEffect(() => {
     function verifyCompany() {
       if (localStorage.getItem('companyOperatingID') != companySelected) {
@@ -59,7 +54,7 @@ export default function BasePage() {
             onClick={() => setScreenOnFocus(screenOnFocus === "system" ? "" : "system")}>{screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
 
           <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 35, }} >
-            <SystemPage orders={orders} setOrders={setOrders} companyAddress={companyAddress} setCompanyAddress={setCompanyAddress} companyLat={companyLat} setCompanyLat={setCompanyLat} companyLng={companyLng} setCompanyLng={setCompanyLng} />
+            <SystemPage />
           </div>
         </div>}
 
@@ -69,7 +64,7 @@ export default function BasePage() {
           <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
             onClick={() => setScreenOnFocus(screenOnFocus === "map" ? "" : "map")}>{screenOnFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>
 
-          <MapaDelivery orders={orders} setOrders={setOrders} companyAddress={companyAddress} setCompanyAddress={setCompanyAddress} companyLat={companyLat} setCompanyLat={setCompanyLat} companyLng={companyLng} setCompanyLng={setCompanyLng} />
+          <MapaDelivery />
         </div>}
       </div >}
     </>

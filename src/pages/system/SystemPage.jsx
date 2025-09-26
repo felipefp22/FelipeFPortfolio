@@ -4,37 +4,38 @@ import NewOrderModal from "./components/NewOrderModal";
 import { getCompanyOperation } from "../../services/CompanySevice";
 import { getOrderOperation } from "../../services/OrderService";
 import { getShiftOperation, openNewShift } from "../../services/ShiftService";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,
+    changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders
+} from './../../redux/companyOperationSlice.js';
 
 
-export default function SystemPage({ orders, setOrders, companyAddress, setCompanyAddress, companyLat, setCompanyLat, companyLng, setCompanyLng }) {
-    const [companyName, setCompanyName] = useState("");
-    const [companyEmail, setCompanyEmail] = useState("");
-    const [companyPhone, setCompanyPhone] = useState("");
-    const [urlCompanyLogo, setUrlCompanyLogo] = useState("");
-    const [productsCategories, setProductsCategories] = useState([]);
-    const [customers, setCustomers] = useState([]);
-    const [currentShift, setCurrentShift] = useState(null);
-    const [numberOfTables, setNumberOfTables] = useState(0);
-
+export default function SystemPage({ }) {
+    const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);
+
+    const orders = useSelector((state) => state.companyOperation.orders);
 
     async function getCompanyOperationData(retryCount = 0) {
         const response = await getCompanyOperation();
         if (response?.status === 200) {
             const companyOperationData = response?.data;
             console.log("Company Operation Data: ", companyOperationData);
-            setCompanyName(companyOperationData?.name);
-            setCompanyEmail(companyOperationData?.email);
-            setCompanyPhone(companyOperationData?.phone);
-            setCompanyAddress(companyOperationData?.address);
-            setCompanyLat(companyOperationData?.lat);
-            setCompanyLng(companyOperationData?.lng);
-            setUrlCompanyLogo(companyOperationData?.urlCompanyLogo);
-            setProductsCategories(companyOperationData?.productsCategories || []);
-            setCustomers(companyOperationData?.customers || []);
-            setCurrentShift(companyOperationData?.currentShift || null);
-            setNumberOfTables(companyOperationData?.numberOfTables || 0);
+            dispatch(changeCompanyName(companyOperationData?.companyName));
+            dispatch(changeCompanyEmail(companyOperationData?.companyEmail));
+            dispatch(changeCompanyPhone(companyOperationData?.companyPhone));
+            dispatch(changeCompanyAddress(companyOperationData?.companyAddress));
+            dispatch(changeCompanyLat(companyOperationData?.companyLat));
+            dispatch(changeCompanyLng(companyOperationData?.companyLng));
+            dispatch(changeUrlCompanyLogo(companyOperationData?.urlCompanyLogo));
+            dispatch(changeProductsCategories(companyOperationData?.productsCategories || []));
+            dispatch(changeCustomers(companyOperationData?.customers || []));
+            dispatch(changeCurrentShift(companyOperationData?.currentShift || null));
+            dispatch(changeNumberOfTables(companyOperationData?.numberOfTables || 0));
+            dispatch(changeOrders(companyOperationData?.orders || []));
+
         } else if (response?.status === 400 && response?.data === "noActiveShift") {
             //IfOneDayRealOperationRemoveThis all this second "else if" and just leave the "if" above and the "else" below
             if (retryCount < 2) {
@@ -52,8 +53,8 @@ export default function SystemPage({ orders, setOrders, companyAddress, setCompa
         const response = await getShiftOperation();
         if (response?.status === 200) {
             const shiftOperationData = response?.data;
-            setCurrentShift(shiftOperationData?.currentShift || null);
-            setOrders(shiftOperationData?.orders || []);
+            dispatch(changeCurrentShift(shiftOperationData?.currentShift || null));
+            dispatch(changeOrders(shiftOperationData?.orders || []));
         } else {
             // alert("Error fetching orders operation data");
         }

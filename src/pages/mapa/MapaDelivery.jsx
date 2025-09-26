@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFireFlameCurved } from '@fortawesome/free-solid-svg-icons';
 import { filterLoccationsOverLaping, sanitizeLatLng } from './mapcomponentsandservices/ManageOverlapPoints';
 
-export default function MapaDelivery({ orders, setOrders, companyAddress, setCompanyAddress, companyLat, setCompanyLat, companyLng, setCompanyLng }) {
+export default function MapaDelivery({  }) {
   const [settings, setSettings] = useState({});
 
   const [myVariables, setMyVariables] = useState(null)
