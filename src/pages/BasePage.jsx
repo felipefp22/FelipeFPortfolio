@@ -43,13 +43,13 @@ export default function BasePage() {
 
       {companySelected && <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 0, flexGrow: 1, }}>
 
-        {<div style={{ display: 'flex', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative', }}>
+        {<div style={{ display: 'flex', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative', visibility: screenOnFocus !== "map" ? 'visible' : 'hidden' }}>
           {/* <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
             onClick={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); }}>{<FontAwesomeIcon icon={faArrowLeft} /> } {"Quit"}</button> */}
 
-          {screenOnFocus !== "map" && <button style={{ position: 'absolute', top: 0, right: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+          <button style={{ position: 'absolute', top: 0, right: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
             onClick={() => setScreenOnFocus(screenOnFocus === "system" ? "" : "system")}>
-              {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>}
+              {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
 
           <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 35, }} >
             <SystemPage screenOnFocus={screenOnFocus} />
