@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
-import { getAllCompanyCustomers } from "../../../services/CustomerSevice";
-import { getAllProductsCategories } from "../../../services/ProductsCategory";
-import { createOrder } from "../../../services/OrderService";
+import { getAllCompanyCustomers } from "../../../../services/CustomerSevice";
+import { getAllProductsCategories } from "../../../../services/ProductsCategory";
+import { createOrder } from "../../../../services/OrderService";
 
 export default function NewOrderModal({ closeNewOrderModal }) {
 

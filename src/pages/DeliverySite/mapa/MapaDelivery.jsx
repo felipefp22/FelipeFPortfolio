@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import './../../App.css';
+// import './../../App.css';
 import L from 'leaflet'; // Import Leaflet
-import PizzaFav from '../../assets/pizza.png'; // Import your pizza icon
-import importedVariables from '../../assets/myVariables.json'; // Import the JSON file directly
+import PizzaFav from '../../../assets/pizza.png'; // Import your pizza icon
+import importedVariables from '../../../assets/myVariables.json'; // Import the JSON file directly
 import { PutDeliveryPlaces, selectMarkerColor } from './mapcomponentsandservices/DeliveryPlaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFireFlameCurved } from '@fortawesome/free-solid-svg-icons';

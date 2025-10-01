@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, Table } from "react-bootstrap";
 import NewOrderModal from "./components/NewOrderModal";
-import { getCompanyOperation } from "../../services/CompanySevice";
-import { getOrderOperation } from "../../services/OrderService";
-import { getShiftOperation, openNewShift } from "../../services/ShiftService";
+import { getCompanyOperation } from "../../../services/CompanySevice";
+import { getOrderOperation } from "../../../services/OrderService";
+import { getShiftOperation, openNewShift } from "../../../services/ShiftService";
 import { useDispatch, useSelector } from "react-redux";
 import {
     changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,
     changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders
-} from './../../redux/companyOperationSlice.js';
+} from '../../../redux/companyOperationSlice.js';
 
 
 export default function SystemPage({ screenOnFocus }) {

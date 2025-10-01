@@ -2,7 +2,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { use, useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
-import noFoodImg from "./../../../assets/noFood.jpg";
+import noFoodImg from "./../../../../assets/noFood.jpg";
 
 export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd }) {
 

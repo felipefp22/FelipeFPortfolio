@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, Table } from "react-bootstrap";
-import { logOutAction } from "../../services/AuthService";
+import { logOutAction } from "../../../services/AuthService";
 
 
 export default function UserOptions() {

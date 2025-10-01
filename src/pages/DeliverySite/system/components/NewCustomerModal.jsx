@@ -2,7 +2,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
-import { createCustomer } from "../../../services/CustomerSevice";
+import { createCustomer } from "../../../../services/CustomerSevice";
 
 export default function NewCustomerModal({ close }) {
 
