@@ -13,7 +13,7 @@ import { use, useEffect, useState } from 'react';
 export default function PortfolioPage() {
     const [flipped, setFlipped] = useState(false);
     const [myImage, setMyImage] = useState(myPhoto);
-    const [secondsFlipAnimation, setSecondsFlipAnimation] = useState(0.8);
+    const [secondsFlipAnimation, setSecondsFlipAnimation] = useState(1);
     const [seeImageBig, setSeeImageBig] = useState(false);
 
     useEffect(() => {
@@ -23,8 +23,8 @@ export default function PortfolioPage() {
             setTimeout(() => {
                 setMyImage(prev => (prev === myPhoto ? myNerdPhoto : myPhoto));
                 // setFlipped(false);
-            }, (secondsFlipAnimation * 1000) / 2);
-        }, 5000); // Change image every 5 seconds
+            }, (secondsFlipAnimation * 1000) / 3);
+        }, 6000); // Change image every 5 seconds
 
         return () => clearInterval(interval); // Cleanup on unmount
     }, []);
