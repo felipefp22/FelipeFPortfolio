@@ -92,7 +92,7 @@ export default function PortfolioPage() {
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'left' }} >
 
                             <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left' }} >
-                                <h3 style={{ marginBottom: '20px' }}>Skill Principal</h3>
+                                <h3 style={{ marginBottom: '20px', textDecoration: 'underline' }}>Skills</h3>
 
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
                                     <img src={javaLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white" }} />

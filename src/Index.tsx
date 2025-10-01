@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
-import BasePage from './pages/deliverySite/BasePage';
+import BasePage from './pages/DeliverySite/BasePage';
 import { verifyIfIsAdmin } from './services/AuthService';
-import LoginOrRegisterPage from './pages/deliverySite/LoginOrRegisterPage';
+import LoginOrRegisterPage from './pages/DeliverySite/LoginOrRegisterPage';
 import { useDispatch, useSelector } from 'react-redux';
 import PortfolioPage from './pages/PortfolioPage';
 
@@ -49,7 +49,7 @@ export default function Index() {
     <Router>
       <Routes>
         <Route path="/*" element={<PortfolioPage />} />
-        
+
         {!isAuthenticated &&
           <Route path="/" element={<Layout />}>
             <Route path="/login" element={<LoginOrRegisterPage />} />
