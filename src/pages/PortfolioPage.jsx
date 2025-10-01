@@ -68,20 +68,20 @@ export default function PortfolioPage() {
                 // alignItems: "center",
             }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '1200px', marginTop: '50px',  }} >
-                    <div style={{ width: '100%', height: '400px'}} >
+                <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '1200px', marginTop: '50px', }} >
+                    <div style={{ width: '100%', height: '400px' }} >
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height: '100%' }} >
                             <div style={{
                                 borderRadius: '50%', border: "5px solid white", backgroundColor: "transparent", width: "360px", height: "360px", display: 'flex', alignItems: 'center',
                                 justifyContent: 'center', boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.3)"
                             }} >
                                 <img src={myImage} alt="Logo" onClick={() => setSeeImageBig(myImage)} style={{
-                                    width: "350px", height: "350px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', 
+                                    width: "350px", height: "350px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer',
                                     transform: `rotateY(${flipped}deg)`, transition: `transform ${secondsFlipAnimation}s`
                                 }} />
                             </div>
 
-                            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '100px', width: '100%', alignItems: 'center', height: '100%', justifyContent:'space-between', padding: '80px 0px' }} >
+                            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '100px', width: '100%', alignItems: 'center', height: '100%', justifyContent: 'space-between', padding: '80px 0px' }} >
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px' }} >
                                     <h1 style={{ marginBottom: '30px' }}>Felipe Ferreira de Paula</h1>
                                     <h1>{"< Dev BackEND | FullStack />"}</h1>
@@ -142,6 +142,11 @@ export default function PortfolioPage() {
                                     <img src={dockerLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white", backgroundColor: 'white', }} />
                                     <h4 style={{ marginLeft: '20px' }}>{"Docker"}</h4>
                                 </div>
+                            </div>
+                            <div style={{ width: '3px', backgroundColor: 'white', marginLeft: '50px', marginRight: '50px' }} />
+                            <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left' }} >
+                                <h3 style={{ marginBottom: '20px', textDecoration: 'underline' }}>Sobre mim</h3>
+                            
                             </div>
                         </div>
                     </div>
