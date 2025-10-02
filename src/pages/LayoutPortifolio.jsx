@@ -76,48 +76,48 @@ export default function LayoutPortifolio() {
           display: "flex", flexDirection: "column", padding: '0px 0px', alignItems: 'center',
           // alignItems: "center",
         }}>
-          <div style={{ display: 'flex', width: '100%', justifyContent: 'center', paddingTop: '0pxx', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
+          <div style={{ display: 'flex', width: '100%', justifyContent: 'center', paddingTop: '10px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
             <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '1200px', }} >
 
-              <div style={{ width: '100%', height: '400px' }} >
+              <div style={{ width: '100%', maxHeight: '400px' }} >
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height: '100%' }} >
-                  <div style={{
+                  {/* <div style={{
                     borderRadius: '50%', border: "5px solid white", backgroundColor: "transparent", width: "360px", height: "360px", display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.3)"
-                  }} >
+                    justifyContent: 'center', boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.3)", backgroundColor: 'rgba(0, 0, 0, 0.4)', marginRight: '10px'
+                  }} > */}
                     <img src={myImage} alt="Logo" onClick={() => setSeeImageBig(myImage)} style={{
-                      width: "350px", height: "350px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer',
-                      transform: `rotateY(${flipped}deg)`, transition: `transform ${secondsFlipAnimation}s`
+                      width: '40vw', maxWidth: "350px", height: "40vw", maxHeight: "350px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', border: "2px solid white",
+                      transform: `rotateY(${flipped}deg)`, transition: `transform ${secondsFlipAnimation}s`, boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.8)",
                     }} />
-                  </div>
+                  {/* </div> */}
 
-                  <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '100px', width: '100%', alignItems: 'center', height: '100%', justifyContent: 'center' }} >
+                  <div style={{ display: 'flex', flexDirection: 'column',  width: '100%', alignItems: 'center', height: '100%', justifyContent: 'center' }} >
 
                     {/* <> --- Language */}
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', marginBottom: '40px', justifyContent: 'right' }} >
                       <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginRight: '20px' }} onClick={() => changeLanguage('pt')} >
-                        <img src={brazilFlag} alt="Logo" style={{ width: 40, height: 40, borderRadius: '50%', border: i18n.language === 'pt' ? "2px solid white" : "2px solid transparent" }} />
+                        <img src={brazilFlag} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', border: i18n.language === 'pt' ? "2px solid white" : "2px solid transparent" }} />
                         <h4 style={{ marginLeft: '10px', textDecoration: i18n.language === 'pt' ? 'underline' : 'none' }}>{"PT"}</h4>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', }} onClick={() => changeLanguage('en')}>
-                        <img src={usaFlag} alt="Logo" style={{ width: 40, height: 40, borderRadius: '50%', border: i18n.language === 'en' ? "2px solid white" : "2px solid transparent" }} />
-                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language === 'en' ? 'underline' : 'none' }}>{"EN"}</h4>
+                        <img src={usaFlag} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', border: i18n.language === 'en' ? "2px solid white" : "2px solid transparent" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language === 'en' ? 'underline' : 'none',  }}>{"EN"}</h4>
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '60px' }} >
-                      <h1 style={{ marginBottom: '20px' }}>Felipe Ferreira de Paula</h1>
-                      <h1 style={{ fontWeight: 'bold', color: 'rgba(30, 230, 183, 0.79)' }}>{"< Dev BackEND | FullStack />"}</h1>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: isDesktopView ? '60px' : '30px' }} >
+                      <h1 style={{ marginBottom: isDesktopView ? '20px' : '10px', fontSize: isDesktopView ? '36px' : '24px' }}>Felipe Ferreira de Paula</h1>
+                      <h1 style={{ fontWeight: 'bold', color: 'rgba(30, 230, 183, 0.79)', fontSize: isDesktopView ? '36px' : '24px' }}>{"< Dev BackEND | FullStack />"}</h1>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', }} >
-                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginBottom: '30px', marginRight: '60px' }} onClick={() => window.open("https://www.linkedin.com/in/felipe-de-paula3354", "_blank")} >
-                        <img src={linkedinLogo} alt="Logo" style={{ width: 40, height: 40, borderRadius: '50%', backgroundColor: "black", border: "2px solid white" }} />
-                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline' }}>{"LinkedIn"}</h4>
+                    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', marginBottom: '30px' }} >
+                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginRight: isDesktopView ? '60px' : '20px' }} onClick={() => window.open("https://www.linkedin.com/in/felipe-de-paula3354", "_blank")} >
+                        <img src={linkedinLogo} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', backgroundColor: "black", border: "2px solid white" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline', fontSize: isDesktopView ? '22px' : '16px' }}>{"LinkedIn"}</h4>
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginBottom: '30px' }} onClick={() => window.open("https://github.com/FelipeFP22", "_blank")} >
-                        <img src={gitHubLogo2} alt="Logo" style={{ width: 40, height: 40, borderRadius: '50%', backgroundColor: "white", border: "2px solid white" }} />
-                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline' }}>{"GitHub"}</h4>
+                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center',  }} onClick={() => window.open("https://github.com/FelipeFP22", "_blank")} >
+                        <img src={gitHubLogo2} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', backgroundColor: "white", border: "2px solid white" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline', fontSize: isDesktopView ? '22px' : '16px' }}>{"GitHub"}</h4>
                       </div>
                     </div>
 
@@ -135,7 +135,8 @@ export default function LayoutPortifolio() {
         </div>
 
       </div>
-      {seeImageBig && <div onClick={() => setSeeImageBig(false)} style={{ position: 'fixed', top: 0, left: 0, height: '100vh', width: '100vw', backgroundColor: 'rgba(0, 19, 0, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} >
+
+      {seeImageBig && <div onClick={() => setSeeImageBig(false)} style={{ position: 'fixed', top: 0, left: 0, height: '100vh', width: '100vw', backgroundColor: 'rgba(0, 0, 0, 0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} >
         <img src={seeImageBig} alt="Logo" style={{
           maxWidth: "90%", maxHeight: "90%", borderRadius: '10px', objectFit: "contain", boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.5)"
         }} />
