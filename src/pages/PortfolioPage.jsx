@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AboutMe from './Portifolio/AboutMe';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -10,9 +10,47 @@ export default function PortfolioPage() {
     const menus = isDesktopView ? [t("aboutMe.title"), t("projects.title"), t("contacts.title")] : [t("skills.title"), t("aboutMe.title"), t("projects.title"), t("contacts.title")];
     const [active, setActive] = useState(0);
 
+    // --- KEYBOARD navigation ---
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowLeft") {
+                setActive((prev) => Math.max(prev - 1, 0));
+            }
+            if (e.key === "ArrowRight") {
+                setActive((prev) => Math.min(prev + 1, menus.length - 1));
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [menus.length]);
+
+    // --- TOUCH navigation ---
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const handleTouchStart = (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+    };
+
+    const handleTouchEnd = (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+                // swipe left → next
+                setActive((prev) => Math.min(prev + 1, menus.length - 1));
+            } else {
+                // swipe right → prev
+                setActive((prev) => Math.max(prev - 1, 0));
+            }
+        }
+    };
+
+
     return (
         <div>
-            <div style={{ width: '100%', backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '6px' }} >
+            <div style={{ width: '100%', backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '6px' }} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
 
                 <div style={{ width: '80%', paddingTop: '3px', margin: "0px auto", textAlign: 'center', }}>
                     <div style={{ color: 'white', marginTop: '10px', }}>
