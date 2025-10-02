@@ -127,8 +127,8 @@ export default function LayoutPortifolio() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '100%', maxWidth: '1200px', margin: '0 10px' }} >
-            <Container fluid style={{ flex: 1, overflow: "hidden", width: "100%", paddingBottom: 1, marginTop: 10 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '100%', maxWidth: '1200px', margin: '0px 10px' }} >
+            <Container fluid style={{ flex: 1, overflow: "hidden", width: "100%", paddingBottom: 1, marginTop: isDesktopView ? '25px' : '5px' }}>
               <Outlet /> {/* This will render the page-specific body */}
             </Container>
           </div>

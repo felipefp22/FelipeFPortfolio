@@ -26,11 +26,15 @@ export default function AboutMe() {
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
                     <img src={javaLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(255, 255, 255, 1)' }} />
-                    <span style={{ marginLeft: '20px', textDecoration: 'none' }}>{"Java - SpringBoot"}</span>
-                    <img src={springBootLogo} alt="Logo" style={{ width: 50, height: 50, marginLeft: '20px', borderRadius: '50%', border: "2px solid white", }} />
+                    <span style={{ marginLeft: '20px', textDecoration: 'none' }}>{"Java"}</span>
                 </div>
 
-                {/* <div style={{ height: '3px', backgroundColor: 'white', margin: '5px 0px' }} /> */}
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
+                    <img src={springBootLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white",  }} />
+                    <span style={{ marginLeft: '20px', textDecoration: 'none' }}>{"SpringBoot"}</span>
+                </div>
+
+                {/* <div style={{ height: '3px', backgroundColor: 'white', marginBottom: '20px' }} /> */}
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
                     <img src={sqlLogo} alt="Logo" style={{ width: isDesktopView ? 50 : 40, height: isDesktopView ? 50 : 40, borderRadius: '50%', border: "2px solid white", backgroundColor: 'white' }} />
@@ -69,7 +73,7 @@ export default function AboutMe() {
             </div>
             <div style={{ width: '3px', backgroundColor: 'white', margin: '0px 30px' }} />
 
-            <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left',  fontSize: isDesktopView ? '26px' : '18px', fontWeight: '700' }} >
+            <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left', fontSize: isDesktopView ? '26px' : '18px', fontWeight: '700' }} >
                 <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isDesktopView ? '30px' : '20px' }}>{t("portfolioPage.aboutMeTitle")}</span>
                 <p style={{ whiteSpace: 'pre-line', fontSize: '18px', fontWeight: '400', lineHeight: '1.5' }}>{t("portfolioPage.aboutMe")}</p>
             </div>
