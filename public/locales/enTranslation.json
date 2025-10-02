@@ -1,0 +1,8 @@
+{
+  "portfolioPage": {
+    "aboutMeTitle": "About Me",
+    "aboutMe": "Committed and Highly responsible, with a strong sense of accountability. \n\n Quick to learn, good communication, and a team-oriented mindset. \n Knowledgeable in Java, C#, HTML, CSS, React, React-Native, Java-script, SQL, \n noSQL, Containering(Docker and Kubernets), Azure Cloud Computing, Git, GitHub \n Actions, Postman, Insomnia. \n\n Focused on writing efficient and optimized code to build high-performance \n applications. Experienced in minimizing unnecessary loops, optimizing database \n queries, and leveraging indexed columns to enhance overall system performance. \n\n Core Skill: Java - Spring Boot"
+  },
+  "login": "Login",
+  "logout": "Logout"
+}

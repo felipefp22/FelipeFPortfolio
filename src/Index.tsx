@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './Layout';
+import LayoutDelivery from './pages/DeliverySite/LayoutDelivery';
 import BasePage from './pages/DeliverySite/BasePage';
 import { verifyIfIsAdmin } from './services/AuthService';
 import LoginOrRegisterPage from './pages/DeliverySite/LoginOrRegisterPage';
 import { useDispatch, useSelector } from 'react-redux';
 import PortfolioPage from './pages/PortfolioPage';
+import LayoutPortifolio from './pages/LayoutPortifolio';
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -48,18 +49,18 @@ export default function Index() {
   return (
     <Router>
       <Routes>
-        <Route path="/*" element={<PortfolioPage />} />
-
+        <Route path="/" element={<LayoutPortifolio />}>
+          <Route path="/*" element={<PortfolioPage />} />
+        </Route>
         {!isAuthenticated &&
-          <Route path="/" element={<Layout />}>
-            <Route path="/login" element={<LoginOrRegisterPage />} />
+          <Route path="/" element={<LayoutDelivery />}>
+            <Route path="/FelipeFPortfolio/delivery/login" element={<LoginOrRegisterPage />} />
 
           </Route>}
 
         {isAuthenticated &&
           <Route path="/" element={<Layout />}>
-            <Route path="*" element={<BasePage />} />
-            <Route path="/" element={<BasePage />} />
+            <Route path="/FelipeFPortfolio/delivery/*" element={<BasePage />} />
 
           </Route>}
 

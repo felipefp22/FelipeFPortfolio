@@ -3,7 +3,7 @@ import { Navbar, Nav, Dropdown, Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 
-export default function Layout() {
+export default function LayoutDelivery() {
   const navigate = useNavigate();
 
   return (
