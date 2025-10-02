@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import myPhoto from '../assets/myPhoto.png';
 import myNerdPhoto from '../assets/myNerdPhoto.jpg';
 import gitHubLogo2 from '../assets/gitHubLogo2.png';
+import linkedinLogo from '../assets/linkedinLogo.png';
 import usaFlag from '../assets/usaFlag.png';
 import brazilFlag from '../assets/brazilFlag.png';
 import { useEffect, useState } from 'react';
@@ -12,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function LayoutPortifolio() {
   const navigate = useNavigate();
+  const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
   const [flipped, setFlipped] = useState(false);
   const [myImage, setMyImage] = useState(myPhoto);
@@ -42,6 +44,7 @@ export default function LayoutPortifolio() {
       <div>
         <style>
           {`
+
             @keyframes spinPulse {
                 0%   { transform: rotate(0deg) }
                 25%  { transform: rotate(90deg) scale(1.05); }
@@ -73,46 +76,58 @@ export default function LayoutPortifolio() {
           display: "flex", flexDirection: "column", padding: '0px 0px', alignItems: 'center',
           // alignItems: "center",
         }}>
-          <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '1200px', marginTop: '50px', }} >
+          <div style={{ display: 'flex', width: '100%', justifyContent: 'center', paddingTop: '0pxx', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
+            <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '1200px', }} >
 
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '20px' }} >
-              <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginRight: '20px' }} onClick={() => changeLanguage('pt')} >
-                <img src={brazilFlag} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white" }} />
-                <h4 style={{ marginLeft: '10px', textDecoration: 'underline' }}>{"pt-BR"}</h4>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', }} onClick={() => changeLanguage('en')}>
-                <img src={usaFlag} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white" }} />
-                <h4 style={{ marginLeft: '10px', textDecoration: 'underline' }}>{"en-US"}</h4>
-              </div>
-            </div>
-
-            <div style={{ width: '100%', height: '400px' }} >
-              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height: '100%' }} >
-                <div style={{
-                  borderRadius: '50%', border: "5px solid white", backgroundColor: "transparent", width: "360px", height: "360px", display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.3)"
-                }} >
-                  <img src={myImage} alt="Logo" onClick={() => setSeeImageBig(myImage)} style={{
-                    width: "350px", height: "350px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer',
-                    transform: `rotateY(${flipped}deg)`, transition: `transform ${secondsFlipAnimation}s`
-                  }} />
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '100px', width: '100%', alignItems: 'center', height: '100%', justifyContent: 'space-between', padding: '80px 0px' }} >
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px' }} >
-                    <h1 style={{ marginBottom: '30px' }}>Felipe Ferreira de Paula</h1>
-                    <h1>{"< Dev BackEND | FullStack />"}</h1>
+              <div style={{ width: '100%', height: '400px' }} >
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height: '100%' }} >
+                  <div style={{
+                    borderRadius: '50%', border: "5px solid white", backgroundColor: "transparent", width: "360px", height: "360px", display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.3)"
+                  }} >
+                    <img src={myImage} alt="Logo" onClick={() => setSeeImageBig(myImage)} style={{
+                      width: "350px", height: "350px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer',
+                      transform: `rotateY(${flipped}deg)`, transition: `transform ${secondsFlipAnimation}s`
+                    }} />
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'right', alignItems: 'flex-end', }} >
-                    <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', }} onClick={() => window.open("https://github.com/FelipeFP22", "_blank")} >
-                      <img src={gitHubLogo2} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', backgroundColor: "white", border: "2px solid white" }} />
-                      <h4 style={{ marginLeft: '10px', textDecoration: 'underline' }}>{"GitHub"}</h4>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '100px', width: '100%', alignItems: 'center', height: '100%', justifyContent: 'center' }} >
+
+                    {/* <> --- Language */}
+                    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', marginBottom: '40px', justifyContent: 'right' }} >
+                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginRight: '20px' }} onClick={() => changeLanguage('pt')} >
+                        <img src={brazilFlag} alt="Logo" style={{ width: 40, height: 40, borderRadius: '50%', border: i18n.language === 'pt' ? "2px solid white" : "2px solid transparent" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language === 'pt' ? 'underline' : 'none' }}>{"PT"}</h4>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', }} onClick={() => changeLanguage('en')}>
+                        <img src={usaFlag} alt="Logo" style={{ width: 40, height: 40, borderRadius: '50%', border: i18n.language === 'en' ? "2px solid white" : "2px solid transparent" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language === 'en' ? 'underline' : 'none' }}>{"EN"}</h4>
+                      </div>
                     </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '60px' }} >
+                      <h1 style={{ marginBottom: '20px' }}>Felipe Ferreira de Paula</h1>
+                      <h1 style={{ fontWeight: 'bold', color: 'rgba(30, 230, 183, 0.79)' }}>{"< Dev BackEND | FullStack />"}</h1>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', }} >
+                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginBottom: '30px', marginRight: '60px' }} onClick={() => window.open("https://www.linkedin.com/in/felipe-de-paula3354", "_blank")} >
+                        <img src={linkedinLogo} alt="Logo" style={{ width: 40, height: 40, borderRadius: '50%', backgroundColor: "black", border: "2px solid white" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline' }}>{"LinkedIn"}</h4>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginBottom: '30px' }} onClick={() => window.open("https://github.com/FelipeFP22", "_blank")} >
+                        <img src={gitHubLogo2} alt="Logo" style={{ width: 40, height: 40, borderRadius: '50%', backgroundColor: "white", border: "2px solid white" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline' }}>{"GitHub"}</h4>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
+          <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '100%', maxWidth: '1200px', margin: '0 10px' }} >
             <Container fluid style={{ flex: 1, overflow: "hidden", width: "100%", paddingBottom: 1, marginTop: 10 }}>
               <Outlet /> {/* This will render the page-specific body */}
             </Container>

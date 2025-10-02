@@ -65,7 +65,7 @@ export default function PortfolioPage() {
                             <h4 style={{ marginLeft: '20px' }}>{"Docker"}</h4>
                         </div>
                     </div>
-                    <div style={{ width: '3px', backgroundColor: 'white', marginLeft: '50px', marginRight: '50px' }} />
+                    <div style={{ width: '3px', backgroundColor: 'white', margin: '0px 30px' }} />
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left' }} >
                         <h3 style={{ marginBottom: '20px', textDecoration: 'underline' }}>{t("portfolioPage.aboutMeTitle")}</h3>
