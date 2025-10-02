@@ -8,8 +8,18 @@
     "content": "Comprometido e com alto senso de responsabilidade. \n\n Aprendizado rápido, boa comunicação e senso de trabalho em equipe. \n Conhecimentos em Java, C#, HTML, CSS, React, React Native, JavaScript, SQL, \n NoSQL, Containers (Docker e Kubernetes), Azure Cloud Computing, Git, GitHub \n Actions, Postman, Insomnia. \n\n Focado em escrever códigos eficientes, para alta performance e economia de \n recursos. Experiente em identificar loops desnecessários (over loops) e otimizar \n processos. Aperfeiçoar consultas nos bancos de dados para maior eficiência, \n implementando indexações devidas e evitando indexação excessiva, garantindo \n bom equilíbrio entre velocidade de consulta e gravação em banco de dados. \n\n Principal Atuação: Java - Spring Boot"
   },
   "projects": {
-    "title": "Projetos",
-    "content": "Aqui você pode mostrar seus projetos."
+    "title": "Projects",
+    "content": "Here you can showcase your projects.",
+    "projectsIWorkedOn": "Projetos Entregues",
+    "portfolioProjects": "Projetos Portfólio",
+    "myHealth": {
+      "title": "Minha Saúde",
+      "description": "Um aplicativo de gerenciamento de saúde que permite aos usuários acompanhar seu histórico médico, consultas e medicamentos. Construído com React Native para compatibilidade entre plataformas e integrado a uma API backend para armazenamento e recuperação de dados."
+    },
+    "restaurantDelivery": {
+      "title": "Restaurante Delivery",
+      "description": "Um aplicativo de entrega de alimentos que conecta usuários a restaurantes locais. Construído com React e Node.js, apresentando rastreamento de pedidos em tempo real e uma interface amigável."
+    }
   },
   "contacts": {
     "title": "Contatos",

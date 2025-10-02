@@ -9,7 +9,17 @@
   },
   "projects": {
     "title": "Projects",
-    "content": "Here you can showcase your projects."
+    "content": "Here you can showcase your projects.",
+    "projectsIWorkedOn": "Delivered Projects",
+    "portfolioProjects": "Portfolio Projects",
+    "myHealth": {
+      "title": "My Health",
+      "description": "A health management application that allows users to track their medical history, appointments, and medications. Built with React Native for cross-platform compatibility and integrated with a backend API for data storage and retrieval."
+    },
+    "restaurantDelivery": {
+      "title": "Restaurant Delivery",
+      "description": "A food delivery application that connects users with local restaurants. Built with React and Node.js, featuring real-time order tracking and a user-friendly interface."
+    }
   },
   "contacts": {
     "title": "Contacts",

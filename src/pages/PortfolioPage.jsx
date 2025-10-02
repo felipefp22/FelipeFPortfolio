@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import AboutMe from './Portifolio/AboutMe';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import Projects from './Portifolio/Projects';
+import Contacts from './Portifolio/Contacts';
 
 export default function PortfolioPage() {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
@@ -72,8 +74,9 @@ export default function PortfolioPage() {
                 {/* <div style={{ width: '90%', height: '3px', backgroundColor: 'rgba(255, 255, 255, 0.2)', margin: '0px auto', marginBottom: '20px' }} /> */}
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'left', padding: '20px', minHeight: '500px' }} >
-                    {isDesktopView && menus[active] === t("aboutMe.title") && <AboutMe />}
-                    {!isDesktopView && (menus[active] === t("aboutMe.title") || menus[active] === t("skills.title")) && <AboutMe activeMenu={menus[active]} />}
+                    {(menus[active] === t("aboutMe.title") || menus[active] === t("skills.title")) && <AboutMe activeMenu={menus[active]} />}
+                    {menus[active] === t("projects.title") && <Projects />}
+                    {menus[active] === t("contacts.title") && <Contacts />}
                 </div>
             </div>
 
