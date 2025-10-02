@@ -7,6 +7,7 @@ import LoginOrRegisterPage from './pages/DeliverySite/LoginOrRegisterPage';
 import { useDispatch, useSelector } from 'react-redux';
 import PortfolioPage from './pages/PortfolioPage';
 import LayoutPortifolio from './pages/LayoutPortifolio';
+import LayoutPortifolio2 from './pages/LayoutPortifolio2';
 
 export default function Index() {
   const dispatch = useDispatch();

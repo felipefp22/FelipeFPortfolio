@@ -42,40 +42,12 @@ export default function LayoutPortifolio() {
   return (
     <>
       <div>
-        <style>
-          {`
-
-            @keyframes spinPulse {
-                0%   { transform: rotate(0deg) }
-                25%  { transform: rotate(90deg) scale(1.05); }
-                50%  { transform: rotate(180deg) scale(1.1); }
-                75%  { transform: rotate(270deg) scale(1.05); }
-                100% { transform: rotate(360deg) scale(1); }
-            }
-            @keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
-            }
-            @keyframes spin-reverse {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(-360deg); }
-            }
-
-            @keyframes flip {
-                from { transform: rotateY(0deg); }
-                to { transform: rotateY(180deg); }
-            }
-            .spin-pulse {
-                animation: spinPulse 3s linear infinite;
-            }
-          `}
-        </style>
-
         <div style={{
           background: "linear-gradient(135deg, #509001ff, #0d0d6eff)", color: "white", height: "100dvh", width: "100vw", fontFamily: "Segoe UI, sans-serif", overflowX: "hidden",
           display: "flex", flexDirection: "column", padding: '0px 0px', alignItems: 'center',
           // alignItems: "center",
         }}>
+          
           <div style={{ display: 'flex', width: '100%', justifyContent: 'center', paddingTop: '10px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
             <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '1200px', }} >
 
@@ -134,6 +106,34 @@ export default function LayoutPortifolio() {
           </div>
         </div>
 
+        <style>
+          {`
+
+            @keyframes spinPulse {
+                0%   { transform: rotate(0deg) }
+                25%  { transform: rotate(90deg) scale(1.05); }
+                50%  { transform: rotate(180deg) scale(1.1); }
+                75%  { transform: rotate(270deg) scale(1.05); }
+                100% { transform: rotate(360deg) scale(1); }
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            @keyframes spin-reverse {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(-360deg); }
+            }
+
+            @keyframes flip {
+                from { transform: rotateY(0deg); }
+                to { transform: rotateY(180deg); }
+            }
+            .spin-pulse {
+                animation: spinPulse 3s linear infinite;
+            }
+          `}
+        </style>
       </div>
 
       {seeImageBig && <div onClick={() => setSeeImageBig(false)} style={{ position: 'fixed', top: 0, left: 0, height: '100vh', width: '100vw', backgroundColor: 'rgba(0, 0, 0, 0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} >
