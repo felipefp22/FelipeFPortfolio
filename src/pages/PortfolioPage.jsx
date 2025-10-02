@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import AboutMe from './Portifolio/AboutMe';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 export default function PortfolioPage() {
+    const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const { t, i18n } = useTranslation();
 
-    const menus = [t("skills.title"), t("aboutMe.title"), t("projects.title"), t("contacts.title")];
+    const menus = isDesktopView ? [t("aboutMe.title"), t("projects.title"), t("contacts.title")] : [t("skills.title"), t("aboutMe.title"), t("projects.title"), t("contacts.title")];
     const [active, setActive] = useState(0);
 
     return (
@@ -33,8 +35,9 @@ export default function PortfolioPage() {
                 </div>
                 {/* <div style={{ width: '90%', height: '3px', backgroundColor: 'rgba(255, 255, 255, 0.2)', margin: '0px auto', marginBottom: '20px' }} /> */}
 
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'left', padding: '20px', }} >
-                    <AboutMe />
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'left', padding: '20px', minHeight: '500px' }} >
+                    {isDesktopView && menus[active] === t("aboutMe.title") && <AboutMe />}
+                    {!isDesktopView && (menus[active] === t("aboutMe.title") || menus[active] === t("skills.title")) && <AboutMe activeMenu={menus[active]} />}
                 </div>
             </div>
 
