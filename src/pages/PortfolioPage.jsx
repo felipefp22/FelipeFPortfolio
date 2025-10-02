@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AboutMe from './Portifolio/AboutMe';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -25,16 +25,15 @@ export default function PortfolioPage() {
     }, [menus.length]);
 
     // --- TOUCH navigation ---
-    let touchStartX = 0;
-    let touchEndX = 0;
+    const touchStartX = useRef(0);
 
     const handleTouchStart = (e) => {
-        touchStartX = e.changedTouches[0].clientX;
+        touchStartX.current = e.changedTouches[0].clientX;
     };
 
     const handleTouchEnd = (e) => {
-        touchEndX = e.changedTouches[0].clientX;
-        const diff = touchStartX - touchEndX;
+        const touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX.current - touchEndX;
 
         if (Math.abs(diff) > 50) {
             if (diff > 0) {
@@ -46,7 +45,6 @@ export default function PortfolioPage() {
             }
         }
     };
-
 
     return (
         <div>
