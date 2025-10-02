@@ -77,7 +77,7 @@ export default function AboutMe( { activeMenu } ) {
                     {isDesktopView && <span style={{ marginLeft: '20px' }}>{"Docker"}</span>}
                 </div>
             </div>
-            <div style={{ width: '3px', backgroundColor: 'white', margin: '0px 30px' }} />
+            <div style={{ width: '3px', backgroundColor: 'white', margin: isDesktopView ? '0px 30px' : '0px 10px' }} />
 
             <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left', fontSize: isDesktopView ? '26px' : '18px', fontWeight: '700' }} >
                 <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isDesktopView ? '30px' : '20px' }}>{t("aboutMe.title")}</span>
