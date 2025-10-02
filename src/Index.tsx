@@ -55,7 +55,7 @@ export default function Index() {
         </Route>
         {!isAuthenticated &&
           <Route path="/" element={<LayoutDelivery />}>
-            <Route path="/FelipeFPortfolio/delivery/login" element={<LoginOrRegisterPage />} />
+            <Route path="/FelipeFPortfolio/delivery/*" element={<LoginOrRegisterPage />} />
 
           </Route>}
 
