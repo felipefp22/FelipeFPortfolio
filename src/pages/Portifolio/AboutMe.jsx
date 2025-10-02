@@ -1,6 +1,7 @@
 
 import javaLogo from '../../assets/javaLogo.png';
 import springBootLogo from '../../assets/springBootLogo.png';
+import cSharpLogo from '../../assets/cSharpLogo.png';
 import gitHubLogo from '../../assets/gitHubLogo.png';
 import gitHubLogo2 from '../../assets/gitHubLogo2.png';
 import reactLogo from '../../assets/reactLogo.png';
@@ -22,7 +23,7 @@ export default function AboutMe() {
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left', fontSize: isDesktopView ? '26px' : '18px', fontWeight: '600' }} >
-                <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isDesktopView ? '30px' : '20px', fontWeight: '700' }}>Skills</span>
+                {/* <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isDesktopView ? '30px' : '20px', fontWeight: '700' }}>Skills</span> */}
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
                     <img src={javaLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(255, 255, 255, 1)' }} />
@@ -30,11 +31,16 @@ export default function AboutMe() {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={springBootLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white",  }} />
+                    <img src={springBootLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white", }} />
                     <span style={{ marginLeft: '20px', textDecoration: 'none' }}>{"SpringBoot"}</span>
                 </div>
 
                 {/* <div style={{ height: '3px', backgroundColor: 'white', marginBottom: '20px' }} /> */}
+
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
+                    <img src={cSharpLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(18, 14, 14, 1)' }} />
+                    <span style={{ marginLeft: '20px', textDecoration: 'none' }}>{"C#"}</span>
+                </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
                     <img src={sqlLogo} alt="Logo" style={{ width: isDesktopView ? 50 : 40, height: isDesktopView ? 50 : 40, borderRadius: '50%', border: "2px solid white", backgroundColor: 'white' }} />
@@ -74,8 +80,8 @@ export default function AboutMe() {
             <div style={{ width: '3px', backgroundColor: 'white', margin: '0px 30px' }} />
 
             <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left', fontSize: isDesktopView ? '26px' : '18px', fontWeight: '700' }} >
-                <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isDesktopView ? '30px' : '20px' }}>{t("portfolioPage.aboutMeTitle")}</span>
-                <p style={{ whiteSpace: 'pre-line', fontSize: '18px', fontWeight: '400', lineHeight: '1.5' }}>{t("portfolioPage.aboutMe")}</p>
+                {/* <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isDesktopView ? '30px' : '20px' }}>{t("aboutMe.title")}</span> */}
+                <p style={{ whiteSpace: 'pre-line', fontSize: '18px', fontWeight: '400', lineHeight: '1.5' }}>{t("aboutMe.content")}</p>
             </div>
         </>
     );

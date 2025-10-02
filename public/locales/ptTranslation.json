@@ -1,7 +1,19 @@
 {
-  "portfolioPage": {
-    "aboutMeTitle": "Sobre Mim",
-    "aboutMe": "Comprometido e com alto senso de responsabilidade. \n\n Aprendizado rápido, boa comunicação e senso de trabalho em equipe. \n Conhecimentos em Java, C#, HTML, CSS, React, React Native, JavaScript, SQL, \n NoSQL, Containers (Docker e Kubernetes), Azure Cloud Computing, Git, GitHub \n Actions, Postman, Insomnia. \n\n Focado em escrever códigos eficientes, para alta performance e economia de \n recursos. Experiente em identificar loops desnecessários (over loops) e otimizar \n processos. Aperfeiçoar consultas nos bancos de dados para maior eficiência, \n implementando indexações devidas e evitando indexação excessiva, garantindo \n bom equilíbrio entre velocidade de consulta e gravação em banco de dados. \n\n Principal Atuação: Java - Spring Boot"
+  "skills": {
+    "title": "Tecnologias",
+    "content": ""
+  },
+  "aboutMe": {
+    "title": "Sobre Mim",
+    "content": "Comprometido e com alto senso de responsabilidade. \n\n Aprendizado rápido, boa comunicação e senso de trabalho em equipe. \n Conhecimentos em Java, C#, HTML, CSS, React, React Native, JavaScript, SQL, \n NoSQL, Containers (Docker e Kubernetes), Azure Cloud Computing, Git, GitHub \n Actions, Postman, Insomnia. \n\n Focado em escrever códigos eficientes, para alta performance e economia de \n recursos. Experiente em identificar loops desnecessários (over loops) e otimizar \n processos. Aperfeiçoar consultas nos bancos de dados para maior eficiência, \n implementando indexações devidas e evitando indexação excessiva, garantindo \n bom equilíbrio entre velocidade de consulta e gravação em banco de dados. \n\n Principal Atuação: Java - Spring Boot"
+  },
+  "projects": {
+    "title": "Projetos",
+    "content": "Aqui você pode mostrar seus projetos."
+  },
+  "contacts": {
+    "title": "Contatos",
+    "content": "Aqui você pode mostrar seus contatos."
   },
   "login": "Entrar",
   "logout": "Sair"

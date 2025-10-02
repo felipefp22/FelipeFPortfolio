@@ -60,7 +60,7 @@ export default function Index() {
           </Route>}
 
         {isAuthenticated &&
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<LayoutDelivery />}>
             <Route path="/FelipeFPortfolio/delivery/*" element={<BasePage />} />
 
           </Route>}
