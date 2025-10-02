@@ -48,20 +48,21 @@ export default function Index() {
   }, []);
 
   return (
-    <Router>
+    <Router basename='/'>
       <Routes>
         <Route path="/" element={<LayoutPortifolio />}>
-          <Route path="/*" element={<PortfolioPage />} />
+          <Route index path="/*" element={<PortfolioPage />} />
         </Route>
+        
         {!isAuthenticated &&
           <Route path="/" element={<LayoutDelivery />}>
-            <Route path="/FelipeFPortfolio/delivery/*" element={<LoginOrRegisterPage />} />
+            <Route index path="/FelipeFPortfolio/delivery/*" element={<LoginOrRegisterPage />} />
 
           </Route>}
 
         {isAuthenticated &&
           <Route path="/" element={<LayoutDelivery />}>
-            <Route path="/FelipeFPortfolio/delivery/*" element={<BasePage />} />
+            <Route index path="/FelipeFPortfolio/delivery/*" element={<BasePage />} />
 
           </Route>}
 
