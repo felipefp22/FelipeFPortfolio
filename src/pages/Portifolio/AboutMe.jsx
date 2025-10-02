@@ -26,54 +26,64 @@ export default function AboutMe( { activeMenu } ) {
                 {/* <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isDesktopView ? '30px' : '20px', fontWeight: '700' }}>{t("skills.title")}</span> */}
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={javaLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(255, 255, 255, 1)' }} />
+                    <img src={javaLogo} alt="Logo" style={{ width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(255, 255, 255, 1)' }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"Java"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={springBootLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white", }} />
+                    <img src={springBootLogo} alt="Logo" style={{ width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"SpringBoot"}</span>}
                 </div>
 
                 {/* <div style={{ height: '3px', backgroundColor: 'white', marginBottom: '20px' }} /> */}
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={cSharpLogo} alt="Logo" style={{ width: 50, height: 50, borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(18, 14, 14, 1)' }} />
+                    <img src={cSharpLogo} alt="Logo" style={{  width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(18, 14, 14, 1)' }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"C#"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={sqlLogo} alt="Logo" style={{ width: isDesktopView ? 50 : 40, height: isDesktopView ? 50 : 40, borderRadius: '50%', border: "2px solid white", backgroundColor: 'white' }} />
+                    <img src={sqlLogo} alt="Logo" style={{  width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", backgroundColor: 'white' }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"SQL"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={mongoDbLogo} alt="Logo" style={{ width: isDesktopView ? 50 : 40, height: isDesktopView ? 50 : 40, borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(164, 211, 159, 1)' }} />
+                    <img src={mongoDbLogo} alt="Logo" style={{ width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(164, 211, 159, 1)' }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"NoSQL"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={azureLogo} alt="Logo" style={{ width: isDesktopView ? 50 : 40, height: isDesktopView ? 50 : 40, borderRadius: '50%', border: "2px solid white", backgroundColor: 'white', }} />
+                    <img src={azureLogo} alt="Logo" style={{ width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", backgroundColor: 'white', }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"Azure"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={gitHubLogo} alt="Logo" style={{ width: isDesktopView ? 50 : 40, height: isDesktopView ? 50 : 40, borderRadius: '50%', border: "2px solid white", backgroundColor: 'black' }} />
+                    <img src={gitHubLogo} alt="Logo" style={{  width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", backgroundColor: 'black' }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"GitHub Actions"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={reactLogo} alt="Logo" style={{ width: isDesktopView ? 50 : 40, height: isDesktopView ? 50 : 40, borderRadius: '50%', border: "2px solid white", animation: "spin 10s linear infinite" }} />
+                    <img src={reactLogo} alt="Logo" style={{ width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", animation: "spin 10s linear infinite" }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"React"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={reactNativeLogo} alt="Logo" style={{ width: isDesktopView ? 50 : 40, height: isDesktopView ? 50 : 40, borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(0, 0, 0, 1)', animation: "spin-reverse 10s linear infinite" }} />
+                    <img src={reactNativeLogo} alt="Logo" style={{ width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(0, 0, 0, 1)', animation: "spin-reverse 10s linear infinite" }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"React Native"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={dockerLogo} alt="Logo" style={{ width: isDesktopView ? 50 : 40, height: isDesktopView ? 50 : 40, borderRadius: '50%', border: "2px solid white", backgroundColor: 'white', }} />
+                    <img src={dockerLogo} alt="Logo" style={{ width: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35, height: isDesktopView ? 50 : (!isDesktopView && activeMenu === t("skills.title")) ? 40 : 35,
+                         borderRadius: '50%', border: "2px solid white", backgroundColor: 'white', }} />
                     {(isDesktopView || (!isDesktopView && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isDesktopView ? '20px' : '10px' }}>{"Docker"}</span>}
                 </div>
             </div>

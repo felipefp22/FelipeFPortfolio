@@ -78,8 +78,8 @@ export default function LayoutPortifolio() {
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: isDesktopView ? '60px' : '30px' }} >
-                      <h1 style={{ marginBottom: isDesktopView ? '20px' : '10px', fontSize: isDesktopView ? '36px' : '24px' }}>Felipe Ferreira de Paula</h1>
-                      <h1 style={{ fontWeight: 'bold', color: 'rgba(30, 230, 183, 0.79)', fontSize: isDesktopView ? '36px' : '24px' }}>{"< Dev BackEND | FullStack />"}</h1>
+                      <h1 style={{ marginBottom: isDesktopView ? '20px' : '10px', fontSize: isDesktopView ? '36px' : '20px' }}>Felipe Ferreira de Paula</h1>
+                      <h1 style={{ fontWeight: 'bold', color: 'rgba(30, 230, 183, 0.79)', fontSize: isDesktopView ? '36px' : '22px' }}>{"< Dev BackEND | FullStack />"}</h1>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', marginBottom: '30px' }} >
