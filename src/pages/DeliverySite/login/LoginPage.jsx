@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../../services/AuthService.js';
+import { login } from '../../../services/deliveryServices/AuthService.js';
 import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 
@@ -40,7 +40,7 @@ export default function LoginPage({ setActualPage, email, setEmail, password, se
     const response = await login(email, password)
     if (response.status === 200) {
       const companiesCoumpound = response.data.compoundsYouAreOwner || [];
-      localStorage.setItem('companyOperatingID', companiesCoumpound[0]?.companies[0]?.companyID || null);
+      
       window.dispatchEvent(new CustomEvent("profileUpdated"));
     } else {
       // alertIncorrectLoginDatas()

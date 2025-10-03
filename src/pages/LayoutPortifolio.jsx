@@ -68,12 +68,12 @@ export default function LayoutPortifolio() {
                     {/* <> --- Language */}
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', marginBottom: '40px', justifyContent: 'right' }} >
                       <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginRight: '20px' }} onClick={() => changeLanguage('pt')} >
-                        <img src={brazilFlag} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', border: i18n.language === 'pt' ? "2px solid white" : "2px solid transparent" }} />
-                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language === 'pt' ? 'underline' : 'none' }}>{"PT"}</h4>
+                        <img src={brazilFlag} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', border: i18n.language?.split("-")[0] === 'pt' ? "2px solid white" : "2px solid transparent" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language?.split("-")[0] === 'pt' ? 'underline' : 'none' }}>{"PT"}</h4>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', }} onClick={() => changeLanguage('en')}>
-                        <img src={usaFlag} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', border: i18n.language === 'en' ? "2px solid white" : "2px solid transparent" }} />
-                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language === 'en' ? 'underline' : 'none',  }}>{"EN"}</h4>
+                        <img src={usaFlag} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', border: i18n.language?.split("-")[0] === 'en' ? "2px solid white" : "2px solid transparent" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language?.split("-")[0] === 'en' ? 'underline' : 'none',  }}>{"EN"}</h4>
                       </div>
                     </div>
 

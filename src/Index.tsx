@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LayoutDelivery from './pages/DeliverySite/LayoutDelivery';
 import BasePage from './pages/DeliverySite/BasePage';
-import { verifyIfIsAdmin } from './services/AuthService';
+import { verifyIfIsAdmin } from './services/deliveryServices/AuthService';
 import LoginOrRegisterPage from './pages/DeliverySite/LoginOrRegisterPage';
 import { useDispatch, useSelector } from 'react-redux';
 import PortfolioPage from './pages/PortfolioPage';

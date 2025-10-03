@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, Table } from "react-bootstrap";
 import NewOrderModal from "./components/NewOrderModal";
-import { getCompanyOperation } from "../../../services/CompanySevice";
-import { getOrderOperation } from "../../../services/OrderService";
-import { getShiftOperation, openNewShift } from "../../../services/ShiftService";
+import { getCompanyOperation } from "../../../services/deliveryServices/CompanySevice";
+import { getOrderOperation } from "../../../services/deliveryServices/OrderService";
+import { getShiftOperation, openNewShift } from "../../../services/deliveryServices/ShiftService";
 import { useDispatch, useSelector } from "react-redux";
 import {
     changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,

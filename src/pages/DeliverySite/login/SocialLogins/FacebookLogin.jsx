@@ -1,6 +1,6 @@
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { updateLocalStorage } from "../../../../services/AuthService";
+import { updateLocalStorage } from "../../../../services/deliveryServices/AuthService";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

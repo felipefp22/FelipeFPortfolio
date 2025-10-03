@@ -4,7 +4,7 @@ import SystemPage from './system/SystemPage.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignJustify, faArrowLeft, faArrowRight, faLeftRight, faMapLocationDot, faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import UserOptions from './userOptions/UserOptions.jsx';
-import { logOutAction } from '../../services/AuthService.js';
+import { logOutAction } from '../../services/deliveryServices/AuthService.js';
 import { useSelector } from 'react-redux';
 import './DeliveryCss.css'
 
@@ -44,7 +44,7 @@ export default function BasePage() {
           <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#e43636ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 50 }}
             onClick={() => logOutAction()}>{<FontAwesomeIcon icon={faPowerOff} />}</button>
 
-          <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 35, }} >
+          <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 50, }} >
             <UserOptions />
           </div>
         </div>}
