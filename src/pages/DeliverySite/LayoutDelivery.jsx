@@ -20,7 +20,7 @@ export default function LayoutDelivery() {
           </Container>
 
           <footer style={{ backgroundColor: "#333", color: "white", height: "35px", padding: "5px 0", textAlign: "center", }}>
-            <p style={{ margin: 0 }}>Developed by: <a href="https://github.com/felipefp22" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", padding: 0, margin: 0 }}>felipefp22</a></p>
+            <p style={{ margin: 0 }}>Developed by: <a href="https://felipefp22.github.io/FelipeFPortfolio" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", padding: 0, margin: 0 }}>felipefp22</a></p>
           </footer>
         </div>
       </div>
