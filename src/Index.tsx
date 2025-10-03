@@ -48,7 +48,7 @@ export default function Index() {
   }, []);
 
   return (
-    <Router basename='/'>
+    <Router>
       <Routes>
         <Route path="/" element={<LayoutPortifolio />}>
           <Route path="/*" element={<PortfolioPage />} />
