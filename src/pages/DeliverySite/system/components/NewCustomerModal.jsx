@@ -57,8 +57,8 @@ export default function NewCustomerModal({ close }) {
     return (
         <>
             <div style={{
-                display: 'flex', flexDirection: 'column', width: "85%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-                color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto"
+                display: 'flex', flexDirection: 'column', width: !isDesktopView ? "100%" : "85%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
+                color: 'white', padding: !isDesktopView ? '10px' : '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto"
             }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>

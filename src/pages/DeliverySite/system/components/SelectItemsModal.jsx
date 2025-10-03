@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { use, useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 import noFoodImg from "./../../../../assets/noFood.jpg";
+import { useSelector } from "react-redux";
 
 export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd }) {
+    const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [buttonFilter, setButtonFilter] = useState("All");
     const [inputSearchItem, setInputSearchItem] = useState("")
@@ -41,8 +43,8 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
     return (
         <>
             <div style={{
-                display: 'flex', flexDirection: 'column', width: "85%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-                color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden',
+                display: 'flex', flexDirection: 'column', width: !isDesktopView ? "100%" : "85%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
+                color: 'white', padding: !isDesktopView ? '10px' : '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden',
             }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', }}>

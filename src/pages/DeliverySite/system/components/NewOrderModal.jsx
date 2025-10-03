@@ -121,8 +121,8 @@ export default function NewOrderModal({ closeNewOrderModal }) {
     return (
         <>
             <div style={{
-                display: 'flex', flexDirection: 'column', width: !isDesktopView ? "95%" : "85%", maxHeight: !isDesktopView ? '90%' : '80%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-                color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto"
+                display: 'flex', flexDirection: 'column', width: !isDesktopView ? "100%" : "85%", maxHeight: !isDesktopView ? '90%' : '80%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
+                color: 'white', padding: !isDesktopView ? '10px' : '20px', borderRadius: '10px', zIndex: 10, overflowX: "hidden", overflowY: "auto"
             }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
@@ -173,7 +173,7 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
-                            <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Customer Phone</span>
+                            <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Phone</span>
                             <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
                                 style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
                             />
