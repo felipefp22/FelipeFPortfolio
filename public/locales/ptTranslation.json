@@ -26,5 +26,6 @@
     "content": "Aqui você pode mostrar seus contatos."
   },
   "login": "Entrar",
-  "logout": "Sair"
+  "logout": "Sair",
+  "copiedMsg": "Copiado"
 }

@@ -26,5 +26,6 @@
     "content": "Here you can showcase your contacts."
   },
   "login": "Login",
-  "logout": "Logout"
+  "logout": "Logout",
+  "copiedMsg": "Copied"
 }
