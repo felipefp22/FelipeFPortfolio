@@ -6,11 +6,14 @@ import { faAlignJustify, faArrowLeft, faArrowRight, faLeftRight, faMapLocationDo
 import UserOptions from './userOptions/UserOptions.jsx';
 import { logOutAction } from '../../services/AuthService.js';
 import { useSelector } from 'react-redux';
+import './DeliveryCss.css'
+
 
 export default function BasePage() {
   const isDesktopView = useSelector((state) => state.view.isDesktopView);
   const [screenOnFocus, setScreenOnFocus] = useState("");
   const [companySelected, setCompanySelected] = useState(localStorage.getItem('companyOperatingID'));
+  const [haveModalOpen, setHaveModalOpen] = useState(false);
 
   useEffect(() => {
     function verifyCompany() {
@@ -51,25 +54,25 @@ export default function BasePage() {
       {companySelected && <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 0, flexGrow: 1, }}>
 
         {<div style={{ display: 'flex', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative', visibility: screenOnFocus !== "map" ? 'visible' : 'hidden' }}>
-          <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
-            onClick={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); }}>{<FontAwesomeIcon icon={faArrowLeft} /> } {"Quit"}</button>
+            {!haveModalOpen && <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+              onClick={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); }}>{<FontAwesomeIcon icon={faArrowLeft} />} {"Quit"}</button>}
 
-          <button style={{ position: 'absolute', top: 0, right: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
-            onClick={() => setScreenOnFocus(screenOnFocus === "system" ? (!isDesktopView ? "map" : "") : "system")}>
-              {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
+            {!haveModalOpen && <button style={{ position: 'absolute', top: 0, right: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+              onClick={() => setScreenOnFocus(screenOnFocus === "system" ? (!isDesktopView ? "map" : "") : "system")}>
+              {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>}
 
-          <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 35, }} >
-            <SystemPage screenOnFocus={screenOnFocus} />
+          <div style={{ display: 'flex', flexDirection: 'column', width: '100%',flexGrow: 1, marginTop: 50, }} >
+            <SystemPage screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} />
           </div>
         </div>}
 
         {isDesktopView && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: 'white', borderRadius: 50, margin: "0px 5px" }} />}
 
         {<div style={{ display: 'flex', height: '100%', width: screenOnFocus === "system" ? '0%' : screenOnFocus === "map" ? '100%' : '50%', position: 'relative' }}>
-          {screenOnFocus !== "system" && <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+          {screenOnFocus !== "system" && <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
             onClick={() => setScreenOnFocus(screenOnFocus === "map" ? (!isDesktopView ? "system" : "") : "map")}>{screenOnFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
 
-          <MapaDelivery />
+          <MapaDelivery setHaveModalOpen={setHaveModalOpen} />
         </div>}
       </div >}
     </>

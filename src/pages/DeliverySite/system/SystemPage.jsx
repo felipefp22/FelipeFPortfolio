@@ -11,7 +11,7 @@ import {
 } from '../../../redux/companyOperationSlice.js';
 
 
-export default function SystemPage({ screenOnFocus }) {
+export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);
@@ -78,11 +78,11 @@ export default function SystemPage({ screenOnFocus }) {
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: 5 }}>
-                {screenOnFocus !== "map" &&<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
-                    <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
+                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
+                    <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
                 </div>}
 
-                {screenOnFocus !== "map" &&<div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
+                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                     <h3 style={{ color: "white", marginBottom: '10px' }}>Orders Cooking</h3>
 
                     {/* <div style={{ display: 'flex', flexDirection: 'row', margin: '20px', backgroundColor: "white", color: "black", padding: '5px', borderRadius: '10px' }}> */}
@@ -111,8 +111,8 @@ export default function SystemPage({ screenOnFocus }) {
 
             </div >
 
-            {newOrderModal && <div ref={newOrderModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 9 }} >
-                <NewOrderModal closeNewOrderModal={() => setNewOrderModal(false)} />
+            {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{ zIndex: 9 }} >
+                <NewOrderModal closeNewOrderModal={() => { setNewOrderModal(false); setHaveModalOpen(false); }} />
             </div>}
         </>
     );

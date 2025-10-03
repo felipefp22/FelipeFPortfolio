@@ -7,8 +7,10 @@ import SelectItemsModal from "./SelectItemsModal";
 import { getAllCompanyCustomers } from "../../../../services/CustomerSevice";
 import { getAllProductsCategories } from "../../../../services/ProductsCategory";
 import { createOrder } from "../../../../services/OrderService";
+import { useSelector } from "react-redux";
 
 export default function NewOrderModal({ closeNewOrderModal }) {
+    const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [disabled, setDisabled] = useState(false);
     const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
@@ -100,13 +102,13 @@ export default function NewOrderModal({ closeNewOrderModal }) {
             " "
         );
 
-        if(response?.status === 200){
+        if (response?.status === 200) {
             alert("Order created successfully!");
             closeNewOrderModal();
         }
     }
 
-        async function removeProduct(productID) {
+    async function removeProduct(productID) {
         const index = selectedProductsToAdd.findIndex(p => p.id === productID);
 
         if (index !== -1) {
@@ -119,7 +121,7 @@ export default function NewOrderModal({ closeNewOrderModal }) {
     return (
         <>
             <div style={{
-                display: 'flex', flexDirection: 'column', width: "85%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
+                display: 'flex', flexDirection: 'column', width: !isDesktopView ? "95%" : "85%", maxHeight: !isDesktopView ? '90%' : '80%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
                 color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto"
             }}>
 
@@ -224,11 +226,11 @@ export default function NewOrderModal({ closeNewOrderModal }) {
 
             </div>
 
-            {showNewCustomerModal && <div ref={newCustomerModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
+            {showNewCustomerModal && <div ref={newCustomerModalRef} className="myModal" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)', zIndex: 10 }} >
                 <NewCustomerModal close={() => setShowNewCustomerModal(false)} />
             </div>}
 
-            {showSelectItemsModal && <div ref={selectItemsModalRef} style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 10 }} >
+            {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)', zIndex: 10 }} >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
             </div>}
         </>
