@@ -37,7 +37,7 @@ export default function PortfolioPage() {
         const touchEndX = e.changedTouches[0].clientX;
         const diff = touchStartX.current - touchEndX;
 
-        if (Math.abs(diff) > 50) {
+        if (Math.abs(diff) > 70) {
             if (diff > 0) {
                 // swipe left → next
                 setActive((prev) => Math.min(prev + 1, menus.length - 1));
