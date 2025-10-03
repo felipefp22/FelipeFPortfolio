@@ -28,17 +28,26 @@ export default function PortfolioPage() {
 
     // --- TOUCH navigation ---
     const touchStartX = useRef(0);
+    const touchStartY = useRef(0);
 
     const handleTouchStart = (e) => {
         touchStartX.current = e.changedTouches[0].clientX;
+        touchStartY.current = e.changedTouches[0].clientY;
     };
 
     const handleTouchEnd = (e) => {
         const touchEndX = e.changedTouches[0].clientX;
-        const diff = touchStartX.current - touchEndX;
+        const touchEndY = e.changedTouches[0].clientY;
 
-        if (Math.abs(diff) > 70) {
-            if (diff > 0) {
+        const diffx = touchStartX.current - touchEndX;
+        const diffY = touchStartY.current - touchEndY;
+
+        if (Math.abs(diffY) > Math.abs(diffx)) {
+            return;
+        }
+
+        if (Math.abs(diffx) > 60) {
+            if (diffx > 0) {
                 // swipe left → next
                 setActive((prev) => Math.min(prev + 1, menus.length - 1));
             } else {
