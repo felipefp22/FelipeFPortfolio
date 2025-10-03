@@ -119,7 +119,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
 
             </form>
             <div>
-              <p>Já possui uma conta? <Link to={"/login"} onClick={() => setActualPage('login')} style={{ color: 'white' }}>Entre</Link></p>
+              <p>Já possui uma conta? <Link onClick={() => setActualPage('login')} style={{ color: 'white' }}>Entre</Link></p>
             </div>
             <div style={{ visibility: showLginErrosMessage ? 'visible' : 'hidden', transition: 'visibility 0.5s ease-in-out', }}>
               <strong style={{ color: 'red' }}>Erro! </strong> Dados de login invalidos.
