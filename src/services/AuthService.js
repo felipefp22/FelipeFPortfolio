@@ -2,6 +2,7 @@ import axiosInstanceRestaurantSystem from './axiosConfiguration/AxiosInstanceRes
 import axiosInstanceRestaurantSystemWithoutAuth from './axiosConfiguration/AxiosInstanceRestaurantSystemWithoutAuth';
 
 export async function signUp(name, email, password) {
+    console.log("Registering user with data:", { name, email, password });
 
     const postData = {
         name,

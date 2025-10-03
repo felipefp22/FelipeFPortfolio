@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../../services/AuthService.js';
+import { login, signUp } from '../../../services/AuthService.js';
 import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 
@@ -38,7 +38,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
       return;
     }
 
-    const loginData = await login(email, password)
+    const loginData = await signUp(email, email, password)
     if (loginData && loginData.access_token) {
       await updateLocalStorage(loginData);
       // await GetOwnProfileDatas()
