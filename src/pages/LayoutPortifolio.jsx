@@ -43,7 +43,7 @@ export default function LayoutPortifolio() {
     <>
       <div>
         <div style={{
-          background: "linear-gradient(135deg, #509001ff, #0d0d6eff)", color: "white", height: "100dvh", width: "100vw", fontFamily: "Segoe UI, sans-serif", overflowX: "hidden",
+          background: "linear-gradient(135deg, #509001ff, #0d0d6eff)", color: "white", height: "100dvh", width: "100vw", fontFamily: "Segoe UI, sans-serif", overflowX: "hidden", overflowY: "auto"
           display: "flex", flexDirection: "column", padding: '0px 0px', alignItems: 'center',
           // alignItems: "center",
         }}>
