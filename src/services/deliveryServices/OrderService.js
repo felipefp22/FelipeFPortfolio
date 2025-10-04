@@ -97,3 +97,29 @@ export async function reopenOrder( orderID ) {
     }
 }
 
+
+export async function cancelOrder( orderID, managerID, adminPassword, cancellationReason ) {
+
+    const postData = {
+        companyID: localStorage.getItem('companyOperatingID'),
+        orderID: orderID,
+        managerID: managerID,
+        adminPassword: adminPassword,
+        cancellationReason: cancellationReason
+    };
+    try {
+        const response = await axiosInstanceRestaurantSystem.delete(`/order/cancel-order`, postData,
+            {
+                headers: {
+
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}

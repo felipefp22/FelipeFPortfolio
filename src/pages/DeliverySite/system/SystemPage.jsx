@@ -11,6 +11,7 @@ import {
 } from '../../../redux/companyOperationSlice.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import CancelOrder from "./components/CancelOrderModal.jsx";
 
 
 export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
@@ -25,6 +26,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
     const [selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID] = useState([]);
 
     const [changeStatusOrderModal, setChangeStatusOrderModal] = useState(false);
+    const [cancelOrderModal, setCancelOrderModal] = useState(false);
     const [processing, setProcessing] = useState(false);
 
     async function getCompanyOperationData(retryCount = 0) {
@@ -120,8 +122,15 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                 </div>}
 
                 {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
-                    <h3 style={{ color: "white", marginBottom: '10px' }}>Orders Cooking</h3>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
 
+                        <h3 style={{ color: "white", marginBottom: '10px' }}>Orders Cooking</h3>
+                        {(selectedCookingOrderID.length === 1) &&
+                            <button style={{ backgroundColor: '#c90000ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px' }}
+                                onClick={() => setCancelOrderModal(true)}>
+                                <span>Cancel</span>
+                            </button>}
+                    </div>
                     <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
                         <Table hover responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
@@ -132,7 +141,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                                 </tr>
                             </thead>
                             <tbody >
-                                {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN").map((order, index) => (
+                                {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN").sort((a, b) => Date.parse(a.openOrderDateUtc + "Z") - Date.parse(b.openOrderDateUtc + "Z")).map((order, index) => (
                                     <tr key={order.id} className={selectedCookingOrderID.includes(order.id) ? "table-active" : ""}
                                         onClick={() => { setSelectedOnDeliveryOrderID([]); setSelectedCookingOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                         <td>{order.orderNumberOnShift}</td>
@@ -168,7 +177,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                                 </tr>
                             </thead>
                             <tbody >
-                                {orders && orders.length > 0 && orders.filter(order => order.status === "CLOSEDWAITINGPAYMENT").map((order, index) => (
+                                {orders && orders.length > 0 && orders.filter(order => order.status === "CLOSEDWAITINGPAYMENT").sort((a, b) => Date.parse(a.closedWaitingPaymentAtUtc + "Z") - Date.parse(b.closedWaitingPaymentAtUtc + "Z")).map((order, index) => (
                                     <tr key={order.id} className={selectedOnDeliveryOrderID.includes(order.id) ? "table-active" : ""}
                                         onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                         <td>{order.orderNumberOnShift}</td>
@@ -212,6 +221,10 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                         <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
                     </div>}
                 </div>
+            </div>}
+
+            {cancelOrderModal && <div className="myModal" style={{ zIndex: 100 }} >
+                <CancelOrder close={() => setCancelOrderModal(false)} selectedCookingOrderID={selectedCookingOrderID} getCompanyOperationData={getCompanyOperationData} />
             </div>}
         </>
     );
