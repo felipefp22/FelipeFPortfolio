@@ -144,7 +144,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                             </thead>
                             <tbody >
                                 {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN").sort((a, b) => Date.parse(a.openOrderDateUtc + "Z") - Date.parse(b.openOrderDateUtc + "Z")).map((order, index) => (
-                                    <tr key={order.id} className={selectedCookingOrderID.includes(order.id) ? "table-active" : ""}
+                                    <tr key={order.id} className={selectedCookingOrderID?.includes(order.id) ? "table-active" : ""}
                                         onClick={() => { setSelectedOnDeliveryOrderID([]); setSelectedCookingOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                         <td>{order.orderNumberOnShift}</td>
                                         <td>{order.customer?.customerName || "No Name"}</td>
@@ -163,7 +163,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                         <h3 style={{ color: "white", marginBottom: '10px' }}>Orders on Delivery</h3>
                         <button style={{
                             backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px',
-                            visibility: (selectedCookingOrderID.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden'
+                            visibility: (selectedCookingOrderID?.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden'
                         }}
                             onClick={() => setChangeStatusOrderModal(true)}>
                             <FontAwesomeIcon icon={selectedCookingOrderID.length > 0 ? faArrowDown : faArrowUp} flip="horizontal" style={{ visibility: (selectedCookingOrderID.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden' }} />
@@ -181,7 +181,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                             </thead>
                             <tbody >
                                 {orders && orders.length > 0 && orders.filter(order => order.status === "CLOSEDWAITINGPAYMENT").sort((a, b) => Date.parse(a.closedWaitingPaymentAtUtc + "Z") - Date.parse(b.closedWaitingPaymentAtUtc + "Z")).map((order, index) => (
-                                    <tr key={order.id} className={selectedOnDeliveryOrderID.includes(order.id) ? "table-active" : ""}
+                                    <tr key={order.id} className={selectedOnDeliveryOrderID?.includes(order.id) ? "table-active" : ""}
                                         onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                         <td>{order.orderNumberOnShift}</td>
                                         <td>{order.customer?.customerName || "No Name"}</td>
@@ -214,7 +214,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
 
                     {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
                         <button style={{ backgroundColor: 'rgba(189, 13, 0, 0)', border: "none", color: "rgba(255, 69, 56, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
-                            onClick={() => { setSelectedOnDeliveryOrderID(false); setSelectedCookingOrderID([]); setChangeStatusOrderModal(false); }} disabled={processing}>Cancel</button>
+                            onClick={() => { setSelectedOnDeliveryOrderID([]); setSelectedCookingOrderID([]); setChangeStatusOrderModal(false); }} disabled={processing}>Cancel</button>
 
                         <button style={{ backgroundColor: 'rgba(15, 107, 56, 0)', border: "none", color: "rgba(38, 233, 35, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
                             onClick={() => { if (selectedCookingOrderID.length > 0) dispatchOrders(); if (selectedOnDeliveryOrderID.length > 0) openOrdersAgain(); }} disabled={processing}>Yes</button>
