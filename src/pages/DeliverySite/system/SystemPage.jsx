@@ -125,11 +125,13 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
 
                         <h3 style={{ color: "white", marginBottom: '10px' }}>Orders Cooking</h3>
-                        {(selectedCookingOrderID.length === 1) &&
-                            <button style={{ backgroundColor: '#c90000ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px' }}
-                                onClick={() => setCancelOrderModal(true)}>
-                                <span>Cancel</span>
-                            </button>}
+                        <button style={{
+                            backgroundColor: '#c90000ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px',
+                            visibility: (selectedCookingOrderID.length === 1) ? 'visible' : 'hidden'
+                        }}
+                            onClick={() => setCancelOrderModal(true)}>
+                            <span>Cancel</span>
+                        </button>
                     </div>
                     <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
                         <Table hover responsive="sm" >
@@ -159,12 +161,13 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                         <h3 style={{ color: "white", marginBottom: '10px' }}>Orders on Delivery</h3>
-                        {(selectedCookingOrderID.length > 0 || selectedOnDeliveryOrderID.length > 0) &&
-                            <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px' }}
-                                onClick={() => setChangeStatusOrderModal(true)}>
-                                {selectedCookingOrderID.length > 0 && <FontAwesomeIcon icon={faArrowDown} flip="horizontal" />}
-                                {selectedOnDeliveryOrderID.length > 0 && <FontAwesomeIcon icon={faArrowUp} flip="horizontal" />}
-                            </button>}
+                        <button style={{
+                            backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px',
+                            visibility: (selectedCookingOrderID.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden'
+                        }}
+                            onClick={() => setChangeStatusOrderModal(true)}>
+                            <FontAwesomeIcon icon={selectedCookingOrderID.length > 0 ? faArrowDown : faArrowUp} flip="horizontal" style={{ visibility: (selectedCookingOrderID.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden' }} />
+                        </button>
                     </div>
 
                     <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
