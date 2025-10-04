@@ -40,7 +40,7 @@ export default function LoginPage({ setActualPage, email, setEmail, password, se
     const response = await login(email, password)
     if (response.status === 200) {
       const companiesCoumpound = response.data.compoundsYouAreOwner || [];
-      
+
       window.dispatchEvent(new CustomEvent("profileUpdated"));
     } else {
       // alertIncorrectLoginDatas()
@@ -63,9 +63,9 @@ export default function LoginPage({ setActualPage, email, setEmail, password, se
           color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center',
         }}>
           <div style={{ maxWidth: '450px', width: '96%' }}>
-            <h2 >Entre com</h2>
+            <h2 >Sign in with</h2>
             <GoogleLogin />
-            <p style={{ color: 'white', marginTop: '10px', marginBottom: '10px' }}><span>ou</span></p>
+            <p style={{ color: 'white', marginTop: '10px', marginBottom: '10px' }}><span>or</span></p>
 
             {/* {props.errorMessage && (
               <div >
@@ -92,28 +92,28 @@ export default function LoginPage({ setActualPage, email, setEmail, password, se
 
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
                 <div style={{ display: 'flex', flexDirection: 'row', width: '90%' }}>
-                  <label>Senha</label>
+                  <label>Password</label>
                   <span style={{ color: 'red' }}> *</span>
                 </div>
-                <div style={{ width: '100%' }} >
+                <div style={{ width: '100%' }} >  
                   <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '28px' }} type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
                   <span style={{ cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}> <i className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} /> </span>
                 </div>
                 {errors.password && <div >{errors.password}</div>}
-                <p> <Link to={"/fpassword"} style={{ color: 'white' }}>Esqueceu a senha?</Link></p>
+                <p> <Link to={"/fpassword"} style={{ color: 'white' }}>Forgot Password?</Link></p>
               </div>
 
               <div>
                 <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px' }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
-                  style={{ width: '25px', height: '25px' }} /> : "Entrar"} </button>
+                  style={{ width: '25px', height: '25px' }} /> : "Sign In"} </button>
               </div>
 
             </form>
             <div>
-              <p>Ainda não é usuario? <Link onClick={() => setActualPage('register')} style={{ color: 'white' }}>Registre-se</Link></p>
+              <p>Don't have an account? <Link onClick={() => setActualPage('register')} style={{ color: 'white' }}>Register</Link></p>
             </div>
             <div style={{ visibility: showLginErrosMessage ? 'visible' : 'hidden', transition: 'visibility 0.5s ease-in-out', }}>
-              <strong style={{ color: 'red' }}>Erro! </strong> Dados de login invalidos.
+              <strong style={{ color: 'red' }}>Error! </strong> Invalid login credentials.
             </div>
 
           </div>

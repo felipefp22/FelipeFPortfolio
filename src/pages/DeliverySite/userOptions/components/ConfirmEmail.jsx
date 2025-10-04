@@ -20,7 +20,6 @@ export default function ConfirmEmail() {
 
         if (response.status === 200) {
             setWasSent(true);
-            setDisabledText(false);
             setCounter(60);
         } else {
             setErrorGeneral('Erro ao solicitar côdigo.');
