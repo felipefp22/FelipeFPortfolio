@@ -2,7 +2,7 @@ import { use, useEffect, useState } from 'react';
 import MapaDelivery from './mapa/MapaDelivery.jsx';
 import SystemPage from './system/SystemPage.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAlignJustify, faArrowLeft, faArrowRight, faLeftRight, faMapLocationDot, faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { faAlignJustify, faArrowLeft, faArrowRight, faLeftRight, faMapLocationDot, faPowerOff, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import UserOptions from './userOptions/UserOptions.jsx';
 import { logOutAction } from '../../services/deliveryServices/AuthService.js';
 import { useSelector } from 'react-redux';
@@ -22,10 +22,10 @@ export default function BasePage() {
       }
     }
 
-    window.addEventListener("profileUpdated", verifyCompany);
+    window.addEventListener("settedCompany", verifyCompany);
 
     return () => {
-      window.removeEventListener("profileUpdated", verifyCompany);
+      window.removeEventListener("settedCompany", verifyCompany);
     };
   }, []);
 
@@ -41,7 +41,7 @@ export default function BasePage() {
       {!companySelected && <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 0, flexGrow: 1, }}>
 
         {<div style={{ display: 'flex', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative', }}>
-          <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#e43636ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 10px rgba(255, 255, 255, 0.55)", borderRadius: 50 }}
+          <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#e43636ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 5px rgba(255, 255, 255, 0.55)", borderRadius: 50 }}
             onClick={() => logOutAction()}>{<FontAwesomeIcon icon={faPowerOff} />}</button>
 
           <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 50, }} >
@@ -54,8 +54,8 @@ export default function BasePage() {
       {companySelected && <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 0, flexGrow: 1, }}>
 
         {<div style={{ display: 'flex', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative', visibility: screenOnFocus !== "map" ? 'visible' : 'hidden' }}>
-            {!haveModalOpen && <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
-              onClick={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); }}>{<FontAwesomeIcon icon={faArrowLeft} />} {"Quit"}</button>}
+            {!haveModalOpen && <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#c90000ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+              onClick={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); }}>{<FontAwesomeIcon icon={faRightFromBracket} flip="horizontal" />}</button>}
 
             {!haveModalOpen && <button style={{ position: 'absolute', top: 0, right: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
               onClick={() => setScreenOnFocus(screenOnFocus === "system" ? (!isDesktopView ? "map" : "") : "system")}>

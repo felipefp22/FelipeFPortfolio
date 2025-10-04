@@ -72,7 +72,7 @@ export default function UserOptions() {
                                     </div>
                                     {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
                                         {compound?.companies?.map((comp, idx) => (
-                                            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }} onClick={() => { localStorage.setItem('companyOperatingID', comp.id); window.dispatchEvent(new CustomEvent("profileUpdated")); }}>
+                                            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }} onClick={() => { localStorage.setItem('companyOperatingID', comp.id); window.dispatchEvent(new CustomEvent("settedCompany")); }}>
                                                 <img src={restaurantLogo} alt="Logo" style={{
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10

@@ -48,3 +48,29 @@ export async function createOrder( tableNumberOrDeliveryOrPickup, customerID, pi
         if (error?.response) return error.response;
     }
 }
+
+export async function closeOrder( orderID, clientSaidNoTax, discountValue ) {
+
+    const postData = {
+        companyID: localStorage.getItem('companyOperatingID'),
+        orderID: orderID,
+        clientSaidNoTax: clientSaidNoTax,
+        discountValue: discountValue,
+    };
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/order/close-order`, postData,
+            {
+                headers: {
+
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
+

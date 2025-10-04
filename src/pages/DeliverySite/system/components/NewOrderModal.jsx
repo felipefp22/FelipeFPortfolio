@@ -93,8 +93,7 @@ export default function NewOrderModal({ closeNewOrderModal }) {
             }, {})
         );
 
-        console.log("itemsIdAndQuantity: ", itemsIdAndQuantity);
-        const response = createOrder(
+        const response = await createOrder(
             "delivery",
             customerSelectedToNewOrder?.id,
             customerSelectedToNewOrder?.customerName,
@@ -103,7 +102,6 @@ export default function NewOrderModal({ closeNewOrderModal }) {
         );
 
         if (response?.status === 200) {
-            alert("Order created successfully!");
             closeNewOrderModal();
         }
     }
