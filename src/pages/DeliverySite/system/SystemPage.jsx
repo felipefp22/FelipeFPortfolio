@@ -2,7 +2,7 @@ import { use, useEffect, useRef, useState } from "react";
 import { Form, Spinner, Table } from "react-bootstrap";
 import NewOrderModal from "./components/NewOrderModal";
 import { getCompanyOperation } from "../../../services/deliveryServices/CompanySevice";
-import { closeOrder, getOrderOperation } from "../../../services/deliveryServices/OrderService";
+import { closeOrder, getOrderOperation, reopenOrder } from "../../../services/deliveryServices/OrderService";
 import { getShiftOperation, openNewShift } from "../../../services/deliveryServices/ShiftService";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -96,9 +96,20 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
         setProcessing(false);
     }
 
-    async function reopenOrders() {
-        const response = await reopenOrder();
+    useEffect(() => {
+        console.log("Selected on delivery Orders: ", selectedOnDeliveryOrderID);
+    }, [selectedOnDeliveryOrderID]);
 
+    async function openOrdersAgain() {
+        setProcessing(true);
+        await Promise.all(
+            selectedOnDeliveryOrderID.map(orderID =>
+                reopenOrder(orderID)
+            )
+        );
+        await getShiftOperationData();
+        setChangeStatusOrderModal(false);
+        setProcessing(false);
     }
 
     return (
@@ -138,12 +149,12 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
 
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
-                        <h3 style={{ color: "white", marginBottom: '10px' }}>Orders Cooking</h3>
+                        <h3 style={{ color: "white", marginBottom: '10px' }}>Orders on Delivery</h3>
                         {(selectedCookingOrderID.length > 0 || selectedOnDeliveryOrderID.length > 0) &&
                             <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px' }}
                                 onClick={() => setChangeStatusOrderModal(true)}>
                                 {selectedCookingOrderID.length > 0 && <FontAwesomeIcon icon={faArrowDown} flip="horizontal" />}
-                                {selectedOnDeliveryOrderID.length > 0 && <FontAwesomeIcon icon={faArrowU} flip="horizontal" />}
+                                {selectedOnDeliveryOrderID.length > 0 && <FontAwesomeIcon icon={faArrowUp} flip="horizontal" />}
                             </button>}
                     </div>
 
@@ -158,11 +169,11 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                             </thead>
                             <tbody >
                                 {orders && orders.length > 0 && orders.filter(order => order.status === "CLOSEDWAITINGPAYMENT").map((order, index) => (
-                                    <tr key={order.id} className={selectedOnDeliveryOrderID === order.id ? "table-active" : ""}
+                                    <tr key={order.id} className={selectedOnDeliveryOrderID.includes(order.id) ? "table-active" : ""}
                                         onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                         <td>{order.orderNumberOnShift}</td>
                                         <td>{order.customer?.customerName || "No Name"}</td>
-                                        <td>{Math.floor((Date.now() - Date.parse(order.openOrderDateUtc + "Z")) / 60000)}</td>
+                                        <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -194,7 +205,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                             onClick={() => { setSelectedOnDeliveryOrderID(false); setSelectedCookingOrderID([]); setChangeStatusOrderModal(false); }} disabled={processing}>Cancel</button>
 
                         <button style={{ backgroundColor: 'rgba(15, 107, 56, 0)', border: "none", color: "rgba(38, 233, 35, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
-                            onClick={() => { if (selectedCookingOrderID.length > 0) dispatchOrders(); if (selectedOnDeliveryOrderID.length > 0) reopenOrders(); }} disabled={processing}>Yes</button>
+                            onClick={() => { if (selectedCookingOrderID.length > 0) dispatchOrders(); if (selectedOnDeliveryOrderID.length > 0) openOrdersAgain(); }} disabled={processing}>Yes</button>
                     </div>}
 
                     {processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '50px', marginTop: '10px' }}>

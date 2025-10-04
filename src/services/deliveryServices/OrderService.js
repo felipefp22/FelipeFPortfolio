@@ -74,3 +74,26 @@ export async function closeOrder( orderID, clientSaidNoTax, discountValue ) {
     }
 }
 
+export async function reopenOrder( orderID ) {
+
+    const postData = {
+        companyID: localStorage.getItem('companyOperatingID'),
+        orderID: orderID
+    };
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/order/reopen-order`, postData,
+            {
+                headers: {
+
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
+
