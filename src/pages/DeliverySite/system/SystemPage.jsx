@@ -26,8 +26,24 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
     const [selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID] = useState([]);
 
     const [changeStatusOrderModal, setChangeStatusOrderModal] = useState(false);
-    const [cancelOrderModal, setCancelOrderModal] = useState(false);
+    const [selectedOrderToCancel, setSelectedOrderToCancel] = useState(null);
+
     const [processing, setProcessing] = useState(false);
+
+    async function findOrderToCancel() {
+        let orderFound;
+        if (selectedCookingOrderID.length > 0 && selectedOnDeliveryOrderID.length > 0) return;
+        if (selectedCookingOrderID.length === 1) orderFound = orders.find(order => order.id === selectedCookingOrderID[0]);
+        if (selectedOnDeliveryOrderID.length === 1) orderFound = orders.find(order => order.id === selectedOnDeliveryOrderID[0]);
+
+        setSelectedOrderToCancel(orderFound);
+    }
+
+    async function closeOrderToCancel() {
+        setSelectedCookingOrderID([]);
+        setSelectedOnDeliveryOrderID([]);
+        setSelectedOrderToCancel(null);
+    }
 
     async function getCompanyOperationData(retryCount = 0) {
         const response = await getCompanyOperation();
@@ -98,10 +114,6 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
         setProcessing(false);
     }
 
-    useEffect(() => {
-        console.log("Selected on delivery Orders: ", selectedOnDeliveryOrderID);
-    }, [selectedOnDeliveryOrderID]);
-
     async function openOrdersAgain() {
         setProcessing(true);
         await Promise.all(
@@ -127,9 +139,9 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                         <h3 style={{ color: "white", marginBottom: '10px' }}>Orders Cooking</h3>
                         <button style={{
                             backgroundColor: '#c90000ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px',
-                            visibility: (selectedCookingOrderID.length === 1) ? 'visible' : 'hidden'
+                            visibility: ((selectedCookingOrderID.length === 1 && selectedOnDeliveryOrderID.length === 0) || (selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length === 1)) ? 'visible' : 'hidden'
                         }}
-                            onClick={() => setCancelOrderModal(true)}>
+                            onClick={() => findOrderToCancel()}>
                             <span>Cancel</span>
                         </button>
                     </div>
@@ -226,8 +238,8 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
                 </div>
             </div>}
 
-            {cancelOrderModal && <div className="myModal" style={{ zIndex: 100 }} >
-                <CancelOrder close={() => setCancelOrderModal(false)} selectedCookingOrderID={selectedCookingOrderID} getCompanyOperationData={getCompanyOperationData} />
+            {selectedOrderToCancel && <div className="myModal" style={{ zIndex: 100 }} >
+                <CancelOrder close={() => closeOrderToCancel()} selectedOrderToCancel={selectedOrderToCancel} getShiftOperationData={getShiftOperationData} />
             </div>}
         </>
     );

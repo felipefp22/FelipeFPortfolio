@@ -108,7 +108,7 @@ export async function cancelOrder( orderID, managerID, adminPassword, cancellati
         cancellationReason: cancellationReason
     };
     try {
-        const response = await axiosInstanceRestaurantSystem.delete(`/order/cancel-order`, postData,
+        const response = await axiosInstanceRestaurantSystem.put(`/order/cancel-order`, postData,
             {
                 headers: {
 
