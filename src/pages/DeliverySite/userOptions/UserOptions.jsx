@@ -7,7 +7,7 @@ import companiesGroupLogo from '../../../assets/companiesGroupLogo.png';
 import restaurantLogo from '../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import ConfirmEmail from "./components/confirmEmail";
+import ConfirmEmail from "./components/ConfirmEmail";
 
 
 export default function UserOptions() {
