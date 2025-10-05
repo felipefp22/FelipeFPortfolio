@@ -10,7 +10,7 @@ import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import ConfirmEmail from "./components/ConfirmEmail";
 
 
-export default function UserOptions() {
+export default function UserOptions( { setCompanySelected } ) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [companiesCoumpound, setCompaniesCoumpound] = useState([]);
@@ -56,8 +56,8 @@ export default function UserOptions() {
                         <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%' }}>
 
                             {companiesCoumpound?.map((compound, index) => (
-                                <div>
-                                    <div key={index} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: "rgba(255, 255, 255, 0.2)", padding: '10px', borderRadius: '6px', }}
+                                <div key={index}>
+                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: "rgba(255, 255, 255, 0.2)", padding: '10px', borderRadius: '6px', }}
                                         onClick={() => setSelectedCompaniesCoumpound(selectedCompaniesCoumpound === compound.id ? null : compound.id)}>
 
                                         <img src={companiesGroupLogo} alt="Logo" style={{
@@ -72,7 +72,8 @@ export default function UserOptions() {
                                     </div>
                                     {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
                                         {compound?.companies?.map((comp, idx) => (
-                                            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }} onClick={() => { localStorage.setItem('companyOperatingID', comp.id); window.dispatchEvent(new CustomEvent("settedCompany")); }}>
+                                            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
+                                                onClick={() => { localStorage.setItem('companyOperatingID', comp.id); setCompanySelected(comp.id);  }}>
                                                 <img src={restaurantLogo} alt="Logo" style={{
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
