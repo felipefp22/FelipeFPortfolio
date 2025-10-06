@@ -231,7 +231,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
             </div >
 
             {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{ zIndex: 9 }} >
-                <NewOrderModal closeNewOrderModal={() => { setNewOrderModal(false); setHaveModalOpen(false); }} />
+                <NewOrderModal closeNewOrderModal={() => { setNewOrderModal(false); setHaveModalOpen(false); }} getShiftOperationData={getShiftOperationData} />
             </div>}
 
             {changeStatusOrderModal && <div className="myModal" style={{ zIndex: 100 }} >

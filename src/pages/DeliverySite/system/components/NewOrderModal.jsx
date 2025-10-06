@@ -1,7 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
 import { getAllCompanyCustomers } from "../../../../services/deliveryServices/CustomerSevice";
@@ -9,7 +9,7 @@ import { getAllProductsCategories } from "../../../../services/deliveryServices/
 import { createOrder } from "../../../../services/deliveryServices/OrderService";
 import { useSelector } from "react-redux";
 
-export default function NewOrderModal({ closeNewOrderModal }) {
+export default function NewOrderModal({ closeNewOrderModal, getShiftOperationData }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [disabled, setDisabled] = useState(false);
@@ -74,12 +74,15 @@ export default function NewOrderModal({ closeNewOrderModal }) {
     };
 
     async function saveOrder() {
+        setDisabled(true);
         if (!customerSelectedToNewOrder) {
             alert("Select a customer to create the order");
+            setDisabled(false);
             return;
         }
         if (selectedProductsToAdd.length === 0) {
             alert("Add at least one item to create the order");
+            setDisabled(false);
             return;
         }
 
@@ -102,6 +105,8 @@ export default function NewOrderModal({ closeNewOrderModal }) {
         );
 
         if (response?.status === 200) {
+            await getShiftOperationData();
+            setDisabled(false);
             closeNewOrderModal();
         }
     }
@@ -125,7 +130,7 @@ export default function NewOrderModal({ closeNewOrderModal }) {
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowNewCustomerModal(true)}>Create new customer</button>
+                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>Create new customer</button>
                     </div>
 
                     <span style={{ fontWeight: "600" }}>Customer</span>
@@ -185,7 +190,7 @@ export default function NewOrderModal({ closeNewOrderModal }) {
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowSelectItemsModal(true)}>ADD Item</button>
+                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Item</button>
                         </div>
                         <span style={{ fontWeight: "600", marginBottom: '5px' }}>Itens on Order</span>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', border: '1px solid lightgray' }}>
@@ -216,8 +221,10 @@ export default function NewOrderModal({ closeNewOrderModal }) {
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => closeNewOrderModal()}>Cancel Order</button>
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => saveOrder()}>Save Order</button>
+                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => closeNewOrderModal()} disabled={disabled}>Cancel Order</button>
+
+                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }}
+                                onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', margin: '0 30px', }} /> : 'Save Order'}</button>
                         </div>
                     </div>
                 </div>

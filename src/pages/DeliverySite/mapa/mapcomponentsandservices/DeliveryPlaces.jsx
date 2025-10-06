@@ -66,6 +66,7 @@ function MarkerLabel({ label, markerColor, minutes }) {
             fontSize: "21px",
             borderRadius: "50%",
             WebkitTextStroke: "1.5px black",
+            boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)'
         }}>
             {minutes > 60 && <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: '18px', position: 'absolute', bottom: 30, right: 0, textShadow: '0px 2px 100px rgba(0,0,0,0.4)', zIndex: 1000 }} />}
             {minutes > 70 && <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: '30px', position: 'absolute', bottom: 28, right: 0, textShadow: '0px 2px 100px rgba(0,0,0,0.4)', zIndex: 1000 }} />}
