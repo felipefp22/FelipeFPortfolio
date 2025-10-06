@@ -57,9 +57,9 @@ export default function UserOptions({ setCompanySelected }) {
                     {isEmailConfirmed && <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
                         <button style={{
                             backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px',
-                            opacity: companiesCoumpound.length > 0 ? 0.5 : 1, cursor: companiesCoumpound.length > 0 ? 'not-allowed' : 'pointer',
+                            opacity: companiesCoumpound?.length > 0 ? 0.5 : 1, cursor: companiesCoumpound?.length > 0 ? 'not-allowed' : 'pointer',
                         }}
-                            onClick={() => { setCreateCompanyModal(true); }} disabled={companiesCoumpound.length > 0}>Create Group and Company</button>
+                            onClick={() => { setCreateCompanyModal(true); }} disabled={companiesCoumpound?.length > 0}>Create Group and Company</button>
 
                         <p style={{ fontWeight: 'bold', }}>Your Companies Groups:</p>
                         <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%' }}>

@@ -15,7 +15,7 @@ export default function CreateGroupAndCompanyModal({ close, getShiftOperationDat
         const response = await createDefaultApiDemonstration();
 
         console.log(response);
-        if (response?.status === 200) {
+        if (response?.status === 204) {
             await getShiftOperationData();
             close();
         }
