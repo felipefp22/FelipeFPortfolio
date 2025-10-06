@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { confirmAccount, requestConfirmationCode, updateLocalStorage } from "../../../../services/deliveryServices/AuthService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 export default function ConfirmEmail() {
 
@@ -10,6 +12,8 @@ export default function ConfirmEmail() {
     const [counter, setCounter] = useState(0);
     const [disabledCode, setDisabledCode] = useState(false);
     const [successShowCheck, setSuccessShowCheck] = useState(false);
+    const [successShowCheckSeal, setSuccessShowCheckSeal] = useState(false);
+
 
     async function handleRequestConfirmationCode() {
         if (disabledText) return;
@@ -38,6 +42,7 @@ export default function ConfirmEmail() {
             setTimeout(() => {
                 updateLocalStorage(response.data);
                 fetchUserInfos();
+                setact
             }, 2000);
 
         } else {
@@ -89,6 +94,17 @@ export default function ConfirmEmail() {
         }
     };
 
+    useEffect(() => {
+        if (successShowCheck === true) {
+            setTimeout(() => {
+                setSuccessShowCheckSeal(true)
+            }, 100);
+        }
+        else {
+            setSuccessShowCheckSeal(false)
+        }
+    }, [successShowCheck]);
+
     return (
         <>
             <div style={{
@@ -101,7 +117,7 @@ export default function ConfirmEmail() {
                         onClick={() => handleRequestConfirmationCode()}>Request Confirmation Email</button>
                 </div>}
 
-                {wasSent && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center' }} >
+                {wasSent && !successShowCheck && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center' }} >
                     <span style={{ fontWeight: 'bold', margin: '10px 0px' }}>Confirmation Email Sent!</span>
 
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", width: "100%", }} >
@@ -114,6 +130,14 @@ export default function ConfirmEmail() {
                     <span style={{ fontSize: 18, color: "black", lineHeight: "20px", marginTop: 26, marginBottom: 20, textDecoration: "underline", cursor: disabledCode || disabledText ? "default" : "pointer", color: disabledText || disabledCode ? "gray" : "white", }}
                         onClick={() => { if (!disabledCode) handleRequestConfirmationCode() }}>{wasSent ? (disabledText ? `Você pode reenviar Codigo em (${counter})` : "Não recebeu codigo? Reenviar Codigo!") : " "}</span>
                 </div>}
+
+                {wasSent && successShowCheck && <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+                    <p>Password updated successfully!</p>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 50, borderRadius: '50%', backgroundColor: 'green', width: '160px', height: '160px', opacity: !successShowCheckSeal ? 0 : 1, transition: 'opacity 0.6s ease-out', }} >
+                        <FontAwesomeIcon icon={faCheck} style={{ color: 'white', fontSize: '80px' }} />
+                    </div>
+                </div>}
+
             </div>
         </>
     );

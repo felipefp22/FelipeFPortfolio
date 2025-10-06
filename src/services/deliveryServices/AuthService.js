@@ -108,7 +108,7 @@ export async function logoutOnBackEnd() {
 
 export async function requestPasswordReset(email) {
     try {
-        const response = await axiosInstanceRestaurantSystemWithoutAuth.patch(`/auth/request-reset-password`, postData,
+        const response = await axiosInstanceRestaurantSystemWithoutAuth.patch(`/auth/request-reset-password`, {},
             {
                 headers: {
                     'emailToResetPassword': email,
@@ -147,8 +147,7 @@ export async function resetPassword(newPassword, confirmPassword, tokenID) {
         newPassword,
         confirmPassword,
     };
-
-
+ console.log(postData);
     try {
         const response = await axiosInstanceRestaurantSystemWithoutAuth.put(`/auth/reset-password`, postData,
             {

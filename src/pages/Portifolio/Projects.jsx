@@ -73,7 +73,7 @@ export default function Projects({ activeMenu }) {
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }} >
                         <span style={{ fontWeight: 'bold', fontSize: isDesktopView ? '22px' : '19px', marginBottom: '5px', cursor: 'pointer', }} onClick={() => window.open("https://felipefp22.github.io/FelipeFPortfolio/delivery/", "_blank")}>{t("projects.restaurantDelivery.title")}</span>
                         <img src={restaurantSystemPhoto} alt="Logo" style={{ width: isDesktopView ? 300 : 250, marginBottom: '15px', cursor: 'pointer', borderRadius: '6px' }}
-                            onClick={() => { window.open(`${window.location.origin}/FelipeFPortfolio/delivery/`, "_blank"); console.log(`${window.location.origin}/FelipeFPortfolio/delivery/`); }} />
+                            onClick={() => { window.open(`${window.location.origin}/FelipeFPortfolio/delivery/`, "_blank"); }} />
 
                         <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '10px' }}>
                             <img src={javaLogo} alt="Logo" style={{

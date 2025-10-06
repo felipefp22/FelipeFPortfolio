@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login, signUp, updateLocalStorage } from '../../../services/deliveryServices/AuthService.js';
 import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default function RegisterPage({ setActualPage, email, setEmail, password, setPassword }) {
   const navigate = useNavigate();
@@ -11,7 +13,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [disableEnter, setDisableEnter] = useState(false);
-  const [showLginErrosMessage, setShowLginErrosMessage] = useState(false);
+  const [showLoginErrorsMessage, setShowLoginErrorsMessage] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -31,13 +33,20 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
       errorObj.email = 'Email is Required';
       error = true;
       setDisableEnter(false);
-
     }
     if (password === '') {
-      errorObj.password = 'Password is Required';
       error = true;
       setDisableEnter(false);
+    }
+    if (confirmPassword === '') {
+      error = true;
+      setDisableEnter(false);
+    }
 
+    if (password !== confirmPassword) {
+      errorObj.password = 'Passwords do not match';
+      error = true;
+      setDisableEnter(false);
     }
     setErrors(errorObj);
     if (error) {
@@ -45,18 +54,22 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
       return;
     }
 
-    const loginData = await signUp(name, email, password)
-    if (loginData && loginData.access_token) {
-      await updateLocalStorage(loginData);
+    const response = await signUp(name, email, password)
+    if (response && response.data.access_token) {
+      await updateLocalStorage(response.data);
       // await GetOwnProfileDatas()
 
     } else {
-      // alertIncorrectLoginDatas()
-      setShowLginErrosMessage(true);
+      console.log("Error on sign up", response.data);
+      if (response?.data === 'EmailAlreadyOnUse') {
+        setShowLoginErrorsMessage('Email already in use');
+      } else {
+        setShowLoginErrorsMessage('Error creating account, try again later');
+      }
       setDisableEnter(false);
 
       setTimeout(() => {
-        setShowLginErrosMessage(false);
+        setShowLoginErrorsMessage(false);
       }, 2000); // 2000 milliseconds = 2 seconds
     }
   }
@@ -66,10 +79,10 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
       <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', justifyContent: 'center', justifyItems: 'center', alignContent: 'center', alignItems: 'center', padding: 5, flexGrow: 1, }}>
         <div style={{
           display: 'flex', flexDirection: 'column', minWidth: "350px", width: "auto", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-          color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center',
+          color: 'white', padding: '10px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center',
         }}>
           <div style={{ maxWidth: '450px', width: '96%' }}>
-            <h2 >Sign Up With</h2>
+            <h2 style={{ color: 'rgba(32, 248, 58, 1)' }}>Sign Up With</h2>
             <GoogleLogin />
             <p style={{ color: 'white', marginTop: '10px', }}><span>or</span></p>
 
@@ -85,60 +98,74 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
             )} */}
 
             <form onSubmit={onLogin}>
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
                 <div style={{ display: 'flex', width: '90%', flexDirection: 'row', justifyContent: 'left', textAlign: 'left' }}>
                   <label>Name</label>
-                  <span style={{ color: 'red' }}> *</span>
+                  {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
-                <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '28px' }} type="text" value={name} onChange={(e) => { setName(e.target.value); }} />
-                {errors.name && <div>{errors.name}</div>}
+                <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '30px' }} type="text" value={name} onChange={(e) => { setName(e.target.value); e.target.setCustomValidity(''); }} minLength={3} required
+
+                  onInvalid={(e) => {
+                    if (e.target.validity.valueMissing) { e.target.setCustomValidity('Name is required.'); }
+                    else if (e.target.validity.tooShort) { e.target.setCustomValidity('Name must be at least 3 characters.'); } else { e.target.setCustomValidity('Enter a valid name.'); }
+                  }} />
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
                 <div style={{ display: 'flex', width: '90%', flexDirection: 'row', justifyContent: 'left', textAlign: 'left' }}>
                   <label>Email</label>
-                  <span style={{ color: 'red' }}> *</span>
+                  {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
-                <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '28px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
+                <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '30px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }} required
                   onInvalid={(e) => e.target.setCustomValidity('Tipe a valid email.')}
                 />
-                {errors.email && <div>{errors.email}</div>}
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
                 <div style={{ display: 'flex', flexDirection: 'row', width: '90%' }}>
                   <label>Password</label>
-                  <span style={{ color: 'red' }}> *</span>
+                  {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
-                <div style={{ width: '100%' }} >
-                  <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '28px' }} type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
-                  <span style={{ cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}> <i className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} /> </span>
+                <div style={{ position: 'relative', width: '100%' }} >
+                  <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '30px' }} type={showPassword ? 'text' : 'password'} value={password} minLength={6} required
+                    onChange={(e) => { setPassword(e.target.value); e.target.setCustomValidity(''); }}
+                    onInvalid={(e) => {
+                      if (e.target.validity.valueMissing) { e.target.setCustomValidity('Password is required.'); }
+                      else if (e.target.validity.tooShort) { e.target.setCustomValidity('Password must be at least 6 characters.'); } else { e.target.setCustomValidity('Enter a valid password.'); }
+                    }} />
+                  <span style={{ position: 'absolute', right: '25px', top: 3, cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}> <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{ color: 'black' }} /> </span>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
                 <div style={{ display: 'flex', flexDirection: 'row', width: '90%' }}>
                   <label>Confirm Password</label>
-                  <span style={{ color: 'red' }}> *</span>
+                  {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
-                <div style={{ width: '100%' }} >
-                  <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '28px' }} type={showPassword ? 'text' : 'password'} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                  <span style={{ cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}> <i className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} /> </span>
+                <div style={{ position: 'relative', width: '100%' }} >
+                  <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '30px' }} type={showPassword ? 'text' : 'password'} value={confirmPassword} minLength={6} required
+                    onChange={(e) => { setConfirmPassword(e.target.value); e.target.setCustomValidity(''); }}
+                    onInvalid={(e) => {
+                      if (e.target.validity.valueMissing) { e.target.setCustomValidity('Password is required.'); }
+                      else if (e.target.validity.tooShort) { e.target.setCustomValidity('Password must be at least 6 characters.'); } else { e.target.setCustomValidity('Enter a valid password.'); }
+                    }} />
+                  <span style={{ position: 'absolute', right: '25px', top: 3, cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}> <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{ color: 'black' }} /> </span>
                 </div>
                 {errors.password && <div >{errors.password}</div>}
               </div>
 
               <div>
-                <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px' }}> {disableEnter ? <Spinner animation="border" role="status" /> : "Register"} </button>
+                <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px' }}> {disableEnter ?
+                  <Spinner animation="border" role="status" style={{ width: '25px', height: '25px' }} /> : "Register"} </button>
               </div>
 
 
             </form>
-            <div>
-              <p>Already have account? <Link onClick={() => setActualPage('login')} style={{ color: 'white' }}>Login</Link></p>
+            <div style={{ marginTop: '10px' }}>
+              <p>Already have account? <Link onClick={() => setActualPage('login')} style={{ color: 'white', }}>Login</Link></p>
             </div>
-            <div style={{ visibility: showLginErrosMessage ? 'visible' : 'hidden', transition: 'visibility 0.5s ease-in-out', }}>
-              <strong style={{ color: 'red' }}>Erro! </strong> .
+            <div style={{ visibility: showLoginErrorsMessage ? 'visible' : 'hidden',}}>
+              <strong style={{ color: 'red' }}>Error! </strong> {showLoginErrorsMessage + '.'}
             </div>
 
           </div>

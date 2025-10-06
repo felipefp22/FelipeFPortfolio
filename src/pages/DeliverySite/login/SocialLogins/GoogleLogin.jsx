@@ -33,7 +33,7 @@ export default function GoogleLogin({ setPage, setSocialLoginUrl }) {
     return (
         <>
             <div onClick={handleGoogleLogin} style={{ cursor: "pointer", marginTop: 30 }}>
-                <FontAwesomeIcon icon={faGoogle} style={{ fontSize: 30 }} />
+                <FontAwesomeIcon icon={faGoogle} style={{ fontSize: 30, }} />
             </div>
         </>
     );
