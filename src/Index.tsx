@@ -9,6 +9,7 @@ import PortfolioPage from './pages/PortfolioPage';
 import LayoutPortifolio from './pages/LayoutPortifolio';
 import LayoutPortifolio2 from './pages/LayoutPortifolio2';
 import OAuthRedirectPage from './pages/DeliverySite/login/OAuthRedirectPage';
+import MyPhoto from './pages/MyPhoto';
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -50,8 +51,11 @@ export default function Index() {
   return (
     <Router>
       <Routes>
+          <Route path="/FelipeFPortfolio/myphoto" element={<MyPhoto />} />
+
         <Route path="/" element={<LayoutPortifolio />}>
           <Route path="/*" element={<PortfolioPage />} />
+
         </Route>
         {!isAuthenticated &&
           <Route path="/" element={<LayoutDelivery />}>
