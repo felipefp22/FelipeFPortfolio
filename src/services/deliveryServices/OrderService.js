@@ -123,3 +123,29 @@ export async function cancelOrder( orderID, managerID, adminPassword, cancellati
         if (error?.response) return error.response;
     }
 }
+
+export async function completeOrders( orderID ) {
+
+    const postData = {
+        companyID: localStorage.getItem('companyOperatingID'),
+        orderID: orderID,
+    };
+
+    console.log("Completing orders:", postData);
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/order/confirm-paid-order`, postData,
+            {
+                headers: {
+
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
+

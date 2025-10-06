@@ -116,7 +116,7 @@ export default function BasePage() {
             onClick={() => logOutAction()}>{<FontAwesomeIcon icon={faPowerOff} />}</button>
 
           <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 50, }} >
-            <UserOptions setCompanySelected={setCompanySelected} />
+            <UserOptions setCompanySelected={setCompanySelected}  />
           </div>
         </div>}
 
@@ -133,7 +133,7 @@ export default function BasePage() {
             {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>}
 
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexGrow: 1, marginTop: 50, }} >
-            <SystemPage screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} />
+            <SystemPage screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />
           </div>
         </div>}
 
