@@ -17,7 +17,7 @@ export default function MapaDelivery({ }) {
   const [companyLat, setCompanyLat] = useState(null);
   const [companyLng, setCompanyLng] = useState(null);
   const [orders, setOrders] = useState([]);
-  const [zoom, setZoom] = useState(localStorage.getItem('mapZoomLevel') || 15);
+  const [zoom, setZoom] = useState(localStorage.getItem('mapZoomLevel') || 13);
 
   const mapRef = useRef(null); // Referência para o mapa
   const markersRef = useRef(null); // Reference to manage markers
@@ -147,7 +147,9 @@ export default function MapaDelivery({ }) {
             lat: location.latitude,
             lng: location.longitude,
             label: location.orderNum,
-            minutes: Math.round((new Date() - location.orderDate) / 60000)
+            // minutes: Math.round((new Date() - location.orderDate) / 60000)
+            minutes: Math.floor((new Date() - new Date(location.orderDate + 'Z')) / 60000)
+
           });
         }
       });
