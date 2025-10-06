@@ -10,8 +10,8 @@ import './DeliveryCss.css'
 import { getCompanyOperation } from '../../services/deliveryServices/CompanySevice.js';
 import { getShiftOperation, openNewShift } from '../../services/deliveryServices/ShiftService.js';
 import {
-    changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,
-    changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders
+  changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,
+  changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders
 } from '../../redux/companyOperationSlice.js';
 
 
@@ -39,16 +39,14 @@ export default function BasePage() {
   }, []);
 
   useEffect(() => {
-    console.log("Companiselected variable", companySelected);
-    console.log("LocalStorage", localStorage.getItem('companyOperatingID'));
+
   }, [companySelected]);
 
   useEffect(() => {
-    if (!isDesktopView && screenOnFocus === "") {
+    if (isDesktopView === false && screenOnFocus === "") {
       setScreenOnFocus("system");
     }
   }, [isDesktopView]);
-
 
   async function getCompanyOperationData(retryCount = 0) {
     if (!companySelected) return;

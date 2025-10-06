@@ -21,7 +21,6 @@ export default function Index() {
   const verifyAuthentication = async () => {
     setIsLoading(true);
 
-    console.log('Verifying authentication...');
     if (localStorage.getItem('access_token')) {
       setIsAuthenticated(true);
       setIsAdmAuthenticated(localStorage.getItem('isAdmAuthenticated') === 'true' ? true : false);
