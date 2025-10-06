@@ -93,6 +93,7 @@ export default function BasePage() {
 
   useEffect(() => {
     getCompanyOperationData();
+    getShiftOperationData();
   }, [companySelected]);
 
   useEffect(() => {
@@ -116,7 +117,7 @@ export default function BasePage() {
             onClick={() => logOutAction()}>{<FontAwesomeIcon icon={faPowerOff} />}</button>
 
           <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, marginTop: 50, }} >
-            <UserOptions setCompanySelected={setCompanySelected}  />
+            <UserOptions setCompanySelected={setCompanySelected} />
           </div>
         </div>}
 
