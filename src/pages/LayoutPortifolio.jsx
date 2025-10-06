@@ -28,11 +28,8 @@ export default function LayoutPortifolio() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFlipped(prev => {
-        if (prev === 0) return prev + 180;
-        if (prev === 180) return prev - 180;
-        return prev;
-      });
+      if (flipped === 0) setFlipped(prev => prev + 180);
+      if (flipped === 180) setFlipped(prev => prev - 180);
 
       setTimeout(() => {
         setMyImage(prev => (prev === myPhoto ? myNerdPhoto : myPhoto));
@@ -51,7 +48,7 @@ export default function LayoutPortifolio() {
           display: "flex", flexDirection: "column", padding: '0px 0px', alignItems: 'center',
           // alignItems: "center",
         }}>
-          
+
           <div style={{ display: 'flex', width: '100%', justifyContent: 'center', paddingTop: '10px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
             <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '1200px', }} >
 
@@ -61,13 +58,13 @@ export default function LayoutPortifolio() {
                     borderRadius: '50%', border: "5px solid white", backgroundColor: "transparent", width: "360px", height: "360px", display: 'flex', alignItems: 'center',
                     justifyContent: 'center', boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.3)", backgroundColor: 'rgba(0, 0, 0, 0.4)', marginRight: '10px'
                   }} > */}
-                    <img src={myImage} alt="Logo" onClick={() => setSeeImageBig(myImage)} style={{
-                      width: '40vw', maxWidth: "350px", height: "40vw", maxHeight: "350px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', border: "2px solid white",
-                      transform: `rotateY(${flipped}deg)`, transition: `transform ${secondsFlipAnimation}s`, boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.8)",
-                    }} />
+                  <img src={myImage} alt="Logo" onClick={() => setSeeImageBig(myImage)} style={{
+                    width: '40vw', maxWidth: "350px", height: "40vw", maxHeight: "350px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', border: "2px solid white",
+                    transform: `rotateY(${flipped}deg)`, transition: `transform ${secondsFlipAnimation}s`, boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.8)",
+                  }} />
                   {/* </div> */}
 
-                  <div style={{ display: 'flex', flexDirection: 'column',  width: '100%', alignItems: 'center', height: '100%', justifyContent: 'center' }} >
+                  <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', height: '100%', justifyContent: 'center' }} >
 
                     {/* <> --- Language */}
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', marginBottom: '40px', justifyContent: 'right' }} >
@@ -77,7 +74,7 @@ export default function LayoutPortifolio() {
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', }} onClick={() => changeLanguage('en')}>
                         <img src={usaFlag} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', border: i18n.language?.split("-")[0] === 'en' ? "2px solid white" : "2px solid transparent" }} />
-                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language?.split("-")[0] === 'en' ? 'underline' : 'none',  }}>{"EN"}</h4>
+                        <h4 style={{ marginLeft: '10px', textDecoration: i18n.language?.split("-")[0] === 'en' ? 'underline' : 'none', }}>{"EN"}</h4>
                       </div>
                     </div>
 
@@ -91,7 +88,7 @@ export default function LayoutPortifolio() {
                         <img src={linkedinLogo} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', backgroundColor: "black", border: "2px solid white" }} />
                         <h4 style={{ marginLeft: '10px', textDecoration: 'underline', fontSize: isDesktopView ? '22px' : '16px' }}>{"LinkedIn"}</h4>
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center',  }} onClick={() => window.open("https://github.com/FelipeFP22", "_blank")} >
+                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', }} onClick={() => window.open("https://github.com/FelipeFP22", "_blank")} >
                         <img src={gitHubLogo2} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', backgroundColor: "white", border: "2px solid white" }} />
                         <h4 style={{ marginLeft: '10px', textDecoration: 'underline', fontSize: isDesktopView ? '22px' : '16px' }}>{"GitHub"}</h4>
                       </div>
