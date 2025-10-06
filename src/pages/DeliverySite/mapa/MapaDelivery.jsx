@@ -39,7 +39,11 @@ export default function MapaDelivery({ }) {
       mapRef.current = L.map('mapa').setView([companyLat, companyLng], zoom); // Define a centralização do mapa
 
       // Adiciona uma camada de tiles do OpenStreetMap
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      // L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+      // L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
+      // L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      // L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+      L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
         minZoom: 13,
         maxZoom: 17,
         attribution: '&copy; OpenStreetMap contributors',
@@ -167,15 +171,15 @@ export default function MapaDelivery({ }) {
 
       <div style={{
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(254, 255, 227, 1)', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.36)', borderRadius: '0px 0px 3px 3px', zIndex: 10000,
-        position: 'absolute', bottom: 10, flexWrap: 'wrap', fontSize: isDesktopView ? '16px' : '15px', margin: '0px 5px',  borderRadius: '6px', border: '4px solid #eaa37a47',
+        position: 'absolute', bottom: 10, flexWrap: 'wrap', fontSize: isDesktopView ? '16px' : '15px', margin: '0px 5px', borderRadius: '6px', border: '4px solid #eaa37a47',
       }}>
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', }}>
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(3), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)'}}></div> <span style={{ color: 'black' }}> 1-5  </span></div>
+            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(3), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'black' }}> 1-5  </span></div>
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(8), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)'}}></div> <span style={{ color: 'black' }}> 6-10 </span></div>
+            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(8), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'black' }}> 6-10 </span></div>
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(15), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'black' }}> 11-20 </span></div>
@@ -194,14 +198,18 @@ export default function MapaDelivery({ }) {
 
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(68), 
-              borderRadius: '50%', marginRight: 2, alignContent: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}>
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(68),
+              borderRadius: '50%', marginRight: 2, alignContent: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)'
+            }}>
               <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: isDesktopView ? '18px' : '14px', position: 'absolute', bottom: isDesktopView ? 25 : 20 }} />
             </div> <span style={{ color: 'black' }}> 61-70 </span></div>
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '8px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: "#e40e0e", 
-              borderRadius: '50%', marginRight: 2, border: '4px solid #f36818', boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}>
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: "#e40e0e",
+              borderRadius: '50%', marginRight: 2, border: '4px solid #f36818', boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)'
+            }}>
               <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: isDesktopView ? '25px' : '20px', position: 'absolute', bottom: isDesktopView ? 20 : 15, textShadow: '0px 2px 100px rgba(0,0,0,0.4)' }} />
             </div> <span style={{ color: 'black' }}> 70+ </span></div>
 
