@@ -21,6 +21,9 @@ export default function MapaDelivery({ }) {
 
   const mapRef = useRef(null); // Referência para o mapa
   const markersRef = useRef(null); // Reference to manage markers
+  const mapContainerRef = useRef(null);
+  const lastSize = useRef({ width: 0, height: 0 });
+
 
   useEffect(() => {
     if (companyOperation?.companyLat !== companyLat && companyOperation?.companyLng !== companyLng) {
@@ -75,14 +78,43 @@ export default function MapaDelivery({ }) {
     }
   }, [companyLat, companyLng]);
 
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     if (mapRef.current) {
+  //       mapRef.current.invalidateSize();
+  //     }
+  //   };
+  //   window.addEventListener('resize', handleResize);
+  //   return () => window.removeEventListener('resize', handleResize);
+  // }, []);
+
   useEffect(() => {
-    const handleResize = () => {
-      if (mapRef.current) {
-        mapRef.current.invalidateSize();
+    if (!mapContainerRef.current) return;
+
+
+    const observer = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        const last = lastSize.current;
+
+        // Trigger only when the container grows
+        if (width > last.width || height > last.height) {
+          lastSize.current = { width, height };
+
+          // Wait a bit so CSS finishes resizing before invalidating
+          setTimeout(() => {
+            if (mapRef.current) mapRef.current.invalidateSize();
+          }, 200);
+        } else {
+          // Still update stored size, but don’t invalidate
+          lastSize.current = { width, height };
+        }
       }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    });
+
+    observer.observe(mapContainerRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -164,7 +196,7 @@ export default function MapaDelivery({ }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '99%', width: '99%', paddingTop: 45, overflow: 'hidden', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
 
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden', borderRadius: '6px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden', borderRadius: '6px' }} ref={mapContainerRef}>
         <div id="mapa" style={{ width: '100%', height: '100%' }} />
       </div>
 
@@ -182,8 +214,10 @@ export default function MapaDelivery({ }) {
 
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}>
 
-          <div style={{ padding: '3px', textAlign: 'center', position: 'absolute', left: -4, top: -34, backgroundColor: 'rgba(254, 255, 227, 0.9)', borderRadius: '3px', borderTop: '4px solid #eaa37a47', borderLeft: '4px solid #eaa37a47', 
-            borderRight: '4px solid #eaa37a47', }}>
+          <div style={{
+            padding: '3px', textAlign: 'center', position: 'absolute', left: -4, top: -34, backgroundColor: 'rgba(254, 255, 227, 0.9)', borderRadius: '3px', borderTop: '4px solid #eaa37a47', borderLeft: '4px solid #eaa37a47',
+            borderRight: '4px solid #eaa37a47',
+          }}>
             <span style={{ color: 'black', fontWeight: 'bold', fontSize: '16px' }}>Waiting Time</span>
           </div>
 
