@@ -172,14 +172,20 @@ export default function MapaDelivery({ }) {
         position: 'absolute', bottom: 200, right: 10, width: '45px', height: '45px', backgroundColor: 'rgba(254, 255, 227, 1)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000,
         borderRadius: 50, boxShadow: '2px 4px 6px rgba(0, 0, 0, 0.36)', cursor: 'pointer', border: '4px solid #eaa37a47',
       }} onClick={() => { recenterMap() }}>
-        <FontAwesomeIcon icon={faCrosshairs} style={{ zIndex: 1001, color: 'rgba(0, 0, 0, 0.6)', fontSize: '32px' }} />
+        <FontAwesomeIcon icon={faCrosshairs} style={{ zIndex: 100, color: 'rgba(0, 0, 0, 0.6)', fontSize: '32px' }} />
       </div>
 
       <div style={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(254, 255, 227, 1)', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.36)', borderRadius: '0px 0px 3px 3px', zIndex: 10000,
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(254, 255, 227, 1)', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.36)', borderRadius: '0px 0px 3px 3px', zIndex: 1000,
         position: 'absolute', bottom: 10, flexWrap: 'wrap', fontSize: isDesktopView ? '16px' : '15px', margin: '0px 5px', borderRadius: '6px', border: '4px solid #eaa37a47',
       }}>
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', }}>
+
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}>
+
+          <div style={{ padding: '3px', textAlign: 'center', position: 'absolute', left: -4, top: -34, backgroundColor: 'rgba(254, 255, 227, 0.9)', borderRadius: '3px', borderTop: '4px solid #eaa37a47', borderLeft: '4px solid #eaa37a47', 
+            borderRight: '4px solid #eaa37a47', }}>
+            <span style={{ color: 'black', fontWeight: 'bold', fontSize: '16px' }}>Waiting Time</span>
+          </div>
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(3), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'black' }}> 1-5  </span></div>
