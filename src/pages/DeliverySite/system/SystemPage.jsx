@@ -180,7 +180,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                                 <tr>
                                     <th style={{ width: "40px" }}>Num</th>
                                     <th>Customer</th>
-                                    {/* <th>Minutes</th> */}
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody >
@@ -188,6 +188,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                                     <tr key={order.id} >
                                         <td>{order.orderNumberOnShift}</td>
                                         <td>{order.customer?.customerName || "No Name"}</td>
+                                        <td>{order.status}</td>
                                         {/* <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td> */}
                                     </tr>
                                 ))}
@@ -211,7 +212,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                                 <tr>
                                     <th style={{ width: "40px" }}>Num</th>
                                     <th>Customer</th>
-                                    <th>Minutes</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody >
@@ -219,7 +220,8 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                                     <tr key={order.id} >
                                         <td>{order.orderNumberOnShift}</td>
                                         <td>{order.customer?.customerName || "No Name"}</td>
-                                        <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td>
+                                        <td>{order.status}</td>
+                                        {/* <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td> */}
                                     </tr>
                                 ))}
                             </tbody>
