@@ -5,7 +5,7 @@ import restaurantLogo from '../../../assets/restaurantLogo.png'; // Import the r
 import importedVariables from '../../../assets/myVariables.json'; // Import the JSON file directly
 import { PutDeliveryPlaces, selectMarkerColor } from './mapcomponentsandservices/DeliveryPlaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFireFlameCurved } from '@fortawesome/free-solid-svg-icons';
+import { faCrosshairs, faFireFlameCurved } from '@fortawesome/free-solid-svg-icons';
 import { filterLoccationsOverLaping, sanitizeLatLng } from './mapcomponentsandservices/ManageOverlapPoints';
 import { useSelector } from 'react-redux';
 import "leaflet/dist/leaflet.css";
@@ -122,12 +122,11 @@ export default function MapaDelivery({ }) {
     }
   };
 
-  // const centralizarMapa = () => {
-  //   // Centraliza o mapa na posição especificada
-  //   if (mapRef.current) {
-  //     mapRef.current.setView([companyLat, companyLng], zoom);
-  //   }
-  // };
+  const recenterMap = () => {
+    if (mapRef.current) {
+      mapRef.current.setView([companyLat, companyLng], zoom);
+    }
+  };
 
   // const handleZoomChange = (e) => {
   //   setZoom(Number(e.target.value)); // Update the zoom value
@@ -167,6 +166,13 @@ export default function MapaDelivery({ }) {
 
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden', borderRadius: '6px' }}>
         <div id="mapa" style={{ width: '100%', height: '100%' }} />
+      </div>
+
+      <div style={{
+        position: 'absolute', bottom: 200, right: 10, width: '45px', height: '45px', backgroundColor: 'rgba(254, 255, 227, 1)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000,
+        borderRadius: 50, boxShadow: '2px 4px 6px rgba(0, 0, 0, 0.36)', cursor: 'pointer', border: '4px solid #eaa37a47',
+      }} onClick={() => { recenterMap() }}>
+        <FontAwesomeIcon icon={faCrosshairs} style={{ zIndex: 1001, color: 'rgba(0, 0, 0, 0.6)', fontSize: '32px' }} />
       </div>
 
       <div style={{
