@@ -8,9 +8,10 @@ import restaurantLogo from '../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import ConfirmEmail from "./components/ConfirmEmail";
+import CreateGroupAndCompanyModal from "../system/components/CreateGroupAndCompanyModal";
 
 
-export default function UserOptions( { setCompanySelected } ) {
+export default function UserOptions({ setCompanySelected }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [companiesCoumpound, setCompaniesCoumpound] = useState([]);
@@ -21,6 +22,8 @@ export default function UserOptions( { setCompanySelected } ) {
     const [isEmailConfirmed, setIsEmailConfirmed] = useState(localStorage.getItem('isEmailConfirmed') === 'true' ? true : false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState(localStorage.getItem('userLoggedEmail') || "");
+
+    const [createCompanyModal, setCreateCompanyModal] = useState(false);
 
     useEffect(() => {
         fetchUserInfos();
@@ -51,9 +54,16 @@ export default function UserOptions( { setCompanySelected } ) {
 
                     {!isEmailConfirmed && <ConfirmEmail fetchUserInfos={() => fetchUserInfos()} />}
 
-                    {isEmailConfirmed && <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }}>
+                    {isEmailConfirmed && <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
+                        <button style={{
+                            backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px',
+                            opacity: companiesCoumpound.length > 0 ? 0.5 : 1, cursor: companiesCoumpound.length > 0 ? 'not-allowed' : 'pointer',
+                        }}
+                            onClick={() => { setCreateCompanyModal(true); }} disabled={companiesCoumpound.length > 0}>Create Group and Company</button>
+
                         <p style={{ fontWeight: 'bold', }}>Your Companies Groups:</p>
                         <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%' }}>
+
 
                             {companiesCoumpound?.map((compound, index) => (
                                 <div key={index}>
@@ -73,7 +83,7 @@ export default function UserOptions( { setCompanySelected } ) {
                                     {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
                                         {compound?.companies?.map((comp, idx) => (
                                             <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
-                                                onClick={() => { localStorage.setItem('companyOperatingID', comp.id); setCompanySelected(comp.id);  }}>
+                                                onClick={() => { localStorage.setItem('companyOperatingID', comp.id); setCompanySelected(comp.id); }}>
                                                 <img src={restaurantLogo} alt="Logo" style={{
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
@@ -89,6 +99,10 @@ export default function UserOptions( { setCompanySelected } ) {
                         </div>
                     </div>}
                 </div>
+
+                {createCompanyModal && <div className="myModal" style={{ zIndex: 100 }} >
+                    <CreateGroupAndCompanyModal close={() => setCreateCompanyModal(false)} getShiftOperationData={() => getShiftOperationData()} />
+                </div>}
             </div >
         </>
     );

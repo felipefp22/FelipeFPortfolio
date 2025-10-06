@@ -18,3 +18,21 @@ export async function getUserInfos() {
         if (error?.response) return error.response;
     }
 }
+
+export async function createDefaultApiDemonstration() {
+
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/user-actions/create-default-api-demonstration`, {},
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
