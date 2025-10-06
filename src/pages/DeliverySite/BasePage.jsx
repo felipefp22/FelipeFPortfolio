@@ -5,11 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignJustify, faArrowLeft, faArrowRight, faLeftRight, faMapLocationDot, faPowerOff, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import UserOptions from './userOptions/UserOptions.jsx';
 import { logOutAction } from '../../services/deliveryServices/AuthService.js';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './DeliveryCss.css'
+import { getCompanyOperation } from '../../services/deliveryServices/CompanySevice.js';
+import { getShiftOperation, openNewShift } from '../../services/deliveryServices/ShiftService.js';
+import {
+    changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,
+    changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders
+} from '../../redux/companyOperationSlice.js';
 
 
 export default function BasePage() {
+  const dispatch = useDispatch();
   const isDesktopView = useSelector((state) => state.view.isDesktopView);
   const [screenOnFocus, setScreenOnFocus] = useState("");
   const [companySelected, setCompanySelected] = useState(localStorage.getItem('companyOperatingID'));
@@ -41,6 +48,65 @@ export default function BasePage() {
       setScreenOnFocus("system");
     }
   }, [isDesktopView]);
+
+
+  async function getCompanyOperationData(retryCount = 0) {
+    if (!companySelected) return;
+
+    const response = await getCompanyOperation();
+    if (response?.status === 200) {
+      const companyOperationData = response?.data;
+      dispatch(changeCompanyName(companyOperationData?.companyName));
+      dispatch(changeCompanyEmail(companyOperationData?.companyEmail));
+      dispatch(changeCompanyPhone(companyOperationData?.companyPhone));
+      dispatch(changeCompanyAddress(companyOperationData?.companyAddress));
+      dispatch(changeCompanyLat(companyOperationData?.companyLat));
+      dispatch(changeCompanyLng(companyOperationData?.companyLng));
+      dispatch(changeUrlCompanyLogo(companyOperationData?.urlCompanyLogo));
+      dispatch(changeProductsCategories(companyOperationData?.productsCategories || []));
+      dispatch(changeCustomers(companyOperationData?.customers || []));
+      dispatch(changeCurrentShift(companyOperationData?.currentShift || null));
+      dispatch(changeNumberOfTables(companyOperationData?.numberOfTables || 0));
+
+    } else if (response?.status === 400 && response?.data === "noActiveShift") {
+      //IfOneDayRealOperationRemoveThis all this second "else if" and just leave the "if" above and the "else" below
+      if (retryCount < 2) {
+        const res = await openNewShift();
+        return getCompanyOperationData(retryCount + 1);
+      } else {
+        alert("Error fetching company operation data");
+      }
+    } else {
+      // alert("Error fetching company operation data");
+    }
+  }
+
+  async function getShiftOperationData() {
+    if (!companySelected) return;
+    const response = await getShiftOperation();
+    if (response?.status === 200) {
+      const shiftOperationData = response?.data;
+      dispatch(changeCurrentShift(shiftOperationData?.currentShift || null));
+      dispatch(changeOrders(shiftOperationData?.orders || []));
+    } else {
+      // alert("Error fetching orders operation data");
+    }
+  }
+
+  useEffect(() => {
+    getCompanyOperationData();
+  }, [companySelected]);
+
+  useEffect(() => {
+    // run immediately once
+    getShiftOperationData();
+
+    const interval = setInterval(() => {
+      getShiftOperationData();
+    }, 12000);
+
+    return () => clearInterval(interval);
+  }, []);
 
 
   return (

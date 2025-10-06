@@ -5,10 +5,6 @@ import { getCompanyOperation } from "../../../services/deliveryServices/CompanyS
 import { closeOrder, getOrderOperation, reopenOrder } from "../../../services/deliveryServices/OrderService";
 import { getShiftOperation, openNewShift } from "../../../services/deliveryServices/ShiftService";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,
-    changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders
-} from '../../../redux/companyOperationSlice.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import CancelOrder from "./components/CancelOrderModal.jsx";
@@ -44,62 +40,6 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen }) {
         setSelectedOnDeliveryOrderID([]);
         setSelectedOrderToCancel(null);
     }
-
-    async function getCompanyOperationData(retryCount = 0) {
-        const response = await getCompanyOperation();
-        if (response?.status === 200) {
-            const companyOperationData = response?.data;
-            dispatch(changeCompanyName(companyOperationData?.companyName));
-            dispatch(changeCompanyEmail(companyOperationData?.companyEmail));
-            dispatch(changeCompanyPhone(companyOperationData?.companyPhone));
-            dispatch(changeCompanyAddress(companyOperationData?.companyAddress));
-            dispatch(changeCompanyLat(companyOperationData?.companyLat));
-            dispatch(changeCompanyLng(companyOperationData?.companyLng));
-            dispatch(changeUrlCompanyLogo(companyOperationData?.urlCompanyLogo));
-            dispatch(changeProductsCategories(companyOperationData?.productsCategories || []));
-            dispatch(changeCustomers(companyOperationData?.customers || []));
-            dispatch(changeCurrentShift(companyOperationData?.currentShift || null));
-            dispatch(changeNumberOfTables(companyOperationData?.numberOfTables || 0));
-
-        } else if (response?.status === 400 && response?.data === "noActiveShift") {
-            //IfOneDayRealOperationRemoveThis all this second "else if" and just leave the "if" above and the "else" below
-            if (retryCount < 2) {
-                const res = await openNewShift();
-                return getCompanyOperationData(retryCount + 1);
-            } else {
-                alert("Error fetching company operation data");
-            }
-        } else {
-            // alert("Error fetching company operation data");
-        }
-    }
-
-    async function getShiftOperationData() {
-        const response = await getShiftOperation();
-        if (response?.status === 200) {
-            const shiftOperationData = response?.data;
-            dispatch(changeCurrentShift(shiftOperationData?.currentShift || null));
-            dispatch(changeOrders(shiftOperationData?.orders || []));
-        } else {
-            // alert("Error fetching orders operation data");
-        }
-    }
-
-    useEffect(() => {
-        getCompanyOperationData();
-    }, []);
-
-    useEffect(() => {
-        // run immediately once
-        getShiftOperationData();
-
-
-        const interval = setInterval(() => {
-            getShiftOperationData();
-        }, 12000);
-
-        return () => clearInterval(interval);
-    }, []);
 
     async function dispatchOrders() {
         setProcessing(true);

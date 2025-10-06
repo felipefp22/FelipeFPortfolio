@@ -2,8 +2,7 @@ export function filterLoccationsOverLaping(locations) {
     const placedMarkers = [];
 
     locations.forEach(x => {
-        if (!x.entregador && x.flag_dely !== "V") {
-            let index = 0;
+        if (x.latitude && x.longitude && x.status === 'OPEN') {
 
             while (placedMarkers.some(pos => isClose(x.latitude, x.longitude, pos.lat, pos.lng))) {
                 [x.latitude, x.longitude] = getOffsetPosition(x.latitude, x.longitude, index);

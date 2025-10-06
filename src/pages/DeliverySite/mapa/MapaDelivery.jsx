@@ -1,26 +1,41 @@
-import { useEffect, useRef, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 // import './../../App.css';
 import L from 'leaflet'; // Import Leaflet
-import PizzaFav from '../../../assets/pizza.png'; // Import your pizza icon
+import restaurantLogo from '../../../assets/restaurantLogo.png'; // Import the restaurant logo
 import importedVariables from '../../../assets/myVariables.json'; // Import the JSON file directly
 import { PutDeliveryPlaces, selectMarkerColor } from './mapcomponentsandservices/DeliveryPlaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFireFlameCurved } from '@fortawesome/free-solid-svg-icons';
 import { filterLoccationsOverLaping, sanitizeLatLng } from './mapcomponentsandservices/ManageOverlapPoints';
+import { useSelector } from 'react-redux';
+import "leaflet/dist/leaflet.css";
 
-export default function MapaDelivery({  }) {
-  const [settings, setSettings] = useState({});
 
-  const [myVariables, setMyVariables] = useState(null)
+export default function MapaDelivery({ }) {
+  const companyOperation = useSelector((state) => state.companyOperation);
+  const [companyLat, setCompanyLat] = useState(null);
+  const [companyLng, setCompanyLng] = useState(null);
+  const [orders, setOrders] = useState([]);
+  const [zoom, setZoom] = useState(localStorage.getItem('mapZoomLevel') || 15);
+
   const mapRef = useRef(null); // Referência para o mapa
-  const [locations, setLocations] = useState([]); // State to hold locations
-  const [zoom, setZoom] = useState(null); // State to hold the zoom level
   const markersRef = useRef(null); // Reference to manage markers
 
   useEffect(() => {
-    if (myVariables && zoom && myVariables.mainLocationLatitude && myVariables.mainLocationLongitude) {
+    if (companyOperation?.companyLat !== companyLat && companyOperation?.companyLng !== companyLng) {
+      setCompanyLat(companyOperation?.companyLat);
+      setCompanyLng(companyOperation?.companyLng);
+    }
+    if (companyOperation?.orders !== orders) {
+      setOrders(companyOperation?.orders || []);
+    }
+  }, [companyOperation]);
+
+  useEffect(() => {
+    if (companyOperation && zoom && companyLat && companyLng) {
+      console.log("Initializing map at:", companyLat, companyLng);
       // Inicializa o mapa
-      mapRef.current = L.map('mapa').setView([myVariables.mainLocationLatitude, myVariables.mainLocationLongitude], zoom); // Define a centralização do mapa
+      mapRef.current = L.map('mapa').setView([companyLat, companyLng], zoom); // Define a centralização do mapa
 
       // Adiciona uma camada de tiles do OpenStreetMap
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -30,13 +45,13 @@ export default function MapaDelivery({  }) {
       }).addTo(mapRef.current);
 
       // Adicionando marcador principal
-      const pizzaIcon = L.icon({
-        iconUrl: PizzaFav,
+      const restaurantIcon = L.icon({
+        iconUrl: restaurantLogo,
         iconSize: [70, 70],
         iconAnchor: [20, 40],
         popupAnchor: [0, -40],
       });
-      L.marker([myVariables.mainLocationLatitude, myVariables.mainLocationLongitude], { icon: pizzaIcon })
+      L.marker([companyLat, companyLng], { icon: restaurantIcon })
         .addTo(mapRef.current)
         .bindPopup('RESTAURANTE')
         .openPopup();
@@ -45,62 +60,46 @@ export default function MapaDelivery({  }) {
 
       markersRef.current = L.layerGroup().addTo(mapRef.current);
 
-      fetchDataToLocation();
-
-    setTimeout(() => {
-      mapRef.current.invalidateSize();
-    }, 0);
+      setTimeout(() => {
+        mapRef.current.invalidateSize();
+      }, 0);
       //------------------------------
       return () => {
         mapRef.current.remove(); // Remove o mapa ao desmontar para evitar leaks de memória
       };
     }
-  }, [myVariables, zoom]);
+  }, [companyLat, companyLng]);
 
   useEffect(() => {
-  const handleResize = () => {
-    if (mapRef.current) {
-      mapRef.current.invalidateSize();
-    }
-  };
-  window.addEventListener('resize', handleResize);
-  return () => window.removeEventListener('resize', handleResize);
-}, []);
-
-  useEffect(() => {
-    // Load settings when the component mounts
-    if (window.electronAPI?.loadSettings) {
-      window.electronAPI.loadSettings().then((loadedSettings) => {
-        setSettings(loadedSettings);
-        setMyVariables(loadedSettings);
-        setZoom(loadedSettings.zoom);
-      });
-    } else {
-      setSettings(importedVariables);
-      setMyVariables(importedVariables);
-      setZoom(importedVariables.zoom);
-    }
+    const handleResize = () => {
+      if (mapRef.current) {
+        mapRef.current.invalidateSize();
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
-
 
   useEffect(() => {
     updateMarkersPutDeliveryPlaces();
-  }, [locations]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchDataToLocation();
-    }, 5000); // 5 seconds
-
-    return () => clearInterval(interval); // Cleanup interval on component unmount
-  }, []);
+  }, [orders]);
 
   function updateMarkersPutDeliveryPlaces() {
-    if (myVariables && zoom && myVariables.mainLocationLatitude && myVariables.mainLocationLongitude && markersRef.current) {
+    if (companyOperation && zoom && companyLat && companyLng && markersRef.current) {
 
       if (markersRef.current) {
         markersRef.current.clearLayers(); // Clear existing markers
       }
+
+      const locations = orders.map(order => ({
+        latitude: order?.customer?.lat,
+        longitude: order?.customer?.lng,
+        orderNum: order?.orderNumberOnShift,
+        orderDate: new Date(order?.openOrderDateUtc),
+        status: order?.status,
+      }));
+
+      console.log("Raw locations:", locations);
 
       const filteredLocations = filterLoccationsOverLaping(locations);
       const sanitizedLocations = filteredLocations.map(location => sanitizeLatLng(location));
@@ -117,89 +116,54 @@ export default function MapaDelivery({  }) {
           });
         }
       });
-
     }
   };
 
-  const centralizarMapa = () => {
-    // Centraliza o mapa na posição especificada
-    if (mapRef.current) {
-      mapRef.current.setView([myVariables.mainLocationLatitude, myVariables.mainLocationLongitude], zoom);
-    }
-  };
+  // const centralizarMapa = () => {
+  //   // Centraliza o mapa na posição especificada
+  //   if (mapRef.current) {
+  //     mapRef.current.setView([companyLat, companyLng], zoom);
+  //   }
+  // };
 
-  const handleZoomChange = (e) => {
-    setZoom(Number(e.target.value)); // Update the zoom value
+  // const handleZoomChange = (e) => {
+  //   setZoom(Number(e.target.value)); // Update the zoom value
 
-    const updatedSettings = {
-      ...settings,
-      zoom: Number(e.target.value),
-    };
+  //   localStorage.setItem('mapZoomLevel', e.target.value);
+  //   if (mapRef.current) {
+  //     mapRef.current.setZoom(Number(e.target.value));
+  //   }
+  // };
 
-    window.electronAPI.saveSettings(updatedSettings).then((response) => {
-      setSettings(updatedSettings); // Update state with the new settings
-    });
+  // const [newLatRestaurant, setNewLatRestaurant] = useState("");
+  // const [newLngRestaurant, setNewLngRestaurant] = useState("");
 
-    // Save to local storage as a demonstration (to persist the updated values)
-    // localStorage.setItem('myVariables', JSON.stringify(updatedVariables));
-  };
+  // function saveNewRestaurantLocation() {
+  //   if (newLatRestaurant && newLngRestaurant) {
 
-  function fetchDataToLocation() {
-    setLocations(
-      [{ latitude: -23.652398, longitude: -46.708661, orderNum: '8', orderDate: new Date("2025-07-12T20:45:00Z") },
-      { latitude: -23.652398, longitude: -46.7086, orderNum: '10', orderDate: new Date("2025-07-12T20:45:00Z") },
-      { latitude: -23.652398, longitude: -46.7086, orderNum: '10', orderDate: new Date("2025-07-12T20:45:00Z") },
-      { latitude: -23.652398, longitude: -46.7086, orderNum: '11', orderDate: new Date("2025-07-12T20:45:00Z") },
-      { latitude: -23.652398, longitude: -46.7086, orderNum: '12', orderDate: new Date("2025-07-12T20:45:00Z") },
-      { latitude: -23.652, longitude: -46.7089, orderNum: '52', orderDate: new Date("2025-07-12T20:45:00Z") }])
-  };
+  //   }
+  // }
 
-  const [newLatRestaurant, setNewLatRestaurant] = useState("");
-  const [newLngRestaurant, setNewLngRestaurant] = useState("");
+  // const [isModalVisible, setModalVisible] = useState(false); 
+  // const handleOpenModal = () => {
+  //   const latPattern = /^-?(90(\.0{1,8})?|[0-8]?\d(\.\d{1,8})?)$/;
+  //   const lngPattern = /^-?(180(\.0{1,8})?|1[0-7]\d(\.\d{1,8})?|[0-9]?\d(\.\d{1,8})?)$/;
 
-  function saveNewRestaurantLocation() {
-    // Save the new restaurant location
-    if (newLatRestaurant && newLngRestaurant) {
-
-      const updatedSettings = {
-        ...settings,
-        mainLocationLatitude: newLatRestaurant,
-        mainLocationLongitude: newLngRestaurant,
-      };
-
-      // Save the updated settings
-      window.electronAPI.saveSettings(updatedSettings).then((response) => {
-        setSettings(updatedSettings); // Update state with the new settings
-      });
-
-      setNewLatRestaurant(null);
-      setNewLngRestaurant(null);
-      window.location.reload();
-    }
-
-  }
-
-  const [isModalVisible, setModalVisible] = useState(false); // State to control the modal visibility
-  const handleOpenModal = () => {
-    const latPattern = /^-?(90(\.0{1,8})?|[0-8]?\d(\.\d{1,8})?)$/;
-
-    const lngPattern = /^-?(180(\.0{1,8})?|1[0-7]\d(\.\d{1,8})?|[0-9]?\d(\.\d{1,8})?)$/;
-
-    if (
-      newLatRestaurant &&
-      latPattern.test(newLatRestaurant) &&
-      newLngRestaurant &&
-      lngPattern.test(newLngRestaurant)
-    ) {
-      setModalVisible(true);
-    }
-  };
+  //   if (
+  //     newLatRestaurant &&
+  //     latPattern.test(newLatRestaurant) &&
+  //     newLngRestaurant &&
+  //     lngPattern.test(newLngRestaurant)
+  //   ) {
+  //     setModalVisible(true);
+  //   }
+  // };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '99%', width: '99%', paddingTop: 45, overflow: 'hidden',  }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '99%', width: '99%', paddingTop: 45, overflow: 'hidden', }}>
 
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden' }}>
-        <div id="mapa" style={{ width: '1000px', height: '1000px' }} />
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden', borderRadius: '6px' }}>
+        <div id="mapa" style={{ width: '100%', height: '100%' }} />
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255, 255, 255, 1)', height: '65px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.714)', borderRadius: '0px 0px 3px 3px' }}>
