@@ -28,7 +28,11 @@ export default function LayoutPortifolio() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFlipped(prev => prev + 180);
+      setFlipped(prev => {
+        if (prev === 0) return prev + 180;
+        if (prev === 180) return prev - 180;
+        return prev;
+      });
 
       setTimeout(() => {
         setMyImage(prev => (prev === myPhoto ? myNerdPhoto : myPhoto));
