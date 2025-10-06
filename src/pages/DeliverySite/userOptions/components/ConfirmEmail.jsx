@@ -3,7 +3,7 @@ import { confirmAccount, requestConfirmationCode, updateLocalStorage } from "../
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-export default function ConfirmEmail() {
+export default function ConfirmEmail({ fetchUserInfos }) {
 
     const [errorGeneral, setErrorGeneral] = useState(true);
     const [wasSent, setWasSent] = useState(false);
@@ -42,7 +42,6 @@ export default function ConfirmEmail() {
             setTimeout(() => {
                 updateLocalStorage(response.data);
                 fetchUserInfos();
-                setact
             }, 2000);
 
         } else {
@@ -132,7 +131,7 @@ export default function ConfirmEmail() {
                 </div>}
 
                 {wasSent && successShowCheck && <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                    <p>Password updated successfully!</p>
+                    <p>Email confirmed successfully!</p>
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 50, borderRadius: '50%', backgroundColor: 'green', width: '160px', height: '160px', opacity: !successShowCheckSeal ? 0 : 1, transition: 'opacity 0.6s ease-out', }} >
                         <FontAwesomeIcon icon={faCheck} style={{ color: 'white', fontSize: '80px' }} />
                     </div>

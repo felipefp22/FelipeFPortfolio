@@ -49,7 +49,7 @@ export default function UserOptions( { setCompanySelected } ) {
                 <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                     <h3 style={{ color: "white", marginBottom: '10px' }}>Welcome {name ? " - " + name : "Guest"}</h3>
 
-                    {!isEmailConfirmed && <ConfirmEmail />}
+                    {!isEmailConfirmed && <ConfirmEmail fetchUserInfos={() => fetchUserInfos()} />}
 
                     {isEmailConfirmed && <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }}>
                         <p style={{ fontWeight: 'bold', }}>Your Companies Groups:</p>

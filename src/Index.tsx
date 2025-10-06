@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PortfolioPage from './pages/PortfolioPage';
 import LayoutPortifolio from './pages/LayoutPortifolio';
 import LayoutPortifolio2 from './pages/LayoutPortifolio2';
+import OAuthRedirectPage from './pages/DeliverySite/login/OAuthRedirectPage';
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ export default function Index() {
           <Route path="/" element={<LayoutDelivery />}>
             <Route path="/FelipeFPortfolio/delivery/*" element={<LoginOrRegisterPage />} />
             <Route path="/FelipeFPortfolio/delivery/register" element={<LoginOrRegisterPage />} />
+            <Route path="/FelipeFPortfolio/delivery/oauthredirect" element={<OAuthRedirectPage />} />
 
           </Route>}
 
