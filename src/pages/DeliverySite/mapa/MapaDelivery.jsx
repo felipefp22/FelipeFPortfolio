@@ -148,7 +148,7 @@ export default function MapaDelivery({ }) {
             lng: location.longitude,
             label: location.orderNum,
             // minutes: Math.round((new Date() - location.orderDate) / 60000)
-            minutes: Math.floor((new Date() - new Date(location.orderDate + 'Z')) / 60000)
+            minutes: Math.max(0, Math.floor((new Date() - new Date(location.orderDate + 'Z')) / 60000))
 
           });
         }

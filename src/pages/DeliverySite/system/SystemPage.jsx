@@ -113,7 +113,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                                         onClick={() => { setSelectedOnDeliveryOrderID([]); setSelectedCookingOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                         <td>{order.orderNumberOnShift}</td>
                                         <td>{order.customer?.customerName || "No Name"}</td>
-                                        <td>{Math.floor((Date.now() - Date.parse(order.openOrderDateUtc + "Z")) / 60000)}</td>
+                                        <td>{Math.max(0, Math.floor((Date.now() - Date.parse(order.openOrderDateUtc + "Z")) / 60000))}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -149,7 +149,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                                         onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                         <td>{order.orderNumberOnShift}</td>
                                         <td>{order.customer?.customerName || "No Name"}</td>
-                                        <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td>
+                                        <td>{Math.max( 0, Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000))}</td>
                                     </tr>
                                 ))}
                             </tbody>
