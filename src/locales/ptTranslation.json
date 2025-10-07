@@ -14,11 +14,13 @@
     "portfolioProjects": "Projetos Portfólio",
     "myHealth": {
       "title": "minha-saude.com",
-      "description": "Um aplicativo de gerenciamento de saúde que permite aos usuários acompanhar seu histórico médico, consultas e medicamentos. Construído com React Native para compatibilidade entre plataformas e integrado a uma API backend para armazenamento e recuperação de dados."
+      "description": "Site voltado para ser uma Rede Social de Saúde, desenvolvido para cliente, onde desenvolvi a solução completa. \n\n Foi desenvolvida API em Java, frontend em React (adaptativo para Web e Mobile), pipeline de deploy automatizado na Azure Cloud para a API, e FTP para deploy do site no cPanel, banco de dados Postgres na nuvem. Logins com redes sociais, pagamento assinatura premium.  \n\n O site tem como objetivo ser uma rede social onde o usuário pode acompanhar sua saúde, marcar consultas, exames, medicamentos e ter um histórico médico completo."
     },
     "restaurantDelivery": {
       "title": "Restaurante Delivery",
-      "description": "Um aplicativo de entrega de alimentos que conecta usuários a restaurantes locais. Construído com React e Node.js, apresentando rastreamento de pedidos em tempo real e uma interface amigável."
+      "description1": "Este é um aplicativo desenvolvido para apresentar meus códigos em operação. Totalmente adaptativo para Web e Mobile. \n\n Um site/aplicativo para sistema de restaurante, onde a API foi desenvolvida para operar um sistema completo, e aqui no site foi implementada a seção de entregas (delivery), com mapa para auxílio na roteirização de entregas. \n\n",
+      "description2": "Código Backend: ",
+      "description3": "Código Frontend: "
     }
   },
   "contacts": {

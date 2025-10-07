@@ -5,7 +5,7 @@
   },
   "aboutMe": {
     "title": "About Me",
-    "content": "Developer with primary focus on Backend Java-Spring Boot. \n\n I work on developing complete solutions and APIs for secure data handling, authentication integrated with social network logins, operational website and application, integration with payment methods, pipelines for cloud hosting, and automated deployment. \n\n Knowledge in Java, C#, HTML, CSS, React, React Native, JavaScript, SQL, NoSQL, Containers (Docker and Kubernetes), Azure Cloud Computing, Google Cloud, Git, GitHub Actions, Postman, and Insomnia. \n\n Planning of modern architecture prepared for easy implementation of future updates. Efficient databases with targeted indexing to ensure performance for both reading and writing. Experienced in identifying unnecessary loops (over loops) and optimizing processes. \n\n Postgraduate Degree - Architecture and JAVA Development"
+    "content": "Developer with primary focus on Backend Java-Spring Boot. \n\n I work on developing complete solutions and APIs for secure data handling, authentication integrated with social network logins, operational website and application, integration with payment methods, pipelines for cloud hosting, and automated deployment. Payment methods, Social media logins. \n\n Knowledge in Java, C#, HTML, CSS, React, React Native, JavaScript, SQL, NoSQL, Containers (Docker and Kubernetes), Azure Cloud Computing, Google Cloud, Git, GitHub Actions, Postman, and Insomnia. \n\n Planning of modern architecture prepared for easy implementation of future updates. Efficient databases with targeted indexing to ensure performance for both reading and writing. Experienced in identifying unnecessary loops (over loops) and optimizing processes. \n\n Postgraduate Degree - Architecture and JAVA Development"
   },
   "projects": {
     "title": "Projects",
@@ -14,11 +14,13 @@
     "portfolioProjects": "Portfolio Projects",
     "myHealth": {
       "title": "minha-saude.com",
-      "description": "A health management application that allows users to track their medical history, appointments, and medications. Built with React Native for cross-platform compatibility and integrated with a backend API for data storage and retrieval."
+      "description": "Website designed to be a Health Social Network, developed for a client, where I created the complete solution. \n\n A Java API was developed, frontend in React (adaptive for Web and Mobile), automated deployment pipeline on Azure Cloud for the API, and FTP for website deployment on cPanel, with a Postgres database in the cloud.  \n\n The website aims to be a social network where users can monitor their health, schedule appointments, exams, medications, and have a complete medical history."
     },
     "restaurantDelivery": {
       "title": "Restaurant Delivery",
-      "description": "A food delivery application that connects users with local restaurants. Built with React and Node.js, featuring real-time order tracking and a user-friendly interface."
+      "description1": "This is an application developed to showcase my code in operation. Fully adaptive for Web and Mobile. \n\n A website/application for a restaurant system, where the API was developed to run a complete system, and here on the site, the delivery section was implemented, with a map to assist in delivery route planning. \n\n",
+      "description2": "Backend code: ",
+      "description3": "Frontend code: "
     }
   },
   "contacts": {

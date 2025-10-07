@@ -15,6 +15,7 @@ import reactNativeLogo from '../../assets/reactNativeLogo.png';
 import sqlLogo from '../../assets/sqlLogo.png';
 import mongoDbLogo from '../../assets/mongoDbLogo.png';
 import dockerLogo from '../../assets/dockerLogo.png';
+import { Link } from 'react-router-dom';
 
 export default function Projects({ activeMenu }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
@@ -60,7 +61,10 @@ export default function Projects({ activeMenu }) {
                             }} />
                         </div>
 
-                        <span>{t("projects.myHealth.description")}</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left', textAlign: 'center', justifyContent: 'left', fontSize: isDesktopView ? '20px' : '16px' }} >
+
+                            <span style={{ whiteSpace: "pre-line" }} >{t("projects.myHealth.description")}</span>
+                        </div>
                     </div>
                 </div>
 
@@ -102,7 +106,17 @@ export default function Projects({ activeMenu }) {
                             }} />
                         </div>
 
-                        <span>{t("projects.restaurantDelivery.description")}</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left', textAlign: 'center', justifyContent: 'left', fontSize: isDesktopView ? '20px' : '16px' }} >
+                            <span style={{ whiteSpace: "pre-line", }}>{t("projects.restaurantDelivery.description1")}</span>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', justifyContent: 'left' }} >
+                                <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description2")}
+                                    <a href="https://github.com/felipefp22/RestaurantSystem" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Java Code</a></span>
+
+                                <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description3")}
+                                    <a href="https://github.com/felipefp22/FelipeFPortfolio" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)', }}>React Code</a></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
