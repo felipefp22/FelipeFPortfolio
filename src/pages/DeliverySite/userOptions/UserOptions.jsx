@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import companiesGroupLogo from '../../../assets/companiesGroupLogo.png';
 import restaurantLogo from '../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
 import ConfirmEmail from "./components/ConfirmEmail";
 import CreateGroupAndCompanyModal from "../system/components/CreateGroupAndCompanyModal";
 
@@ -76,8 +76,8 @@ export default function UserOptions({ setCompanySelected }) {
                                         }} />
                                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
                                             <span style={{ fontSize: isDesktopView ? '24px' : '16px', fontWeight: 'bold' }}>{compound.compoundName} </span>
-                                            <FontAwesomeIcon icon={selectedCompaniesCoumpound === compound.id ? faArrowUp : faArrowDown}
-                                                style={{ fontSize: isDesktopView ? '20px' : '12px', marginRight: isDesktopView ? '20px' : '5px', border: "1px solid white", borderRadius: '4px', padding: isDesktopView ? '5px' : '4px' }} />
+                                            <FontAwesomeIcon icon={selectedCompaniesCoumpound === compound.id ? faSquareCaretUp : faSquareCaretDown}
+                                                style={{ fontSize: isDesktopView ? '25px' : '16px', marginRight: isDesktopView ? '20px' : '5px',  borderRadius: '4px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
                                         </div>
                                     </div>
                                     {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: "rgba(255, 255, 255, 0.1)" }}>

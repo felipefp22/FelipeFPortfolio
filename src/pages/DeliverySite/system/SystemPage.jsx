@@ -6,9 +6,11 @@ import { closeOrder, getOrderOperation, reopenOrder } from "../../../services/de
 import { getShiftOperation, openNewShift } from "../../../services/deliveryServices/ShiftService";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
 import CancelOrder from "./components/CancelOrderModal.jsx";
 import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
+import up from "../../../assets/up.png";
+import down from "../../../assets/down.png";
 
 
 export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
@@ -162,7 +164,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
                             <h3 style={{ color: "white", marginBottom: '10px' }}>Completed Orders</h3>
-                            <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '18px' }} icon={seeCompletedOrders ? faArrowUp : faArrowDown} />
+                            <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                         </div>
 
                         <button style={{
@@ -202,7 +204,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
                             <h3 style={{ color: "white", marginBottom: '10px' }}>Canceled Orders</h3>
-                            <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '18px' }} icon={seeCompletedOrders ? faArrowUp : faArrowDown} />
+                            <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                         </div>
                     </div>
 
