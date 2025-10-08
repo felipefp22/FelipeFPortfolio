@@ -61,8 +61,7 @@ export default function MapaDelivery({ }) {
       });
       L.marker([companyLat, companyLng], { icon: restaurantIcon })
         .addTo(mapRef.current)
-        .bindPopup('RESTAURANTE')
-        .openPopup();
+        .bindPopup('RESTAURANTE');
       //------------------------------
       // Marcadores lugares de entrega
 

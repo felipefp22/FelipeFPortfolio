@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 import { createCustomer } from "../../../../services/deliveryServices/CustomerSevice";
 import { useSelector } from "react-redux";
+import SelectCustumerAddressMap from "./auxComponents/SelectCustumerAddressMap";
 
 export default function NewCustomerModal({ close }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
@@ -53,6 +54,7 @@ export default function NewCustomerModal({ close }) {
             alert("Error creating customer");
         }
     }
+
 
     return (
         <>
@@ -109,6 +111,8 @@ export default function NewCustomerModal({ close }) {
 
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
 
+                <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} />
+
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
@@ -119,24 +123,6 @@ export default function NewCustomerModal({ close }) {
                 </div>
             </div>
 
-            {showBoxCreateFakesCustomers && <div className="myModal" style={{ zIndex: 100 }} >
-                <div style={{
-                    display: 'flex', flexDirection: 'column', maxWidth: !isDesktopView ? "95%" : "45%", maxHeight: !isDesktopView ? "95%" : "90%", border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-                    color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto"
-                }}>
-                    <span>Will create a 10 fake custumers to you test system.</span>
-                    <span>(This system is just to recruiters see skills)</span>
-                    <br />
-
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                        <button style={{ backgroundColor: 'rgba(189, 13, 0, 0)', border: "none", color: "rgba(255, 69, 56, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
-                            onClick={() => setShowBoxCreateFakesCustomers(false)}>Cancel</button>
-
-                        <button style={{ backgroundColor: 'rgba(15, 107, 56, 0)', border: "none", color: "rgba(38, 233, 35, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
-                            onClick={() => ""}>Yes Create</button>
-                    </div>
-                </div>
-            </div>}
         </>
     );
 }
