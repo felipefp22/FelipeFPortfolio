@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-
+import restaurantLogo from "../../../../../assets/restaurantLogo.png";
 
 export default function SelectCustumerAddressMap() {
 
@@ -47,8 +47,7 @@ export default function SelectCustumerAddressMap() {
 
             L.marker([companyLat, companyLng], { icon: restaurantIcon })
                 .addTo(mapRef.current)
-                .bindPopup('RESTAURANTE')
-                .openPopup();
+                .bindPopup('RESTAURANTE');
             //------------------------------
             // Marcadores lugares de entrega
 
