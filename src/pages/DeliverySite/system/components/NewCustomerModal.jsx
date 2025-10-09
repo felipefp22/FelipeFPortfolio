@@ -5,6 +5,7 @@ import { Table } from "react-bootstrap";
 import { createCustomer } from "../../../../services/deliveryServices/CustomerSevice";
 import { useSelector } from "react-redux";
 import SelectCustumerAddressMap from "./auxComponents/SelectCustumerAddressMap";
+import { searchAddress } from "../../../../services/deliveryServices/auxServices/mapService";
 
 export default function NewCustomerModal({ close }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
@@ -23,22 +24,29 @@ export default function NewCustomerModal({ close }) {
     const [lng, setLng] = useState("");
     const [complement, setComplement] = useState("");
 
+    const customerSelectorDropdownRef = useRef(null);
+    const [showAddressSelectorDropdown, setShowAddressSelectorDropdown] = useState(false);
+    const [searchAddressInput, setSearchAddressInput] = useState("");
+    const typingTimeoutRef = useRef(null);
+    const [addressFoundOptions, setAddressFoundOptions] = useState(false);
+    const [addressFoundSelected, setAddressFoundSelected] = useState(null);
+
     const [showBoxCreateFakesCustomers, setShowBoxCreateFakesCustomers] = useState(false);
 
-    async function handleCustomerSearchInputChange(e) {
-        setCustomerInputToSearch(e.target.value);
+    // async function handleCustomerSearchInputChange(e) {
+    //     setCustomerInputToSearch(e.target.value);
 
-        const lowerInput = e.target.value.toLowerCase();
+    //     const lowerInput = e.target.value.toLowerCase();
 
-        // const filtered = doctorSpecialitiesOpts
-        //     .filter(opt =>
-        //         opt.ptbrLabel.toLowerCase().includes(lowerInput) &&
-        //         !doctorSpecialties.includes(opt.doctorSpecialty)
-        //     )
-        //     .map(opt => opt.doctorSpecialty);
+    //     // const filtered = doctorSpecialitiesOpts
+    //     //     .filter(opt =>
+    //     //         opt.ptbrLabel.toLowerCase().includes(lowerInput) &&
+    //     //         !doctorSpecialties.includes(opt.doctorSpecialty)
+    //     //     )
+    //     //     .map(opt => opt.doctorSpecialty);
 
-        // setFilteredSpecialities(filtered);
-    };
+    //     // setFilteredSpecialities(filtered);
+    // };
 
     async function saveCustomer() {
         if (!name || !phone || !email || !address || !addressNumber || !city || !state || !zipCode || !lat || !lng || !complement) {
@@ -55,6 +63,30 @@ export default function NewCustomerModal({ close }) {
         }
     }
 
+    async function findAddress() {
+        const response = await searchAddress(searchAddressInput);
+        setAddressFoundOptions(response?.data?.length > 0 ? response?.data : []);
+        setShowAddressSelectorDropdown(true);
+        console.log("Response:", response?.data);
+    }
+
+    useEffect(() => {
+        // Clear previous debounce timer
+        if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+
+        // Start a new debounce timer (2 seconds)
+        typingTimeoutRef.current = setTimeout(() => {
+            if (searchAddressInput?.length > 3) findAddress();
+        }, 1000);
+    }, [searchAddressInput]);
+
+
+    useEffect(() => {
+        setLat(addressFoundSelected?.lat);
+        setLng(addressFoundSelected?.lon);
+        setAddress(addressFoundSelected?.display_name);
+        setShowAddressSelectorDropdown(false);
+    }, [addressFoundSelected]);
 
     return (
         <>
@@ -111,7 +143,39 @@ export default function NewCustomerModal({ close }) {
 
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
 
-                <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} />
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '290px', }}>
+                    <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px' }}>
+                        <input
+                            type="text"
+                            value={searchAddressInput}
+                            onChange={e => setSearchAddressInput(e.target.value)}
+                            onKeyDown={e => { if (e.key === "Enter") { if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current); findAddress(); } }}
+                            // onFocus={() => setShowAddressSelectorDropdown(true)}
+                            onBlur={() => { setSearchAddressInput(""); setShowAddressSelectorDropdown(false); }}
+                            placeholder="Search address"
+                            disabled={disabled}
+                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "0px", }}
+                        />
+                        {showAddressSelectorDropdown && (
+                            <ul style={{ position: 'absolute', left: 9, top: 40, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 10000, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
+                                {addressFoundOptions?.length > 0 ? (
+                                    addressFoundOptions.map((addressOpt, index) => (
+                                        <li
+                                            key={index}
+                                            onMouseDown={() => { setAddressFoundSelected(addressOpt); setShowAddressSelectorDropdown(false); }}
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            {addressOpt?.display_name}
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li style={{ fontWeight: "600" }} >{"No matches found"}</li>
+                                )}
+                            </ul>
+                        )}
+                    </div>
+                    <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} />
+                </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>

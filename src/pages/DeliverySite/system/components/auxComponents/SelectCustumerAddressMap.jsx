@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import restaurantLogo from "../../../../../assets/restaurantLogo.png";
+import redPinMapBox from "../../../../../assets/redPinMapBox.png";
+import 'leaflet-control-geocoder';
+import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 
-export default function SelectCustumerAddressMap() {
+export default function SelectCustumerAddressMap({ lat, lng, address }) {
 
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const companyOperation = useSelector((state) => state.companyOperation);
@@ -32,7 +35,7 @@ export default function SelectCustumerAddressMap() {
             mapRef.current = L.map('mapa').setView([companyLat, companyLng], zoom); //
 
             L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-                minZoom: 13,
+                minZoom: 12,
                 maxZoom: 17,
                 attribution: '&copy; OpenStreetMap contributors',
             }).addTo(mapRef.current);
@@ -40,7 +43,7 @@ export default function SelectCustumerAddressMap() {
             // Adicionando marcador principal
             const restaurantIcon = L.icon({
                 iconUrl: restaurantLogo,
-                iconSize: [70, 70],
+                iconSize: [35, 35],
                 iconAnchor: [20, 40],
                 popupAnchor: [0, -40],
             });
@@ -53,9 +56,25 @@ export default function SelectCustumerAddressMap() {
 
             markersRef.current = L.layerGroup().addTo(mapRef.current);
 
-            setTimeout(() => {
-                mapRef.current.invalidateSize();
-            }, 0);
+            // const geocoder = L.Control.geocoder({
+            //     defaultMarkGeocode: true,
+            // })
+            //     .on('markgeocode', function (e) {
+            //         const latlng = e.geocode.center;
+            //         console.log(e.geocode);
+            //         // Move map to found location
+            //         mapRef.current.setView(latlng, 16);
+            //         // Add marker at the found location
+            //         L.marker(latlng).addTo(mapRef.current)
+            //             .bindPopup(e.geocode.name)
+            //             .openPopup();
+            //     })
+            //     .addTo(mapRef.current);
+
+            // setTimeout(() => {
+            //     mapRef.current.invalidateSize();
+            // }, 0);
+
             //------------------------------
             return () => {
                 mapRef.current.remove(); // Remove o mapa ao desmontar para evitar leaks de memória
@@ -63,11 +82,30 @@ export default function SelectCustumerAddressMap() {
         }
     }, [companyLat, companyLng]);
 
+    useEffect(() => {
+        if (lat && lng && mapRef.current) {
+            // Move map to the new lat/lng
+            mapRef.current.setView([lat, lng], 12);
+
+            const addressIcon = L.icon({
+                iconUrl: redPinMapBox,
+                iconSize: [20, 50],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40],
+            });
+
+            // Add marker at the correct location
+            L.marker([lat, lng], { icon: addressIcon })
+                .addTo(mapRef.current)
+                .bindPopup(address)
+                .openPopup();
+        }
+    }, [lat, lng]);
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '300px', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden', borderRadius: '6px' }} ref={mapContainerRef}>
-                <div id="mapa" style={{ width: '100%', height: '100%' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minWidth: 0, overflow: 'hidden', borderRadius: '6px' }} ref={mapContainerRef}>
+                <div id="mapa" style={{ width: '100%', height: '100%', minHeight: 0 }} />
             </div>
         </>
     )

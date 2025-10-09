@@ -1,0 +1,15 @@
+.leaflet-control-geocoder-form input {
+  color: black !important;            /* make text visible */
+  background-color: white !important; /* white background */
+}
+
+.leaflet-control-geocoder-form {
+  background-color: white !important; /* fix form background */
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.leaflet-control-geocoder-alternatives {
+  background-color: white !important; /* results dropdown visible */
+  color: black !important;
+}
