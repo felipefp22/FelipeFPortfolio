@@ -49,17 +49,17 @@ export default function NewCustomerModal({ close }) {
     // };
 
     async function saveCustomer() {
-        if (!name || !phone || !email || !address || !addressNumber || !city || !state || !zipCode || !lat || !lng || !complement) {
+        if (!name || !phone || !address || !addressNumber || !city || !state || !zipCode || !lat || !lng) {
             alert("Please fill in all fields");
             return;
         }
 
-        const response = createCustomer(name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
+        const response = await createCustomer(name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
         if (response?.status === 200) {
             alert("Customer created successfully");
             close();
         } else {
-            alert("Error creating customer");
+            alert("Error creating customer: ", response?.data);
         }
     }
 
@@ -85,6 +85,9 @@ export default function NewCustomerModal({ close }) {
         setLat(addressFoundSelected?.lat);
         setLng(addressFoundSelected?.lon);
         setAddress(addressFoundSelected?.display_name);
+        setCity(addressFoundSelected?.display_name)
+        setState(addressFoundSelected?.display_name)
+        setZipCode(addressFoundSelected?.display_name)
         setShowAddressSelectorDropdown(false);
     }, [addressFoundSelected]);
 
@@ -154,7 +157,7 @@ export default function NewCustomerModal({ close }) {
                             onBlur={() => { setSearchAddressInput(""); setShowAddressSelectorDropdown(false); }}
                             placeholder="Search address"
                             disabled={disabled}
-                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "0px", }}
+                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", }}
                         />
                         {showAddressSelectorDropdown && (
                             <ul style={{ position: 'absolute', left: 9, top: 40, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 10000, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>

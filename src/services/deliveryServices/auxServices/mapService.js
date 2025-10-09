@@ -14,9 +14,6 @@ export async function searchAddress(query) {
     });
 
     return response;
-    //   if (mapRef?.current) {
-    //     mapRef.current.setView([lat, lon], 16);
-    //   }
   } catch (error) {
     console.error("Error searching address:", error);
     return error?.response;

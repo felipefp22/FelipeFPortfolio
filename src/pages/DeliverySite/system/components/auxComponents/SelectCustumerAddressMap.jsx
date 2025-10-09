@@ -5,6 +5,19 @@ import redPinMapBox from "../../../../../assets/redPinMapBox.png";
 import 'leaflet-control-geocoder';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 
+const restaurantIcon = L.icon({
+    iconUrl: restaurantLogo,
+    iconSize: [35, 35],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40],
+});
+const addressIcon = L.icon({
+    iconUrl: redPinMapBox,
+    iconSize: [20, 50],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40],
+});
+
 export default function SelectCustumerAddressMap({ lat, lng, address }) {
 
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
@@ -18,6 +31,7 @@ export default function SelectCustumerAddressMap({ lat, lng, address }) {
     const markersRef = useRef(null); // Reference to manage markers
     const mapContainerRef = useRef(null);
     const lastSize = useRef({ width: 0, height: 0 });
+    const addressMarkerRef = useRef(null);
 
 
     useEffect(() => {
@@ -40,40 +54,12 @@ export default function SelectCustumerAddressMap({ lat, lng, address }) {
                 attribution: '&copy; OpenStreetMap contributors',
             }).addTo(mapRef.current);
 
-            // Adicionando marcador principal
-            const restaurantIcon = L.icon({
-                iconUrl: restaurantLogo,
-                iconSize: [35, 35],
-                iconAnchor: [20, 40],
-                popupAnchor: [0, -40],
-            });
-
             L.marker([companyLat, companyLng], { icon: restaurantIcon })
                 .addTo(mapRef.current)
                 .bindPopup('RESTAURANTE');
             //------------------------------
-            // Marcadores lugares de entrega
 
             markersRef.current = L.layerGroup().addTo(mapRef.current);
-
-            // const geocoder = L.Control.geocoder({
-            //     defaultMarkGeocode: true,
-            // })
-            //     .on('markgeocode', function (e) {
-            //         const latlng = e.geocode.center;
-            //         console.log(e.geocode);
-            //         // Move map to found location
-            //         mapRef.current.setView(latlng, 16);
-            //         // Add marker at the found location
-            //         L.marker(latlng).addTo(mapRef.current)
-            //             .bindPopup(e.geocode.name)
-            //             .openPopup();
-            //     })
-            //     .addTo(mapRef.current);
-
-            // setTimeout(() => {
-            //     mapRef.current.invalidateSize();
-            // }, 0);
 
             //------------------------------
             return () => {
@@ -87,15 +73,11 @@ export default function SelectCustumerAddressMap({ lat, lng, address }) {
             // Move map to the new lat/lng
             mapRef.current.setView([lat, lng], 12);
 
-            const addressIcon = L.icon({
-                iconUrl: redPinMapBox,
-                iconSize: [20, 50],
-                iconAnchor: [20, 40],
-                popupAnchor: [0, -40],
-            });
+            if (addressMarkerRef.current) {
+                mapRef.current.removeLayer(addressMarkerRef.current);
+            }
 
-            // Add marker at the correct location
-            L.marker([lat, lng], { icon: addressIcon })
+            addressMarkerRef.current = L.marker([lat, lng], { icon: addressIcon })
                 .addTo(mapRef.current)
                 .bindPopup(address)
                 .openPopup();
