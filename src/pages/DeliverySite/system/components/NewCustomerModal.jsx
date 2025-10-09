@@ -67,7 +67,6 @@ export default function NewCustomerModal({ close }) {
         const response = await searchAddress(searchAddressInput);
         setAddressFoundOptions(response?.data?.length > 0 ? response?.data : []);
         setShowAddressSelectorDropdown(true);
-        console.log("Response:", response?.data);
     }
 
     useEffect(() => {

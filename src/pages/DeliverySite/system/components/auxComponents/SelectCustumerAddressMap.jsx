@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import restaurantLogo from "../../../../../assets/restaurantLogo.png";
-import redPinMapBox from "../../../../../assets/redPinMapBox.png";
+import redPinMapBox from "../../../../../assets/redPinMapbox.png";
 import 'leaflet-control-geocoder';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 

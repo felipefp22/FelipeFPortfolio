@@ -35,8 +35,6 @@ export async function createCustomer(customerName, phone, email, address, addres
         complement: complement,
     };
 
-    console.log("Creating customer with data:", postData);
-
     try {
         const response = await axiosInstanceRestaurantSystem.post(`/customer/create-customer`, postData,
             {
@@ -46,7 +44,6 @@ export async function createCustomer(customerName, phone, email, address, addres
             }
         );
 
-        console.log("Create customer response:", response);
         return response;
     } catch (error) {
         console.error(error);
