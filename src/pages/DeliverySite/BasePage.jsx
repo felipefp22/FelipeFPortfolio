@@ -117,7 +117,7 @@ export default function BasePage() {
             onClick={() => logOutAction()}>{<FontAwesomeIcon icon={faPowerOff} />}</button> */}
 
           <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, }} >
-            <UserOptions setCompanySelected={setCompanySelected} />
+            <UserOptions companySelected={companySelected} setCompanySelected={setCompanySelected} />
           </div>
         </div>}
 

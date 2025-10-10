@@ -123,14 +123,11 @@ export default function NewOrderModal({ closeNewOrderModal, getShiftOperationDat
 
     return (
         <>
-            <div style={{
-                display: 'flex', flexDirection: 'column', width: !isDesktopView ? "100%" : "85%", maxHeight: !isDesktopView ? '90%' : '80%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-                color: 'white', padding: !isDesktopView ? '10px' : '20px', borderRadius: '10px', zIndex: 10, overflowX: "hidden", overflowY: "auto"
-            }}>
+            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "85%", maxHeight: !isDesktopView ? '90%' : '80%', padding: !isDesktopView ? '10px' : '20px',  zIndex: 10, }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>Create new customer</button>
+                        <button className="buttomDarkGray" style={{ marginLeft: '0px' }} onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>Create new customer</button>
                     </div>
 
                     <span style={{ fontWeight: "600" }}>Customer</span>
@@ -190,7 +187,7 @@ export default function NewOrderModal({ closeNewOrderModal, getShiftOperationDat
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Item</button>
+                            <button className="buttomDarkGray" style={{ marginLeft: '0px' }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
                         <span style={{ fontWeight: "600", marginBottom: '5px' }}>Itens on Order</span>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', border: '1px solid lightgray' }}>
@@ -216,14 +213,12 @@ export default function NewOrderModal({ closeNewOrderModal, getShiftOperationDat
                     </div>
                 </div>
 
-                <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
-
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => closeNewOrderModal()} disabled={disabled}>Cancel Order</button>
+                            <button className="buttomDarkRed" style={{ marginLeft: '0px' }} onClick={() => closeNewOrderModal()} disabled={disabled}>Cancel Order</button>
 
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }}
+                            <button className="buttomDarkGreen" style={{ marginLeft: '0px' }}
                                 onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', margin: '0 30px', }} /> : 'Save Order'}</button>
                         </div>
                     </div>

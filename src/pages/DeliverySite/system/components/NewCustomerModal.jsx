@@ -92,10 +92,7 @@ export default function NewCustomerModal({ close }) {
 
     return (
         <>
-            <div style={{
-                display: 'flex', flexDirection: 'column', width: !isDesktopView ? "100%" : "85%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-                color: 'white', padding: !isDesktopView ? '10px' : '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto"
-            }}>
+            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "85%", maxHeight: '90%', padding: !isDesktopView ? '10px' : '20px',  zIndex: 10,}}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
@@ -179,11 +176,11 @@ export default function NewCustomerModal({ close }) {
                     <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} />
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '0px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => saveCustomer()}>Save Customer</button>
+                            <button className="buttomDarkRed" style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
+                            <button className="buttomDarkGreen" style={{ marginLeft: '0px' }} onClick={() => saveCustomer()}>Save Customer</button>
                         </div>
                     </div>
                 </div>

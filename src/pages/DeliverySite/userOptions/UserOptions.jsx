@@ -13,12 +13,12 @@ import avatar from '../../../assets/noProfilePhoto.png';
 import MenuDrawer from "./components/MenuDrawer";
 
 
-export default function UserOptions({ setCompanySelected }) {
+export default function UserOptions({ companySelected, setCompanySelected }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
-    
+
     const [firstLoadingUserInfos, setFirstLoadingUserInfos] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(true);
-
+    const drawerRef = useRef(null);
 
     const [companiesCoumpound, setCompaniesCoumpound] = useState([]);
     const [selectedCompaniesCoumpound, setSelectedCompaniesCoumpound] = useState(null);
@@ -49,6 +49,24 @@ export default function UserOptions({ setCompanySelected }) {
         setFirstLoadingUserInfos(true);
     }
 
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (drawerRef.current && !drawerRef.current.contains(event.target)) {
+                setDrawerOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+    
+    useEffect(() => {
+        if (companySelected === null) {
+            setDrawerOpen(false);
+        }
+    }, [companySelected]);
+
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isDesktopView ? 5 : 3, position: 'relative', }} >
@@ -56,7 +74,7 @@ export default function UserOptions({ setCompanySelected }) {
                     <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white",  marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
                 </div> */}
 
-                {drawerOpen && <MenuDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />}
+                {drawerOpen && <div ref={drawerRef}><MenuDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} /></div>}
 
                 <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                     <button style={{
@@ -70,8 +88,8 @@ export default function UserOptions({ setCompanySelected }) {
                     {isEmailConfirmed && <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
                         <h3 style={{ color: "white", marginBottom: '10px' }}>Welcome {name ? " - " + name : "Guest"}</h3>
 
-                        <button style={{
-                            backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '20px',
+                        <button className="buttomDarkGray" style={{
+                            padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '20px',
                             opacity: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 0.5 : 1, cursor: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 'not-allowed' : 'pointer',
                         }}
                             onClick={() => { setCreateCompanyModal(true); }} disabled={companiesCoumpound?.length > 0 || !firstLoadingUserInfos}>Create Group and Company</button>

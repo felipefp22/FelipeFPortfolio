@@ -42,24 +42,21 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
     return (
         <>
-            <div style={{
-                display: 'flex', flexDirection: 'column', width: !isDesktopView ? "100%" : "85%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-                color: 'white', padding: !isDesktopView ? '10px' : '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden',
-            }}>
+            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "85%", maxHeight: '90%', padding: !isDesktopView ? '10px' : '20px', zIndex: 10, }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', width: '100%', marginBottom: '10px', flexWrap: 'wrap' }}>
-                        <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px', border: buttonFilter === "All" ? "2px solid white" : "none" }}
+                        <button className="buttomDarkBlue" style={{marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
                             onClick={() => setButtonFilter("All")}>All</button>
 
                         {allCompanyProductsCategories && allCompanyProductsCategories?.map((category) => (
-                            <button key={category?.id} style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px', border: buttonFilter === category ? "2px solid white" : "none" }}
+                            <button key={category?.id} className="buttomDarkBlue" style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
                                 onClick={() => setButtonFilter(category)}>{category?.categoryName}</button>
                         ))}
 
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '300px', backgroundColor: 'white', borderRadius: '5px', padding: 3, overflowY: 'auto' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '5px', padding: 3, overflowY: 'auto' }}>
                         <input type="text" value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
                             style={{
                                 height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', height: 40, paddingLeft: '10px', borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto',
@@ -103,36 +100,15 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                     </div>
                 </div>
 
-                <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
-
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
-                            <button style={{ backgroundColor: 'rgba(15, 107, 56, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => { addItemsToOrderAction(); }}>Add items</button>
+                            <button className="buttomDarkRed" style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
+                            <button className="buttomDarkGreen" style={{ marginLeft: '0px' }} onClick={() => { addItemsToOrderAction(); }}>Add items</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* {showBoxCreateFakesCustomers && <div style={{ position: 'absolute', display: 'flex', height: '100%', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.8)', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', zIndex: 100 }} >
-                <div style={{
-                    display: 'flex', flexDirection: 'column', maxWidth: "45%", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-                    color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto"
-                }}>
-                    <span>Will create a 10 fake custumers to you test system.</span>
-                    <span>(This system is just to recruiters see skills)</span>
-                    <br/>
-
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                        <button style={{ backgroundColor: 'rgba(189, 13, 0, 0)', border: "none", color: "rgba(255, 69, 56, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }} 
-                        onClick={() => setShowBoxCreateFakesCustomers(false)}>Cancel</button>
-
-                        <button style={{ backgroundColor: 'rgba(15, 107, 56, 0)', border: "none", color: "rgba(38, 233, 35, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
-                         onClick={() => ""}>Yes Create</button>
-                    </div>
-                </div>
-            </div>} */}
         </>
     );
 }

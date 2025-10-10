@@ -1,16 +1,12 @@
 import { use, useEffect, useRef, useState } from "react";
 import { Form, Spinner, Table } from "react-bootstrap";
 import NewOrderModal from "./components/NewOrderModal";
-import { getCompanyOperation } from "../../../services/deliveryServices/CompanySevice";
-import { closeOrder, getOrderOperation, reopenOrder } from "../../../services/deliveryServices/OrderService";
-import { getShiftOperation, openNewShift } from "../../../services/deliveryServices/ShiftService";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
 import CancelOrder from "./components/CancelOrderModal.jsx";
 import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
-import up from "../../../assets/up.png";
-import down from "../../../assets/down.png";
+import ChangeOrderStatusModal from "./components/ChangeOrderStatusModal.jsx";
 
 
 export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
@@ -49,40 +45,11 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
         setSelectedOrderToCancel(null);
     }
 
-    async function dispatchOrders() {
-        setProcessing(true);
-        await Promise.all(
-            selectedCookingOrderID.map(orderID =>
-                closeOrder(orderID, false, 0)
-            )
-        );
-
-        await getShiftOperationData();
-        setSelectedCookingOrderID([]);
-        setSelectedOnDeliveryOrderID([]);
-        setChangeStatusOrderModal(false);
-        setProcessing(false);
-    }
-
-    async function openOrdersAgain() {
-        setProcessing(true);
-        await Promise.all(
-            selectedOnDeliveryOrderID.map(orderID =>
-                reopenOrder(orderID)
-            )
-        );
-        await getShiftOperationData();
-        setSelectedCookingOrderID([]);
-        setSelectedOnDeliveryOrderID([]);
-        setChangeStatusOrderModal(false);
-        setProcessing(false);
-    }
-
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: 5, overflowY: 'auto' }}>
                 {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
-                    <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }}
+                    <button className="buttomDarkGray" style={{ marginBottom: '20px', marginLeft: '0px', }}
                         onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
                 </div>}
 
@@ -98,7 +65,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                             <span>Cancel</span>
                         </button>
                     </div>
-                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
+                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
                         <Table hover responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -134,7 +101,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                         </button>
                     </div>
 
-                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
+                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
                         <Table hover responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -149,7 +116,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                                         onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                         <td>{order.orderNumberOnShift}</td>
                                         <td>{order.customer?.customerName || "No Name"}</td>
-                                        <td>{Math.max( 0, Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000))}</td>
+                                        <td>{Math.max(0, Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000))}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -176,7 +143,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                         </button>
                     </div>
 
-                    {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
+                    {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
                         <Table responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -208,7 +175,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                         </div>
                     </div>
 
-                    {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
+                    {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
                         <Table responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -232,36 +199,13 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                 </div>}
             </div >
 
-            {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{ zIndex: 9 }} >
-                <NewOrderModal closeNewOrderModal={() => { setNewOrderModal(false); setHaveModalOpen(false); }} getShiftOperationData={getShiftOperationData} />
+            {changeStatusOrderModal && <div className="myModal" style={{ zIndex: 100 }} >
+                <ChangeOrderStatusModal closeNewOrderModal={() =>  { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID}
+                 selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
             </div>}
 
-            {changeStatusOrderModal && <div className="myModal" style={{ zIndex: 100 }} >
-                <div style={{
-                    display: 'flex', flexDirection: 'column', maxWidth: !isDesktopView ? "95%" : "45%", maxHeight: !isDesktopView ? "95%" : "90%", border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-                    color: 'white', padding: '20px', borderRadius: '10px', zIndex: 10, overflowY: "auto"
-                }}>
-                    {selectedCookingOrderID.length > 0 && <div>
-                        <span>Dispach to delivery?</span>
-                    </div>}
-
-                    {selectedOnDeliveryOrderID.length > 0 && <div>
-                        <span>Reopen Orders?</span>
-                    </div>}
-                    <br />
-
-                    {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                        <button style={{ backgroundColor: 'rgba(189, 13, 0, 0)', border: "none", color: "rgba(255, 69, 56, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
-                            onClick={() => { setSelectedCookingOrderID([]); setChangeStatusOrderModal(false); }} disabled={processing}>Cancel</button>
-
-                        <button style={{ backgroundColor: 'rgba(15, 107, 56, 0)', border: "none", color: "rgba(38, 233, 35, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
-                            onClick={() => { if (selectedCookingOrderID.length > 0) dispatchOrders(); if (selectedOnDeliveryOrderID.length > 0) openOrdersAgain(); }} disabled={processing}>Yes</button>
-                    </div>}
-
-                    {processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '50px', marginTop: '10px' }}>
-                        <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
-                    </div>}
-                </div>
+            {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{ zIndex: 9 }} >
+                <NewOrderModal closeNewOrderModal={() => { setNewOrderModal(false); setHaveModalOpen(false); }} getShiftOperationData={getShiftOperationData} />
             </div>}
 
             {selectedOrderToCancel && <div className="myModal" style={{ zIndex: 100 }} >

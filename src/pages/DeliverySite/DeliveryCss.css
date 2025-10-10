@@ -6,6 +6,72 @@
     background-color: rgba(0, 0, 0, 0.7);
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 5px;
     z-index: 9;
+}
+
+.modalInside {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    max-height: 90%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: #1C1C1C;
+    color: white;
+    padding: 10px; 
+    border-radius: 5px; 
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+
+.buttomDarkGray {
+    background-color: #272725;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    height: 40px;
+    margin-left: 0px;
+    border-radius: 5px;
+    padding: 0px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.buttomDarkGreen {
+    background-color: #034500;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    height: 40px;
+    margin-left: 0px;
+    border-radius: 5px;
+    padding: 0px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.buttomDarkRed {
+    background-color: rgb(172, 1, 1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    height: 40px;
+    margin-left: 0px;
+    border-radius: 5px;
+    padding: 0px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.buttomDarkBlue {
+    background-color: rgb(0, 47, 104);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    height: 40px;
+    margin-left: 0px;
+    border-radius: 5px;
+    padding: 0px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
 }

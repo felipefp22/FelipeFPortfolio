@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import avatar from '../../../../assets/noProfilePhoto.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -16,12 +16,22 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const [profilePhoto, setProfilePhoto] = useState(localStorage.getItem('userLoggedProfilePhoto') || null);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownProfileRef.current && !dropdownProfileRef.current.contains(event.target)) {
+                setShowProfileDropdown(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
 
     return (
         <>
             <div style={{
-                display: 'flex', flexDirection: 'column', opacity: drawerOpen ? 1 : 0, transition: "opacity 0.3s", whiteSpace: "nowrap", position: "absolute", background: "linear-gradient(135deg, #484848ff, #26265aff)",
+                display: 'flex', flexDirection: 'column', opacity: drawerOpen ? 1 : 0, transition: "opacity 0.3s", whiteSpace: "nowrap", position: "absolute", background: "#272725",
                 height: '100%', width: '75%', maxWidth: '300px', zIndex: 2, boxShadow: "2px 0 5px rgba(0,0,0,0.3)", top: -5, left: -10, padding: '10px'
             }}>
 
@@ -30,7 +40,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
                         <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowProfileDropdown(!showProfileDropdown)} >
                             <img src={profilePhoto ?? avatar} alt="" width="45" height="45" style={{ borderRadius: '50%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = avatar; }} />
                         </Dropdown.Toggle>
-                        <Dropdown.Menu align="end" style={{ borderRadius: "6px" }}>
+                        <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
                             {/* <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => navigate("/uadm")}>
                                 <FontAwesomeIcon icon={faUser} style={{ color: 'black' }} />
                                 <span className="ms-2">Perfil</span>
@@ -46,7 +56,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
                         onClick={() => { setDrawerOpen(false); localStorage.removeItem('companyOperatingID'); }}>☰</button>
                 </div>
 
-                <hr style={{ margin: "20px 0", border: "none", borderTop: "5px solid rgba(238, 238, 238, 0.98)", }} />
+                <hr style={{ margin: "20px 0", border: "none", borderTop: "5px solid rgba(255, 255, 255, 0.2)", }} />
 
                 <ul style={{ listStyle: "none", padding: 0 }}>
 

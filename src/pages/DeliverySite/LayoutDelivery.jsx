@@ -9,7 +9,7 @@ export default function LayoutDelivery() {
   return (
     <>
       <div style={{
-        background: "linear-gradient(135deg, #484848ff, #26265aff)", color: "white", height: "100dvh", width: "100vw", fontFamily: "Segoe UI, sans-serif", overflow: "hidden",
+        background: "#1C1C1C", color: "white", height: "100dvh", width: "100vw", fontFamily: "Segoe UI, sans-serif", overflow: "hidden",
         display: "flex", flexDirection: "column", justifyContent: "center", padding: '0px 0px'
         // alignItems: "center",
       }}>
@@ -19,7 +19,7 @@ export default function LayoutDelivery() {
             <Outlet /> {/* This will render the page-specific body */}
           </Container>
 
-          <footer style={{ backgroundColor: "#333", color: "white", height: "35px", padding: "5px 0", textAlign: "center", }}>
+          <footer style={{ backgroundColor: "#272725", color: "white", height: "35px", padding: "5px 0", textAlign: "center", }}>
             <p style={{ margin: 0 }}>Developed by: <a href="https://felipefp22.github.io/FelipeFPortfolio" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", padding: 0, margin: 0 }}>felipefp22</a></p>
           </footer>
         </div>
