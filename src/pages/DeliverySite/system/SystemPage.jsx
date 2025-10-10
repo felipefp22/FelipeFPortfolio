@@ -7,9 +7,11 @@ import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faSquareCaretDown, fa
 import CancelOrder from "./components/CancelOrderModal.jsx";
 import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
 import ChangeOrderStatusModal from "./components/ChangeOrderStatusModal.jsx";
+import { fontColorOne, secondColor, secondColorInverse } from "../../../theme/Colors.js";
 
 
 export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
+    const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
@@ -54,9 +56,8 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                 </div>}
 
                 {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
-
-                        <h3 style={{ color: "white", marginBottom: '10px' }}>Orders Cooking</h3>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', color: fontColorOne(theme) }}>
+                        <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders Cooking</span>
                         <button style={{
                             backgroundColor: '#c90000ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px',
                             visibility: ((selectedCookingOrderID.length === 1 && selectedOnDeliveryOrderID.length === 0) || (selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length === 1)) ? 'visible' : 'hidden'
@@ -65,7 +66,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                             <span>Cancel</span>
                         </button>
                     </div>
-                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
+                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${secondColorInverse(theme)}` }}>
                         <Table hover responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -91,7 +92,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                 {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
-                        <h3 style={{ color: "white", marginBottom: '10px' }}>Orders on Delivery</h3>
+                        <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders on Delivery</span>
                         <button style={{
                             backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px',
                             visibility: (selectedCookingOrderID?.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden'
@@ -101,7 +102,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                         </button>
                     </div>
 
-                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
+                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${secondColorInverse(theme)}` }}>
                         <Table hover responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -130,7 +131,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
-                            <h3 style={{ color: "white", marginBottom: '10px' }}>Completed Orders</h3>
+                           <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Completed Orders</span>
                             <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                         </div>
 
@@ -143,7 +144,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                         </button>
                     </div>
 
-                    {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
+                    {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${secondColorInverse(theme)}` }}>
                         <Table responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -170,12 +171,12 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
-                            <h3 style={{ color: "white", marginBottom: '10px' }}>Canceled Orders</h3>
+                            <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Canceled Orders</span>
                             <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                         </div>
                     </div>
 
-                    {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', }}>
+                    {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${secondColorInverse(theme)}` }}>
                         <Table responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -200,12 +201,12 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
             </div >
 
             {changeStatusOrderModal && <div className="myModal" style={{ zIndex: 100 }} >
-                <ChangeOrderStatusModal closeNewOrderModal={() =>  { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID}
-                 selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
+                <ChangeOrderStatusModal close={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID}
+                    selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
             </div>}
 
             {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{ zIndex: 9 }} >
-                <NewOrderModal closeNewOrderModal={() => { setNewOrderModal(false); setHaveModalOpen(false); }} getShiftOperationData={getShiftOperationData} />
+                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} getShiftOperationData={getShiftOperationData} />
             </div>}
 
             {selectedOrderToCancel && <div className="myModal" style={{ zIndex: 100 }} >

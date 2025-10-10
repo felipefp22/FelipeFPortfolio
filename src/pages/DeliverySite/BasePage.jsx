@@ -13,9 +13,11 @@ import {
   changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,
   changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders
 } from '../../redux/companyOperationSlice.js';
+import { secondColor, secondColorInverse } from '../../theme/Colors.js';
 
 
 export default function BasePage() {
+  const theme = useSelector((state) => state.view.theme);
   const dispatch = useDispatch();
   const isDesktopView = useSelector((state) => state.view.isDesktopView);
   const [screenOnFocus, setScreenOnFocus] = useState("");
@@ -126,10 +128,10 @@ export default function BasePage() {
       {companySelected && <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 0, flexGrow: 1, }}>
 
         {<div style={{ display: 'flex', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative', visibility: screenOnFocus !== "map" ? 'visible' : 'hidden' }}>
-          {!haveModalOpen && <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#c90000ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+          {!haveModalOpen && <button className='floatingButton' style={{ position: 'absolute', top: 0, left: 5, backgroundColor: '#c90000ff', }}
             onClick={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); }}>{<FontAwesomeIcon icon={faRightFromBracket} flip="horizontal" />}</button>}
 
-          {!haveModalOpen && <button style={{ position: 'absolute', top: 0, right: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+          {!haveModalOpen && <button className='floatingButton' style={{ position: 'absolute', top: 0, right: 5, }}
             onClick={() => setScreenOnFocus(screenOnFocus === "system" ? (!isDesktopView ? "map" : "") : "system")}>
             {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>}
 
@@ -138,10 +140,10 @@ export default function BasePage() {
           </div>
         </div>}
 
-        {isDesktopView && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: 'white', borderRadius: 50, margin: "0px 5px" }} />}
+        {isDesktopView && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
 
         {<div style={{ display: 'flex', height: '100%', width: screenOnFocus === "system" ? '0%' : screenOnFocus === "map" ? '100%' : '50%', position: 'relative' }}>
-          {screenOnFocus !== "system" && <button style={{ position: 'absolute', top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 20px", boxShadow: "3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6 }}
+          {screenOnFocus !== "system" && <button className='floatingButton' style={{ position: 'absolute', top: 0, left: 5, }}
             onClick={() => setScreenOnFocus(screenOnFocus === "map" ? (!isDesktopView ? "system" : "") : "map")}>{screenOnFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
 
           <MapaDelivery setHaveModalOpen={setHaveModalOpen} />

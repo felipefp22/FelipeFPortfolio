@@ -8,9 +8,11 @@ import { faCrosshairs, faFireFlameCurved } from '@fortawesome/free-solid-svg-ico
 import { filterLoccationsOverLaping, sanitizeLatLng } from './mapcomponentsandservices/ManageOverlapPoints';
 import { useSelector } from 'react-redux';
 import "leaflet/dist/leaflet.css";
+import { fontColorOne, secondColor } from '../../../theme/Colors';
 
 
 export default function MapaDelivery({ }) {
+  const theme = useSelector((state) => state.view.theme);
   const isDesktopView = useSelector((state) => state.view.isDesktopView);
   const companyOperation = useSelector((state) => state.companyOperation);
   const [companyLat, setCompanyLat] = useState(null);
@@ -75,16 +77,6 @@ export default function MapaDelivery({ }) {
       };
     }
   }, [companyLat, companyLng]);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     if (mapRef.current) {
-  //       mapRef.current.invalidateSize();
-  //     }
-  //   };
-  //   window.addEventListener('resize', handleResize);
-  //   return () => window.removeEventListener('resize', handleResize);
-  // }, []);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -160,39 +152,6 @@ export default function MapaDelivery({ }) {
     }
   };
 
-  // const handleZoomChange = (e) => {
-  //   setZoom(Number(e.target.value)); // Update the zoom value
-
-  //   localStorage.setItem('mapZoomLevel', e.target.value);
-  //   if (mapRef.current) {
-  //     mapRef.current.setZoom(Number(e.target.value));
-  //   }
-  // };
-
-  // const [newLatRestaurant, setNewLatRestaurant] = useState("");
-  // const [newLngRestaurant, setNewLngRestaurant] = useState("");
-
-  // function saveNewRestaurantLocation() {
-  //   if (newLatRestaurant && newLngRestaurant) {
-
-  //   }
-  // }
-
-  // const [isModalVisible, setModalVisible] = useState(false); 
-  // const handleOpenModal = () => {
-  //   const latPattern = /^-?(90(\.0{1,8})?|[0-8]?\d(\.\d{1,8})?)$/;
-  //   const lngPattern = /^-?(180(\.0{1,8})?|1[0-7]\d(\.\d{1,8})?|[0-9]?\d(\.\d{1,8})?)$/;
-
-  //   if (
-  //     newLatRestaurant &&
-  //     latPattern.test(newLatRestaurant) &&
-  //     newLngRestaurant &&
-  //     lngPattern.test(newLngRestaurant)
-  //   ) {
-  //     setModalVisible(true);
-  //   }
-  // };
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '99%', width: '99%', paddingTop: 45, overflow: 'hidden', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
 
@@ -201,67 +160,65 @@ export default function MapaDelivery({ }) {
       </div>
 
       <div style={{
-        position: 'absolute', bottom: 200, right: 10, width: '45px', height: '45px', backgroundColor: '#272725', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000,
+        position: 'absolute', bottom: 200, right: 10, width: '45px', height: '45px', backgroundColor: secondColor(theme), display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000,
         borderRadius: 50, boxShadow: '2px 4px 6px rgba(0, 0, 0, 0.36)', cursor: 'pointer', border: '4px solid #eaa37a47',
       }} onClick={() => { recenterMap() }}>
-        <FontAwesomeIcon icon={faCrosshairs} style={{ zIndex: 100, color: 'rgba(255, 255, 255, 0.9)', fontSize: '28px' }} />
+        <FontAwesomeIcon icon={faCrosshairs} style={{ zIndex: 100, color: fontColorOne(theme), fontSize: '28px' }} />
       </div>
 
       <div style={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#272725', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.36)', borderRadius: '0px 0px 3px 3px', zIndex: 1000,
-        position: 'absolute', bottom: 10, flexWrap: 'wrap', fontSize: isDesktopView ? '16px' : '15px', margin: '0px 5px', borderRadius: '6px', border: '4px solid #eaa37a47',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: secondColor(theme), boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.36)', borderRadius: '0px 0px 3px 3px', zIndex: 1000,
+        position: 'absolute', bottom: 10, flexWrap: 'wrap', fontSize: isDesktopView ? '16px' : '15px', margin: '0px 5px', borderRadius: '6px', border: '4px solid #eaa37a47', color: fontColorOne(theme),
       }}>
 
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}>
 
           <div style={{
-            padding: '3px', textAlign: 'center', position: 'absolute', left: -4, top: -34, backgroundColor: '#272725', borderRadius: '3px', borderTop: '4px solid #eaa37a47', borderLeft: '4px solid #eaa37a47',
-            borderRight: '4px solid #eaa37a47',
+            padding: '3px', textAlign: 'center', position: 'absolute', left: -4, top: -34, backgroundColor: secondColor(theme), borderRadius: '3px', borderTop: '4px solid #eaa37a47', borderLeft: '4px solid #eaa37a47',
+            borderRight: '4px solid #eaa37a47', color: fontColorOne(theme),
           }}>
-            <span style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>Waiting Time</span>
+            <span style={{ fontWeight: 'bold', fontSize: '16px' }}>Waiting Time</span>
           </div>
 
-          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(3), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'white' }}> 1-5  </span></div>
+          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}><div className='divMapaDeliveryPoint' style={{backgroundColor: selectMarkerColor(3) }}></div> <span> 1-5  </span></div>
 
-          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(8), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'white' }}> 6-10 </span></div>
+          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}><div className='divMapaDeliveryPoint' style={{backgroundColor: selectMarkerColor(8) }}></div> <span> 6-10 </span></div>
 
-          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(15), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'white' }}> 11-20 </span></div>
+          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}><div className='divMapaDeliveryPoint' style={{backgroundColor: selectMarkerColor(15) }}></div> <span> 11-20 </span></div>
 
-          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(25), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'white' }}> 21-30 </span></div>
+          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}><div className='divMapaDeliveryPoint' style={{backgroundColor: selectMarkerColor(25) }}></div> <span> 21-30 </span></div>
 
-          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(35), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'white' }}> 31-40 </span></div>
+          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}><div className='divMapaDeliveryPoint' style={{backgroundColor: selectMarkerColor(35) }}></div> <span> 31-40 </span></div>
 
-          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(45), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'white' }}> 41-50 </span></div>
+          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}><div className='divMapaDeliveryPoint' style={{backgroundColor: selectMarkerColor(45) }}></div> <span > 41-50 </span></div>
 
-          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(55), borderRadius: '50%', marginRight: 2, boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)' }}></div> <span style={{ color: 'white' }}> 51-60 </span></div>
+          <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}><div className='divMapaDeliveryPoint' style={{backgroundColor: selectMarkerColor(55) }}></div> <span> 51-60 </span></div>
 
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: selectMarkerColor(68),
-              borderRadius: '50%', marginRight: 2, alignContent: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)'
-            }}>
+            <div className='divMapaDeliveryPoint' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignContent: 'center', position: 'relative', backgroundColor: selectMarkerColor(68), }}>
               <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: isDesktopView ? '18px' : '14px', position: 'absolute', bottom: isDesktopView ? 25 : 20 }} />
-            </div> <span style={{ color: 'white' }}> 61-70 </span></div>
+            </div><span> 61-70 </span></div>
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '8px 5px', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', width: isDesktopView ? '35px' : '25px', height: isDesktopView ? '35px' : '25px', backgroundColor: "#e40e0e",
-              borderRadius: '50%', marginRight: 2, border: '4px solid #f36818', boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)'
-            }}>
+            <div className='divMapaDeliveryPoint' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', backgroundColor: "#e40e0e", border: '4px solid #f36818', }}>
               <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: isDesktopView ? '25px' : '20px', position: 'absolute', bottom: isDesktopView ? 20 : 15, textShadow: '0px 2px 100px rgba(0,0,0,0.4)' }} />
-            </div> <span style={{ color: 'white' }}> 70+ </span></div>
+            </div><span> 70+ </span></div>
 
         </div>
         {/* <span style={{ color: 'black' }}> Minutes </span> */}
       </div>
+
+      <style>{`
+        .divMapaDeliveryPoint {
+          width: ${isDesktopView ? '35px' : '25px'};
+          height: ${isDesktopView ? '35px' : '25px'};
+          border-radius: 50%;
+          margin-right: 2;
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.30);
+        }
+      `}
+      </style>
     </div >
   );
 }

@@ -9,7 +9,7 @@ import { getAllProductsCategories } from "../../../../services/deliveryServices/
 import { createOrder } from "../../../../services/deliveryServices/OrderService";
 import { useSelector } from "react-redux";
 
-export default function NewOrderModal({ closeNewOrderModal, getShiftOperationData }) {
+export default function NewOrderModal({ close, getShiftOperationData }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [disabled, setDisabled] = useState(false);
@@ -107,7 +107,7 @@ export default function NewOrderModal({ closeNewOrderModal, getShiftOperationDat
         if (response?.status === 200) {
             await getShiftOperationData();
             setDisabled(false);
-            closeNewOrderModal();
+            close();
         }
     }
 
@@ -216,7 +216,7 @@ export default function NewOrderModal({ closeNewOrderModal, getShiftOperationDat
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button className="buttomDarkRed" style={{ marginLeft: '0px' }} onClick={() => closeNewOrderModal()} disabled={disabled}>Cancel Order</button>
+                            <button className="buttomDarkRed" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Cancel Order</button>
 
                             <button className="buttomDarkGreen" style={{ marginLeft: '0px' }}
                                 onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', margin: '0 30px', }} /> : 'Save Order'}</button>

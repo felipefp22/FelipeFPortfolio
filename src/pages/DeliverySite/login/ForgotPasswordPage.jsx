@@ -5,8 +5,11 @@ import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 import { faCheck, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
+import { redOne } from '../../../theme/Colors.js';
 
 export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
+  const theme = useSelector((state) => state.view.theme);
   const navigate = useNavigate();
   const [disabledCode, setDisabledCode] = useState(false);
   const [disabledText, setDisabledText] = useState(false);
@@ -147,12 +150,9 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', justifyContent: 'center', justifyItems: 'center', alignContent: 'center', alignItems: 'center', padding: 5, flexGrow: 1, }}>
-        <div style={{
-          display: 'flex', flexDirection: 'column', minWidth: "350px", width: "auto", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-          color: 'white', padding: '10px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center',
-        }}>
+        <div className='modalInside' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center', }}>
           <div style={{ maxWidth: '450px', width: '96%' }}>
-            <h2 style={{ color: 'rgba(255, 101, 101, 1)', marginBottom: '30px' }}>Reset Password</h2>
+            <h2 style={{ color: redOne(theme), marginBottom: '30px' }}>Reset Password</h2>
 
             {!wasSent && <div>
               <form onSubmit={(e) => handleRequestReset(e)}>
@@ -236,7 +236,7 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
             {!passwordResetedSuccess && <div style={{ marginTop: '10px' }}>
               <p>Return to login? <Link onClick={() => setActualPage('login')} style={{ color: 'white', }}>Login</Link></p>
             </div>}
-            <div style={{ visibility: showLoginErrorsMessage ? 'visible' : 'hidden'}}>
+            <div style={{ visibility: showLoginErrorsMessage ? 'visible' : 'hidden' }}>
               <strong style={{ color: 'red' }}>Error! </strong> {showLoginErrorsMessage + '.'}
             </div>
 

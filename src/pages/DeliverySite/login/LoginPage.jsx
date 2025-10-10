@@ -5,8 +5,11 @@ import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { blueOne } from '../../../theme/Colors.js';
+import { useSelector } from 'react-redux';
 
 export default function LoginPage({ setActualPage, email, setEmail, password, setPassword }) {
+  const theme = useSelector((state) => state.view.theme);
   const navigate = useNavigate();
   let errorsObj = { email: '', password: '' };
   const [errors, setErrors] = useState(errorsObj);
@@ -45,10 +48,10 @@ export default function LoginPage({ setActualPage, email, setEmail, password, se
 
       window.dispatchEvent(new CustomEvent("profileUpdated"));
     } else {
-      if(response?.data === 'LoginDataWrong'){
-      setShowLoginErrorsMessage('Email or Password incorrect');
-      }else{
-      setShowLoginErrorsMessage('Error during login, try again later');
+      if (response?.data === 'LoginDataWrong') {
+        setShowLoginErrorsMessage('Email or Password incorrect');
+      } else {
+        setShowLoginErrorsMessage('Error during login, try again later');
       }
 
       setDisableEnter(false);
@@ -64,12 +67,9 @@ export default function LoginPage({ setActualPage, email, setEmail, password, se
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', justifyContent: 'center', justifyItems: 'center', alignContent: 'center', alignItems: 'center', padding: 5, flexGrow: 1, }}>
-        <div style={{
-          display: 'flex', flexDirection: 'column', minWidth: "350px", width: "auto", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-          color: 'white', padding: '10px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center',
-        }}>
+        <div className='modalInside' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center', }}>
           <div style={{ maxWidth: '450px', width: '96%' }}>
-            <h2 style={{ color: 'rgba(17, 151, 228, 1)' }}>Sign in with</h2>
+            <h2 style={{ color: blueOne(theme) }}>Sign in with</h2>
             <GoogleLogin />
             <p style={{ color: 'white', marginTop: '10px', marginBottom: '10px' }}><span>or</span></p>
 

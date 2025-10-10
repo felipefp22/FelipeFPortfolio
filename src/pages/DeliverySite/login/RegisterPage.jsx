@@ -5,8 +5,11 @@ import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { greenOne } from '../../../theme/Colors.js';
 
 export default function RegisterPage({ setActualPage, email, setEmail, password, setPassword }) {
+  const theme = useSelector((state) => state.view.theme);
   const navigate = useNavigate();
   let errorsObj = { email: '', password: '' };
   const [errors, setErrors] = useState(errorsObj);
@@ -77,12 +80,10 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', justifyContent: 'center', justifyItems: 'center', alignContent: 'center', alignItems: 'center', padding: 5, flexGrow: 1, }}>
-        <div style={{
-          display: 'flex', flexDirection: 'column', minWidth: "350px", width: "auto", maxHeight: '90%', border: '2px solid white', background: "linear-gradient(135deg, #272727ff, #18183aff)",
-          color: 'white', padding: '10px', borderRadius: '10px', zIndex: 10, overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center',
-        }}>
+        <div className='modalInside' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center', }}>
+
           <div style={{ maxWidth: '450px', width: '96%' }}>
-            <h2 style={{ color: 'rgba(32, 248, 58, 1)' }}>Sign Up With</h2>
+            <h2 style={{ color: greenOne(theme) }}>Sign Up With</h2>
             <GoogleLogin />
             <p style={{ color: 'white', marginTop: '10px', }}><span>or</span></p>
 
@@ -164,7 +165,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
             <div style={{ marginTop: '10px' }}>
               <p>Already have account? <Link onClick={() => setActualPage('login')} style={{ color: 'white', }}>Login</Link></p>
             </div>
-            <div style={{ visibility: showLoginErrorsMessage ? 'visible' : 'hidden',}}>
+            <div style={{ visibility: showLoginErrorsMessage ? 'visible' : 'hidden', }}>
               <strong style={{ color: 'red' }}>Error! </strong> {showLoginErrorsMessage + '.'}
             </div>
 

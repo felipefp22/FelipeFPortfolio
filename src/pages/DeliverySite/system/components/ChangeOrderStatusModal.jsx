@@ -3,7 +3,7 @@ import { Spinner, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { closeOrder, reopenOrder } from "../../../../services/deliveryServices/OrderService";
 
-export default function ChangeOrderStatusModal({ closeNewOrderModal, selectedCookingOrderID, setSelectedCookingOrderID, selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID, getShiftOperationData, }) {
+export default function ChangeOrderStatusModal({ close, selectedCookingOrderID, setSelectedCookingOrderID, selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID, getShiftOperationData, }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [processing, setProcessing] = useState(false);
@@ -18,7 +18,7 @@ export default function ChangeOrderStatusModal({ closeNewOrderModal, selectedCoo
         );
 
         await getShiftOperationData();
-        closeNewOrderModal();
+        close();
         setProcessing(false);
     }
 
@@ -30,7 +30,7 @@ export default function ChangeOrderStatusModal({ closeNewOrderModal, selectedCoo
             )
         );
         await getShiftOperationData();
-        closeNewOrderModal();
+        close();
         setProcessing(false);
     }
 
@@ -48,7 +48,7 @@ export default function ChangeOrderStatusModal({ closeNewOrderModal, selectedCoo
 
                 {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
                     <button style={{ backgroundColor: 'rgba(189, 13, 0, 0)', border: "none", color: "rgba(255, 69, 56, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
-                        onClick={() => { closeNewOrderModal(); }} disabled={processing}>Cancel</button>
+                        onClick={() => { close(); }} disabled={processing}>Cancel</button>
 
                     <button style={{ backgroundColor: 'rgba(15, 107, 56, 0)', border: "none", color: "rgba(38, 233, 35, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
                         onClick={() => { if (selectedCookingOrderID.length > 0) dispatchOrders(); if (selectedOnDeliveryOrderID.length > 0) openOrdersAgain(); }} disabled={processing}>Yes</button>

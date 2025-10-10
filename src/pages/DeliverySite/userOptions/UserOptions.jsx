@@ -11,10 +11,12 @@ import ConfirmEmail from "./components/ConfirmEmail";
 import CreateGroupAndCompanyModal from "../system/components/CreateGroupAndCompanyModal";
 import avatar from '../../../assets/noProfilePhoto.png';
 import MenuDrawer from "./components/MenuDrawer";
+import { transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
 
 
 export default function UserOptions({ companySelected, setCompanySelected }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const theme = useSelector((state) => state.view.theme);
 
     const [firstLoadingUserInfos, setFirstLoadingUserInfos] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(true);
@@ -60,7 +62,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-    
+
     useEffect(() => {
         if (companySelected === null) {
             setDrawerOpen(false);
@@ -77,11 +79,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
                 {drawerOpen && <div ref={drawerRef}><MenuDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} /></div>}
 
                 <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
-                    <button style={{
-                        width: 'auto', alignSelf: "flex-start", top: 0, left: 5, zIndex: 1000, backgroundColor: '#333', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)",
-                        borderRadius: 6, visibility: drawerOpen ? 'hidden' : 'visible', marginBottom: '10px'
-                    }}
-                        onClick={() => { setDrawerOpen(true); }}>☰</button>
+                    <button className="floatingButton" style={{ width: 'auto', alignSelf: "flex-start", visibility: drawerOpen ? 'hidden' : 'visible', marginBottom: '10px' }} onClick={() => { setDrawerOpen(true); }}>☰</button>
 
                     {!isEmailConfirmed && <ConfirmEmail fetchUserInfos={() => fetchUserInfos()} />}
 
@@ -99,7 +97,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
 
                             {companiesCoumpound?.map((compound, index) => (
                                 <div key={index}>
-                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: "rgba(255, 255, 255, 0.2)", padding: '10px', borderRadius: '6px', }}
+                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
                                         onClick={() => setSelectedCompaniesCoumpound(selectedCompaniesCoumpound === compound.id ? null : compound.id)}>
 
                                         <img src={companiesGroupLogo} alt="Logo" style={{
@@ -112,7 +110,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
                                                 style={{ fontSize: isDesktopView ? '25px' : '16px', marginRight: isDesktopView ? '20px' : '5px', borderRadius: '4px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
                                         </div>
                                     </div>
-                                    {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
+                                    {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
                                         {compound?.companies?.map((comp, idx) => (
                                             <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
                                                 onClick={() => { localStorage.setItem('companyOperatingID', comp.id); setCompanySelected(comp.id); }}>
@@ -135,7 +133,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
                             <span style={{ fontWeight: 'bold', fontSize: isDesktopView ? '24px' : '16px' }}>Companies You Work:</span>
 
                             {companiesUserWorksOn?.map((comp, idx) => (
-                                <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px', padding: '15px 10px', borderRadius: '6px', backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
 
                                     <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
                                         onClick={() => { localStorage.setItem('companyOperatingID', comp.id); setCompanySelected(comp.id); }}>

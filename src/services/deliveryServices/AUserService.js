@@ -36,3 +36,22 @@ export async function createDefaultApiDemonstration() {
         if (error?.response) return error.response;
     }
 }
+
+export async function setProfileTheme(theme) {
+
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/user-actions/set-theme/${theme}`, {},
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}

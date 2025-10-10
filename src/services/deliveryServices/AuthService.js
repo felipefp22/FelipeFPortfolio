@@ -240,6 +240,7 @@ export async function updateLocalStorage(data) {
     if (data.userLoggedEmail) localStorage.setItem('userLoggedEmail', data.userLoggedEmail);
     if (data.isEmailConfirmed) localStorage.setItem('isEmailConfirmed', data.isEmailConfirmed);
     if (data.isPhoneConfirmed) localStorage.setItem('isPhoneConfirmed', data.isPhoneConfirmed);
+    if (data.theme) localStorage.setItem('theme', data.theme);
     if (data.compoundsYouAreOwner) localStorage.setItem('compoundsYouAreOwner', JSON.stringify(data.compoundsYouAreOwner));
     if (data.companiesYouWorks) localStorage.setItem('companiesYouWorks', JSON.stringify(data.companiesYouWorks));
 
@@ -253,6 +254,7 @@ export async function logOutAction() {
     localStorage.removeItem('userLoggedEmail');
     localStorage.removeItem('isEmailConfirmed');
     localStorage.removeItem('isPhoneConfirmed');
+    localStorage.removeItem('theme');
     localStorage.removeItem('compoundsYouAreOwner');
     localStorage.removeItem('companiesYouWorks');
 

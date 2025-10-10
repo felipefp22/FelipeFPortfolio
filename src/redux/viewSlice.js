@@ -6,6 +6,7 @@ export const slice = createSlice({
     windowWidth: window.innerWidth,
     windowsAvailableWithoutMenu: window.innerWidth - 240,
     isDesktopView: '',
+    theme: localStorage.getItem('theme') || 'DARK',
   },
   reducers: {
     setWindowWidth(state, { payload }) {
@@ -16,10 +17,14 @@ export const slice = createSlice({
     },
     changeView(state, { payload }) {
       return {...state, isDesktopView: payload}
+    },
+    setTheme(state, { payload }) {
+      localStorage.setItem('theme', payload);
+      return {...state, theme: payload}
     }
   }
 })
 
-export const { setWindowWidth, setWindowsAvailableWithoutMenu, changeView } = slice.actions
+export const { setWindowWidth, setWindowsAvailableWithoutMenu, changeView, setTheme } = slice.actions
 
 export default slice.reducer
