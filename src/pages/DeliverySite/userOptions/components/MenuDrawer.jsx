@@ -65,19 +65,19 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
                         <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowProfileDropdown(!showProfileDropdown)} >
                             <img src={profilePhoto ?? avatar} alt="" width="45" height="45" style={{ borderRadius: '50%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = avatar; }} />
                         </Dropdown.Toggle>
-                        <Dropdown.Menu align="end" style={{ borderRadius: "6px",  }}>
+                        <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
                             {/* <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => navigate("/uadm")}>
                                 <FontAwesomeIcon icon={faUser} style={{ color: 'black' }} />
-                                <span className="ms-2">Perfil</span>
+                                <span style={{fontSize: '16px', fontWeight: 'bold' }}>Perfil</span>
                             </div> */}
                             <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => { dispatch(setIsAdmAuthenticated(false)); logOutAction(); }}>
                                 <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "red" }} />
-                                <span className="ms-2">LogOut</span>
+                                <span style={{ fontSize: '16px', fontWeight: 'bold' }}>LogOut</span>
                             </div>
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    <button className="floatingButton" style={{top: 0, left: 5 }}
+                    <button className="floatingButton" style={{ top: 0, left: 5 }}
                         onClick={() => { setDrawerOpen(false); localStorage.removeItem('companyOperatingID'); }}>☰</button>
                 </div>
 
@@ -85,8 +85,16 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
 
                 <ul style={{ listStyle: "none", padding: 0, color: fontColorOne(), }}>
 
-                    <li><a href="#" style={linkStyle} onClick={() => handleThemeChange("LIGHT")}>LightTheme</a></li>
-                    <li><a href="#" style={linkStyle} onClick={() => handleThemeChange("DARK")}>DarkTheme</a></li>
+                    <hr style={{ margin: "20px 0", border: "none", borderTop: "1px solid rgba(238, 238, 238, 0.98)", }} />
+                    <span style={{ fontSize: '18px', fontWeight: 'bold', }}>Theme</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', width: '100%', marginTop: '10px' }} onClick={() => handleThemeChange(theme === "DARK" ? "LIGHT" : "DARK")}>
+                        <span style={{ fontSize: '18px', fontWeight: 'bold', marginRight: '41px' }}>Dark</span>
+                        <div class="form-check form-switch" style={{ cursor: 'pointer' }}>
+                            <input class="form-check-input" style={{ cursor: 'pointer' }} type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={theme === "LIGHT"} />
+                        </div>
+                        <span style={{ fontSize: '18px', fontWeight: 'bold', marginLeft: '20px' }}>Light</span>
+                    </div>
+                    <hr style={{ margin: "20px 0", border: "none", borderTop: "1px solid rgba(238, 238, 238, 0.98)", }} />
 
                     {/* <li><a href="#" style={linkStyle} onClick={() => navigate("/admusers")}>Usuários</a></li>
 
