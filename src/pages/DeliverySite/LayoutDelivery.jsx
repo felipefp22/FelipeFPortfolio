@@ -22,7 +22,7 @@ export default function LayoutDelivery() {
             <Outlet /> {/* This will render the page-specific body */}
           </Container>
 
-          <footer style={{ backgroundColor: secondColor(theme), color: fontColorOne(theme), height: "35px", padding: "5px 0", textAlign: "center", }}>
+          <footer style={{ backgroundColor: secondColor(theme), color: fontColorOne(theme), height: "35px", padding: "5px 0", textAlign: "center", borderTop: `1px solid rgba(0, 0, 0, 0.1)`,}}>
             <p style={{ margin: 0 }}>Developed by: <a href="https://felipefp22.github.io/FelipeFPortfolio" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", padding: 0, margin: 0 }}>felipefp22</a></p>
           </footer>
         </div>
