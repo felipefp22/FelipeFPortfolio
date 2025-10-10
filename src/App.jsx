@@ -19,6 +19,7 @@ function App() {
     document.documentElement.style.setProperty('--secondColor', secondColor(theme));
     document.documentElement.style.setProperty('--borderColorOne', borderColorOne(theme));
     document.documentElement.style.setProperty('--borderColorTwo', borderColorTwo(theme));
+    document.documentElement.style.setProperty('--borderColorTwoTransparent', borderColorTwo(theme, 0.5));
     document.documentElement.style.setProperty('--fontColorOne', fontColorOne(theme));
 
     document.documentElement.style.setProperty('--modalBackground', modalBackground(theme));

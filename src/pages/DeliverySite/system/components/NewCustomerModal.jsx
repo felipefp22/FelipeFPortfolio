@@ -105,13 +105,13 @@ export default function NewCustomerModal({ close }) {
                         <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
                             <span style={{ fontWeight: "600", }}>Customer Name</span>
                             <input type="text" value={name} onChange={(e) => setName(e.target.value)}
-                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto',  border: `2px solid ${borderColorTwo(theme)}` }} />
+                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto',  border: `1px solid ${borderColorTwo(theme)}` }} />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '28%', }}>
                             <span style={{ fontWeight: "600" }}>Phone</span>
                             <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)}
-                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `2px solid ${borderColorTwo(theme)}` }} />
+                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `1px solid ${borderColorTwo(theme)}` }} />
                         </div>
                     </div>
                 </div>
@@ -122,21 +122,21 @@ export default function NewCustomerModal({ close }) {
                         <div style={{ display: 'flex', flexDirection: 'column', width: '72%', }}>
                             <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
                             <input type="text" value={address} onChange={(e) => setAddress(e.target.value)}
-                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}
+                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `1px solid ${borderColorTwo(theme)}` }}
                             />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
                             <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Number</span>
                             <input type="text" value={addressNumber} onChange={(e) => setAddressNumber(e.target.value)}
-                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}
+                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `1px solid ${borderColorTwo(theme)}` }}
                             />
                         </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '95%' }}>
                         <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Complement</span>
                         <input type="text" value={complement} onChange={(e) => setComplement(e.target.value)}
-                            style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}
+                            style={{ height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `1px solid ${borderColorTwo(theme)}` }}
                         />
                     </div>
                 </div>
@@ -155,7 +155,7 @@ export default function NewCustomerModal({ close }) {
                             onBlur={() => { setSearchAddressInput(""); setShowAddressSelectorDropdown(false); }}
                             placeholder="Search address"
                             disabled={disabled}
-                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `2px solid ${borderColorTwo(theme)}` }}
+                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                         />
                         {showAddressSelectorDropdown && (
                             <ul style={{ position: 'absolute', left: 9, top: 40, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 10000, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>

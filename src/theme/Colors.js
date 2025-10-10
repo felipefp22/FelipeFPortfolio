@@ -18,9 +18,9 @@ export function borderColorOne(theme) {
     if (theme === 'DARK') return "rgba(255, 255, 255, 0.2)";
 }
 
-export function borderColorTwo(theme) {
-    if (theme === 'LIGHT') return "rgba(5, 156, 244, 0.5)";
-    if (theme === 'DARK') return "rgba(255, 255, 255, 0.2)";
+export function borderColorTwo(theme, opacity = 1) {
+    if (theme === 'LIGHT') return `rgba(5, 156, 244, ${opacity})`;
+    if (theme === 'DARK') return `rgba(244, 121, 24, ${opacity})`;
 }
 
 

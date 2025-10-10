@@ -6,7 +6,7 @@ import { Dropdown } from "react-bootstrap";
 import { logOutAction } from "../../../../services/deliveryServices/AuthService";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsAdmAuthenticated } from "../../../../redux/admAuthSlice";
-import { fontColorOne, mainColor, secondColor, secondColorInverse } from "../../../../theme/Colors";
+import { borderColorTwo, fontColorOne, mainColor, secondColor, secondColorInverse } from "../../../../theme/Colors";
 import { setProfileTheme } from "../../../../services/deliveryServices/AUserService";
 import { setTheme } from '../../../../redux/viewSlice.js';
 
@@ -81,11 +81,11 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
                         onClick={() => { setDrawerOpen(false); localStorage.removeItem('companyOperatingID'); }}>☰</button>
                 </div>
 
-                <hr style={{ margin: "20px 0", border: "none", borderTop: `5px solid ${secondColorInverse(theme)}`, opacity: 0.08 }} />
+                <hr style={{ margin: "20px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`,}} />
 
                 <ul style={{ listStyle: "none", padding: 0, color: fontColorOne(), }}>
 
-                    <hr style={{ margin: "20px 0", border: "none", borderTop: `1px solid ${secondColorInverse(theme)}`, opacity: 0.08 }} />
+                    <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`,}} />
                     <span style={{ fontSize: '18px', fontWeight: 'bold', }}>Theme</span>
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', width: '100%', marginTop: '10px' }} onClick={() => handleThemeChange(theme === "DARK" ? "LIGHT" : "DARK")}>
                         <span style={{ fontSize: '18px', fontWeight: 'bold', marginRight: '41px' }}>Dark</span>
@@ -94,7 +94,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
                         </div>
                         <span style={{ fontSize: '18px', fontWeight: 'bold', marginLeft: '20px' }}>Light</span>
                     </div>
-                    <hr style={{ margin: "20px 0", border: "none", borderTop: `1px solid ${secondColorInverse(theme)}`, opacity: 0.08 }} />
+                    <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`, }} />
 
                     {/* <li><a href="#" style={linkStyle} onClick={() => navigate("/admusers")}>Usuários</a></li>
 

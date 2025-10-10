@@ -57,7 +57,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
 
                 {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', color: fontColorOne(theme) }}>
-                        <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders Cooking</span>
+                        <span style={{  fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders Cooking</span>
                         <button className="floatingButton" style={{
                             backgroundColor: redOne(theme), marginBottom: '10px', marginRight: '5px',
                             visibility: ((selectedCookingOrderID.length === 1 && selectedOnDeliveryOrderID.length === 0) || (selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length === 1)) ? 'visible' : 'hidden'
@@ -131,7 +131,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
-                            <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Completed Orders</span>
+                            <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Completed Orders</span>
                             <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                         </div>
                         <button className="floatingButton" style={{
@@ -170,7 +170,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
-                            <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Canceled Orders</span>
+                            <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Canceled Orders</span>
                             <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                         </div>
                     </div>

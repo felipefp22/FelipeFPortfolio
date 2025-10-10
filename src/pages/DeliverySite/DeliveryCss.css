@@ -15,7 +15,7 @@
     flex-direction: column;
     width: 85%;
     max-height: 90%;
-    border: 1px solid var(--borderColorTwo);
+    border: 1px solid var(--borderColorTwoTransparent);
     background-color: var(--mainColor);
     color: var(--fontColorOne);
     padding: 10px;

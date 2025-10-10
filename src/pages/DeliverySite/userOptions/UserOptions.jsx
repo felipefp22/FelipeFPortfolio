@@ -11,7 +11,7 @@ import ConfirmEmail from "./components/ConfirmEmail";
 import CreateGroupAndCompanyModal from "../system/components/CreateGroupAndCompanyModal";
 import avatar from '../../../assets/noProfilePhoto.png';
 import MenuDrawer from "./components/MenuDrawer";
-import { fontColorOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
+import { borderColorTwo, fontColorOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
 
 
 export default function UserOptions({ companySelected, setCompanySelected }) {
@@ -92,7 +92,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
                         }}
                             onClick={() => { setCreateCompanyModal(true); }} disabled={companiesCoumpound?.length > 0 || !firstLoadingUserInfos}>Create Group and Company</button>
 
-                        <span style={{ color: fontColorOne(theme), fontSize: '24px', fontWeight: 'bold', marginBottom: '10px' }}>Your Companies Groups:</span>
+                        <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', marginBottom: '10px' }}>Your Companies Groups:</span>
                         <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%' }}>
 
                             {companiesCoumpound?.map((compound, index) => (

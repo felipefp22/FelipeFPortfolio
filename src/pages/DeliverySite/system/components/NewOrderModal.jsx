@@ -142,7 +142,7 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
                             onBlur={() => { setCustomerInputToSearch(""); setShowCustomerSelectorDropdown(false); }}
                             placeholder="Search Customer by Name or Phone"
                             disabled={disabled}
-                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "0px", }}
+                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                         />
                         {showCustomerSelectorDropdown && (
                             <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 100, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
@@ -170,14 +170,14 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
                         <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
                             <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
                             <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
-                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
+                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `1px solid ${borderColorTwo(theme)}` }}
                             />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
                             <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Phone</span>
                             <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
-                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto', }}
+                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `1px solid ${borderColorTwo(theme)}` }}
                             />
                         </div>
                     </div>
