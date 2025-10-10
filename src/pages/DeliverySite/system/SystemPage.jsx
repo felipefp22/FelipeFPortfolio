@@ -7,7 +7,7 @@ import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faSquareCaretDown, fa
 import CancelOrder from "./components/CancelOrderModal.jsx";
 import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
 import ChangeOrderStatusModal from "./components/ChangeOrderStatusModal.jsx";
-import { fontColorOne, secondColor, secondColorInverse } from "../../../theme/Colors.js";
+import { fontColorOne, redOne, secondColor, secondColorInverse } from "../../../theme/Colors.js";
 
 
 export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
@@ -58,8 +58,8 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                 {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', color: fontColorOne(theme) }}>
                         <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders Cooking</span>
-                        <button style={{
-                            backgroundColor: '#c90000ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px',
+                        <button className="floatingButton" style={{
+                            backgroundColor: redOne(theme), marginBottom: '10px', marginRight: '5px',
                             visibility: ((selectedCookingOrderID.length === 1 && selectedOnDeliveryOrderID.length === 0) || (selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length === 1)) ? 'visible' : 'hidden'
                         }}
                             onClick={() => findOrderToCancel()}>
@@ -93,8 +93,8 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                         <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders on Delivery</span>
-                        <button style={{
-                            backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px',
+                        <button className="floatingButton" style={{
+                            backgroundColor: 'rgba(22, 111, 163, 1)', marginBottom: '10px', marginRight: '5px',
                             visibility: (selectedCookingOrderID?.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden'
                         }}
                             onClick={() => setChangeStatusOrderModal(true)}>
@@ -131,12 +131,11 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
-                           <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Completed Orders</span>
+                            <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Completed Orders</span>
                             <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                         </div>
-
-                        <button style={{
-                            backgroundColor: '#3d8602ff', border: "2px solid white", color: "white", padding: "5px 10px", boxShadow: "-3px 3px 4px rgba(255, 255, 255, 0.55)", borderRadius: 6, marginBottom: '10px', marginRight: '5px',
+                        <button className="floatingButton" style={{
+                            backgroundColor: '#3d8602ff', marginBottom: '10px', marginRight: '5px',
                             visibility: ((selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length > 0)) ? 'visible' : 'hidden'
                         }}
                             onClick={() => setCompleteOrdersModal(true)}>

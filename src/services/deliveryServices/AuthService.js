@@ -254,7 +254,6 @@ export async function logOutAction() {
     localStorage.removeItem('userLoggedEmail');
     localStorage.removeItem('isEmailConfirmed');
     localStorage.removeItem('isPhoneConfirmed');
-    localStorage.removeItem('theme');
     localStorage.removeItem('compoundsYouAreOwner');
     localStorage.removeItem('companiesYouWorks');
 

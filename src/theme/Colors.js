@@ -39,7 +39,7 @@ export function greenOne(theme) {
 
 export function redOne(theme) {
     if (theme === 'LIGHT') return "rgb(255, 0, 0)";
-    if (theme === 'DARK') return "rgb(255, 0, 0)";
+    if (theme === 'DARK') return "rgba(227, 0, 0, 1)";
 }
 
 export function blueOne(theme) {

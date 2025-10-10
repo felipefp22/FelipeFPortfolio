@@ -13,7 +13,7 @@ import {
   changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,
   changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders
 } from '../../redux/companyOperationSlice.js';
-import { secondColor, secondColorInverse } from '../../theme/Colors.js';
+import { redOne, secondColor, secondColorInverse } from '../../theme/Colors.js';
 
 
 export default function BasePage() {
@@ -128,7 +128,7 @@ export default function BasePage() {
       {companySelected && <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 0, flexGrow: 1, }}>
 
         {<div style={{ display: 'flex', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative', visibility: screenOnFocus !== "map" ? 'visible' : 'hidden' }}>
-          {!haveModalOpen && <button className='floatingButton' style={{ position: 'absolute', top: 0, left: 5, backgroundColor: '#c90000ff', }}
+          {!haveModalOpen && <button className='floatingButton' style={{ position: 'absolute', top: 0, left: 5, backgroundColor: redOne(theme), }}
             onClick={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); }}>{<FontAwesomeIcon icon={faRightFromBracket} flip="horizontal" />}</button>}
 
           {!haveModalOpen && <button className='floatingButton' style={{ position: 'absolute', top: 0, right: 5, }}
