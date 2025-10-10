@@ -2,9 +2,11 @@ import { use, useEffect, useState } from "react";
 import { cancelOrder, completeOrders } from "../../../../services/deliveryServices/OrderService";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { greenOne, redOne } from "../../../../theme/Colors";
 
 
 export default function CompleteOrdersModal({ close, selectedOnDeliveryOrderID, getShiftOperationData }) {
+    const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const orders = useSelector((state) => state.companyOperation.orders);
 
@@ -37,10 +39,10 @@ export default function CompleteOrdersModal({ close, selectedOnDeliveryOrderID, 
                         </div>
 
                         {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 0)', border: "none", color: "rgba(255, 69, 56, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
+                            <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px', margin: '5px 30px' }}
                                 onClick={() => { close(); }} disabled={processing}>Cancel</button>
 
-                            <button style={{ backgroundColor: 'rgba(167, 35, 12, 0)', border: "none", color: "#3d8602ff", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
+                            <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px', margin: '5px 30px' }}
                                 onClick={() => { handleCompleteOrders() }} disabled={processing}>Complete Orders</button>
                         </div>}
 

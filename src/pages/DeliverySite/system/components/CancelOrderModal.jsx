@@ -2,9 +2,11 @@ import { use, useEffect, useState } from "react";
 import { cancelOrder } from "../../../../services/deliveryServices/OrderService";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { orangeOne, redOne } from "../../../../theme/Colors";
 
 
 export default function CancelOrder({ close, selectedOrderToCancel, getShiftOperationData }) {
+    const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const orders = useSelector((state) => state.companyOperation.orders);
 
@@ -43,10 +45,10 @@ export default function CancelOrder({ close, selectedOrderToCancel, getShiftOper
                         </div>
 
                         {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button style={{ backgroundColor: 'rgba(189, 13, 0, 0)', border: "none", color: "rgba(255, 69, 56, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
+                           <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
                                 onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                            <button style={{ backgroundColor: 'rgba(167, 35, 12, 0)', border: "none", color: "rgba(249, 140, 24, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}
+                            <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: orangeOne(theme), fontSize: '16px' }}
                                 onClick={() => { handleCancelOrder() }} disabled={processing}>Cancel Order</button>
                         </div>}
 

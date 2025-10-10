@@ -9,13 +9,14 @@ import { setIsAdmAuthenticated } from "../../../../redux/admAuthSlice";
 import { borderColorTwo, fontColorOne, mainColor, secondColor, secondColorInverse } from "../../../../theme/Colors";
 import { setProfileTheme } from "../../../../services/deliveryServices/AUserService";
 import { setTheme } from '../../../../redux/viewSlice.js';
+import LogoutMessage from "./auxs/LogoutMessage.jsx";
 
 export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const dispatch = useDispatch();
     const theme = useSelector((state) => state.view.theme);
 
-
+    const [showLogOutMessage, setShowLogOutMessage] = useState(false);
     const dropdownProfileRef = useRef(null);
 
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
@@ -70,7 +71,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
                                 <FontAwesomeIcon icon={faUser} style={{ color: 'black' }} />
                                 <span style={{fontSize: '16px', fontWeight: 'bold' }}>Perfil</span>
                             </div> */}
-                            <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => { dispatch(setIsAdmAuthenticated(false)); logOutAction(); }}>
+                            <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => { setShowLogOutMessage(true); setShowProfileDropdown(false); }}>
                                 <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "red" }} />
                                 <span style={{ fontSize: '16px', fontWeight: 'bold' }}>LogOut</span>
                             </div>
@@ -81,11 +82,11 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
                         onClick={() => { setDrawerOpen(false); localStorage.removeItem('companyOperatingID'); }}>☰</button>
                 </div>
 
-                <hr style={{ margin: "20px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`,}} />
+                <hr style={{ margin: "20px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`, }} />
 
                 <ul style={{ listStyle: "none", padding: 0, color: fontColorOne(), }}>
 
-                    <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`,}} />
+                    <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`, }} />
                     <span style={{ fontSize: '18px', fontWeight: 'bold', }}>Theme</span>
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', width: '100%', marginTop: '10px' }} onClick={() => handleThemeChange(theme === "DARK" ? "LIGHT" : "DARK")}>
                         <span style={{ fontSize: '18px', fontWeight: 'bold', marginRight: '41px' }}>Dark</span>
@@ -111,6 +112,9 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
 
                 </ul>
             </div>
+            {showLogOutMessage && <div className="myModal" style={{ zIndex: 10000 }} >
+                <LogoutMessage close={() => setShowLogOutMessage(false)} />
+            </div>}
         </>
     );
 }
