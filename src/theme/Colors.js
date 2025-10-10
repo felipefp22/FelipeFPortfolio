@@ -48,6 +48,11 @@ export function redOne(theme) {
     if (theme === 'DARK') return "rgba(227, 0, 0, 1)";
 }
 
+export function orangeOne(theme) {
+    if (theme === 'LIGHT') return "rgba(244, 121, 24, 1)";
+    if (theme === 'DARK') return "rgba(244, 121, 24, 1)";
+}
+
 export function blueOne(theme) {
     // if (theme === 'LIGHT') return "rgb(0, 47, 104)";
     if (theme === 'LIGHT') return "rgba(5, 156, 244, 1)";

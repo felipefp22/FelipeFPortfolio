@@ -86,3 +86,7 @@
     box-shadow: -3px 3px 4px rgba(255, 255, 255, 0.55);
     border-radius: 6px;
 }
+
+button:hover {
+    border-color: var(--borderColorTwo);
+}

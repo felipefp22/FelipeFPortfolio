@@ -5,7 +5,7 @@ import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { blueOne } from '../../../theme/Colors.js';
+import { blueOne, orangeOne } from '../../../theme/Colors.js';
 import { useSelector } from 'react-redux';
 
 export default function LoginPage({ setActualPage, email, setEmail, password, setPassword }) {
@@ -69,7 +69,7 @@ export default function LoginPage({ setActualPage, email, setEmail, password, se
       <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', justifyContent: 'center', justifyItems: 'center', alignContent: 'center', alignItems: 'center', padding: 5, flexGrow: 1, }}>
         <div className='modalInside' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center', }}>
           <div style={{ maxWidth: '450px', width: '96%' }}>
-            <h2 style={{ color: blueOne(theme) }}>Sign in with</h2>
+            <h2 style={{ color: orangeOne(theme) }}>Sign in with</h2>
             <GoogleLogin />
             <p style={{ color: 'white', marginTop: '10px', marginBottom: '10px' }}><span>or</span></p>
 
@@ -115,7 +115,7 @@ export default function LoginPage({ setActualPage, email, setEmail, password, se
               </div>
 
               <div>
-                <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px' }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
+                <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{  width: '150px',  }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
                   style={{ width: '25px', height: '25px' }} /> : "Sign In"} </button>
               </div>
 

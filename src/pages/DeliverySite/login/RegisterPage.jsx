@@ -6,7 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { greenOne } from '../../../theme/Colors.js';
+import { blueOne, greenOne, orangeOne } from '../../../theme/Colors.js';
 
 export default function RegisterPage({ setActualPage, email, setEmail, password, setPassword }) {
   const theme = useSelector((state) => state.view.theme);
@@ -83,7 +83,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
         <div className='modalInside' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center', }}>
 
           <div style={{ maxWidth: '450px', width: '96%' }}>
-            <h2 style={{ color: greenOne(theme) }}>Sign Up With</h2>
+            <h2 style={{ color: blueOne(theme) }}>Sign Up With</h2>
             <GoogleLogin />
             <p style={{ color: 'white', marginTop: '10px', }}><span>or</span></p>
 
