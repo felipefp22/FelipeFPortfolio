@@ -4,8 +4,10 @@ import { use, useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 import noFoodImg from "./../../../../assets/noFood.jpg";
 import { useSelector } from "react-redux";
+import { borderColorTwo } from "../../../../theme/Colors";
 
 export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd }) {
+    const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [buttonFilter, setButtonFilter] = useState("All");
@@ -56,7 +58,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '5px', padding: 3, overflowY: 'auto' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '5px', padding: 3, overflowY: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <input type="text" value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
                             style={{
                                 height: '25px', fontSize: '16px', backgroundColor: 'white', color: 'black', width: '100%', height: 40, paddingLeft: '10px', borderRadius: '5px', border: 'none', borderRadius: "0px", overflowX: 'auto',
@@ -77,8 +79,8 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', textAlign: 'left' }}>
-                    <span style={{ fontWeight: "600", marginBottom: '5px' }}>Itens to Add</span>
-                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', border: '1px solid lightgray' }}>
+                    <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Itens to Add</span>
+                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <Table responsive="sm" >
                             <thead>
                                 <tr>

@@ -8,8 +8,10 @@ import { getAllCompanyCustomers } from "../../../../services/deliveryServices/Cu
 import { getAllProductsCategories } from "../../../../services/deliveryServices/ProductsCategoryService";
 import { createOrder } from "../../../../services/deliveryServices/OrderService";
 import { useSelector } from "react-redux";
+import { borderColorTwo } from "../../../../theme/Colors";
 
 export default function NewOrderModal({ close, getShiftOperationData }) {
+    const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [disabled, setDisabled] = useState(false);
@@ -189,8 +191,8 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
                             <button className="buttomDarkGray" style={{ marginLeft: '0px' }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
-                        <span style={{ fontWeight: "600", marginBottom: '5px' }}>Itens on Order</span>
-                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', border: '1px solid lightgray' }}>
+                        <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Itens on Order</span>
+                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto',border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>

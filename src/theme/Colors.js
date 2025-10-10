@@ -13,10 +13,16 @@ export function secondColorInverse(theme) {
     if (theme === 'DARK') return "#fffff7ff";
 }
 
-export function borderColor(theme) {
+export function borderColorOne(theme) {
     if (theme === 'LIGHT') return "rgba(0, 0, 0, 0.1)";
     if (theme === 'DARK') return "rgba(255, 255, 255, 0.2)";
 }
+
+export function borderColorTwo(theme) {
+    if (theme === 'LIGHT') return "rgba(5, 156, 244, 0.5)";
+    if (theme === 'DARK') return "rgba(255, 255, 255, 0.2)";
+}
+
 
 export function fontColorOne(theme) {
     if (theme === 'LIGHT') return "rgba(0, 0, 0, 1)";
@@ -44,8 +50,8 @@ export function redOne(theme) {
 
 export function blueOne(theme) {
     // if (theme === 'LIGHT') return "rgb(0, 47, 104)";
-    if (theme === 'LIGHT') return "#059cf4ff";
-    if (theme === 'DARK') return "#059cf4ff";
+    if (theme === 'LIGHT') return "rgba(5, 156, 244, 1)";
+    if (theme === 'DARK') return "rgba(5, 156, 244, 1)";
 }
 
 export function transparentCavasOne(theme) {
@@ -61,6 +67,6 @@ export function transparentCavasTwo(theme) {
 
 
 export function floatingBlackButton(theme) {
-    if (theme === 'LIGHT') return "#059cf4ff";
+    if (theme === 'LIGHT') return "rgba(5, 156, 244, 1)";
     if (theme === 'DARK') return "#272725";
 }

@@ -15,7 +15,7 @@
     flex-direction: column;
     width: 85%;
     max-height: 90%;
-    border: 1px solid var(--borderColor);
+    border: 1px solid var(--borderColorTwo);
     background-color: var(--mainColor);
     color: var(--fontColorOne);
     padding: 10px;
@@ -28,7 +28,7 @@
 .buttomDarkGray {
     background-color: var(--secondColor);
     color: var(--fontColorOne);
-    border: 1px solid var(--borderColor);
+    border: 1px solid var(--borderColorOne);
     height: 40px;
     margin-left: 0px;
     border-radius: 5px;
@@ -41,7 +41,7 @@
 .buttomDarkGreen {
     background-color: var(--greenOne);
     color: white;
-    border: 1px solid var(--borderColor);
+    border: 1px solid var(--borderColorOne);
     height: 40px;
     margin-left: 0px;
     border-radius: 5px;
@@ -54,7 +54,7 @@
 .buttomDarkRed {
     background-color: var(--redOne);
     color: white;
-    border: 1px solid var(--borderColor);
+    border: 1px solid var(--borderColorOne);
     height: 40px;
     margin-left: 0px;
     border-radius: 5px;
@@ -67,7 +67,7 @@
 .buttomDarkBlue {
     background-color: var(--blueOne);
     color: white;
-    border: 1px solid var(--borderColor);
+    border: 1px solid var(--borderColorOne);
     height: 40px;
     margin-left: 0px;
     border-radius: 5px;

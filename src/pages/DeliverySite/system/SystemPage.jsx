@@ -7,7 +7,7 @@ import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faSquareCaretDown, fa
 import CancelOrder from "./components/CancelOrderModal.jsx";
 import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
 import ChangeOrderStatusModal from "./components/ChangeOrderStatusModal.jsx";
-import { fontColorOne, redOne, secondColor, secondColorInverse } from "../../../theme/Colors.js";
+import { borderColorTwo, fontColorOne, redOne, secondColor, secondColorInverse } from "../../../theme/Colors.js";
 
 
 export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
@@ -66,7 +66,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                             <span>Cancel</span>
                         </button>
                     </div>
-                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${secondColorInverse(theme)}` }}>
+                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <Table hover responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -102,7 +102,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                         </button>
                     </div>
 
-                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${secondColorInverse(theme)}` }}>
+                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <Table hover responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -143,7 +143,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                         </button>
                     </div>
 
-                    {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${secondColorInverse(theme)}` }}>
+                    {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <Table responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
@@ -175,7 +175,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                         </div>
                     </div>
 
-                    {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${secondColorInverse(theme)}` }}>
+                    {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <Table responsive="sm" >
                             <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                 <tr>
