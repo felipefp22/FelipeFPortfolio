@@ -38,7 +38,7 @@ export async function createDefaultApiDemonstration() {
 }
 
 export async function setProfileTheme(theme) {
-
+console.log("Setting theme to:", theme);
     try {
         const response = await axiosInstanceRestaurantSystem.put(`/user-actions/set-theme/${theme}`, {},
             {
@@ -48,7 +48,7 @@ export async function setProfileTheme(theme) {
             }
         );
 
-        
+        console.log("Theme set response:", response);
         return response;
     } catch (error) {
         console.log(error);

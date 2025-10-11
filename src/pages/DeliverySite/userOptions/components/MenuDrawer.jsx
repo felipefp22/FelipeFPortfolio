@@ -64,7 +64,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", }}>
                     <Dropdown ref={dropdownProfileRef} className="nav-item header-profile" show={showProfileDropdown} >
                         <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowProfileDropdown(!showProfileDropdown)} >
-                            <img src={profilePhoto ?? avatar} alt="" width="45" height="45" style={{ borderRadius: '50%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = avatar; }} />
+                            <img src={profilePhoto ?? avatar} alt="" width="45" height="45" style={{ borderRadius: '50%', objectFit: 'cover', boxShadow: `-1px 1px 5px ${borderColorTwo(theme, 0.1)}` }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = avatar; }} />
                         </Dropdown.Toggle>
                         <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
                             {/* <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => navigate("/uadm")}>

@@ -10,6 +10,7 @@ import LayoutPortifolio from './pages/LayoutPortifolio';
 import LayoutPortifolio2 from './pages/LayoutPortifolio2';
 import OAuthRedirectPage from './pages/DeliverySite/login/OAuthRedirectPage';
 import MyPhoto from './pages/MyPhoto';
+import { setTheme } from './redux/viewSlice';
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export default function Index() {
       setIsAuthenticated(true);
       setIsAdmAuthenticated(localStorage.getItem('isAdmAuthenticated') === 'true' ? true : false);
       setIsAdmMasterAuthenticated(localStorage.getItem('isAdmMasterAuthenticated') === 'true' ? true : false);
+      dispatch(setTheme(localStorage.getItem('theme')));
     }
 
     if (!localStorage.getItem('access_token')) {

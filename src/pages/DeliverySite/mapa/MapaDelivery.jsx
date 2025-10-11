@@ -8,7 +8,7 @@ import { faCrosshairs, faFireFlameCurved } from '@fortawesome/free-solid-svg-ico
 import { filterLoccationsOverLaping, sanitizeLatLng } from './mapcomponentsandservices/ManageOverlapPoints';
 import { useSelector } from 'react-redux';
 import "leaflet/dist/leaflet.css";
-import { fontColorOne, secondColor } from '../../../theme/Colors';
+import { fontColorOne, secondColor, secondColorInverse } from '../../../theme/Colors';
 
 
 export default function MapaDelivery({ }) {

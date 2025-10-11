@@ -6,7 +6,7 @@ import Index from './Index'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeView } from './redux/viewSlice';
-import { blueOne, borderColorOne, borderColorTwo, floatingBlackButton, fontColorOne, greenOne, mainColor, modalBackground, redOne, secondColor } from './theme/Colors';
+import { blueOne, borderColorOne, borderColorTwo, floatingBlackButton, fontColorOne, greenOne, mainColor, modalBackground, redOne, secondColor, secondColorInverse } from './theme/Colors';
 
 
 function App() {
@@ -17,6 +17,8 @@ function App() {
   useMemo(() => {
     document.documentElement.style.setProperty('--mainColor', mainColor(theme));
     document.documentElement.style.setProperty('--secondColor', secondColor(theme));
+    document.documentElement.style.setProperty('--secondColorInverse', secondColorInverse(theme));
+    document.documentElement.style.setProperty('--secondColorInverseTransparent', secondColorInverse(theme, 0.5));
     document.documentElement.style.setProperty('--borderColorOne', borderColorOne(theme));
     document.documentElement.style.setProperty('--borderColorTwo', borderColorTwo(theme));
     document.documentElement.style.setProperty('--borderColorTwoTransparent', borderColorTwo(theme, 0.5));

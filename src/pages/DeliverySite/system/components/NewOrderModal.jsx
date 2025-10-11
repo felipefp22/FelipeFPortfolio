@@ -228,11 +228,11 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
 
             </div>
 
-            {showNewCustomerModal && <div ref={newCustomerModalRef} className="myModal" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)', zIndex: 10 }} >
+            {showNewCustomerModal && <div ref={newCustomerModalRef} className="myModal" style={{ zIndex: 10 }} >
                 <NewCustomerModal close={() => setShowNewCustomerModal(false)} />
             </div>}
 
-            {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)', zIndex: 10 }} >
+            {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ zIndex: 10 }} >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
             </div>}
         </>

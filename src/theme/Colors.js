@@ -4,13 +4,13 @@ export function mainColor(theme) {
 }
 
 export function secondColor(theme) {
-    if (theme === 'LIGHT') return "#fffff7ff";
+    if (theme === 'LIGHT') return "rgb(219,234,254)";
     if (theme === 'DARK') return "#272725";
 }
 
-export function secondColorInverse(theme) {
-    if (theme === 'LIGHT') return "#272725";
-    if (theme === 'DARK') return "#fffff7ff";
+export function secondColorInverse(theme, opacity = 1) {
+    if (theme === 'LIGHT') return `rgba(219,234,254, ${opacity})`;
+    if (theme === 'DARK') return `rgba(255, 255, 247, ${opacity})`;
 }
 
 export function borderColorOne(theme) {

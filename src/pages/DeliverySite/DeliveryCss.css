@@ -83,7 +83,7 @@
     border: 2px solid white;
     color: white;
     padding: 5px 10px;
-    box-shadow: -3px 3px 4px rgba(255, 255, 255, 0.55);
+    box-shadow: -3px 3px 4px var(--secondColorInverseTransparent);
     border-radius: 6px;
 }
 
