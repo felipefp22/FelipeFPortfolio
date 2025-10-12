@@ -6,7 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import { faCheck, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
-import { redOne } from '../../../theme/Colors.js';
+import { fontColorOne, redOne } from '../../../theme/Colors.js';
 
 export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
   const theme = useSelector((state) => state.view.theme);
@@ -161,7 +161,7 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
                     <label>Email</label>
                     <span style={{ color: 'red' }}> *</span>
                   </div>
-                  <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '30px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
+                  <input className='inputOne' style={{ width: '90%', height: '35px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
                     onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} required
                   />
                   <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px', marginTop: '15px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
@@ -218,7 +218,7 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
                   </div>
                 </div>
                 <div>
-                  <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
+                  <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{ width: '150px', height: '40px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
                     style={{ width: '25px', height: '25px' }} /> : "Reset"} </button>
                 </div>
               </form>
@@ -234,7 +234,7 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
             {/* <button onClick={() => { setPasswordResetedSuccess(!passwordResetedSuccess); }} style={{ marginTop: '10px', backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px' }}>ooooo</button> */}
 
             {!passwordResetedSuccess && <div style={{ marginTop: '10px' }}>
-              <p>Return to login? <Link onClick={() => setActualPage('login')} style={{ color: 'white', }}>Login</Link></p>
+              <p>Return to login? <Link onClick={() => setActualPage('login')} style={{ color: fontColorOne(theme), }}>Login</Link></p>
             </div>}
             <div style={{ visibility: showLoginErrorsMessage ? 'visible' : 'hidden' }}>
               <strong style={{ color: 'red' }}>Error! </strong> {showLoginErrorsMessage + '.'}

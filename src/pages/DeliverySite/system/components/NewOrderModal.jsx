@@ -125,7 +125,7 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
 
     return (
         <>
-            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "85%", maxHeight: !isDesktopView ? '90%' : '80%', padding: !isDesktopView ? '10px' : '20px',  zIndex: 10, }}>
+            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "85%", maxHeight: !isDesktopView ? '90%' : '80%', padding: !isDesktopView ? '10px' : '20px', zIndex: 10, }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
@@ -170,7 +170,10 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
                         <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
                             <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
                             <input type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
-                                style={{ height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto', border: `1px solid ${borderColorTwo(theme)}` }}
+                                style={{
+                                    height: '25px', fontSize: '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', border: 'none', borderRadius: "3px", overflowX: 'auto',
+                                    border: `1px solid ${borderColorTwo(theme)}`
+                                }}
                             />
                         </div>
                         <div style={{ width: '3%' }}></div>
@@ -192,7 +195,7 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
                             <button className="buttomDarkGray" style={{ marginLeft: '0px' }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
                         <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Itens on Order</span>
-                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto',border: `2px solid ${borderColorTwo(theme)}` }}>
+                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>

@@ -6,7 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { blueOne, greenOne, orangeOne } from '../../../theme/Colors.js';
+import { blueOne, fontColorOne, greenOne, orangeOne } from '../../../theme/Colors.js';
 
 export default function RegisterPage({ setActualPage, email, setEmail, password, setPassword }) {
   const theme = useSelector((state) => state.view.theme);
@@ -85,7 +85,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
           <div style={{ maxWidth: '450px', width: '96%' }}>
             <h2 style={{ color: blueOne(theme) }}>Sign Up With</h2>
             <GoogleLogin />
-            <p style={{ color: 'white', marginTop: '10px', }}><span>or</span></p>
+            <p style={{ color: fontColorOne(theme), marginTop: '10px', }}><span>or</span></p>
 
             {/* {props.errorMessage && (
               <div >
@@ -104,7 +104,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                   <label>Name</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
-                <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '30px' }} type="text" value={name} onChange={(e) => { setName(e.target.value); e.target.setCustomValidity(''); }} minLength={3} required
+                <input className='inputOne' style={{ width: '90%', height: '35px' }} type="text" value={name} onChange={(e) => { setName(e.target.value); e.target.setCustomValidity(''); }} minLength={3} required
 
                   onInvalid={(e) => {
                     if (e.target.validity.valueMissing) { e.target.setCustomValidity('Name is required.'); }
@@ -117,7 +117,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                   <label>Email</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
-                <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '30px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }} required
+                <input className='inputOne' style={{ width: '90%', height: '35px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }} required
                   onInvalid={(e) => e.target.setCustomValidity('Tipe a valid email.')}
                 />
               </div>
@@ -128,7 +128,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
                 <div style={{ position: 'relative', width: '100%' }} >
-                  <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '30px' }} type={showPassword ? 'text' : 'password'} value={password} minLength={6} required
+                  <input className='inputOne' style={{ width: '90%', height: '35px' }} type={showPassword ? 'text' : 'password'} value={password} minLength={6} required
                     onChange={(e) => { setPassword(e.target.value); e.target.setCustomValidity(''); }}
                     onInvalid={(e) => {
                       if (e.target.validity.valueMissing) { e.target.setCustomValidity('Password is required.'); }
@@ -144,7 +144,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
                 <div style={{ position: 'relative', width: '100%' }} >
-                  <input style={{ width: '90%', backgroundColor: 'white', color: 'black', borderRadius: 2, border: '1px solid white', height: '30px' }} type={showPassword ? 'text' : 'password'} value={confirmPassword} minLength={6} required
+                  <input className='inputOne' style={{ width: '90%', height: '35px' }} type={showPassword ? 'text' : 'password'} value={confirmPassword} minLength={6} required
                     onChange={(e) => { setConfirmPassword(e.target.value); e.target.setCustomValidity(''); }}
                     onInvalid={(e) => {
                       if (e.target.validity.valueMissing) { e.target.setCustomValidity('Password is required.'); }
@@ -156,14 +156,14 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
               </div>
 
               <div>
-                <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px' }}> {disableEnter ?
+                <button className='inputOne' type="submit" disabled={disableEnter} style={{ width: '150px', height: '40px',}}> {disableEnter ?
                   <Spinner animation="border" role="status" style={{ width: '25px', height: '25px' }} /> : "Register"} </button>
               </div>
 
 
             </form>
             <div style={{ marginTop: '10px' }}>
-              <p>Already have account? <Link onClick={() => setActualPage('login')} style={{ color: 'white', }}>Login</Link></p>
+              <p>Already have account? <Link onClick={() => setActualPage('login')} style={{ color: fontColorOne(theme), }}>Login</Link></p>
             </div>
             <div style={{ visibility: showLoginErrorsMessage ? 'visible' : 'hidden', }}>
               <strong style={{ color: 'red' }}>Error! </strong> {showLoginErrorsMessage + '.'}
