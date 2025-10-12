@@ -134,7 +134,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                       if (e.target.validity.valueMissing) { e.target.setCustomValidity('Password is required.'); }
                       else if (e.target.validity.tooShort) { e.target.setCustomValidity('Password must be at least 6 characters.'); } else { e.target.setCustomValidity('Enter a valid password.'); }
                     }} />
-                  <span style={{ position: 'absolute', right: '25px', top: 3, cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}> <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{ color: 'black' }} /> </span>
+                  <span style={{ position: 'absolute', right: '25px', top: 5, cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}> <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{ color: fontColorOne(theme) }} /> </span>
                 </div>
               </div>
 
@@ -150,7 +150,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                       if (e.target.validity.valueMissing) { e.target.setCustomValidity('Password is required.'); }
                       else if (e.target.validity.tooShort) { e.target.setCustomValidity('Password must be at least 6 characters.'); } else { e.target.setCustomValidity('Enter a valid password.'); }
                     }} />
-                  <span style={{ position: 'absolute', right: '25px', top: 3, cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}> <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{ color: 'black' }} /> </span>
+                  <span style={{ position: 'absolute', right: '25px', top: 5, cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}> <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{ color: fontColorOne(theme) }} /> </span>
                 </div>
                 {errors.password && <div >{errors.password}</div>}
               </div>
