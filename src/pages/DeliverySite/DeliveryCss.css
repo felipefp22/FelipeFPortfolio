@@ -105,6 +105,3 @@ button:hover {
 .inputOne:focus {
     outline: 2px solid var(--borderColorTwoTransparent); /* optional: removes the default blue outline */
 }
-/* .inputOne.prefilled {
-    background-color: white; /* same as focus */
-} */

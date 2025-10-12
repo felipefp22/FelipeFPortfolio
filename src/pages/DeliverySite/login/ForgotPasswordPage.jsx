@@ -164,7 +164,7 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
                   <input className='inputOne' style={{ width: '90%', height: '35px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
                     onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} required
                   />
-                  <button type="submit" disabled={disableEnter} style={{ backgroundColor: 'white', color: 'black', width: '150px', height: '40px', borderRadius: '3px', marginTop: '15px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
+                  <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{ width: '150px', height: '40px', marginTop: '15px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
                     style={{ width: '25px', height: '25px' }} /> : "Reset"} </button>
                 </div>
               </form>
