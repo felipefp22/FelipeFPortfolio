@@ -112,7 +112,7 @@ export default function MapaDelivery({ }) {
   }, [orders]);
 
   function updateMarkersPutDeliveryPlaces() {
-    if (companyOperation && zoom && companyLat && companyLng && markersRef.current) {
+    if (companyOperation && companyLat && companyLng && markersRef.current) {
 
       if (markersRef.current) {
         markersRef.current.clearLayers(); // Clear existing markers

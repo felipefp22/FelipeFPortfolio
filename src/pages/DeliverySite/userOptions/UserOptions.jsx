@@ -11,7 +11,7 @@ import ConfirmEmail from "./components/ConfirmEmail";
 import CreateGroupAndCompanyModal from "../system/components/CreateGroupAndCompanyModal";
 import avatar from '../../../assets/noProfilePhoto.png';
 import MenuDrawer from "./components/MenuDrawer";
-import { borderColorTwo, fontColorOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
+import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
 
 
 export default function UserOptions({ companySelected, setCompanySelected }) {
@@ -42,6 +42,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
 
         if (response?.status === 200) {
             const userData = response?.data;
+            console.log("User data fetched:", userData);
             setIsEmailConfirmed(userData?.emailConfirmed || false);
 
             setName(userData?.name || "");
@@ -68,6 +69,15 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
             setDrawerOpen(false);
         }
     }, [companySelected]);
+
+    function formatDateToDayMonth(date) {
+        const d = new Date(date);
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const hours = String(d.getHours()).padStart(2, '0');
+        const minutes = String(d.getMinutes()).padStart(2, '0');
+        return `${day}/${month} - ${hours}:${minutes}`;
+    }
 
     return (
         <>
@@ -118,8 +128,10 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                                 }} />
-                                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
                                                     <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
+                                                    <span style={{ fontSize: isDesktopView ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? greenOne(theme) : redOne(theme) }}>
+                                                        {comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? ' Shift closed' : ` Shift ${formatDateToDayMonth(comp?.lastOrOpenShift?.startTimeUTC)}`) : ' Shift closed'} </span>
                                                 </div>
                                             </div>
                                         ))}
