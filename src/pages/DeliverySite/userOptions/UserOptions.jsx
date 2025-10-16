@@ -130,7 +130,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
                                                 }} />
                                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
                                                     <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
-                                                    <span style={{ fontSize: isDesktopView ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? greenOne(theme) : redOne(theme) }}>
+                                                    <span style={{ fontSize: isDesktopView ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? redOne(theme) : greenOne(theme)) : redOne(theme) }}>
                                                         {comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? ' Shift closed' : ` Shift ${formatDateToDayMonth(comp?.lastOrOpenShift?.startTimeUTC)}`) : ' Shift closed'} </span>
                                                 </div>
                                             </div>
