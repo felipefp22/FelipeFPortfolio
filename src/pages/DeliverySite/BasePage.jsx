@@ -1,8 +1,8 @@
-import { use, useEffect, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 import MapaDelivery from './mapa/MapaDelivery.jsx';
 import SystemPage from './system/SystemPage.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAlignJustify, faArrowLeft, faArrowRight, faLeftRight, faMapLocationDot, faPowerOff, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faAlignJustify, faArrowLeft, faArrowRight, faLeftRight, faLock, faMapLocationDot, faPowerOff, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import UserOptions from './userOptions/UserOptions.jsx';
 import { logOutAction } from '../../services/deliveryServices/AuthService.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,9 +11,17 @@ import { getCompanyOperation } from '../../services/deliveryServices/CompanySevi
 import { getShiftOperation, openNewShift } from '../../services/deliveryServices/ShiftService.js';
 import {
   changeCompanyName, changeCompanyEmail, changeCompanyPhone, changeCompanyAddress, changeCompanyLat, changeCompanyLng,
-  changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders
+  changeUrlCompanyLogo, changeProductsCategories, changeCustomers, changeCurrentShift, changeNumberOfTables, changeOrders,
+  changeEmployees,
+  quitCompanyOperation,
+  changeOwnerID
 } from '../../redux/companyOperationSlice.js';
-import { redOne, secondColor, secondColorInverse } from '../../theme/Colors.js';
+import { blueOne, redOne, secondColor, secondColorInverse } from '../../theme/Colors.js';
+import { Dropdown } from 'react-bootstrap';
+import CloseMessage from './userOptions/components/auxs/LeaveCompanyMessage.jsx';
+import LeaveCompanyMessage from './userOptions/components/auxs/LeaveCompanyMessage.jsx';
+import FinishShiftModal from './userOptions/components/FinishShiftModal.jsx';
+import { isOwnerOrManager } from '../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js';
 
 
 export default function BasePage() {
@@ -23,6 +31,15 @@ export default function BasePage() {
   const [screenOnFocus, setScreenOnFocus] = useState("");
   const [companySelected, setCompanySelected] = useState(localStorage.getItem('companyOperatingID'));
   const [haveModalOpen, setHaveModalOpen] = useState(false);
+
+  const dropdownSystemOptionsRedRef = useRef(null);
+  const [showDropdownSystemOptionsRed, setShowDropdownSystemOptionsRed] = useState(false);
+
+  const [showLeaveCompanyMessage, setShowLeaveCompanyMessage] = useState(false);
+  const [showFinishShiftMessage, setShowFinishShiftMessage] = useState(false);
+
+  const [requesterAreOwnerOrManager, setRequesterAreOwnerOrManager] = useState(false);
+
 
   useEffect(() => {
     function verifyCompany() {
@@ -41,8 +58,8 @@ export default function BasePage() {
   }, []);
 
   useEffect(() => {
-
-  }, [companySelected]);
+    setRequesterAreOwnerOrManager(isOwnerOrManager(localStorage.getItem("userLoggedEmail")));
+  }, []);
 
   useEffect(() => {
     if (isDesktopView === false && screenOnFocus === "") {
@@ -56,6 +73,7 @@ export default function BasePage() {
     const response = await getCompanyOperation();
     if (response?.status === 200) {
       const companyOperationData = response?.data;
+      dispatch(changeOwnerID(companyOperationData?.ownerID));
       dispatch(changeCompanyName(companyOperationData?.companyName));
       dispatch(changeCompanyEmail(companyOperationData?.companyEmail));
       dispatch(changeCompanyPhone(companyOperationData?.companyPhone));
@@ -67,9 +85,10 @@ export default function BasePage() {
       dispatch(changeCustomers(companyOperationData?.customers || []));
       dispatch(changeCurrentShift(companyOperationData?.currentShift || null));
       dispatch(changeNumberOfTables(companyOperationData?.numberOfTables || 0));
+      dispatch(changeEmployees(companyOperationData?.employees || null));
 
     } else if (response?.status === 400 && response?.data === "noActiveShift") {
-        alert("You need to open a shift to operate on this company.");
+      alert("You need to open a shift to operate on this company.");
     } else {
       // alert("Error fetching company operation data");
     }
@@ -90,6 +109,8 @@ export default function BasePage() {
   useEffect(() => {
     getCompanyOperationData();
     getShiftOperationData();
+
+    if (companySelected == null) dispatch(quitCompanyOperation());
   }, [companySelected]);
 
   useEffect(() => {
@@ -101,6 +122,17 @@ export default function BasePage() {
     }, 12000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownSystemOptionsRedRef.current && !dropdownSystemOptionsRedRef.current.contains(event.target)) {
+        setShowDropdownSystemOptionsRed(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
 
@@ -122,8 +154,24 @@ export default function BasePage() {
       {companySelected && <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 0, flexGrow: 1, }}>
 
         {<div style={{ display: 'flex', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative', visibility: screenOnFocus !== "map" ? 'visible' : 'hidden' }}>
-          {!haveModalOpen && <button className='floatingButton' style={{ position: 'absolute', top: 0, left: 5, backgroundColor: redOne(theme), }}
-            onClick={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); }}>{<FontAwesomeIcon icon={faRightFromBracket} flip="horizontal" />}</button>}
+          {!haveModalOpen &&
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", position: 'absolute', top: 0, left: 5, }}>
+              <Dropdown ref={dropdownSystemOptionsRedRef} className="nav-item header-profile" show={showDropdownSystemOptionsRed} >
+                <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowDropdownSystemOptionsRed(!showDropdownSystemOptionsRed)} >
+                  <button className='floatingButton' style={{ backgroundColor: redOne(theme), }} >☰</button>
+                </Dropdown.Toggle>
+                <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
+                  {requesterAreOwnerOrManager && <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer", marginBottom: "8px" }} onClick={() => { setShowFinishShiftMessage(true); setShowDropdownSystemOptionsRed(false); }}>
+                    <FontAwesomeIcon icon={faLock} flip='horizontal' style={{ color: blueOne(theme) }} />
+                    <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Finish Shift</span>
+                  </div>}
+                  <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => { setShowLeaveCompanyMessage(true); setShowDropdownSystemOptionsRed(false); }}>
+                    <FontAwesomeIcon icon={faRightFromBracket} flip='horizontal' style={{ color: "red" }} />
+                    <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Leave</span>
+                  </div>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>}
 
           {!haveModalOpen && <button className='floatingButton' style={{ position: 'absolute', top: 0, right: 5, }}
             onClick={() => setScreenOnFocus(screenOnFocus === "system" ? (!isDesktopView ? "map" : "") : "system")}>
@@ -141,6 +189,14 @@ export default function BasePage() {
             onClick={() => setScreenOnFocus(screenOnFocus === "map" ? (!isDesktopView ? "system" : "") : "map")}>{screenOnFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
 
           <MapaDelivery setHaveModalOpen={setHaveModalOpen} />
+        </div>}
+
+        {showLeaveCompanyMessage && <div className="myModal" style={{ zIndex: 10000 }} >
+          <LeaveCompanyMessage close={() => setShowLeaveCompanyMessage(false)} leaveCompany={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); setShowLeaveCompanyMessage(false); }} />
+        </div>}
+
+        {showFinishShiftMessage && <div className="myModal" style={{ zIndex: 10000 }} >
+          <FinishShiftModal close={() => setShowFinishShiftMessage(false)} finishShift={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); setShowFinishShiftMessage(false); }} companySelected={companySelected} />
         </div>}
       </div >}
     </>

@@ -180,7 +180,7 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
                 ))}
               </div>
 
-              <span style={{ fontSize: 18, color: "black", lineHeight: "20px", marginTop: 26, marginBottom: 20, textDecoration: "underline", cursor: disabledCode || disabledText ? "default" : "pointer", color: disabledText || disabledCode ? "gray" : "white", }}
+              <span style={{ fontSize: 18, color: "black", lineHeight: "20px", marginTop: 26, marginBottom: 20, textDecoration: "underline", cursor: disabledCode || disabledText ? "default" : "pointer", color: disabledText || disabledCode ? "gray" : fontColorOne(theme), }}
                 onClick={(e) => { if (!disabledCode) handleRequestReset(e) }}>{wasSent ? (disabledText ? `You can resend in (${counter})` : "Didn't receive the code? Resend Code!") : " "}</span>
             </div>}
 

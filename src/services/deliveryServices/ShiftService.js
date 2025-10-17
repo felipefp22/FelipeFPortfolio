@@ -42,4 +42,25 @@ export async function openNewShift(companyID) {
     }
 }
 
+export async function endShift(companyID, shiftID, adminPassword) {
+    const postData = {
+        companyID,
+        shiftID,
+        adminPassword
+    };
 
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/shifts/close-shift`, postData,
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}

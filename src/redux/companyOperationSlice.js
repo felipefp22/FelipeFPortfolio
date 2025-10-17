@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const slice = createSlice({
   name: 'companyOperation',
   initialState: {
+    ownerID: null,
     companyName: null,
     companyEmail: null,
     companyPhone: null,
@@ -15,8 +16,10 @@ export const slice = createSlice({
     companyLat: null,
     companyLng: null,
     orders: null,
+    employees: null,
   },
   reducers: {
+    changeOwnerID(state, { payload }) { return { ...state, ownerID: payload } },
     changeCompanyName(state, { payload }) { return { ...state, companyName: payload } },
     changeCompanyEmail(state, { payload }) { return { ...state, companyEmail: payload } },
     changeCompanyPhone(state, { payload }) { return { ...state, companyPhone: payload } },
@@ -29,8 +32,10 @@ export const slice = createSlice({
     changeCompanyLat(state, { payload }) { return { ...state, companyLat: payload } },
     changeCompanyLng(state, { payload }) { return { ...state, companyLng: payload } },
     changeOrders(state, { payload }) { return { ...state, orders: payload } },
+    changeEmployees(state, { payload }) { return { ...state, employees: payload } },
 
     quitCompanyOperation(state) {
+      state.ownerID = null;
       state.companyName = null;
       state.companyEmail = null;
       state.companyPhone = null;
@@ -43,11 +48,13 @@ export const slice = createSlice({
       state.companyLat = null;
       state.companyLng = null;
       state.orders = null;
+      state.employees = null;
     }
   }
 })
 
 export const {
+  changeOwnerID,
   changeCompanyName,
   changeCompanyEmail,
   changeCompanyPhone,
@@ -60,6 +67,9 @@ export const {
   changeCompanyLat,
   changeCompanyLng,
   changeOrders,
+  changeEmployees,
+
+  quitCompanyOperation
 } = slice.actions;
 
 export default slice.reducer
