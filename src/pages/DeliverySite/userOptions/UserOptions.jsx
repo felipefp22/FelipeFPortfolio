@@ -101,9 +101,9 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
                 <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                     <button className="floatingButton" style={{ width: 'auto', alignSelf: "flex-start", visibility: drawerOpen ? 'hidden' : 'visible', marginBottom: '10px' }} onClick={() => { setDrawerOpen(true); }}>☰</button>
 
-                    {!isEmailConfirmed && <ConfirmEmail fetchUserInfos={() => fetchUserInfos()} />}
+                    {/* {!isEmailConfirmed && <ConfirmEmail fetchUserInfos={() => fetchUserInfos()} />} */}
 
-                    {isEmailConfirmed && <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
+                    { <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
                         <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Welcome {name ? " - " + name : "Guest"}</span>
 
                         <button className="buttomDarkGray" style={{
@@ -174,7 +174,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
                 </div>
 
                 {createCompanyModal && <div className="myModal" style={{ zIndex: 100 }} >
-                    <CreateGroupAndCompanyModal close={() => setCreateCompanyModal(false)} getShiftOperationData={() => getShiftOperationData()} />
+                    <CreateGroupAndCompanyModal close={() => setCreateCompanyModal(false)} getShiftOperationData={() => fetchUserInfos()} />
                 </div>}
 
                 {openShiftModal && <div className="myModal" style={{ zIndex: 100 }} >

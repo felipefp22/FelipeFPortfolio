@@ -1,9 +1,6 @@
 
 export function isOwnerOrManager(requesterID, companyOperationData) {
 
-    console.log("ownerid - :", companyOperationData?.ownerID);
-    console.log("ownerid - :", companyOperationData?.ownerID);
-
     if (companyOperationData?.ownerID === requesterID) return true;
     if (companyOperationData?.employees) return companyOperationData.employees.some(employee => employee.employeeEmail === requesterID && employee.position === "MANAGER");
     
