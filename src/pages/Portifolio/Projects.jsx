@@ -65,6 +65,11 @@ export default function Projects({ activeMenu }) {
 
                             <span style={{ whiteSpace: "pre-line" }} >{t("projects.myHealth.description")}</span>
                         </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', justifyContent: 'left', marginTop: '15px' }} >
+                            <span style={{ whiteSpace: "pre-line", }}> {t("projects.myHealth.description2")}
+                                <a href={`${window.location.origin}/FelipeFPortfolio/delivery/`} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Link</a></span>
+                        </div>
                     </div>
                 </div>
 
@@ -111,9 +116,12 @@ export default function Projects({ activeMenu }) {
 
                             <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', justifyContent: 'left' }} >
                                 <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description2")}
-                                    <a href="https://github.com/felipefp22/RestaurantSystem" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Java Code</a></span>
+                                    <a href={`${window.location.origin}/FelipeFPortfolio/delivery/`} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Link</a></span>
 
                                 <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description3")}
+                                    <a href="https://github.com/felipefp22/RestaurantSystem" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Java Code</a></span>
+
+                                <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description4")}
                                     <a href="https://github.com/felipefp22/FelipeFPortfolio" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)', }}>React Code</a></span>
                             </div>
                         </div>

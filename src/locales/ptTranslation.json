@@ -14,13 +14,15 @@
     "portfolioProjects": "Projetos Portfólio",
     "myHealth": {
       "title": "minha-saude.com",
-      "description": "Site voltado para ser uma Rede Social de Saúde, desenvolvido para cliente, onde desenvolvi a solução completa. \n\n Foi desenvolvida API em Java, frontend em React (adaptativo para Web e Mobile), pipeline de deploy automatizado na Azure Cloud para a API, e FTP para deploy do site no cPanel, banco de dados Postgres na nuvem. Logins com redes sociais, pagamento assinatura premium.  \n\n O site tem como objetivo ser uma rede social onde o usuário pode acompanhar sua saúde, marcar consultas, exames, medicamentos e ter um histórico médico completo."
+      "description": "Site voltado para ser uma Rede Social de Saúde, desenvolvido para cliente, onde desenvolvi a solução completa. \n\n Foi desenvolvida API em Java, frontend em React (adaptativo para Web e Mobile), pipeline de deploy automatizado na Azure Cloud para a API, e FTP para deploy do site no cPanel, banco de dados Postgres na nuvem. Logins com redes sociais, pagamento assinatura premium.  \n\n O site tem como objetivo ser uma rede social onde o usuário pode acompanhar sua saúde, marcar consultas, exames, medicamentos e ter um histórico médico completo.",
+      "description2": "Ver Site: "
     },
     "restaurantDelivery": {
       "title": "Restaurante Delivery",
       "description1": "Este é um aplicativo desenvolvido para apresentar meus códigos em operação. Totalmente adaptativo para Web e Mobile. \n\n Um site/aplicativo para sistema de restaurante, onde a API foi desenvolvida para operar um sistema completo, e aqui no site foi implementada a seção de entregas (delivery), com mapa para auxílio na roteirização de entregas. \n\n",
-      "description2": "Código Backend: ",
-      "description3": "Código Frontend: "
+      "description2": "Ver Projeto: ",
+      "description3": "Código Backend: ",
+      "description4": "Código Frontend: "
     }
   },
   "contacts": {
