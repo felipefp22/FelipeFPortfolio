@@ -4,28 +4,15 @@ import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { blueOne, greenOne, orangeOne, redOne } from "../../../../theme/Colors";
 import { endShift, openNewShift } from "../../../../services/deliveryServices/ShiftService";
-import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 
 
-export default function FinishShiftModal({ close, finishShift, companySelected }) {
+export default function FinishShiftModal({ close, finishShift, companySelected, requesterAreOwnerOrManager }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
-    const companyOperationData = useSelector((state) => state.companyOperation);
     const currentShiftData = useSelector((state) => state.companyOperation.currentShift);
 
     const [processing, setProcessing] = useState(false);
     const [adminPassword, setAdminPassword] = useState("");
-
-    const [requesterAreOwnerOrManager, setRequesterAreOwnerOrManager] = useState(false);
-
-    useEffect(() => {
-        async function checkOwnerOrManager() {
-            const result = await isOwnerOrManager(localStorage.getItem("userLoggedEmail"));
-            setRequesterAreOwnerOrManager(result);
-        }
-
-        checkOwnerOrManager();
-    }, []);
 
     async function handleFinishShift() {
         setProcessing(true);
@@ -60,7 +47,7 @@ export default function FinishShiftModal({ close, finishShift, companySelected }
     return (
         <>
             <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "80%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, fontSize: !isDesktopView ? '20px' : '26px', }}>
+                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "80%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, fontSize: !isDesktopView ? '20px' : '26px', fontWeight: 'bold' }}>
                     {requesterAreOwnerOrManager && <div>
                         <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '10px' }}>
                             <span style={{ marginBottom: "10px" }}>Finish Shift?</span>

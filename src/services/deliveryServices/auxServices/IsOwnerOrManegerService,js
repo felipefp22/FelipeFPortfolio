@@ -1,9 +1,8 @@
-import store from "../../../redux/store"; 
 
-export function isOwnerOrManager(requesterID) {
-    const state = store.getState();
-    const companyOperationData = state.companyOperation;
-    // console.log("companyOperationData in isOwnerOrManager:", companyOperationData);
+export function isOwnerOrManager(requesterID, companyOperationData) {
+
+    console.log("ownerid - :", companyOperationData?.ownerID);
+    console.log("ownerid - :", companyOperationData?.ownerID);
 
     if (companyOperationData?.ownerID === requesterID) return true;
     if (companyOperationData?.employees) return companyOperationData.employees.some(employee => employee.employeeEmail === requesterID && employee.position === "MANAGER");

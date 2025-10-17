@@ -28,6 +28,8 @@ export default function BasePage() {
   const theme = useSelector((state) => state.view.theme);
   const dispatch = useDispatch();
   const isDesktopView = useSelector((state) => state.view.isDesktopView);
+  const companyOperationData = useSelector((state) => state.companyOperation);
+
   const [screenOnFocus, setScreenOnFocus] = useState("");
   const [companySelected, setCompanySelected] = useState(localStorage.getItem('companyOperatingID'));
   const [haveModalOpen, setHaveModalOpen] = useState(false);
@@ -58,8 +60,8 @@ export default function BasePage() {
   }, []);
 
   useEffect(() => {
-    setRequesterAreOwnerOrManager(isOwnerOrManager(localStorage.getItem("userLoggedEmail")));
-  }, []);
+    if (companyOperationData) setRequesterAreOwnerOrManager(isOwnerOrManager(localStorage.getItem("userLoggedEmail"), companyOperationData));
+  }, [companyOperationData]);
 
   useEffect(() => {
     if (isDesktopView === false && screenOnFocus === "") {
@@ -196,7 +198,8 @@ export default function BasePage() {
         </div>}
 
         {showFinishShiftMessage && <div className="myModal" style={{ zIndex: 10000 }} >
-          <FinishShiftModal close={() => setShowFinishShiftMessage(false)} finishShift={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); setShowFinishShiftMessage(false); }} companySelected={companySelected} />
+          <FinishShiftModal close={() => setShowFinishShiftMessage(false)} finishShift={() => { setCompanySelected(null); localStorage.removeItem('companyOperatingID'); setShowFinishShiftMessage(false); }} companySelected={companySelected}
+            requesterAreOwnerOrManager={requesterAreOwnerOrManager} />
         </div>}
       </div >}
     </>
