@@ -24,10 +24,10 @@ export async function getShiftOperation() {
 }
 
 
-export async function openNewShift() {
+export async function openNewShift(companyID) {
 
     try {
-        const response = await axiosInstanceRestaurantSystem.post(`/shifts/create-shift/${localStorage.getItem('companyOperatingID')}`, {},
+        const response = await axiosInstanceRestaurantSystem.post(`/shifts/create-shift/${companyID}`, {},
             {
                 headers: {
 

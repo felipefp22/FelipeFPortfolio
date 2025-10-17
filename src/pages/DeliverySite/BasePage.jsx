@@ -69,13 +69,7 @@ export default function BasePage() {
       dispatch(changeNumberOfTables(companyOperationData?.numberOfTables || 0));
 
     } else if (response?.status === 400 && response?.data === "noActiveShift") {
-      //IfOneDayRealOperationRemoveThis all this second "else if" and just leave the "if" above and the "else" below
-      if (retryCount < 2) {
-        const res = await openNewShift();
-        return getCompanyOperationData(retryCount + 1);
-      } else {
-        alert("Error fetching company operation data");
-      }
+        alert("You need to open a shift to operate on this company.");
     } else {
       // alert("Error fetching company operation data");
     }

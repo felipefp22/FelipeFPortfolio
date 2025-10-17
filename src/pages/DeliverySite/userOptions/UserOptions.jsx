@@ -8,10 +8,11 @@ import restaurantLogo from '../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
 import ConfirmEmail from "./components/ConfirmEmail";
-import CreateGroupAndCompanyModal from "../system/components/CreateGroupAndCompanyModal";
+import CreateGroupAndCompanyModal from "./components/CreateGroupAndCompanyModal";
 import avatar from '../../../assets/noProfilePhoto.png';
 import MenuDrawer from "./components/MenuDrawer";
 import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
+import OpenShiftModal from "./components/OpenShiftModal";
 
 
 export default function UserOptions({ companySelected, setCompanySelected }) {
@@ -32,6 +33,8 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
     const [email, setEmail] = useState(localStorage.getItem('userLoggedEmail') || "");
 
     const [createCompanyModal, setCreateCompanyModal] = useState(false);
+
+    const [openShiftModal, setOpenShiftModal] = useState(false);
 
     useEffect(() => {
         fetchUserInfos();
@@ -72,11 +75,18 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
 
     function formatDateToDayMonth(date) {
         const d = new Date(date);
-        const day = String(d.getDate()).padStart(2, '0');
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const hours = String(d.getHours()).padStart(2, '0');
-        const minutes = String(d.getMinutes()).padStart(2, '0');
+        const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+
+        const day = String(local.getDate()).padStart(2, '0');
+        const month = String(local.getMonth() + 1).padStart(2, '0');
+        const hours = String(local.getHours()).padStart(2, '0');
+        const minutes = String(local.getMinutes()).padStart(2, '0');
         return `${day}/${month} - ${hours}:${minutes}`;
+    }
+
+    async function setCompanyToOperate(compID) {
+        localStorage.setItem('companyOperatingID', compID);
+        setCompanySelected(compID);
     }
 
     return (
@@ -123,7 +133,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
                                     {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
                                         {compound?.companies?.map((comp, idx) => (
                                             <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
-                                                onClick={() => { localStorage.setItem('companyOperatingID', comp.id); setCompanySelected(comp.id); }}>
+                                                onClick={() => { (comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? setOpenShiftModal(comp) : setCompanyToOperate(comp.id)) : setOpenShiftModal(comp)); }}>
                                                 <img src={restaurantLogo} alt="Logo" style={{
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
@@ -165,6 +175,10 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
 
                 {createCompanyModal && <div className="myModal" style={{ zIndex: 100 }} >
                     <CreateGroupAndCompanyModal close={() => setCreateCompanyModal(false)} getShiftOperationData={() => getShiftOperationData()} />
+                </div>}
+
+                {openShiftModal && <div className="myModal" style={{ zIndex: 100 }} >
+                    <OpenShiftModal close={() => setOpenShiftModal(false)} openShiftModal={openShiftModal} setCompanyToOperate={setCompanyToOperate} />
                 </div>}
             </div >
         </>
