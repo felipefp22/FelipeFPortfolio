@@ -77,7 +77,9 @@ export default function FinishShiftModal({ close, finishShift, companySelected, 
 
                     {!requesterAreOwnerOrManager && <div>
                         <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '10px' }}>
-                            <span style={{ marginBottom: "10px" }}>Only Manager can finish Shift</span>
+                            <span style={{ marginBottom: "10px" }}>Only Manager can Finish Shift</span>
+                            <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px' }}
+                                onClick={() => { close(); }} disabled={processing}>Ok</button>
                         </div>
                     </div>}
                 </div>
