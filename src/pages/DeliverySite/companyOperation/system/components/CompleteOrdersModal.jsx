@@ -31,14 +31,8 @@ export default function CompleteOrdersModal({ close, companyOperationID, selecte
                     <div>
                         <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '0px' }}>
                             <span>Complete Orders?</span>
-                            {orders?.filter(order => selectedOnDeliveryOrderID?.includes(order.id)).map((order, i) => (
-                                <div key={i}>
-                                    {/* <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{order} </span> */}
-                                    <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{order ? `${order?.orderNumberOnShift}` + (order?.customer ? (" - " + order?.customer.customerName) : (" - " + order?.pickupName ?? "")) : ""} </span>
-                                </div>
-                            ))}
 
-                            <span style={{ color: 'rgba(255, 255, 255, 1)' }}>{selectedOnDeliveryOrderID.map(orderID => {
+                            <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500', }}>{selectedOnDeliveryOrderID.map(orderID => {
                                 const order = orders.find(o => o.id === orderID);
                                 return order ? `${order.orderNumberOnShift} - ${order.customer?.customerName || order.pickupName || "No Name"}` : null;
                             }).filter(Boolean).join(", ")}</span>
