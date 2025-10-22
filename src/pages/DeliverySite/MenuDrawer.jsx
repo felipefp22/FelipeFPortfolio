@@ -48,7 +48,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
         color: fontColorOne(theme),
         textDecoration: "none",
         display: "block",
-        padding: "10px 0",
+        padding: "10px 10px",
     };
     return (
         <>
@@ -78,35 +78,38 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
                         onClick={() => { setDrawerOpen(false); localStorage.removeItem('companyOperatingID'); }}>☰</button>
                 </div>
 
-                <hr style={{ margin: "20px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`, }} />
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', textAlign: 'left', }}>
+                    <hr style={{ margin: "20px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`, }} />
 
-                <ul style={{ listStyle: "none", padding: 0, color: fontColorOne(), }}>
+                    <ul style={{ listStyle: "none", padding: 0, color: fontColorOne(), }}>
 
-                    <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`, }} />
-                    <span style={{ fontSize: '18px', fontWeight: 'bold', }}>Theme</span>
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', width: '100%', marginTop: '10px' }} onClick={() => handleThemeChange(theme === "DARK" ? "LIGHT" : "DARK")}>
-                        <span style={{ fontSize: '18px', fontWeight: 'bold', marginRight: '41px' }}>Dark</span>
-                        <div class="form-check form-switch" style={{ cursor: 'pointer' }}>
-                            <input class="form-check-input" style={{ cursor: 'pointer' }} type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={theme === "LIGHT"} />
+                        <li><a href="#" style={linkStyle} onClick={() => navigate("/")}>Operation</a></li>
+
+                        <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`, }} />
+
+                        <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoowner")}>Companies Settings</a></li>
+                        {/* <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoownerdeactivated")}>Anúncios noOwner Desativados</a></li> */}
+
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', marginTop: '20px' }}>
+                            <hr style={{ margin: "3px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`, }} />
+                            <span style={{ fontSize: '18px', fontWeight: 'bold', padding: '0px 10px' }}>Theme</span>
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', width: '100%', marginTop: '10px' }} onClick={() => handleThemeChange(theme === "DARK" ? "LIGHT" : "DARK")}>
+                                <span style={{ fontSize: '18px', fontWeight: 'bold', marginRight: '41px' }}>Dark</span>
+                                <div class="form-check form-switch" style={{ cursor: 'pointer' }}>
+                                    <input class="form-check-input" style={{ cursor: 'pointer' }} type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={theme === "LIGHT"} />
+                                </div>
+                                <span style={{ fontSize: '18px', fontWeight: 'bold', marginLeft: '20px' }}>Light</span>
+                            </div>
+                            <hr style={{ margin: "3px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`, }} />
                         </div>
-                        <span style={{ fontSize: '18px', fontWeight: 'bold', marginLeft: '20px' }}>Light</span>
-                    </div>
-                    <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`, }} />
 
-                    {/* <li><a href="#" style={linkStyle} onClick={() => navigate("/admusers")}>Usuários</a></li>
-
-                    <hr style={{ margin: "20px 0", border: "none", borderTop: "1px solid rgba(238, 238, 238, 0.98)", }} />
-
-                    <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoowner")}>Anúncios noOwner</a></li>
-                    <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoownerdeactivated")}>Anúncios noOwner Desativados</a></li>
-
-                    <hr style={{ margin: "20px 0", border: "none", borderTop: "1px solid rgba(238, 238, 238, 0.98)", }} /> */}
-                    {/* 
+                        {/* 
                         {isAdmMasterAuthenticated &&
                             <li><a href="#" style={linkStyle} onClick={() => navigate("/manageadmins")}>Gerenciar Admins</a></li>
                         } */}
 
-                </ul>
+                    </ul>
+                </div>
             </div>
         </>
     );
