@@ -51,8 +51,8 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, }}>
-                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingTop: '8px', paddingLeft: '3px', overflowY: 'auto', }}>
+                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px',  }}>
                     <button className="buttomDarkGray" style={{ marginBottom: '20px', marginLeft: '0px', }}
                         onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
                 </div>}
@@ -203,20 +203,20 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                 </div >
             </div>
 
-            {changeStatusOrderModal && <div className="myModal" style={{ zIndex: 100 }} >
-                <ChangeOrderStatusModal close={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID}
-                    selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
+            {changeStatusOrderModal && <div className="myModal" style={{  }} >
+                <ChangeOrderStatusModal close={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedCookingOrderID={selectedCookingOrderID}
+                 setSelectedCookingOrderID={setSelectedCookingOrderID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
             </div>}
 
-            {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{ zIndex: 9 }} >
-                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperationID={companyOperation?.companyOperationID} getShiftOperationData={getShiftOperationData} />
-            </div>}
-
-            {selectedOrderToCancel && <div className="myModal" style={{ zIndex: 100 }} >
+            {selectedOrderToCancel && <div className="myModal" style={{  }} >
                 <CancelOrder close={() => closeOrderToCancel()} companyOperationID={companyOperation?.companyOperationID} selectedOrderToCancel={selectedOrderToCancel} getShiftOperationData={getShiftOperationData} />
             </div>}
 
-            {completeOrdersModal && <div className="myModal" style={{ zIndex: 100 }} >
+            {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{  }} >
+                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperationID={companyOperation?.companyOperationID} getShiftOperationData={getShiftOperationData} />
+            </div>}
+
+            {completeOrdersModal && <div className="myModal" style={{  }} >
                 <CompleteOrdersModal close={() => { setSelectedOnDeliveryOrderID([]); setCompleteOrdersModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} getShiftOperationData={async () => await getShiftOperationData()} />
             </div>}
         </>

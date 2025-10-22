@@ -154,9 +154,7 @@ export default function CompanyOperation() {
                   {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100%', padding: '3px', paddingTop: '8px', overflowY: 'auto' }} >
                 <SystemPage screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />
-              </div>
             </div>}
 
             {isDesktopView && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
