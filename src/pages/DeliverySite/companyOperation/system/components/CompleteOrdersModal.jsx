@@ -1,8 +1,8 @@
 import { use, useEffect, useState } from "react";
-import { cancelOrder, completeOrders } from "../../../../services/deliveryServices/OrderService";
+import { cancelOrder, completeOrders } from "../../../../../services/deliveryServices/OrderService";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { greenOne, redOne } from "../../../../theme/Colors";
+import { greenOne, redOne } from "../../../../../theme/Colors";
 
 
 export default function CompleteOrdersModal({ close, selectedOnDeliveryOrderID, getShiftOperationData }) {

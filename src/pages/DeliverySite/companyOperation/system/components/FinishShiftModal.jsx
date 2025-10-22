@@ -1,9 +1,9 @@
 import { use, useEffect, useState } from "react";
-import { cancelOrder } from "../../../../services/deliveryServices/OrderService";
+import { cancelOrder } from "../../../../../services/deliveryServices/OrderService";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { blueOne, greenOne, orangeOne, redOne } from "../../../../theme/Colors";
-import { endShift, openNewShift } from "../../../../services/deliveryServices/ShiftService";
+import { blueOne, greenOne, orangeOne, redOne } from "../../../../../theme/Colors";
+import { endShift, openNewShift } from "../../../../../services/deliveryServices/ShiftService";
 
 
 export default function FinishShiftModal({ close, finishShift, companySelected, requesterAreOwnerOrManager }) {

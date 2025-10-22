@@ -2,7 +2,7 @@ import { use, useEffect, useRef, useState } from "react";
 import { Dropdown, Form, Table } from "react-bootstrap";
 import { confirmAccount, logOutAction, requestConfirmationCode, updateLocalStorage } from "../../../services/deliveryServices/AuthService";
 import { getUserInfos } from "../../../services/deliveryServices/AUserService";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import companiesGroupLogo from '../../../assets/companiesGroupLogo.png';
 import restaurantLogo from '../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,11 +13,15 @@ import avatar from '../../../assets/noProfilePhoto.png';
 import MenuDrawer from "./components/MenuDrawer";
 import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
 import OpenShiftModal from "./components/OpenShiftModal";
+import { changeCompanyOperationID } from "../../../redux/companyOperationSlice";
 
 
-export default function UserOptions({ companySelected, setCompanySelected }) {
+export default function SelectCompanyOperation({ }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
+    const dispatch = useDispatch();
+
+    const companyOperationID = useSelector((state) => state.companyOperation.companyOperationID);
 
     const [firstLoadingUserInfos, setFirstLoadingUserInfos] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(true);
@@ -68,10 +72,10 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
     }, []);
 
     useEffect(() => {
-        if (companySelected === null) {
+        if (companyOperationID === null) {
             setDrawerOpen(false);
         }
-    }, [companySelected]);
+    }, [companyOperationID]);
 
     function formatDateToDayMonth(date) {
         const d = new Date(date);
@@ -86,7 +90,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
 
     async function setCompanyToOperate(compID) {
         localStorage.setItem('companyOperatingID', compID);
-        setCompanySelected(compID);
+        dispatch(changeCompanyOperationID(compID));
     }
 
     return (
@@ -103,7 +107,7 @@ export default function UserOptions({ companySelected, setCompanySelected }) {
 
                     {/* {!isEmailConfirmed && <ConfirmEmail fetchUserInfos={() => fetchUserInfos()} />} */}
 
-                    { <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
+                    {<div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
                         <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Welcome {name ? " - " + name : "Guest"}</span>
 
                         <button className="buttomDarkGray" style={{

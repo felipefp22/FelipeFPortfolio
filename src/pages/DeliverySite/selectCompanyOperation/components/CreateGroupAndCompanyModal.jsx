@@ -26,7 +26,7 @@ export default function CreateGroupAndCompanyModal({ close, getShiftOperationDat
     return (
         <>
             <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "80%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, fontSize: !isDesktopView ? '20px' : '26px', }}>
+                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "40%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, fontSize: !isDesktopView ? '20px' : '26px', }}>
 
                     <span>Create Group and Company</span>
                     <span style={{ marginBottom: '20px', fontSize: !isDesktopView ? '14px' : '18px', color: 'rgba(255, 255, 255, 0.8)' }}>How its just a skills demonstration APP, click "Create", and we will create a defaults group and company for you.</span>

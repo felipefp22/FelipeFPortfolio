@@ -3,11 +3,11 @@ import avatar from '../../../../assets/noProfilePhoto.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "react-bootstrap";
-import { logOutAction } from "../../../../services/deliveryServices/AuthService";
+import { logOutAction } from "../../../../services/deliveryServices/AuthService.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsAdmAuthenticated } from "../../../../redux/admAuthSlice";
-import { borderColorTwo, fontColorOne, mainColor, secondColor, secondColorInverse } from "../../../../theme/Colors";
-import { setProfileTheme } from "../../../../services/deliveryServices/AUserService";
+import { setIsAdmAuthenticated } from "../../../../redux/admAuthSlice.js";
+import { borderColorTwo, fontColorOne, mainColor, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
+import { setProfileTheme } from "../../../../services/deliveryServices/AUserService.js";
 import { setTheme } from '../../../../redux/viewSlice.js';
 import LogoutMessage from "./auxs/LogoutMessage.jsx";
 

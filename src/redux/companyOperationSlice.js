@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const slice = createSlice({
   name: 'companyOperation',
   initialState: {
+    companyOperationID: null,
     ownerID: null,
     companyName: null,
     companyEmail: null,
@@ -19,6 +20,7 @@ export const slice = createSlice({
     employees: null,
   },
   reducers: {
+    changeCompanyOperationID(state, { payload }) { return { ...state, companyOperationID: payload } },
     changeOwnerID(state, { payload }) { return { ...state, ownerID: payload } },
     changeCompanyName(state, { payload }) { return { ...state, companyName: payload } },
     changeCompanyEmail(state, { payload }) { return { ...state, companyEmail: payload } },
@@ -35,6 +37,9 @@ export const slice = createSlice({
     changeEmployees(state, { payload }) { return { ...state, employees: payload } },
 
     quitCompanyOperation(state) {
+      localStorage.removeItem('companyOperatingID');
+
+      state.companyOperationID = null;
       state.ownerID = null;
       state.companyName = null;
       state.companyEmail = null;
@@ -54,6 +59,7 @@ export const slice = createSlice({
 })
 
 export const {
+  changeCompanyOperationID,
   changeOwnerID,
   changeCompanyName,
   changeCompanyEmail,

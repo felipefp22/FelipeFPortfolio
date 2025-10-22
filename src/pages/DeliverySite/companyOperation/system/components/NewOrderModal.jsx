@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
-import { getAllCompanyCustomers } from "../../../../services/deliveryServices/CustomerSevice";
-import { getAllProductsCategories } from "../../../../services/deliveryServices/ProductsCategoryService";
-import { createOrder } from "../../../../services/deliveryServices/OrderService";
+import { getAllCompanyCustomers } from "../../../../../services/deliveryServices/CustomerSevice";
+import { getAllProductsCategories } from "../../../../../services/deliveryServices/ProductsCategoryService";
+import { createOrder } from "../../../../../services/deliveryServices/OrderService";
 import { useSelector } from "react-redux";
-import { borderColorTwo } from "../../../../theme/Colors";
+import { borderColorTwo } from "../../../../../theme/Colors";
 
 export default function NewOrderModal({ close, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
@@ -232,7 +232,7 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
             </div>
 
             {showNewCustomerModal && <div ref={newCustomerModalRef} className="myModal" style={{ zIndex: 10 }} >
-                <NewCustomerModal close={() => setShowNewCustomerModal(false)} />
+                <NewCustomerModal close={() => setShowNewCustomerModal(false)} fetchCustomers={() => fetchCustomers()} />
             </div>}
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ zIndex: 10 }} >

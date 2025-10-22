@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { closeOrder, reopenOrder } from "../../../../services/deliveryServices/OrderService";
-import { greenOne, redOne } from "../../../../theme/Colors";
+import { closeOrder, reopenOrder } from "../../../../../services/deliveryServices/OrderService";
+import { greenOne, redOne } from "../../../../../theme/Colors";
 
 export default function ChangeOrderStatusModal({ close, selectedCookingOrderID, setSelectedCookingOrderID, selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID, getShiftOperationData, }) {
     const theme = useSelector((state) => state.view.theme);

@@ -2,13 +2,13 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
-import { createCustomer } from "../../../../services/deliveryServices/CustomerSevice";
+import { createCustomer } from "../../../../../services/deliveryServices/CustomerSevice";
 import { useSelector } from "react-redux";
 import SelectCustumerAddressMap from "./auxComponents/SelectCustumerAddressMap";
-import { searchAddress } from "../../../../services/deliveryServices/auxServices/mapService";
-import { borderColorTwo } from "../../../../theme/Colors";
+import { searchAddress } from "../../../../../services/deliveryServices/auxServices/mapService";
+import { borderColorTwo } from "../../../../../theme/Colors";
 
-export default function NewCustomerModal({ close }) {
+export default function NewCustomerModal({ close, fetchCustomers }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -59,6 +59,7 @@ export default function NewCustomerModal({ close }) {
         const response = await createCustomer(name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
         if (response?.status === 200) {
             alert("Customer created successfully");
+            fetchCustomers();
             close();
         } else {
             alert("Error creating customer: ", response?.data);

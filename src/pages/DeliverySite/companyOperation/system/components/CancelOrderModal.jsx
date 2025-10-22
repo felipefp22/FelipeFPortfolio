@@ -1,8 +1,8 @@
 import { use, useEffect, useState } from "react";
-import { cancelOrder } from "../../../../services/deliveryServices/OrderService";
+import { cancelOrder } from "../../../../../services/deliveryServices/OrderService";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { orangeOne, redOne } from "../../../../theme/Colors";
+import { orangeOne, redOne } from "../../../../../theme/Colors";
 
 
 export default function CancelOrder({ close, selectedOrderToCancel, getShiftOperationData }) {

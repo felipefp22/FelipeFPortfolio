@@ -1,14 +1,14 @@
 import { use, useEffect, useRef, useState } from 'react';
 // import './../../App.css';
 import L from 'leaflet'; // Import Leaflet
-import restaurantLogo from '../../../assets/restaurantLogo.png'; // Import the restaurant logo
+import restaurantLogo from '../../../../assets/restaurantLogo.png'; // Import the restaurant logo
 import { PutDeliveryPlaces, selectMarkerColor } from './mapcomponentsandservices/DeliveryPlaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrosshairs, faFireFlameCurved } from '@fortawesome/free-solid-svg-icons';
 import { filterLoccationsOverLaping, sanitizeLatLng } from './mapcomponentsandservices/ManageOverlapPoints';
 import { useSelector } from 'react-redux';
 import "leaflet/dist/leaflet.css";
-import { fontColorOne, secondColor, secondColorInverse } from '../../../theme/Colors';
+import { fontColorOne, secondColor, secondColorInverse } from '../../../../theme/Colors';
 
 
 export default function MapaDelivery({ }) {
@@ -153,7 +153,7 @@ export default function MapaDelivery({ }) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '99%', width: '99%', paddingTop: 45, overflow: 'hidden', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflow: 'hidden', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
 
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden', borderRadius: '6px' }} ref={mapContainerRef}>
         <div id="mapa" style={{ width: '100%', height: '100%' }} />

@@ -1,14 +1,14 @@
 import axiosInstanceRestaurantSystem from './axiosConfiguration/AxiosInstanceRestaurantSystem';
 import axiosInstanceRestaurantSystemWithoutAuth from './axiosConfiguration/AxiosInstanceRestaurantSystemWithoutAuth';
 
-export async function getShiftOperation() {
+export async function getShiftOperation(compID) {
 
     // const postData = {
     //     name,
     //     email
     // };
     try {
-        const response = await axiosInstanceRestaurantSystem.get(`/shifts/get-shift-operation/${localStorage.getItem('companyOperatingID')}`, {},
+        const response = await axiosInstanceRestaurantSystem.get(`/shifts/get-shift-operation/${compID}`, {},
             {
                 headers: {
 
