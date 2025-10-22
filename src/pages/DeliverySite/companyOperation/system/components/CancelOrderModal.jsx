@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { orangeOne, redOne } from "../../../../../theme/Colors";
 
 
-export default function CancelOrder({ close, selectedOrderToCancel, getShiftOperationData }) {
+export default function CancelOrder({ close, companyOperationID, selectedOrderToCancel, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const orders = useSelector((state) => state.companyOperation.orders);
@@ -16,7 +16,7 @@ export default function CancelOrder({ close, selectedOrderToCancel, getShiftOper
     async function handleCancelOrder() {
         setProcessing(true);
 
-        const response = await cancelOrder(selectedOrderToCancel?.id, localStorage.getItem('userLoggedEmail'), adminPassword, "User Don't want the order anymore");
+        const response = await cancelOrder(companyOperationID, selectedOrderToCancel?.id, localStorage.getItem('userLoggedEmail'), adminPassword, "User Don't want the order anymore");
 
         if (response.status === 200) {
             getShiftOperationData();

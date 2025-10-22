@@ -1,10 +1,10 @@
 import axiosInstanceRestaurantSystem from './axiosConfiguration/AxiosInstanceRestaurantSystem';
 import axiosInstanceRestaurantSystemWithoutAuth from './axiosConfiguration/AxiosInstanceRestaurantSystemWithoutAuth';
 
-export async function getAllProductsCategories() {
+export async function getAllProductsCategories(compID) {
 
     try {
-        const response = await axiosInstanceRestaurantSystem.get(`/product-category/get-all-categories-of-company/${localStorage.getItem('companyOperatingID')}`, {},
+        const response = await axiosInstanceRestaurantSystem.get(`/product-category/get-all-categories-of-company/${compID}`, {},
             {
                 headers: {
 

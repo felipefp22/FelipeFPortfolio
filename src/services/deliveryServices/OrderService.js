@@ -1,14 +1,14 @@
 import axiosInstanceRestaurantSystem from './axiosConfiguration/AxiosInstanceRestaurantSystem';
 import axiosInstanceRestaurantSystemWithoutAuth from './axiosConfiguration/AxiosInstanceRestaurantSystemWithoutAuth';
 
-export async function getOrderOperation() {
+export async function getOrderOperation(compID) {
 
     // const postData = {
     //     name,
     //     email
     // };
     try {
-        const response = await axiosInstanceRestaurantSystem.get(`/order/get-company-operation/${localStorage.getItem('companyOperatingID')}`, {},
+        const response = await axiosInstanceRestaurantSystem.get(`/order/get-company-operation/${compID}`, {},
             {
                 headers: {
 
@@ -23,10 +23,10 @@ export async function getOrderOperation() {
     }
 }
 
-export async function createOrder( tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, notes ) {
+export async function createOrder( compId, tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, notes ) {
 
     const postData = {
-        companyID: localStorage.getItem('companyOperatingID'),
+        companyID: compId,
         tableNumberOrDeliveryOrPickup: tableNumberOrDeliveryOrPickup,
         customerID: customerID,
         pickupName: pickupName,
@@ -49,10 +49,10 @@ export async function createOrder( tableNumberOrDeliveryOrPickup, customerID, pi
     }
 }
 
-export async function closeOrder( orderID, clientSaidNoTax, discountValue ) {
+export async function closeOrder( compID, orderID, clientSaidNoTax, discountValue ) {
 
     const postData = {
-        companyID: localStorage.getItem('companyOperatingID'),
+        companyID: compID,
         orderID: orderID,
         clientSaidNoTax: clientSaidNoTax,
         discountValue: discountValue,
@@ -74,10 +74,10 @@ export async function closeOrder( orderID, clientSaidNoTax, discountValue ) {
     }
 }
 
-export async function reopenOrder( orderID ) {
+export async function reopenOrder( compID, orderID ) {
 
     const postData = {
-        companyID: localStorage.getItem('companyOperatingID'),
+        companyID: compID,
         orderID: orderID
     };
     try {
@@ -98,10 +98,10 @@ export async function reopenOrder( orderID ) {
 }
 
 
-export async function cancelOrder( orderID, managerID, adminPassword, cancellationReason ) {
+export async function cancelOrder( compID, orderID, managerID, adminPassword, cancellationReason ) {
 
     const postData = {
-        companyID: localStorage.getItem('companyOperatingID'),
+        companyID: compID,
         orderID: orderID,
         managerID: managerID,
         adminPassword: adminPassword,
@@ -124,10 +124,10 @@ export async function cancelOrder( orderID, managerID, adminPassword, cancellati
     }
 }
 
-export async function completeOrders( orderID ) {
+export async function completeOrders( compID, orderID ) {
 
     const postData = {
-        companyID: localStorage.getItem('companyOperatingID'),
+        companyID: compID,
         orderID: orderID,
     };
 

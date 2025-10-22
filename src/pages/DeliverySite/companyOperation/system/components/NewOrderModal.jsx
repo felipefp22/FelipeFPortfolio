@@ -10,7 +10,7 @@ import { createOrder } from "../../../../../services/deliveryServices/OrderServi
 import { useSelector } from "react-redux";
 import { borderColorTwo } from "../../../../../theme/Colors";
 
-export default function NewOrderModal({ close, getShiftOperationData }) {
+export default function NewOrderModal({ close, companyOperationID, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -35,7 +35,7 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
 
     async function fetchCustomers() {
         try {
-            const response = await getAllCompanyCustomers();
+            const response = await getAllCompanyCustomers(companyOperationID);
             if (response?.status === 200) {
                 setAllCompanyCustomers(response?.data || []);
             }
@@ -46,7 +46,7 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
 
     async function fetchProductsCategories() {
         try {
-            const response = await getAllProductsCategories();
+            const response = await getAllProductsCategories(companyOperationID);
             if (response?.status === 200) {
                 setAllCompanyProductsCategories(response?.data || []);
             }
@@ -99,6 +99,7 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
         );
 
         const response = await createOrder(
+            companyOperationID,
             "delivery",
             customerSelectedToNewOrder?.id,
             customerSelectedToNewOrder?.customerName,
@@ -232,7 +233,7 @@ export default function NewOrderModal({ close, getShiftOperationData }) {
             </div>
 
             {showNewCustomerModal && <div ref={newCustomerModalRef} className="myModal" style={{ zIndex: 10 }} >
-                <NewCustomerModal close={() => setShowNewCustomerModal(false)} fetchCustomers={() => fetchCustomers()} />
+                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperationID} fetchCustomers={() => fetchCustomers()} />
             </div>}
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ zIndex: 10 }} >

@@ -1,10 +1,10 @@
 import axiosInstanceRestaurantSystem from './axiosConfiguration/AxiosInstanceRestaurantSystem';
 import axiosInstanceRestaurantSystemWithoutAuth from './axiosConfiguration/AxiosInstanceRestaurantSystemWithoutAuth';
 
-export async function getAllCompanyCustomers() {
+export async function getAllCompanyCustomers(compID) {
 
     try {
-        const response = await axiosInstanceRestaurantSystem.get(`/customer/get-all-customers/${localStorage.getItem('companyOperatingID')}`, {},
+        const response = await axiosInstanceRestaurantSystem.get(`/customer/get-all-customers/${compID}`, {},
             {
                 headers: {
 
@@ -19,9 +19,9 @@ export async function getAllCompanyCustomers() {
     }
 }
 
-export async function createCustomer(customerName, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement) {
+export async function createCustomer(compID, customerName, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement) {
     const postData = {
-        companyID: localStorage.getItem('companyOperatingID'),
+        companyID: compID,
         customerName: customerName,
         phone: phone,
         email: email,

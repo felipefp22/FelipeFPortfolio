@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { greenOne, redOne } from "../../../../../theme/Colors";
 
 
-export default function CompleteOrdersModal({ close, selectedOnDeliveryOrderID, getShiftOperationData }) {
+export default function CompleteOrdersModal({ close, companyOperationID, selectedOnDeliveryOrderID, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const orders = useSelector((state) => state.companyOperation.orders);
@@ -16,7 +16,7 @@ export default function CompleteOrdersModal({ close, selectedOnDeliveryOrderID, 
         setProcessing(true);
         await Promise.all(
             selectedOnDeliveryOrderID.map(orderID =>
-                completeOrders(orderID)
+                completeOrders(companyOperationID, orderID)
             )
         );
         await getShiftOperationData();

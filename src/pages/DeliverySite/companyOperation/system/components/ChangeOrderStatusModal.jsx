@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { closeOrder, reopenOrder } from "../../../../../services/deliveryServices/OrderService";
 import { greenOne, redOne } from "../../../../../theme/Colors";
 
-export default function ChangeOrderStatusModal({ close, selectedCookingOrderID, setSelectedCookingOrderID, selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID, getShiftOperationData, }) {
+export default function ChangeOrderStatusModal({ close, companyOperationID, selectedCookingOrderID, setSelectedCookingOrderID, selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID, getShiftOperationData, }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -15,7 +15,7 @@ export default function ChangeOrderStatusModal({ close, selectedCookingOrderID, 
         setProcessing(true);
         await Promise.all(
             selectedCookingOrderID.map(orderID =>
-                closeOrder(orderID, false, 0)
+                closeOrder(companyOperationID, orderID, false, 0)
             )
         );
 
@@ -28,7 +28,7 @@ export default function ChangeOrderStatusModal({ close, selectedCookingOrderID, 
         setProcessing(true);
         await Promise.all(
             selectedOnDeliveryOrderID.map(orderID =>
-                reopenOrder(orderID)
+                reopenOrder(companyOperationID, orderID)
             )
         );
         await getShiftOperationData();

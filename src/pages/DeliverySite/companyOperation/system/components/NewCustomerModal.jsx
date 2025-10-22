@@ -8,7 +8,7 @@ import SelectCustumerAddressMap from "./auxComponents/SelectCustumerAddressMap";
 import { searchAddress } from "../../../../../services/deliveryServices/auxServices/mapService";
 import { borderColorTwo } from "../../../../../theme/Colors";
 
-export default function NewCustomerModal({ close, fetchCustomers }) {
+export default function NewCustomerModal({ close, companyOperationID, fetchCustomers }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -56,7 +56,7 @@ export default function NewCustomerModal({ close, fetchCustomers }) {
             return;
         }
 
-        const response = await createCustomer(name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
+        const response = await createCustomer(companyOperationID, name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
         if (response?.status === 200) {
             alert("Customer created successfully");
             fetchCustomers();
