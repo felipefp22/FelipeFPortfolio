@@ -66,7 +66,7 @@ export default function Index() {
 
         </Route>
         {!isAuthenticated &&
-          <Route path="/" element={<LayoutDelivery />}>
+          <Route path="/" >
             <Route path="/FelipeFPortfolio/delivery/*" element={<LoginOrRegisterPage />} />
             <Route path="/FelipeFPortfolio/delivery/register" element={<LoginOrRegisterPage />} />
             <Route path="/FelipeFPortfolio/delivery/oauthredirect" element={<OAuthRedirectPage />} />

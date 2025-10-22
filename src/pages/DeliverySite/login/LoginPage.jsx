@@ -127,9 +127,9 @@ document.querySelectorAll('.inputOne').forEach(input => {
                 <p> <Link onClick={() => setActualPage('fpassword')} style={{ color: fontColorOne(theme) }}>Forgot Password?</Link></p>
               </div>
 
-              <div>
-                <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{  width: '150px',  }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
-                  style={{ width: '25px', height: '25px' }} /> : "Sign In"} </button>
+              <div style={{  display: 'flex', alignItems: 'center', justifyContent: 'center',}}>
+                <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px',}}> 
+                  {disableEnter ? <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: borderColorTwo(theme), }} /> : "Sign In"} </button>
               </div>
 
             </form>

@@ -1,6 +1,6 @@
 import { use, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logOutAction } from "../../../../../services/deliveryServices/AuthService";
+import { logOutAction } from "../../../services/deliveryServices/AuthService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,7 +29,7 @@ export default function LogoutMessage({ close }) {
                                 onClick={() => { close(); }} >Return</button>
 
                             <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', fontSize: '16px', margin: '5px 30px' }}
-                                onClick={() => { logOutAction() }} >Log Out <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "red", marginLeft: '3px' }} /></button>
+                                onClick={() => { logOutAction(), close(); }} >Log Out <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "red", marginLeft: '3px' }} /></button>
                         </div>
                     </div>
                 </div>

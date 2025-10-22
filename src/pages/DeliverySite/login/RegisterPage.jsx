@@ -6,7 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { blueOne, fontColorOne, greenOne, orangeOne } from '../../../theme/Colors.js';
+import { blueOne, borderColorTwo, fontColorOne, greenOne, orangeOne } from '../../../theme/Colors.js';
 
 export default function RegisterPage({ setActualPage, email, setEmail, password, setPassword }) {
   const theme = useSelector((state) => state.view.theme);
@@ -155,9 +155,9 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                 {errors.password && <div >{errors.password}</div>}
               </div>
 
-              <div>
-                <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{ width: '150px', height: '40px',}}> {disableEnter ?
-                  <Spinner animation="border" role="status" style={{ width: '25px', height: '25px' }} /> : "Register"} </button>
+              <div style={{  display: 'flex', alignItems: 'center', justifyContent: 'center',}}>
+                <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{  display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px', height: '40px',}}> 
+                  {disableEnter ? <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: borderColorTwo(theme), }} /> : "Register"} </button>
               </div>
 
 

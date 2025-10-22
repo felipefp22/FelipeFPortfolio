@@ -1,22 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import avatar from '../../../../assets/noProfilePhoto.png';
+import avatar from '../../assets/noProfilePhoto.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp, faPowerOff, faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "react-bootstrap";
-import { logOutAction } from "../../../../services/deliveryServices/AuthService.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsAdmAuthenticated } from "../../../../redux/admAuthSlice.js";
-import { borderColorTwo, fontColorOne, mainColor, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
-import { setProfileTheme } from "../../../../services/deliveryServices/AUserService.js";
-import { setTheme } from '../../../../redux/viewSlice.js';
-import LogoutMessage from "./auxs/LogoutMessage.jsx";
+import { borderColorTwo, fontColorOne, mainColor, secondColor, secondColorInverse } from "../../theme/Colors.js";
+import { setProfileTheme } from "../../services/deliveryServices/AUserService.js";
+import { setTheme } from '../../redux/viewSlice.js';
 
-export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
+export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMessage }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const dispatch = useDispatch();
     const theme = useSelector((state) => state.view.theme);
 
-    const [showLogOutMessage, setShowLogOutMessage] = useState(false);
     const dropdownProfileRef = useRef(null);
 
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
@@ -58,7 +54,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
         <>
             <div style={{
                 display: 'flex', flexDirection: 'column', opacity: drawerOpen ? 1 : 0, transition: "opacity 0.3s", whiteSpace: "nowrap", position: "absolute", background: mainColor(theme),
-                height: '100%', width: '75%', maxWidth: '300px', zIndex: 2, boxShadow: "2px 0 5px rgba(0,0,0,0.3)", top: -5, left: -10, padding: '10px', zIndex: 10000,
+                height: '100%', width: '75%', maxWidth: '300px', zIndex: 2, boxShadow: "2px 0 5px rgba(0,0,0,0.3)", top: 0, padding: '10px', zIndex: 10000,
             }}>
 
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", }}>
@@ -112,9 +108,6 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen }) {
 
                 </ul>
             </div>
-            {showLogOutMessage && <div className="myModal" style={{ zIndex: 10000 }} >
-                <LogoutMessage close={() => setShowLogOutMessage(false)} />
-            </div>}
         </>
     );
 }

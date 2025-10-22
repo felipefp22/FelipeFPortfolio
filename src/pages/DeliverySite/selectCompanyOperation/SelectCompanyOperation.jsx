@@ -1,16 +1,11 @@
 import { use, useEffect, useRef, useState } from "react";
-import { Dropdown, Form, Table } from "react-bootstrap";
-import { confirmAccount, logOutAction, requestConfirmationCode, updateLocalStorage } from "../../../services/deliveryServices/AuthService";
 import { getUserInfos } from "../../../services/deliveryServices/AUserService";
 import { useDispatch, useSelector } from "react-redux";
 import companiesGroupLogo from '../../../assets/companiesGroupLogo.png';
 import restaurantLogo from '../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
-import ConfirmEmail from "./components/ConfirmEmail";
 import CreateGroupAndCompanyModal from "./components/CreateGroupAndCompanyModal";
-import avatar from '../../../assets/noProfilePhoto.png';
-import MenuDrawer from "./components/MenuDrawer";
 import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
 import OpenShiftModal from "./components/OpenShiftModal";
 import { changeCompanyOperationID } from "../../../redux/companyOperationSlice";
@@ -24,8 +19,6 @@ export default function SelectCompanyOperation({ }) {
     const companyOperationID = useSelector((state) => state.companyOperation.companyOperationID);
 
     const [firstLoadingUserInfos, setFirstLoadingUserInfos] = useState(false);
-    const [drawerOpen, setDrawerOpen] = useState(true);
-    const drawerRef = useRef(null);
 
     const [companiesCoumpound, setCompaniesCoumpound] = useState([]);
     const [selectedCompaniesCoumpound, setSelectedCompaniesCoumpound] = useState(null);
@@ -59,24 +52,6 @@ export default function SelectCompanyOperation({ }) {
         setFirstLoadingUserInfos(true);
     }
 
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (drawerRef.current && !drawerRef.current.contains(event.target)) {
-                setDrawerOpen(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
-    useEffect(() => {
-        if (companyOperationID === null) {
-            setDrawerOpen(false);
-        }
-    }, [companyOperationID]);
-
     function formatDateToDayMonth(date) {
         const d = new Date(date);
         const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
@@ -100,12 +75,7 @@ export default function SelectCompanyOperation({ }) {
                     <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white",  marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
                 </div> */}
 
-                {drawerOpen && <div ref={drawerRef}><MenuDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} /></div>}
-
                 <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
-                    <button className="floatingButton" style={{ width: 'auto', alignSelf: "flex-start", visibility: drawerOpen ? 'hidden' : 'visible', marginBottom: '10px' }} onClick={() => { setDrawerOpen(true); }}>☰</button>
-
-                    {/* {!isEmailConfirmed && <ConfirmEmail fetchUserInfos={() => fetchUserInfos()} />} */}
 
                     {<div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
                         <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Welcome {name ? " - " + name : "Guest"}</span>
