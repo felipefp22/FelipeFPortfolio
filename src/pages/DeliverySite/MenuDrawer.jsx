@@ -82,12 +82,12 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
                     <hr style={{ margin: "20px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`, }} />
 
                     <ul style={{ listStyle: "none", padding: 0, color: fontColorOne(), }}>
-
-                        <li><a href="#" style={linkStyle} onClick={() => navigate("/")}>Operation</a></li>
+{/* 
+                        <li><a style={linkStyle} onClick={() => navigate("/") }>Operation</a></li>
 
                         <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`, }} />
 
-                        <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoowner")}>Companies Settings</a></li>
+                        <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoowner")}>Companies Settings</a></li> */}
                         {/* <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoownerdeactivated")}>Anúncios noOwner Desativados</a></li> */}
 
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', marginTop: '20px' }}>
