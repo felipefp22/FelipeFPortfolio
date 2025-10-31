@@ -1,14 +1,20 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, fontColorOne, redOne, transparentCavasTwo } from "../../../../theme/Colors";
+import { borderColorTwo, fontColorOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import CompoundProfile from "./internalComponents/CompoundProfile";
+import { useState } from "react";
 
 
 export default function SetUpCompound({ compoundSelectedID }) {
     const navigate = useNavigate();
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
+
+    const menuOptions = ["Chain Profile", "Shifts"];
+
+    const [menuSelected, setMenuSelected] = useState(menuOptions[0]);
 
 
 
@@ -19,14 +25,26 @@ export default function SetUpCompound({ compoundSelectedID }) {
                     <button className='floatingButton' style={{ backgroundColor: redOne(theme), height: '40px', marginRight: '10px' }} onClick={() => navigate('/FelipeFPortfolio/delivery/ManageCompaniesOwner/')} >
                         <FontAwesomeIcon icon={faRightFromBracket} flip="horizontal" style={{ color: "white" }} />
                     </button>
-                    <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', marginBottom: '25px' }}>Settings - Your Compound</span>
+                    <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', marginBottom: '25px' }}>Settings - Your Chain</span>
                 </div>
 
+                <div style={{ display: 'flex', flexDirection: 'row', }} >
+                    {menuOptions?.map((option, index) => (
+                        <div key={index} style={{ display: 'flex', flexDirection: 'row' }} >
+                            <div style={{ padding: '5px 10px', backgroundColor: menuSelected === option ? transparentCavasOne(theme) : 'transparent', borderRadius: '3px', cursor: 'pointer' }}
+                                onClick={() => setMenuSelected(option)} >
+                                <span style={{ color: fontColorOne(theme), fontWeight: 'bold' }}>{option}</span>
+                                {menuSelected === option && <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', margin: 'auto 0px', height: '2px', borderRadius: '3px' }} />}
+                            </div>
+                            <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '2px', margin: 'auto 4px', height: '90%', borderRadius: '3px' }} />
+                        </div>
+                    ))}
+                </div>
 
-                {<div style={{ display: 'flex', flexDirection: 'column', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
-                    {/* <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Manage Your Companies</span> */}
-                    <span>Still not Implemented - It's Skill demonstration APP, I am working on it when I have free time ;)</span>
-                </div>}
+                <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', marginTop: '10px', height: '4px', borderRadius: '1px', marginBottom: '0px', }} />
+
+                {menuSelected === 'Chain Profile' && <CompoundProfile />}
+
             </div >
         </>
     );

@@ -18,7 +18,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '10px 5px', backgroundColor: transparentCavasTwo(theme), borderRadius: '6px', }}>
+            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '10px 5px',  borderRadius: '6px', }}>
 
                 {<div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
                     {/* <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Manage Your Companies</span> */}
@@ -46,8 +46,8 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0px 10px', padding: '10px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme) }}>
                                     {compound?.companies?.map((comp, idx) => (
                                         <div key={idx} style={{
-                                            display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 5, cursor: 'pointer', minWidth: '160px', maxWidth: '200px', width: '100%', backgroundColor: transparentCavasTwo(theme),
-                                            padding: '10px', borderRadius: '6px',
+                                            display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 5, cursor: 'pointer', minWidth: '160px', maxWidth: '200px', width: '100%', 
+                                            backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px',
                                         }}
                                             onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/company/${comp?.id}`); }}>
                                             <div style={{ position: 'relative', width: '100%' }} >
