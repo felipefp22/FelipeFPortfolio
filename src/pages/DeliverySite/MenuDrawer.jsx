@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { borderColorTwo, fontColorOne, mainColor, secondColor, secondColorInverse } from "../../theme/Colors.js";
 import { setProfileTheme } from "../../services/deliveryServices/AUserService.js";
 import { setTheme } from '../../redux/viewSlice.js';
+import { useNavigate } from "react-router-dom";
 
 export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMessage }) {
+    const navigate = useNavigate();
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const dispatch = useDispatch();
     const theme = useSelector((state) => state.view.theme);
@@ -82,12 +84,12 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
                     <hr style={{ margin: "20px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`, }} />
 
                     <ul style={{ listStyle: "none", padding: 0, color: fontColorOne(), }}>
-{/* 
-                        <li><a style={linkStyle} onClick={() => navigate("/") }>Operation</a></li>
+
+                        <li><a style={linkStyle} onClick={() => {navigate("/FelipeFPortfolio/delivery/"); setDrawerOpen(false); }}>Operation</a></li>
 
                         <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`, }} />
 
-                        <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoowner")}>Companies Settings</a></li> */}
+                        <li><a  style={linkStyle} onClick={() => {navigate("/FelipeFPortfolio/delivery/ManageCompaniesOwner"); setDrawerOpen(false); }}>Manage Your Companies</a></li>
                         {/* <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoownerdeactivated")}>Anúncios noOwner Desativados</a></li> */}
 
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', marginTop: '20px' }}>
