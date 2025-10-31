@@ -12,7 +12,7 @@ export default function SetUpCompany({ companySelectedID }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
-    const menuOptions = ["Company Profile", "Employees", "Products", "Shifts"];
+    const menuOptions = ["Company Profile", "Employees", "Products", "Shifts", "Customers"];
 
     const [menuSelected, setMenuSelected] = useState("Company Profile");
 
@@ -28,15 +28,15 @@ export default function SetUpCompany({ companySelectedID }) {
                     <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Settings - Your Company</span>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'row', }} >
+                <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }} >
                     {menuOptions?.map((option, index) => (
                         <div key={index} style={{ display: 'flex', flexDirection: 'row' }} >
-                            <div style={{ padding: '5px 10px', backgroundColor: menuSelected === option ? transparentCavasOne(theme) : 'transparent', borderRadius: '3px', cursor: 'pointer' }}
+                            <div style={{ padding: '5px 10px', backgroundColor: menuSelected === option ? transparentCavasOne(theme) : 'transparent', borderRadius: '3px', cursor: 'pointer',  }}
                                 onClick={() => setMenuSelected(option)} >
-                                <span style={{ color: fontColorOne(theme), fontWeight: 'bold' }}>{option}</span>
+                                <span style={{ color: fontColorOne(theme), fontWeight: 'bold', flexWrap: 'nowrap', whiteSpace: 'nowrap' }}>{option}</span>
                                 {menuSelected === option && <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', margin: 'auto 0px', height: '2px', borderRadius: '3px' }} />}
                             </div>
-                            <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '2px', margin: 'auto 4px', height: '90%', borderRadius: '3px' }} />
+                            <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '2px', margin: 'auto 4px', height: '90%', borderRadius: '3px',  }} />
                         </div>
                     ))}
                 </div>

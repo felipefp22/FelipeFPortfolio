@@ -12,7 +12,7 @@ export default function SetUpCompound({ compoundSelectedID }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
-    const menuOptions = ["Chain Profile",];
+    const menuOptions = ["Chain Profile", "Companies"];
 
     const [menuSelected, setMenuSelected] = useState(menuOptions[0]);
 
@@ -30,10 +30,10 @@ export default function SetUpCompound({ compoundSelectedID }) {
 
                 <div style={{ display: 'flex', flexDirection: 'row', }} >
                     {menuOptions?.map((option, index) => (
-                        <div key={index} style={{ display: 'flex', flexDirection: 'row' }} >
+                        <div key={index} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }} >
                             <div style={{ padding: '5px 10px', backgroundColor: menuSelected === option ? transparentCavasOne(theme) : 'transparent', borderRadius: '3px', cursor: 'pointer' }}
                                 onClick={() => setMenuSelected(option)} >
-                                <span style={{ color: fontColorOne(theme), fontWeight: 'bold' }}>{option}</span>
+                                <span style={{ color: fontColorOne(theme), fontWeight: 'bold', flexWrap: 'nowrap', whiteSpace: 'nowrap' }}>{option}</span>
                                 {menuSelected === option && <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', margin: 'auto 0px', height: '2px', borderRadius: '3px' }} />}
                             </div>
                             <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '2px', margin: 'auto 4px', height: '90%', borderRadius: '3px' }} />
