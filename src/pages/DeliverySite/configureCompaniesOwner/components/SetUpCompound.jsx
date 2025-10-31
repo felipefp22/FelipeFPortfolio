@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, fontColorOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
+import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import CompoundProfile from "./internalComponents/CompoundProfile";
 import { useState } from "react";
 
@@ -12,7 +12,7 @@ export default function SetUpCompound({ compoundSelectedID }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
-    const menuOptions = ["Chain Profile", "Shifts"];
+    const menuOptions = ["Chain Profile",];
 
     const [menuSelected, setMenuSelected] = useState(menuOptions[0]);
 
@@ -21,11 +21,11 @@ export default function SetUpCompound({ compoundSelectedID }) {
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '10px 5px', borderRadius: '6px', }}>
-                <div style={{ display: 'flex', flexDirection: 'row' }} >
-                    <button className='floatingButton' style={{ backgroundColor: redOne(theme), height: '40px', marginRight: '10px' }} onClick={() => navigate('/FelipeFPortfolio/delivery/ManageCompaniesOwner/')} >
-                        <FontAwesomeIcon icon={faRightFromBracket} flip="horizontal" style={{ color: "white" }} />
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '25px'  }} >
+                    <button className='floatingButton' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: greenOne(theme), height: '29px', width: '29px', marginRight: '10px' }} onClick={() => navigate('/FelipeFPortfolio/delivery/ManageCompaniesOwner/')} >
+                        <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white", margin: 'auto', fontSize: '12px' }} />
                     </button>
-                    <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', marginBottom: '25px' }}>Settings - Your Chain</span>
+                    <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold' }}>Settings - Your Chain</span>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', }} >
