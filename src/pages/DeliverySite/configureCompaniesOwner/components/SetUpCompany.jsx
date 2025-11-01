@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { use, useEffect, useState } from "react";
 import CompanyProfile from "./internalComponents/CompanyProfile";
 import { getCompanyOperation } from "../../../../services/deliveryServices/CompanySevice";
+import CompanyEmployees from "./internalComponents/CompanyEmployees";
 
 
 export default function SetUpCompany({ companySelectedID }) {
@@ -63,6 +64,8 @@ export default function SetUpCompany({ companySelectedID }) {
                 <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', marginTop: '10px', height: '6px', borderRadius: '1px 1px 0px 0px', marginBottom: '0px', }} />
 
                 {menuSelected === "Company Profile" && <CompanyProfile companyData={companyData} fetchCompanyData={fetchCompanyData} />}
+                {menuSelected === "Employees" && <CompanyEmployees companyData={companyData} fetchCompanyData={fetchCompanyData} />}
+
 
             </div >
         </>
