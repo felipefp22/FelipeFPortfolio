@@ -8,6 +8,8 @@ import CompanyProfile from "./internalComponents/CompanyProfile";
 import { getCompanyOperation } from "../../../../services/deliveryServices/CompanySevice";
 import CompanyEmployees from "./internalComponents/CompanyEmployees";
 import CompanyProducts from "./internalComponents/CompanyProducts";
+import CompanyShifts from "./internalComponents/CompanyShifts";
+import CompanyCustomers from "./internalComponents/CompanyCustomers";
 
 
 export default function SetUpCompany({ }) {
@@ -79,6 +81,8 @@ export default function SetUpCompany({ }) {
                 {menuSelected === "Company Profile" && <CompanyProfile companyData={companyData} fetchCompanyData={fetchCompanyData} />}
                 {menuSelected === "Employees" && <CompanyEmployees companyData={companyData} fetchCompanyData={fetchCompanyData} />}
                 {menuSelected === "Products" && <CompanyProducts companyData={companyData} fetchCompanyData={fetchCompanyData} />}
+                {menuSelected === "Shifts" && <CompanyShifts companyData={companyData} fetchCompanyData={fetchCompanyData} />}
+                {menuSelected === "Customers" && <CompanyCustomers companyData={companyData} fetchCompanyData={fetchCompanyData} />}
 
 
             </div >

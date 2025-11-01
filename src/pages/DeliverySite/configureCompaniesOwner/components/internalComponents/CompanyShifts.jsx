@@ -4,7 +4,7 @@ import { useState } from "react";
 import restaurantLogo from '../../../../../assets/restaurantLogo.png';
 
 
-export default function CompanyProducts({ companyData,}) {
+export default function CompanyShifts({ companyData,}) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
@@ -26,7 +26,7 @@ export default function CompanyProducts({ companyData,}) {
 
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '40px' }} >
-                                <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{'Products'}</span>
+                                <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{"Shifts" }</span>
                             </div>
                         </div>
                     </div>
