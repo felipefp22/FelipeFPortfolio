@@ -29,7 +29,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
                         {companiesCoumpound?.map((compound, index) => (
                             <div key={index}>
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
-                                    onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/compound/${compound?.id}`); }}>
+                                    onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/compound?id=${compound?.id}`); }}>
 
                                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
                                         <img src={companiesGroupLogo} alt="Logo" style={{
@@ -49,7 +49,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
                                             display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 5, cursor: 'pointer', minWidth: '160px', maxWidth: '200px', width: '100%', 
                                             backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px',
                                         }}
-                                            onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/company/${comp?.id}`); }}>
+                                            onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/company?id=${comp?.id}`); }}>
                                             <div style={{ position: 'relative', width: '100%' }} >
                                                 <img src={restaurantLogo} alt="Logo" style={{
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35, marginBottom: 10,

@@ -4,7 +4,7 @@ import { useState } from "react";
 import restaurantLogo from '../../../../../assets/restaurantLogo.png';
 
 
-export default function CompanyProducts({ companyData,}) {
+export default function CompanyEmployees({ companyData,}) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 

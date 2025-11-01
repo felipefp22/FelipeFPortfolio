@@ -2,17 +2,21 @@ import { useSelector } from "react-redux";
 import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { use, useEffect, useState } from "react";
 import CompanyProfile from "./internalComponents/CompanyProfile";
 import { getCompanyOperation } from "../../../../services/deliveryServices/CompanySevice";
 import CompanyEmployees from "./internalComponents/CompanyEmployees";
+import CompanyProducts from "./internalComponents/CompanyProducts";
 
 
-export default function SetUpCompany({ companySelectedID }) {
+export default function SetUpCompany({ }) {
     const navigate = useNavigate();
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
+    const location = useLocation();
+    const { search } = useLocation();
+    const queryParams = new URLSearchParams(search);
 
     const menuOptions = ["Company Profile", "Employees", "Products", "Shifts", "Customers"];
 
@@ -26,7 +30,7 @@ export default function SetUpCompany({ companySelectedID }) {
 
     async function fetchCompanyData() {
 
-        const response = await getCompanyOperation(companySelectedID);
+        const response = await getCompanyOperation(queryParams.get('id'));
         if (response?.status === 200) {
             const companyOperationData = response?.data;
             setCompanyData(response?.data);
@@ -36,6 +40,15 @@ export default function SetUpCompany({ companySelectedID }) {
             alert("Error fetching company operation data from server");
         }
     }
+
+    useEffect(() => {
+        const menuTab = queryParams.get('tab');
+
+        if (menuTab && menuOptions.includes(menuTab.replace(/%20/g, ' '))) {
+            setMenuSelected(menuTab.replace(/%20/g, ' '));
+        }
+
+    }, [queryParams]);
 
 
     return (
@@ -52,7 +65,7 @@ export default function SetUpCompany({ companySelectedID }) {
                     {menuOptions?.map((option, index) => (
                         <div key={index} style={{ display: 'flex', flexDirection: 'row' }} >
                             <div style={{ padding: '5px 10px', backgroundColor: menuSelected === option ? transparentCavasOne(theme) : 'transparent', borderRadius: '3px', cursor: 'pointer', }}
-                                onClick={() => setMenuSelected(option)} >
+                                onClick={() => navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/company?id=${queryParams.get('id')}&tab=${encodeURIComponent(option)}`)} >
                                 <span style={{ color: fontColorOne(theme), fontWeight: 'bold', flexWrap: 'nowrap', whiteSpace: 'nowrap' }}>{option}</span>
                                 {menuSelected === option && <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', margin: 'auto 0px', height: '2px', borderRadius: '3px' }} />}
                             </div>
@@ -65,6 +78,7 @@ export default function SetUpCompany({ companySelectedID }) {
 
                 {menuSelected === "Company Profile" && <CompanyProfile companyData={companyData} fetchCompanyData={fetchCompanyData} />}
                 {menuSelected === "Employees" && <CompanyEmployees companyData={companyData} fetchCompanyData={fetchCompanyData} />}
+                {menuSelected === "Products" && <CompanyProducts companyData={companyData} fetchCompanyData={fetchCompanyData} />}
 
 
             </div >

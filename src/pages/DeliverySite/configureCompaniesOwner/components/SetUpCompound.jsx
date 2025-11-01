@@ -1,16 +1,18 @@
 import { useSelector } from "react-redux";
 import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import CompoundProfile from "./internalComponents/CompoundProfile";
 import { useEffect, useState } from "react";
 
 
-export default function SetUpCompound({ compoundSelectedID, companiesCoumpound, fetchUserInfos }) {
+export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
     const navigate = useNavigate();
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
+    const { search } = useLocation();
+    const queryParams = new URLSearchParams(search);
 
     const [compoundSelectedData, setCompoundSelectedData] = useState(null);
     const menuOptions = ["Chain Profile", "Companies"];
@@ -18,14 +20,14 @@ export default function SetUpCompound({ compoundSelectedID, companiesCoumpound, 
     const [menuSelected, setMenuSelected] = useState(menuOptions[0]);
 
     useEffect(() => {
-        const compoundData = companiesCoumpound.find(compound => compound.id === compoundSelectedID);
+        const compoundData = companiesCoumpound.find(compound => compound.id === queryParams.get('id'));
         setCompoundSelectedData(compoundData);
-    }, [compoundSelectedID, companiesCoumpound]);
+    }, []);
 
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '10px 5px', borderRadius: '6px', }}>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '25px'  }} >
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '25px' }} >
                     <button className='floatingButton' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: greenOne(theme), height: '29px', width: '29px', marginRight: '10px' }} onClick={() => navigate('/FelipeFPortfolio/delivery/ManageCompaniesOwner/')} >
                         <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white", margin: 'auto', fontSize: '12px' }} />
                     </button>

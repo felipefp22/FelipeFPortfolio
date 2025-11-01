@@ -15,6 +15,8 @@ export default function ManageCompaniesOwner({ }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
     const location = useLocation();
+    const { search } = useLocation();
+    const queryParams = new URLSearchParams(search);
 
     const [companiesCoumpound, setCompaniesCoumpound] = useState([]);
 
@@ -40,23 +42,21 @@ export default function ManageCompaniesOwner({ }) {
         // setFirstLoadingUserInfos(true);
     }
 
-    const [compoundSelected, setCompoundSelected] = useState(null);
-    const [companySelected, setCompanySelected] = useState(null);
+    const [compoundOrCompanySelected, setCompoundOrCompanySelected] = useState(null);
 
     useEffect(() => {
-        // if (!location.pathname) return;
 
-        if (location.pathname.includes("/compound/")) {
-            setCompanySelected(null);
-            setCompoundSelected(location.pathname.split("/compound/")[1]);
-        } else if (location.pathname.includes("/company/")) {
-            setCompoundSelected(null);
-            setCompanySelected(location.pathname.split("/company/")[1]);
+        if (location.pathname.includes("/compound")) {
+            setCompoundOrCompanySelected('compound');
+
+        } else if (location.pathname.includes("/company")) {
+            setCompoundOrCompanySelected('company');
+
         } else {
-            setCompanySelected(null);
-            setCompoundSelected(null);
+            setCompoundOrCompanySelected(null);
         }
-    }, [location.pathname]);
+
+    }, [location.pathname, search, queryParams]);
 
     return (
         <>
@@ -65,9 +65,9 @@ export default function ManageCompaniesOwner({ }) {
                     <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white",  marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
                 </div> */}
 
-                {!companySelected && !compoundSelected && <SelectYourComapanieToManage companiesCoumpound={companiesCoumpound} />}
-                {compoundSelected && <SetUpCompound compoundSelectedID={compoundSelected} companiesCoumpound={companiesCoumpound} fetchUserInfos={() => fetchUserInfos()} />}
-                {companySelected && <SetUpCompany companySelectedID={companySelected} />}
+                {!compoundOrCompanySelected && <SelectYourComapanieToManage companiesCoumpound={companiesCoumpound} />}
+                {compoundOrCompanySelected === 'compound' && <SetUpCompound companiesCoumpound={companiesCoumpound} fetchUserInfos={() => fetchUserInfos()} />}
+                {compoundOrCompanySelected === 'company' && <SetUpCompany />}
 
             </div >
         </>
