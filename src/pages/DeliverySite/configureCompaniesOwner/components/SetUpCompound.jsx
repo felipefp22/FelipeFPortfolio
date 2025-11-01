@@ -4,19 +4,23 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import CompoundProfile from "./internalComponents/CompoundProfile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
-export default function SetUpCompound({ compoundSelectedID }) {
+export default function SetUpCompound({ compoundSelectedID, companiesCoumpound, fetchUserInfos }) {
     const navigate = useNavigate();
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
+    const [compoundSelectedData, setCompoundSelectedData] = useState(null);
     const menuOptions = ["Chain Profile", "Companies"];
 
     const [menuSelected, setMenuSelected] = useState(menuOptions[0]);
 
-
+    useEffect(() => {
+        const compoundData = companiesCoumpound.find(compound => compound.id === compoundSelectedID);
+        setCompoundSelectedData(compoundData);
+    }, [compoundSelectedID, companiesCoumpound]);
 
     return (
         <>
@@ -41,9 +45,9 @@ export default function SetUpCompound({ compoundSelectedID }) {
                     ))}
                 </div>
 
-                <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', marginTop: '10px', height: '4px', borderRadius: '1px', marginBottom: '0px', }} />
+                <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', marginTop: '10px', height: '6px', borderRadius: '1px 1px 0px 0px', marginBottom: '0px', }} />
 
-                {menuSelected === 'Chain Profile' && <CompoundProfile />}
+                {menuSelected === 'Chain Profile' && <CompoundProfile compoundSelectedData={compoundSelectedData} />}
 
             </div >
         </>

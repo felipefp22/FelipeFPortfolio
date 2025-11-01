@@ -4,7 +4,7 @@ import { useState } from "react";
 import companiesGroupLogo from '../../../../../assets/companiesGroupLogo.png';
 
 
-export default function CompoundProfile() {
+export default function CompoundProfile({ compoundSelectedData }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
@@ -15,7 +15,7 @@ export default function CompoundProfile() {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%' }} >
                 {/* <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Manage Your Companies</span> */}
                 {/* <span>Still not Implemented - It's Skill demonstration APP, I am working on it when I have free time ;)</span> */}
 
@@ -28,19 +28,19 @@ export default function CompoundProfile() {
 
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '40px' }} >
-                                <h1 style={{ fontSize: isDesktopView ? '36px' : '18px' }}>Chain Name</h1>
+                                <span style={{ fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', color: borderColorTwo(theme) }}>{compoundSelectedData?.compoundName ?? 'N/A'}</span>
                             </div>
                         </div>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isDesktopView? '30px 40px' : '30px 20px', }} >
-                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
+                        {/* <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Email: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>company@email.com</span>
-                        </div>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{compoundSelectedData?.email ?? 'N/A'}</span>
+                        </div> */}
                         <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Description: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>This is the best restaurant chain at universe! </span>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{compoundSelectedData?.compoundDescription ?? 'N/A'}</span>
                         </div>
 
                         {/* <br /> */}

@@ -58,11 +58,6 @@ export default function ManageCompaniesOwner({ }) {
         }
     }, [location.pathname]);
 
-    useEffect(() => {
-        console.log("Compound selected:", compoundSelected);
-        console.log("Company selected:", companySelected);
-    }, [compoundSelected, companySelected]);
-
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isDesktopView ? 5 : 3, position: 'relative', }} >
@@ -71,7 +66,7 @@ export default function ManageCompaniesOwner({ }) {
                 </div> */}
 
                 {!companySelected && !compoundSelected && <SelectYourComapanieToManage companiesCoumpound={companiesCoumpound} />}
-                {compoundSelected && <SetUpCompound compoundSelectedID={compoundSelected} />}
+                {compoundSelected && <SetUpCompound compoundSelectedID={compoundSelected} companiesCoumpound={companiesCoumpound} fetchUserInfos={() => fetchUserInfos()} />}
                 {companySelected && <SetUpCompany companySelectedID={companySelected} />}
 
             </div >

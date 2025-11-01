@@ -56,24 +56,27 @@ export default function CompanyOperation() {
     const response = await getCompanyOperation(companyOperationData?.companyOperationID);
     if (response?.status === 200) {
       const companyOperationData = response?.data;
-      dispatch(changeOwnerID(companyOperationData?.ownerID));
-      dispatch(changeCompanyName(companyOperationData?.companyName));
-      dispatch(changeCompanyEmail(companyOperationData?.companyEmail));
-      dispatch(changeCompanyPhone(companyOperationData?.companyPhone));
-      dispatch(changeCompanyAddress(companyOperationData?.companyAddress));
-      dispatch(changeCompanyLat(companyOperationData?.companyLat));
-      dispatch(changeCompanyLng(companyOperationData?.companyLng));
-      dispatch(changeUrlCompanyLogo(companyOperationData?.urlCompanyLogo));
-      dispatch(changeProductsCategories(companyOperationData?.productsCategories || []));
-      dispatch(changeCustomers(companyOperationData?.customers || []));
-      dispatch(changeCurrentShift(companyOperationData?.currentShift || null));
-      dispatch(changeNumberOfTables(companyOperationData?.numberOfTables || 0));
-      dispatch(changeEmployees(companyOperationData?.employees || null));
+      
+      if (companyOperationData?.currentShift !== null) {
+        dispatch(changeOwnerID(companyOperationData?.ownerID));
+        dispatch(changeCompanyName(companyOperationData?.companyName));
+        dispatch(changeCompanyEmail(companyOperationData?.companyEmail));
+        dispatch(changeCompanyPhone(companyOperationData?.companyPhone));
+        dispatch(changeCompanyAddress(companyOperationData?.companyAddress));
+        dispatch(changeCompanyLat(companyOperationData?.companyLat));
+        dispatch(changeCompanyLng(companyOperationData?.companyLng));
+        dispatch(changeUrlCompanyLogo(companyOperationData?.urlCompanyLogo));
+        dispatch(changeProductsCategories(companyOperationData?.productsCategories || []));
+        dispatch(changeCustomers(companyOperationData?.customers || []));
+        dispatch(changeCurrentShift(companyOperationData?.currentShift || null));
+        dispatch(changeNumberOfTables(companyOperationData?.numberOfTables || 0));
+        dispatch(changeEmployees(companyOperationData?.employees || null));
 
-    } else if (response?.status === 400 && response?.data === "noActiveShift") {
-      alert("You need to open a shift to operate on this company.");
+      } else {
+        alert("You need to open a shift to operate on this company.");
+      }
     } else {
-      // alert("Error fetching company operation data");
+       alert("Error fetching company operation data from server");
     }
   }
 
@@ -154,7 +157,7 @@ export default function CompanyOperation() {
                   {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
               </div>
 
-                <SystemPage screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />
+              <SystemPage screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />
             </div>}
 
             {isDesktopView && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
@@ -178,7 +181,7 @@ export default function CompanyOperation() {
 
         {showFinishShiftMessage && <div className="myModal" style={{ zIndex: 10000 }} >
           <FinishShiftModal close={() => setShowFinishShiftMessage(false)} finishShift={() => { dispatch(quitCompanyOperation()); setShowFinishShiftMessage(false); }}
-            requesterAreOwnerOrManager={requesterAreOwnerOrManager} />
+            companySelected={companyOperationData?.companyOperationID} requesterAreOwnerOrManager={requesterAreOwnerOrManager} />
         </div>}
       </div>
     </>

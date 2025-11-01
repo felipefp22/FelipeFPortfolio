@@ -4,7 +4,7 @@ import { useState } from "react";
 import restaurantLogo from '../../../../../assets/restaurantLogo.png';
 
 
-export default function CompanyProfile() {
+export default function CompanyProfile({ companyData, fetchCompanyData }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
@@ -15,7 +15,7 @@ export default function CompanyProfile() {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%' }} >
                 {/* <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Manage Your Companies</span> */}
                 {/* <span>Still not Implemented - It's Skill demonstration APP, I am working on it when I have free time ;)</span> */}
 
@@ -28,7 +28,7 @@ export default function CompanyProfile() {
 
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '40px' }} >
-                                <h1 style={{ fontSize: isDesktopView ? '36px' : '18px' }}>Company Name</h1>
+                                <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{companyData?.companyName ?? 'N/A'}</span>
                             </div>
                         </div>
                     </div>
@@ -36,25 +36,25 @@ export default function CompanyProfile() {
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isDesktopView? '30px 40px' : '30px 20px', }} >
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Email: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>company@email.com</span>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyEmail ?? "N/A"}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Phone: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>(123) 456-7890</span>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyPhone ?? "N/A"}</span>
                         </div>
 
                         <br/>
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Address: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>123 Main St, City, Country</span>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyAddress ?? "N/A"}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Latitude: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>-24,55212524</span>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyLat ?? "N/A"}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Longitude: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>-32,48423241</span>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyLng ?? 'N/A'}</span>
                         </div>
 
                     </div>
