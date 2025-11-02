@@ -26,12 +26,12 @@ export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '10px 5px', borderRadius: '6px', }}>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '25px' }} >
+            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '0px 5px', borderRadius: '6px', }}>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '5px' }} >
                     <button className='floatingButton' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: greenOne(theme), height: '29px', width: '29px', marginRight: '10px' }} onClick={() => navigate('/FelipeFPortfolio/delivery/ManageCompaniesOwner/')} >
                         <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white", margin: 'auto', fontSize: '12px' }} />
                     </button>
-                    <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold' }}>Settings - Your Chain</span>
+                    <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold' }}>{compoundSelectedData?.compoundName ?? "Settings - Your Chain"}</span>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', }} >

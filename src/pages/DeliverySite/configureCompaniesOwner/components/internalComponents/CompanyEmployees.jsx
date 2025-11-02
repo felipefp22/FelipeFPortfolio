@@ -33,29 +33,32 @@ export default function CompanyEmployees({ companyData, }) {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%' }} >
-                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', margin: '20px' }} >
-                    <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{"Employees"} </span>
+            <div style={{
+                display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px',
+                minWidth: '300px', maxWidth: '100%', flexGrow: 1,  overflowX: "hidden", overflowY: 'hidden',
+            }} >
+                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '10px' }} >
+                    <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Employees"} </span>
                     {/* <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', marginLeft: '15px' }}>{"- "}{companyData?.companyName ?? 'N/A'} </span> */}
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                <div style={{  display: 'flex', flexDirection: 'column', width: '100%', flexGrow: 1, overflowY: 'auto', }}>
                     {employeePositionsCategories.map((position, index) => {
                         const [isOpen, setIsOpen] = useState(true);
 
                         return (
-                            <div key={index} style={{ marginBottom: '30px' }}>
+                            <div key={index} style={{ marginBottom: '15px', marginRight: '10px' }}>
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
                                     onClick={() => setIsOpen(!isOpen)}>
 
                                     <img src={getEmployeePositionLogo(position)} alt="Logo" style={{
-                                        width: isDesktopView ? 50 : !isDesktopView ? 40 : 35, height: isDesktopView ? 50 : !isDesktopView ? 40 : 35,
+                                        width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30,
                                         borderRadius: '50%', marginRight: 10
                                     }} />
                                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                        <span style={{ fontSize: isDesktopView ? '24px' : '16px', fontWeight: 'bold' }}>{position} </span>
+                                        <span style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: 'bold' }}>{position} </span>
                                         <FontAwesomeIcon icon={isOpen ? faSquareCaretUp : faSquareCaretDown}
-                                            style={{ fontSize: isDesktopView ? '25px' : '16px', marginRight: isDesktopView ? '20px' : '5px', borderRadius: '4px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
+                                            style={{ fontSize: isDesktopView ? '20px' : '16px', marginRight: isDesktopView ? '20px' : '5px', borderRadius: '4px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
                                     </div>
                                 </div>
                                 {isOpen && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
@@ -69,13 +72,13 @@ export default function CompanyEmployees({ companyData, }) {
                                                     borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                                 }} />
                                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{`${position} Name`}</span>
+                                                    <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`${position} Name`}</span>
                                                 </div>
                                             </div>
                                         ))
                                     ) : (
                                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{`No ${position} Found`} </span>
+                                            <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`No ${position} Found`} </span>
                                         </div>
                                     )}
                                 </div>}
