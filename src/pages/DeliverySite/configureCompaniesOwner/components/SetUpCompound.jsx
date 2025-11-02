@@ -47,7 +47,7 @@ export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
                     ))}
                 </div>
 
-                <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', marginTop: '10px', height: '6px', borderRadius: '1px 1px 0px 0px', marginBottom: '0px', }} />
+                <div style={{ display: 'flex', backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', marginTop: '10px', height: '6px', borderRadius: '1px 1px 0px 0px', marginBottom: '0px', }} />
 
                 {menuSelected === 'Chain Profile' && <CompoundProfile compoundSelectedData={compoundSelectedData} />}
 

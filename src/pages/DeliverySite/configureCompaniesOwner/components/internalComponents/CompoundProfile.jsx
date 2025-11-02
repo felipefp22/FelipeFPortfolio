@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, transparentCavasTwo } from "../../../../../theme/Colors";
+import { borderColorTwo, transparentCavasOne, transparentCavasTwo } from "../../../../../theme/Colors";
 import { useState } from "react";
 import companiesGroupLogo from '../../../../../assets/companiesGroupLogo.png';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function CompoundProfile({ compoundSelectedData }) {
@@ -27,13 +29,20 @@ export default function CompoundProfile({ compoundSelectedData }) {
                         }} />
 
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px' }} >
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginLeft: '10px' }} >
                                 <span style={{ fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', color: borderColorTwo(theme) }}>{compoundSelectedData?.compoundName ?? 'N/A'}</span>
+
+                                <div style={{
+                                    display: 'flex', borderRadius: '50%', backgroundColor: transparentCavasOne(theme), marginLeft: 10, width: isDesktopView ? '35px' : '23px', height: isDesktopView ? '35px' : '23px',
+                                    padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                                }} >
+                                    <FontAwesomeIcon icon={faPen} style={{ fontSize: isDesktopView ? '18px' : '12px', fontWeight: '500', }} />
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isDesktopView? '30px 40px' : '30px 20px', }} >
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isDesktopView ? '30px 40px' : '30px 20px', }} >
                         {/* <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Email: </span>
                             <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{compoundSelectedData?.email ?? 'N/A'}</span>

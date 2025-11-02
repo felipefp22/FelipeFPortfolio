@@ -35,7 +35,7 @@ export default function CompanyEmployees({ companyData, }) {
         <>
             <div style={{
                 display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px',
-                minWidth: '300px', maxWidth: '100%', flexGrow: 1,  overflowX: "hidden", overflowY: 'hidden',
+                minWidth: '300px', maxWidth: '100%', flexGrow: 1, overflowX: "hidden", overflowY: 'hidden',
             }} >
                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '10px' }} >
                     <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Employees"} </span>

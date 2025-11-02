@@ -22,3 +22,31 @@ export async function getCompanyOperation(compID) {
         if (error?.response) return error.response;
     }
 }
+
+export async function updateCompanyService(companyID, companyName, companyEmail, companyPhone, companyAddress, companyLat, companyLng, numberOfTables) {
+
+    const postData = {
+        companyID: companyID,
+        companyName: companyName,
+        companyEmail: companyEmail,
+        companyPhone: companyPhone,
+        companyAddress: companyAddress,
+        companyLat: companyLat,
+        companyLng: companyLng,
+        numberOfTables: numberOfTables,
+    };
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/company/update-company`, postData,
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}

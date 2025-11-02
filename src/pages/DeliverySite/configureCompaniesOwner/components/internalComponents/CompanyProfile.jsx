@@ -1,7 +1,10 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, transparentCavasTwo } from "../../../../../theme/Colors";
-import { useState } from "react";
+import { borderColorTwo, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../../theme/Colors";
+import { use, useEffect, useState } from "react";
 import restaurantLogo from '../../../../../assets/restaurantLogo.png';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { updateCompanyService } from "../../../../../services/deliveryServices/CompanySevice";
 
 
 export default function CompanyProfile({ companyData, fetchCompanyData }) {
@@ -10,8 +13,55 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
 
     const [seeImageBig, setSeeImageBig] = useState(false);
 
+    const [companyID, setCompanyID] = useState(null);
     const [compoundPhoto, setCompoundPhoto] = useState(null);
+    const [companyName, setCompanyName] = useState(null);
+    const [companyEmail, setCompanyEmail] = useState(null);
+    const [companyPhone, setCompanyPhone] = useState(null);
+    const [companyAddress, setCompanyAddress] = useState(null);
+    const [companyLat, setCompanyLat] = useState(null);
+    const [companyLng, setCompanyLng] = useState(null);
+    const [numberOfTables, setNumberOfTables] = useState(null);
 
+    const [disable, setDisable] = useState(true);
+    const [editing, setEditing] = useState(false);
+
+    useEffect(() => {
+        if (companyData) {
+            getDatasFromCompanyData();
+        }
+    }, [companyData]);
+
+    async function getDatasFromCompanyData() {
+        setCompanyID(companyData?.id || null);
+        setCompoundPhoto(companyData?.urlCompanyLogo || null);
+        setCompanyName(companyData?.companyName || null);
+        setCompanyEmail(companyData?.companyEmail || null);
+        setCompanyPhone(companyData?.companyPhone || null);
+        setCompanyAddress(companyData?.companyAddress || null);
+        setCompanyLat(companyData?.companyLat || null);
+        setCompanyLng(companyData?.companyLng || null);
+        setNumberOfTables(companyData?.numberOfTables || null);
+    }
+
+    async function handleUpdateCompanyField() {
+        if (companyData?.companyName !== companyName || companyData?.companyEmail !== companyEmail ||
+            companyData?.companyPhone !== companyPhone || companyData?.companyAddress !== companyAddress ||
+            companyData?.companyLat !== companyLat || companyData?.companyLng !== companyLng ||
+            companyData?.numberOfTables !== numberOfTables) {
+
+            setDisable(true);
+            const response = await updateCompanyService(companyID, companyName, companyEmail, companyPhone, companyAddress, companyLat, companyLng, numberOfTables);
+
+            if (response?.status === 200) {
+                fetchCompanyData();
+            } else {
+                alert("Error updating company data on server");
+            }
+            setDisable(false);
+        }
+        setEditing(false);
+    }
 
     return (
         <>
@@ -19,42 +69,58 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
                 {/* <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Manage Your Companies</span> */}
                 {/* <span>Still not Implemented - It's Skill demonstration APP, I am working on it when I have free time ;)</span> */}
 
-                <div style={{ display: 'flex', flexDirection: 'column', width: isDesktopView? '80%' : '100%', maxWidth: '1000px', justifyContent: 'center', alignItems: 'center', padding: '10px 0px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
+                <div style={{ display: 'flex', flexDirection: 'column', width: isDesktopView ? '80%' : '100%', maxWidth: '1000px', justifyContent: 'center', alignItems: 'center', padding: '10px 0px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', height: '100%' }} >
                         <img src={compoundPhoto ?? restaurantLogo} alt="Logo" onClick={() => setSeeImageBig(compoundPhoto)} style={{
                             width: isDesktopView ? '200px' : '120px', height: isDesktopView ? '200px' : "120px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', border: `3px solid ${borderColorTwo(theme)}`,
                             boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, padding: compoundPhoto ? '0px' : (isDesktopView ? '50px' : '20px'),
                         }} />
 
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px' }} >
-                                <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{companyData?.companyName ?? 'N/A'}</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center', position: 'relative' }} >
+                            <div style={{
+                                display: 'flex', borderRadius: '50%', backgroundColor: editing ? greenOne(theme) : transparentCavasOne(theme), opacity: editing ? 1 : 1, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
+                                padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'absolute', right: 5, top: 0,
+                            }} onClick={() => { editing ? handleUpdateCompanyField() : setEditing(true) }} >
+                                <FontAwesomeIcon icon={editing ? faCheck : faPen} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />
+                            </div>
+                            {editing && <div style={{
+                                display: 'flex', borderRadius: '50%', backgroundColor: redOne(theme), opacity: 0.7, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
+                                padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'absolute', right: isDesktopView ? 65 : 50, top: 0,
+                            }} onClick={() => { getDatasFromCompanyData(); setEditing(false); }} >
+                                <FontAwesomeIcon icon={faXmark} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />
+                            </div>}
+
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: '10px' }} >
+                                {!editing && <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{companyData?.companyName ?? 'N/A'}</span>}
+                                {editing && <input className="inputOne" type="text" value={companyName || ""} onChange={(e) => setCompanyName(e.target.value)} style={{ fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', textAlign: 'center', height: isDesktopView ? '50px' : '35px' }} />}
                             </div>
                         </div>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isDesktopView? '30px 40px' : '30px 20px', }} >
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isDesktopView ? '30px 40px' : '30px 20px', }} >
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Email: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyEmail ?? "N/A"}</span>
+                            {!editing && <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyEmail ?? "N/A"}</span>}
+                            {editing && <input className="inputOne" type="text" value={companyEmail || ""} onChange={(e) => setCompanyEmail(e.target.value)} />}
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Phone: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyPhone ?? "N/A"}</span>
+                            {!editing && <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyPhone ?? "N/A"}</span>}
+                            {editing && <input className="inputOne" type="text" value={companyPhone || ""} onChange={(e) => setCompanyPhone(e.target.value)} />}
                         </div>
 
-                        <br/>
+                        <br />
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Address: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyAddress ?? "N/A"}</span>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyAddress ?? "N/A"}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Latitude: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyLat ?? "N/A"}</span>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyLat ?? "N/A"}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Longitude: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyData?.companyLng ?? 'N/A'}</span>
+                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyLng ?? 'N/A'}</span>
                         </div>
 
                     </div>
