@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { updateCompanyService } from "../../../../../services/deliveryServices/CompanySevice";
 import { Spinner } from "react-bootstrap";
+import ModalExample from "./modals/ModalExample";
+import EditCompanyAddress from "./modals/EditCompanyAddress";
 
 
 export default function CompanyProfile({ companyData, fetchCompanyData }) {
@@ -26,6 +28,8 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
 
     const [disable, setDisable] = useState(false);
     const [editing, setEditing] = useState(false);
+
+    const [editAddressModalOpen, setEditAddressModalOpen] = useState(false);
 
     useEffect(() => {
         if (companyData) {
@@ -112,18 +116,27 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
                         </div>
 
                         <br />
+                        {/* <div style={{ display: 'flex', flexDirection: 'column', borderTop: `2px solid ${borderColorTwo(theme)}`, paddingTop: '10px', width: '100%' }} /> */}
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Address: </span>
                             <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyAddress ?? "N/A"}</span>
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
-                            <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Latitude: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyLat ?? "N/A"}</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', }}>
+                            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'flex-start', marginBottom: '10px' }} >
+                                <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Latitude: </span>
+                                <span style={{ fontSize: isDesktopView ? '22px' : '16px', }}>{companyLat ?? "N/A"}</span>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'flex-start', marginBottom: '10px' }} >
+                                <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Longitude: </span>
+                                <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyLng ?? 'N/A'}</span>
+                            </div>
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
-                            <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Longitude: </span>
-                            <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyLng ?? 'N/A'}</span>
-                        </div>
+
+                        {editing && <button className="buttomDarkGray" style={{
+                            padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
+                            opacity: 1, cursor: 'pointer',
+                        }}
+                            onClick={() => { setEditAddressModalOpen(true) }} >Edit Address</button>}
 
                     </div>
                 </div>
@@ -133,6 +146,11 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
                 <img src={seeImageBig} alt="Logo" style={{
                     maxWidth: "90%", maxHeight: "90%", borderRadius: '10px', objectFit: "contain", boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.5)"
                 }} />
+            </div>}
+
+
+            {editAddressModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+                <EditCompanyAddress close={() => setEditAddressModalOpen(false)} companyLat={companyLat} setCompanyLat={setCompanyLat} companyLng={companyLng} setCompanyLng={setCompanyLng} companyAddress={companyAddress} setCompanyAddress={setCompanyAddress} />
             </div>}
         </>
     );
