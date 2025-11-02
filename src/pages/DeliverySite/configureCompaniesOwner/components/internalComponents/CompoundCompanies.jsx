@@ -8,6 +8,7 @@ import supervisorLogo from '../../../../../assets/supervisorLogo.png';
 import managerLogo from '../../../../../assets/managerLogo.png';
 import waiterLogo from '../../../../../assets/waiterLogo.png';
 import avatar from '../../../../../assets/noProfilePhoto.png';
+import ModalExample from "./modals/ModalExample";
 
 
 export default function CompoundCompanies({ compoundSelectedData, fetchUserInfos }) {
@@ -15,6 +16,7 @@ export default function CompoundCompanies({ compoundSelectedData, fetchUserInfos
     const theme = useSelector((state) => state.view.theme);
 
     const [seeImageBig, setSeeImageBig] = useState(false);
+    const [createCompanyModalOpen, setCreateCompanyModalOpen] = useState(false);
 
     return (
         <>
@@ -30,13 +32,13 @@ export default function CompoundCompanies({ compoundSelectedData, fetchUserInfos
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexGrow: 1, overflowY: 'auto', }}>
                     <div style={{ marginBottom: '15px', marginRight: '10px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
-                            onClick={() => setIsOpen(!isOpen)}>
+                            onClick={() => setCreateCompanyModalOpen(true)}>
 
                             <div style={{ borderRadius: '50%', backgroundColor: transparentCavasOne(theme), marginRight: 10, padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
                                 <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: "space-between" }} >
-                                <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: '500' }}>{`Create New Company`}</span>
+                                <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: '500' }}>{`New Company`}</span>
                             </div>
                         </div>
                     </div>
@@ -65,6 +67,11 @@ export default function CompoundCompanies({ compoundSelectedData, fetchUserInfos
                 <img src={seeImageBig} alt="Logo" style={{
                     maxWidth: "90%", maxHeight: "90%", borderRadius: '10px', objectFit: "contain", boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.5)"
                 }} />
+            </div>}
+
+
+            {createCompanyModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000}} >
+                <ModalExample close={() => setCreateCompanyModalOpen(false)} />
             </div>}
         </>
     );

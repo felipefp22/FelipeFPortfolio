@@ -8,6 +8,7 @@ import supervisorLogo from '../../../../../assets/supervisorLogo.png';
 import managerLogo from '../../../../../assets/managerLogo.png';
 import waiterLogo from '../../../../../assets/waiterLogo.png';
 import avatar from '../../../../../assets/noProfilePhoto.png';
+import ModalExample from "./modals/ModalExample";
 
 
 export default function CompanyEmployees({ companyData, }) {
@@ -15,6 +16,7 @@ export default function CompanyEmployees({ companyData, }) {
     const theme = useSelector((state) => state.view.theme);
 
     const [seeImageBig, setSeeImageBig] = useState(false);
+    const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
 
     const employeePositionsCategories = ["Manager", "Supervisor", "Waiter"];
 
@@ -37,12 +39,16 @@ export default function CompanyEmployees({ companyData, }) {
                 display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px',
                 minWidth: '300px', maxWidth: '100%', flexGrow: 1, overflowX: "hidden", overflowY: 'hidden',
             }} >
-                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '10px' }} >
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '10px' }} >
                     <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Employees"} </span>
-                    {/* <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', marginLeft: '15px' }}>{"- "}{companyData?.companyName ?? 'N/A'} </span> */}
+                    <button className="buttomDarkGray" style={{
+                        padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
+                        opacity: 1, cursor: 'pointer',
+                    }}
+                        onClick={() => { setAddEmployeeModalOpen(true) }} >Add Employee</button>
                 </div>
 
-                <div style={{  display: 'flex', flexDirection: 'column', width: '100%', flexGrow: 1, overflowY: 'auto', }}>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexGrow: 1, overflowY: 'auto', }}>
                     {employeePositionsCategories.map((position, index) => {
                         const [isOpen, setIsOpen] = useState(true);
 
@@ -92,6 +98,10 @@ export default function CompanyEmployees({ companyData, }) {
                 <img src={seeImageBig} alt="Logo" style={{
                     maxWidth: "90%", maxHeight: "90%", borderRadius: '10px', objectFit: "contain", boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.5)"
                 }} />
+            </div>}
+
+            {addEmployeeModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+                <ModalExample close={() => setAddEmployeeModalOpen(false)} />
             </div>}
         </>
     );

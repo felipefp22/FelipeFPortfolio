@@ -6,6 +6,7 @@ import { faPlug, faPlus, faSquareCaretDown, faSquareCaretUp } from "@fortawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import noFood from '../../../../../assets/noFood.jpg';
 import cutleryLogo from '../../../../../assets/cutleryLogo.png';
+import ModalExample from "./modals/ModalExample";
 
 
 export default function CompanyProducts({ companyData, }) {
@@ -15,6 +16,8 @@ export default function CompanyProducts({ companyData, }) {
     const [seeImageBig, setSeeImageBig] = useState(false);
 
     const [openStates, setOpenStates] = useState({}); // 👈 store open/close states by index or category
+    const [createProductModal, setCreateProductModalOpen] = useState(false);
+    const [editProductModal, setEditProductModal] = useState(false);
 
     const toggleOpen = (index) => {
         setOpenStates((prev) => ({
@@ -22,6 +25,8 @@ export default function CompanyProducts({ companyData, }) {
             [index]: !prev[index],
         }));
     };
+
+
 
     return (
         <>
@@ -41,7 +46,7 @@ export default function CompanyProducts({ companyData, }) {
                             <div key={index} style={{ marginBottom: '15px', marginRight: '10px' }}>
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
                                     onClick={() => toggleOpen(index)}>
-                                    
+
                                     <img src={cutleryLogo} alt="Logo" style={{
                                         width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30,
                                         borderRadius: '50%', marginRight: 10, backgroundColor: 'rgba(0, 0, 32, 0.79)', padding: '6px',
@@ -55,9 +60,9 @@ export default function CompanyProducts({ companyData, }) {
                                 {!isOpen && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 6px', padding: '3px 5px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
 
                                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyItems: 'center', padding: '6px 10px', margin: '3px 5px', marginBottom: '6px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), borderRadius: '6px', }}
-                                        onClick={() => { console.log("Clicked product") }}>
-                                            
-                                        <div style={{ borderRadius: '50%',backgroundColor: transparentCavasOne(theme), marginRight: 10, padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+                                        onClick={() => { setCreateProductModalOpen(category) }}>
+
+                                        <div style={{ borderRadius: '50%', backgroundColor: transparentCavasOne(theme), marginRight: 10, padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
                                             <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: "space-between" }} >
@@ -67,7 +72,7 @@ export default function CompanyProducts({ companyData, }) {
                                     {category?.products && category?.products?.length > 0 ? (
                                         category?.products?.map((product, idx) => (
                                             <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '6px 10px', margin: '3px 5px', cursor: 'pointer', backgroundColor: transparentCavasTwo(theme), borderRadius: '6px', }}
-                                                onClick={() => { console.log("Clicked product") }}>
+                                                onClick={() => { setEditProductModal(product) }}>
 
                                                 <img src={noFood} alt="Logo" style={{
                                                     width: isDesktopView ? 36 : 28, boxShadow: `1px 2px 10px ${borderColorTwo(theme, 0.2)}`,
@@ -95,6 +100,14 @@ export default function CompanyProducts({ companyData, }) {
                 <img src={seeImageBig} alt="Logo" style={{
                     maxWidth: "90%", maxHeight: "90%", borderRadius: '10px', objectFit: "contain", boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.5)"
                 }} />
+            </div>}
+
+            {editProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+                <ModalExample close={() => setEditProductModal(false)} productSelected={editProductModal} />
+            </div>}
+
+            {createProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+                <ModalExample close={() => setCreateProductModalOpen(false)} category={createProductModal} />
             </div>}
         </>
     );

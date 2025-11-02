@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faGear, faPlus, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
 import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
 import { useNavigate } from "react-router-dom";
+import ModalExample from "./internalComponents/modals/ModalExample";
 
 export default function SelectYourComapanieToManage({ companiesCoumpound }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
@@ -14,6 +15,8 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
     const navigate = useNavigate();
 
     const [createCompanyModal, setCreateCompanyModal] = useState(false);
+    const [createCompanyModalOpen, setCreateCompanyModalOpen] = useState(false);
+
 
 
     return (
@@ -44,30 +47,16 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', margin: '0px 5px', padding: '10px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme) }}>
-                                    <div style={{
-                                        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, marginRight: 10, cursor: 'pointer', minWidth: '120px', width: '120px',
-                                        backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px', height: '150px',
-                                    }}
-                                        onClick={() => { console.log("Clicked new company") }}>
-                                        <div style={{ borderRadius: '50%', backgroundColor: transparentCavasOne(theme), marginRight: 10, padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                             width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35, marginBottom: '10px' }} >
-                                            <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
-                                        </div>
-
-                                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{'New Company'} </span>
-                                        </div>
-                                    </div>
 
                                     {compound?.companies?.map((comp, idx) => (
                                         <div key={idx} style={{
-                                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, cursor: 'pointer', minWidth: '160px',  width: '160px',
+                                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, cursor: 'pointer', minWidth: '160px', width: '160px',
                                             backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px', height: '150px', position: 'relative',
-                                        }} onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/company?id=${comp?.id}`);  }}>
+                                        }} onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/company?id=${comp?.id}`); }}>
                                             <div style={{ display: 'flex', position: 'absolute', top: 5, right: 5, }}>
                                                 <FontAwesomeIcon icon={faGear} style={{ fontSize: isDesktopView ? '20px' : '15px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
                                             </div>
-                                            <div style={{  width: '100%' }} >
+                                            <div style={{ width: '100%' }} >
                                                 <img src={restaurantLogo} alt="Logo" style={{
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35, marginBottom: 10, padding: '3px',
                                                     borderRadius: '50%', backgroundColor: 'black', border: "0px solid white", marginRight: 10
@@ -79,6 +68,23 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
                                             </div>
                                         </div>
                                     ))}
+
+                                    <div style={{
+                                        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, marginLeft: 10, cursor: 'pointer', minWidth: '120px', width: '120px',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px', height: '150px',
+                                    }}
+                                        onClick={() => { setCreateCompanyModalOpen(true); }}>
+                                        <div style={{
+                                            borderRadius: '50%', backgroundColor: transparentCavasOne(theme), padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35, marginBottom: '10px'
+                                        }} >
+                                            <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
+                                        </div>
+
+                                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                                            <span style={{ fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{'New Company'} </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -110,6 +116,10 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
             {/* {createCompanyModal && <div className="myModal" style={{ zIndex: 100 }} >
                     <CreateGroupAndCompanyModal close={() => setCreateCompanyModal(false)} getShiftOperationData={() => fetchUserInfos()} />
                 </div>} */}
+
+            {createCompanyModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+                <ModalExample close={() => setCreateCompanyModalOpen(false)} />
+            </div>}
         </>
     );
 }
