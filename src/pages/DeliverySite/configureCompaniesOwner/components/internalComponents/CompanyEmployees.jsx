@@ -9,6 +9,7 @@ import managerLogo from '../../../../../assets/managerLogo.png';
 import waiterLogo from '../../../../../assets/waiterLogo.png';
 import avatar from '../../../../../assets/noProfilePhoto.png';
 import ModalExample from "./modals/ModalExample";
+import AddEmployee from "./modals/AddEmployee";
 
 
 export default function CompanyEmployees({ companyData, }) {
@@ -45,7 +46,7 @@ export default function CompanyEmployees({ companyData, }) {
                         padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
                         opacity: 1, cursor: 'pointer',
                     }}
-                        onClick={() => { setAddEmployeeModalOpen(true) }} >Add Employee</button>
+                        onClick={() => { setAddEmployeeModalOpen(companyData?.id) }} >Add Employee</button>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexGrow: 1, overflowY: 'auto', }}>
@@ -75,10 +76,10 @@ export default function CompanyEmployees({ companyData, }) {
 
                                                 <img src={avatar} alt="Logo" style={{
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
-                                                    borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
+                                                    borderRadius: '50%', backgroundColor: 'transparent', border: "0px solid white", marginRight: 10
                                                 }} />
                                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`${position} Name`}</span>
+                                                    <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`${employesFiltered.employeeName} - ${employesFiltered.employeeEmail}`}</span>
                                                 </div>
                                             </div>
                                         ))
@@ -101,7 +102,7 @@ export default function CompanyEmployees({ companyData, }) {
             </div>}
 
             {addEmployeeModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
-                <ModalExample close={() => setAddEmployeeModalOpen(false)} />
+                <AddEmployee close={() => setAddEmployeeModalOpen(false)} companyData={companyData} companyID={addEmployeeModalOpen} positionsOpts={employeePositionsCategories} />
             </div>}
         </>
     );
