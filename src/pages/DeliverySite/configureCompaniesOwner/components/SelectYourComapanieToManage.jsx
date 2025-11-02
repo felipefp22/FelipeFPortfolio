@@ -8,16 +8,15 @@ import { faArrowDown, faArrowUp, faGear, faPlus, faPowerOff, faRightFromBracket,
 import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
 import { useNavigate } from "react-router-dom";
 import ModalExample from "./internalComponents/modals/ModalExample";
+import CreateCompanyModal from "./internalComponents/modals/CreateCompanyModal";
 
-export default function SelectYourComapanieToManage({ companiesCoumpound }) {
+export default function SelectYourComapanieToManage({ companiesCoumpound, fetchUserInfos }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
     const navigate = useNavigate();
 
     const [createCompanyModal, setCreateCompanyModal] = useState(false);
     const [createCompanyModalOpen, setCreateCompanyModalOpen] = useState(false);
-
-
 
     return (
         <>
@@ -50,8 +49,8 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
 
                                     {compound?.companies?.map((comp, idx) => (
                                         <div key={idx} style={{
-                                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, cursor: 'pointer', minWidth: '160px', width: '160px',
-                                            backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px', height: '150px', position: 'relative',
+                                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, marginLeft: 10, cursor: 'pointer', minWidth: '160px', width: '160px',
+                                            backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px', height: '150px', position: 'relative', 
                                         }} onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/company?id=${comp?.id}`); }}>
                                             <div style={{ display: 'flex', position: 'absolute', top: 5, right: 5, }}>
                                                 <FontAwesomeIcon icon={faGear} style={{ fontSize: isDesktopView ? '20px' : '15px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
@@ -73,7 +72,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
                                         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, marginLeft: 10, cursor: 'pointer', minWidth: '120px', width: '120px',
                                         backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px', height: '150px',
                                     }}
-                                        onClick={() => { setCreateCompanyModalOpen(true); }}>
+                                        onClick={() => { setCreateCompanyModalOpen(compound?.id); }}>
                                         <div style={{
                                             borderRadius: '50%', backgroundColor: transparentCavasOne(theme), padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center',
                                             width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35, marginBottom: '10px'
@@ -117,8 +116,8 @@ export default function SelectYourComapanieToManage({ companiesCoumpound }) {
                     <CreateGroupAndCompanyModal close={() => setCreateCompanyModal(false)} getShiftOperationData={() => fetchUserInfos()} />
                 </div>} */}
 
-            {createCompanyModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
-                <ModalExample close={() => setCreateCompanyModalOpen(false)} />
+            {createCompanyModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
+                <CreateCompanyModal close={() => setCreateCompanyModalOpen(false)} compoundID={createCompanyModalOpen} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
         </>
     );

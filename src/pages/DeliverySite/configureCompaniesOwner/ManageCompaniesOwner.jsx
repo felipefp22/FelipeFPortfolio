@@ -65,7 +65,7 @@ export default function ManageCompaniesOwner({ }) {
                     <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white",  marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
                 </div> */}
 
-                {!compoundOrCompanySelected && <SelectYourComapanieToManage companiesCoumpound={companiesCoumpound} />}
+                {!compoundOrCompanySelected && <SelectYourComapanieToManage companiesCoumpound={companiesCoumpound} fetchUserInfos={() => fetchUserInfos()} />}
                 {compoundOrCompanySelected === 'compound' && <SetUpCompound companiesCoumpound={companiesCoumpound} fetchUserInfos={() => fetchUserInfos()} />}
                 {compoundOrCompanySelected === 'company' && <SetUpCompany />}
 

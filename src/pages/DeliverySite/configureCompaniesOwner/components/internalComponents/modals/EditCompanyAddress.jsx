@@ -20,7 +20,7 @@ export default function EditCompanyAddress({ close, companyLat, setCompanyLat, c
     const [loading, setLoading] = useState(false);
 
     const companyOperation = useSelector((state) => state.companyOperation);
-    const [zoom, setZoom] = useState((companyLat && companyLng) ? 8 : 15);
+    const [zoom, setZoom] = useState((companyLat && companyLng) ? 15 : 8);
 
     const mapRef = useRef(null); // Referência para o mapa
     const markersRef = useRef(null); // Reference to manage markers
@@ -62,7 +62,7 @@ export default function EditCompanyAddress({ close, companyLat, setCompanyLat, c
                 });
 
                 L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
-                    minZoom: 12,
+                    minZoom: 8,
                     maxZoom: 19,
                     attribution: "&copy; OpenStreetMap contributors",
                 }).addTo(mapRef.current);

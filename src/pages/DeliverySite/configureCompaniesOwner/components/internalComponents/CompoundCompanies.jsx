@@ -9,6 +9,7 @@ import managerLogo from '../../../../../assets/managerLogo.png';
 import waiterLogo from '../../../../../assets/waiterLogo.png';
 import avatar from '../../../../../assets/noProfilePhoto.png';
 import ModalExample from "./modals/ModalExample";
+import CreateCompanyModal from "./modals/CreateCompanyModal";
 
 
 export default function CompoundCompanies({ compoundSelectedData, fetchUserInfos }) {
@@ -32,7 +33,7 @@ export default function CompoundCompanies({ compoundSelectedData, fetchUserInfos
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexGrow: 1, overflowY: 'auto', }}>
                     <div style={{ marginBottom: '15px', marginRight: '10px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
-                            onClick={() => setCreateCompanyModalOpen(true)}>
+                            onClick={() => setCreateCompanyModalOpen(compoundSelectedData?.id)}>
 
                             <div style={{ borderRadius: '50%', backgroundColor: transparentCavasOne(theme), marginRight: 10, padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
                                 <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
@@ -69,9 +70,8 @@ export default function CompoundCompanies({ compoundSelectedData, fetchUserInfos
                 }} />
             </div>}
 
-
-            {createCompanyModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000}} >
-                <ModalExample close={() => setCreateCompanyModalOpen(false)} />
+            {createCompanyModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100000 }} >
+                <CreateCompanyModal close={() => setCreateCompanyModalOpen(false)} compoundID={createCompanyModalOpen} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
         </>
     );

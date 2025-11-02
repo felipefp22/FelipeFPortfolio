@@ -114,6 +114,15 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
                             {!editing && <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyPhone ?? "N/A"}</span>}
                             {editing && <input className="inputOne" type="text" value={companyPhone || ""} onChange={(e) => setCompanyPhone(e.target.value)} />}
                         </div>
+                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
+                            <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px', }}>Tables Qty: </span>
+                            {!editing && <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{numberOfTables ?? "N/A"}</span>}
+                            {editing && <select className="inputOne" value={numberOfTables || 0} onChange={(e) => setNumberOfTables(Number(e.target.value))} style={{ maxWidth: '120px', padding: '5px', borderRadius: '6px', fontSize: '16px', textAlign: 'center' }} >
+                                {Array.from({ length: 301 }, (_, i) => (
+                                    <option key={i} value={i}>{i}</option>
+                                ))}
+                            </select>}
+                        </div>
 
                         <br />
                         {/* <div style={{ display: 'flex', flexDirection: 'column', borderTop: `2px solid ${borderColorTwo(theme)}`, paddingTop: '10px', width: '100%' }} /> */}

@@ -1,6 +1,34 @@
 import axiosInstanceRestaurantSystem from './axiosConfiguration/AxiosInstanceRestaurantSystem';
 import axiosInstanceRestaurantSystemWithoutAuth from './axiosConfiguration/AxiosInstanceRestaurantSystemWithoutAuth';
 
+export async function createCompanyService(companiesCompoundID,companyName, companyEmail, companyPhone, companyAddress, lat, lng, numberOfTables) {
+
+    const postData = {
+        companiesCompoundID,
+        companyName,
+        companyEmail,
+        companyPhone,
+        companyAddress,
+        lat,
+        lng,
+        numberOfTables
+    };
+    try {
+        const response = await axiosInstanceRestaurantSystem.post(`/company/create-company`, postData,
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
+
 export async function getCompanyOperation(compID) {
 
     // const postData = {

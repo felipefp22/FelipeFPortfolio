@@ -106,7 +106,7 @@ export default function SelectCompanyOperation({ }) {
                                     </div>
                                     {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
                                         {compound?.companies?.map((comp, idx) => (
-                                            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
+                                            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 15, marginLeft: 20, cursor: 'pointer' }}
                                                 onClick={() => { (comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? setOpenShiftModal(comp) : setCompanyToOperate(comp.id)) : setOpenShiftModal(comp)); }}>
                                                 <img src={restaurantLogo} alt="Logo" style={{
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
