@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import CompoundProfile from "./internalComponents/CompoundProfile";
 import { useEffect, useState } from "react";
+import CompoundCompanies from "./internalComponents/CompoundCompanies";
 
 
 export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
@@ -65,7 +66,7 @@ export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
                 <div style={{ display: 'flex', backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', marginTop: '10px', height: '6px', borderRadius: '1px 1px 0px 0px', marginBottom: '0px', }} />
 
                 {menuSelected === 'Chain Profile' && <CompoundProfile compoundSelectedData={compoundSelectedData} fetchUserInfos={() => fetchUserInfos()} />}
-                {menuSelected === 'Companies' && <div>dasdasds</div>}
+                {menuSelected === 'Companies' && <CompoundCompanies compoundSelectedData={compoundSelectedData} fetchUserInfos={() => fetchUserInfos()}/>}
 
             </div >
         </>
