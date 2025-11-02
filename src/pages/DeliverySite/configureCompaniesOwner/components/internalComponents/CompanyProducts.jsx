@@ -5,6 +5,7 @@ import restaurantLogo from '../../../../../assets/restaurantLogo.png';
 import { faPlug, faPlus, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import noFood from '../../../../../assets/noFood.jpg';
+import cutleryLogo from '../../../../../assets/cutleryLogo.png';
 
 
 export default function CompanyProducts({ companyData, }) {
@@ -40,11 +41,11 @@ export default function CompanyProducts({ companyData, }) {
                             <div key={index} style={{ marginBottom: '30px' }}>
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
                                     onClick={() => toggleOpen(index)}>
-                                    {/* 
-                                    <img src={} alt="Logo" style={{
+                                    
+                                    <img src={cutleryLogo} alt="Logo" style={{
                                         width: isDesktopView ? 50 : !isDesktopView ? 40 : 35, height: isDesktopView ? 50 : !isDesktopView ? 40 : 35,
-                                        borderRadius: '50%', marginRight: 10
-                                    }} /> */}
+                                        borderRadius: '50%', marginRight: 10, 
+                                    }} />
                                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
                                         <span style={{ fontSize: isDesktopView ? '22px' : '16px', fontWeight: 'bold' }}>{category?.categoryName} </span>
                                         <FontAwesomeIcon icon={isOpen ? faSquareCaretUp : faSquareCaretDown}
