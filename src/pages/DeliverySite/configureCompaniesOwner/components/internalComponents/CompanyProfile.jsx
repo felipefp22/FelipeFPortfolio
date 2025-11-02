@@ -5,6 +5,7 @@ import restaurantLogo from '../../../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { updateCompanyService } from "../../../../../services/deliveryServices/CompanySevice";
+import { Spinner } from "react-bootstrap";
 
 
 export default function CompanyProfile({ companyData, fetchCompanyData }) {
@@ -23,7 +24,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
     const [companyLng, setCompanyLng] = useState(null);
     const [numberOfTables, setNumberOfTables] = useState(null);
 
-    const [disable, setDisable] = useState(true);
+    const [disable, setDisable] = useState(false);
     const [editing, setEditing] = useState(false);
 
     useEffect(() => {
@@ -44,7 +45,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
         setNumberOfTables(companyData?.numberOfTables || null);
     }
 
-    async function handleUpdateCompanyField() {
+    async function handleUpdateCompany() {
         if (companyData?.companyName !== companyName || companyData?.companyEmail !== companyEmail ||
             companyData?.companyPhone !== companyPhone || companyData?.companyAddress !== companyAddress ||
             companyData?.companyLat !== companyLat || companyData?.companyLng !== companyLng ||
@@ -78,12 +79,13 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
 
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center', position: 'relative' }} >
                             <div style={{
-                                display: 'flex', borderRadius: '50%', backgroundColor: editing ? greenOne(theme) : transparentCavasOne(theme), opacity: editing ? 1 : 1, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
+                                display: 'flex', borderRadius: '50%', backgroundColor: editing ? (disable ? 'transparent' : greenOne(theme)) : transparentCavasOne(theme), opacity: editing ? 1 : 1, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
                                 padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'absolute', right: 5, top: 0,
-                            }} onClick={() => { editing ? handleUpdateCompanyField() : setEditing(true) }} >
-                                <FontAwesomeIcon icon={editing ? faCheck : faPen} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />
+                            }} onClick={() => { editing ? handleUpdateCompany() : setEditing(true) }} >
+                                {!disable && <FontAwesomeIcon icon={editing ? faCheck : faPen} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />}
+                                {disable && <Spinner animation="border" role="status" style={{ width: isDesktopView ? '25px' : '20px', height: isDesktopView ? '25px' : '20px', color: 'white', }} />}
                             </div>
-                            {editing && <div style={{
+                            {editing && !disable && <div style={{
                                 display: 'flex', borderRadius: '50%', backgroundColor: redOne(theme), opacity: 0.7, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
                                 padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'absolute', right: isDesktopView ? 65 : 50, top: 0,
                             }} onClick={() => { getDatasFromCompanyData(); setEditing(false); }} >

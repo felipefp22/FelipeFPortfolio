@@ -20,9 +20,24 @@ export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
     const [menuSelected, setMenuSelected] = useState(menuOptions[0]);
 
     useEffect(() => {
+        if (queryParams.get('id') && companiesCoumpound.length > 0) {
+            findCompound();
+        }
+    }, [queryParams.get('id'), companiesCoumpound]);
+
+    async function findCompound() {
         const compoundData = companiesCoumpound.find(compound => compound.id === queryParams.get('id'));
         setCompoundSelectedData(compoundData);
-    }, []);
+    }
+
+    useEffect(() => {
+        const menuTab = queryParams.get('tab');
+
+        if (menuTab && menuOptions.includes(menuTab.replace(/%20/g, ' '))) {
+            setMenuSelected(menuTab.replace(/%20/g, ' '));
+        }
+
+    }, [queryParams]);
 
     return (
         <>
@@ -38,7 +53,7 @@ export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
                     {menuOptions?.map((option, index) => (
                         <div key={index} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }} >
                             <div style={{ padding: '5px 10px', backgroundColor: menuSelected === option ? transparentCavasOne(theme) : 'transparent', borderRadius: '3px', cursor: 'pointer' }}
-                                onClick={() => setMenuSelected(option)} >
+                                onClick={() => navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/compound?id=${queryParams.get('id')}&tab=${encodeURIComponent(option)}`)}>
                                 <span style={{ color: fontColorOne(theme), fontWeight: 'bold', flexWrap: 'nowrap', whiteSpace: 'nowrap' }}>{option}</span>
                                 {menuSelected === option && <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', margin: 'auto 0px', height: '2px', borderRadius: '3px' }} />}
                             </div>
@@ -49,7 +64,8 @@ export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
 
                 <div style={{ display: 'flex', backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', marginTop: '10px', height: '6px', borderRadius: '1px 1px 0px 0px', marginBottom: '0px', }} />
 
-                {menuSelected === 'Chain Profile' && <CompoundProfile compoundSelectedData={compoundSelectedData} />}
+                {menuSelected === 'Chain Profile' && <CompoundProfile compoundSelectedData={compoundSelectedData} fetchUserInfos={() => fetchUserInfos()} />}
+                {menuSelected === 'Companies' && <div>dasdasds</div>}
 
             </div >
         </>
