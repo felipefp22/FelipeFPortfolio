@@ -44,7 +44,7 @@ export default function CompanyProducts({ companyData, }) {
                                     
                                     <img src={cutleryLogo} alt="Logo" style={{
                                         width: isDesktopView ? 50 : !isDesktopView ? 40 : 35, height: isDesktopView ? 50 : !isDesktopView ? 40 : 35,
-                                        borderRadius: '50%', marginRight: 10, 
+                                        borderRadius: '50%', marginRight: 10, backgroundColor: 'rgba(0, 0, 32, 0.79)', padding: '6px',
                                     }} />
                                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
                                         <span style={{ fontSize: isDesktopView ? '22px' : '16px', fontWeight: 'bold' }}>{category?.categoryName} </span>
