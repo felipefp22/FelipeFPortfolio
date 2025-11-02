@@ -1,35 +1,92 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, transparentCavasTwo } from "../../../../../theme/Colors";
-import { useState } from "react";
+import { borderColorTwo, greenOne, transparentCavasOne, transparentCavasTwo } from "../../../../../theme/Colors";
+import { useEffect, useState } from "react";
 import restaurantLogo from '../../../../../assets/restaurantLogo.png';
+import { faPlug, faPlus, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import noFood from '../../../../../assets/noFood.jpg';
 
 
-export default function CompanyProducts({ companyData,}) {
+export default function CompanyProducts({ companyData, }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
     const [seeImageBig, setSeeImageBig] = useState(false);
 
+    const [openStates, setOpenStates] = useState({}); // 👈 store open/close states by index or category
+
+    const toggleOpen = (index) => {
+        setOpenStates((prev) => ({
+            ...prev,
+            [index]: !prev[index],
+        }));
+    };
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%' }} >
-                {/* <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Manage Your Companies</span> */}
-                {/* <span>Still not Implemented - It's Skill demonstration APP, I am working on it when I have free time ;)</span> */}
+            <div style={{
+                display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px',
+                minWidth: '300px', maxWidth: '100%', minHeight: '350px', height: '63%', overflowX: "hidden", overflowY: 'hidden',
+            }} >
+                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', margin: '10px' }} >
+                    <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '26px' : '18px', fontWeight: 'bold' }}>{"Products"} </span>
+                    {/* <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', marginLeft: '15px' }}>{"- "}{companyData?.companyName ?? 'N/A'} </span> */}
+                </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', width: isDesktopView? '80%' : '100%', maxWidth: '1000px', justifyContent: 'center', alignItems: 'center', padding: '10px 20px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
-                    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', height: '100%' }} >
-                        <img src={restaurantLogo} alt="Logo" onClick={() => setSeeImageBig(restaurantLogo)} style={{
-                            width: isDesktopView ? '200px' : '120px', height: isDesktopView ? '200px' : "120px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', border: `3px solid ${borderColorTwo(theme)}`,
-                            boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`,
-                        }} />
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflowY: 'auto', }}>
+                    {companyData?.productsCategories?.map((category, index) => {
+                        const isOpen = openStates[index];
+                        return (
+                            <div key={index} style={{ marginBottom: '30px' }}>
+                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
+                                    onClick={() => toggleOpen(index)}>
+                                    {/* 
+                                    <img src={} alt="Logo" style={{
+                                        width: isDesktopView ? 50 : !isDesktopView ? 40 : 35, height: isDesktopView ? 50 : !isDesktopView ? 40 : 35,
+                                        borderRadius: '50%', marginRight: 10
+                                    }} /> */}
+                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                        <span style={{ fontSize: isDesktopView ? '22px' : '16px', fontWeight: 'bold' }}>{category?.categoryName} </span>
+                                        <FontAwesomeIcon icon={isOpen ? faSquareCaretUp : faSquareCaretDown}
+                                            style={{ fontSize: isDesktopView ? '22px' : '16px', marginRight: isDesktopView ? '20px' : '5px', borderRadius: '4px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
+                                    </div>
+                                </div>
+                                {!isOpen && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 6px', padding: '7px 5px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '40px' }} >
-                                <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{'Products'}</span>
+                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyItems: 'center', padding: '6px 10px', margin: '3px 5px', marginBottom: '10px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), borderRadius: '6px', }}
+                                        onClick={() => { console.log("Clicked product") }}>
+                                            
+                                        <div style={{ borderRadius: '50%',backgroundColor: transparentCavasOne(theme), marginRight: 10, padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+                                            <FontAwesomeIcon icon={faPlus} style={{ fontSize: '15px', fontWeight: '500', }} />
+                                        </div>
+                                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: "space-between" }} >
+                                            <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: '500' }}>{`Add New Product`}</span>
+                                        </div>
+                                    </div>
+                                    {category?.products && category?.products?.length > 0 ? (
+                                        category?.products?.map((product, idx) => (
+                                            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '6px 10px', margin: '3px 5px', cursor: 'pointer', backgroundColor: transparentCavasTwo(theme), borderRadius: '6px', }}
+                                                onClick={() => { console.log("Clicked product") }}>
+
+                                                <img src={noFood} alt="Logo" style={{
+                                                    width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35, boxShadow: `1px 2px 10px ${borderColorTwo(theme, 0.2)}`,
+                                                    borderRadius: '50%', backgroundColor: 'white', marginRight: 10, padding: '2px',
+                                                }} />
+                                                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: "space-between" }} >
+                                                    <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: '500' }}>{`${product?.name}`}</span>
+                                                    <span style={{ fontSize: isDesktopView ? '18px' : '13px', fontWeight: '400', color: borderColorTwo(theme) }}>{`$ ${product?.price}`}</span>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
+                                            <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{`No Products Found`} </span>
+                                        </div>
+                                    )}
+                                </div>}
                             </div>
-                        </div>
-                    </div>
+                        )
+                    })}
                 </div>
             </div>
 
