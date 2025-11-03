@@ -9,6 +9,7 @@ import companiesGroupLogo from '../../../../../../assets/companiesGroupLogo.png'
 import noFood from '../../../../../../assets/noFood.jpg';
 import SelectProductImageModal from "./auxs/SelectProductImageModal";
 import { getImageFoodService } from "../../../../FoodsImagesService";
+import { createProductService } from "../../../../../../services/deliveryServices/ProductService";
 
 
 export default function CreateProductModal({ close, category, companyData }) {
@@ -34,6 +35,16 @@ export default function CreateProductModal({ close, category, companyData }) {
             value = `${intPart}.${decPart.slice(0, 2)}`;
         }
         setProductPrice(value);
+    }
+
+    async function handleCreateProduct() {
+        setDisable(true);
+        const response = await createProductService(companyData?.id, productName, productPrice, productDescription, imagePath, category?.id);
+        if (response?.status === 201) {
+            close();
+        }
+
+        setDisable(false);
     }
 
 
@@ -62,7 +73,7 @@ export default function CreateProductModal({ close, category, companyData }) {
                                     <div style={{
                                         display: 'flex', borderRadius: '50%', backgroundColor: (disable ? 'transparent' : greenOne(theme)), opacity: 1, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
                                         padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'absolute', right: 5, top: 0,
-                                    }} onClick={() => { if (!disable) handleCreateCompound(); }} >
+                                    }} onClick={() => { if (!disable) handleCreateProduct(); }} >
                                         {!disable && <FontAwesomeIcon icon={faCheck} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />}
                                         {disable && <Spinner animation="border" role="status" style={{ width: isDesktopView ? '25px' : '20px', height: isDesktopView ? '25px' : '20px', color: 'white', }} />}
                                     </div>
