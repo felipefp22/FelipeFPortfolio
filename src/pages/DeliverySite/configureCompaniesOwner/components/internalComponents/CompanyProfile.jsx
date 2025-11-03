@@ -8,9 +8,10 @@ import { updateCompanyService } from "../../../../../services/deliveryServices/C
 import { Spinner } from "react-bootstrap";
 import ModalExample from "./modals/ModalExample";
 import EditCompanyAddress from "./modals/EditCompanyAddress";
+import QuitCompanyModal from "./modals/QuitCompanyModal";
 
 
-export default function CompanyProfile({ companyData, fetchCompanyData }) {
+export default function CompanyProfile({ companyData, fetchCompanyData, fetchUserInfos }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
@@ -30,6 +31,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
     const [editing, setEditing] = useState(false);
 
     const [editAddressModalOpen, setEditAddressModalOpen] = useState(false);
+    const [quitModalOpen, setQuitModalOpen] = useState(false);
 
     useEffect(() => {
         if (companyData) {
@@ -61,7 +63,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
             if (response?.status === 200) {
                 fetchCompanyData();
             } else {
-                alert("Error updating company data on server");
+                alert(`Error updating company data on server ${response?.data}`);
             }
             setDisable(false);
         }
@@ -82,13 +84,19 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
                         }} />
 
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center', position: 'relative' }} >
-                            <div style={{
+                            {localStorage.getItem('userLoggedEmail') === companyData?.ownerID && <div style={{
                                 display: 'flex', borderRadius: '50%', backgroundColor: editing ? (disable ? 'transparent' : greenOne(theme)) : transparentCavasOne(theme), opacity: editing ? 1 : 1, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
                                 padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'absolute', right: 5, top: 0,
                             }} onClick={() => { editing ? handleUpdateCompany() : setEditing(true) }} >
                                 {!disable && <FontAwesomeIcon icon={editing ? faCheck : faPen} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />}
                                 {disable && <Spinner animation="border" role="status" style={{ width: isDesktopView ? '25px' : '20px', height: isDesktopView ? '25px' : '20px', color: 'white', }} />}
-                            </div>
+                            </div>}
+                            {localStorage.getItem('userLoggedEmail') !== companyData?.ownerID && <button className="buttomDarkGray" style={{
+                                padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '80px', marginBottom: '0px', position: 'absolute', right: 5, top: 0,
+                                opacity: 1, cursor: 'pointer',
+                            }}
+                                onClick={() => { setQuitModalOpen(true) }}>Quit</button>}
+
                             {editing && !disable && <div style={{
                                 display: 'flex', borderRadius: '50%', backgroundColor: redOne(theme), opacity: 0.7, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
                                 padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', position: 'absolute', right: isDesktopView ? 65 : 50, top: 0,
@@ -160,6 +168,10 @@ export default function CompanyProfile({ companyData, fetchCompanyData }) {
 
             {editAddressModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
                 <EditCompanyAddress close={() => setEditAddressModalOpen(false)} companyLat={companyLat} setCompanyLat={setCompanyLat} companyLng={companyLng} setCompanyLng={setCompanyLng} companyAddress={companyAddress} setCompanyAddress={setCompanyAddress} />
+            </div>}
+
+            {quitModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+                <QuitCompanyModal close={() => setQuitModalOpen(false)} companyData={companyData} fetchUserInfos={() => fetchUserInfos()}/>
             </div>}
         </>
     );

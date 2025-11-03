@@ -1,8 +1,8 @@
 import { use, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { borderColorTwo, fontColorOne, greenOne, redOne } from "../../../../../theme/Colors";
-import { acceptCompanyInviteService, quitCompanyService } from "../../../../../services/deliveryServices/EmployeeService";
+import { borderColorTwo, fontColorOne, greenOne, redOne } from "../../../../../../theme/Colors";
+import { acceptCompanyInviteService, quitCompanyService } from "../../../../../../services/deliveryServices/EmployeeService";
 
 
 export default function AcceptOrDenyWorksOnCompany({ close, companyData, fetchUserInfos }) {

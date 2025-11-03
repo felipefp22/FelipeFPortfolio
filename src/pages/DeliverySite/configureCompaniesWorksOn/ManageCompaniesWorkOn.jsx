@@ -3,6 +3,7 @@ import { getUserInfos } from "../../../services/deliveryServices/AUserService";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import SelectYourComapanieYouWorkOnToManage from "./components/SelectYourComapanieYouWorkOnToManage";
+import SetUpCompanyYouWorkOn from "./components/SetUpCompanyYouWorkOn";
 
 
 export default function ManageCompaniesWorkOn({ }) {
@@ -56,6 +57,8 @@ export default function ManageCompaniesWorkOn({ }) {
                 </div> */}
 
                 {!companySelected && <SelectYourComapanieYouWorkOnToManage companiesYouWorkOn={companiesYouWorkOn} fetchUserInfos={() => fetchUserInfos()} />}
+                {companySelected && <SetUpCompanyYouWorkOn companiesYouWorkOn={companiesYouWorkOn} fetchUserInfos={() => fetchUserInfos()} />}
+
 
             </div >
         </>

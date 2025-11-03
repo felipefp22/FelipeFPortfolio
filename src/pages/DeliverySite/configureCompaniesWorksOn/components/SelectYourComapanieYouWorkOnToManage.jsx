@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faGear, faPlus, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
 import { borderColorTwo, fontColorOne, greenOne, greenTwo, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
 import { useNavigate } from "react-router-dom";
-import AcceptOrDenyWorksOnCompany from "./modals/AcceptOrDenyWorksOnCompany";
+import AcceptOrDenyWorksOnCompany from "./internalComponents/modals/AcceptOrDenyWorksOnCompany";
 
 
 export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkOn, fetchUserInfos }) {
@@ -35,7 +35,7 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
                             {companiesYouWorkOn?.filter(company => company.status === "ACTIVE").map((company, index) => (
                                 <div key={index}>
                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
-                                        onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesWorkOn/company?id=${company?.id}`); }}>
+                                        onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesWorkOn/company?id=${company?.companyID}`); }}>
 
                                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
                                             <img src={companiesGroupLogo} alt="Logo" style={{
