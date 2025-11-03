@@ -11,6 +11,7 @@ export default function CompanyShifts({ companyData, fetchCompanyData }) {
     const [seeImageBig, setSeeImageBig] = useState(false);
 
     function formatData(isoString) {
+        if (isoString === '') return '';
         const date = new Date(isoString);
 
         const year = date.getFullYear();
@@ -32,8 +33,8 @@ export default function CompanyShifts({ companyData, fetchCompanyData }) {
                     <br />
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%', justifyContent: 'center' }} >
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }} >
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '22px' : '16px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{`Shift - ${companyData?.currentShift?.shiftNumber}`}</span>
-                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '22px' : '16px', fontWeight: '500', marginLeft: '5px' }}>{`| ${formatData(companyData?.currentShift?.startTimeUTC)} `}</span>
+                            <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '16px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{`Shift - ${companyData?.currentShift?.shiftNumber ?? ""}`}</span>
+                            {companyData && <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '16px', fontWeight: '500', marginLeft: '5px' }}>{`| ${formatData(companyData?.currentShift?.startTimeUTC).split(" - ")[0]} `}</span>}
                             {/* {companyData?.currentShift?.endTimeUTC && <span style={{ color: redOne(theme), fontSize: isDesktopView ? '22px' : '18px', fontWeight: 'bold', marginLeft: '5px' }}>{` -- ${formatData(companyData?.currentShift?.endTimeUTC)} `}</span>} */}
                         </div>
                     </div>
@@ -42,14 +43,14 @@ export default function CompanyShifts({ companyData, fetchCompanyData }) {
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
                             <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '16px' : '13px', fontWeight: 'bold' }}>{"Shift Number: "}</span>
-                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '16px' : '13px', fontWeight: '500', marginLeft: '15px' }}>{`${companyData?.currentShift?.shiftNumber} `}</span>
+                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '16px' : '13px', fontWeight: '500', marginLeft: '15px' }}>{`${companyData?.currentShift?.shiftNumber ?? ""} `}</span>
                         </div>
                         <br />
 
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
                             <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '16px' : '13px', fontWeight: 'bold' }}>{"Openned: "}</span>
                             <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '16px' : '13px', fontWeight: '500', marginLeft: '15px' }}>
-                                {`${formatData(companyData?.currentShift?.startTimeUTC)} - ${companyData?.currentShift?.managerWhoseOpenedShift}`}</span>
+                                {`${formatData(companyData?.currentShift?.startTimeUTC ?? '')} - ${companyData?.currentShift?.managerWhoseOpenedShift ?? ""}`}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
                             <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '16px' : '13px', fontWeight: 'bold' }}>{"Closed: "}</span>
@@ -60,7 +61,7 @@ export default function CompanyShifts({ companyData, fetchCompanyData }) {
 
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
                             <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '16px' : '13px', fontWeight: 'bold' }}>{"Orders on Shift: "}</span>
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '16px' : '13px', fontWeight: '500', marginLeft: '15px' }}>{`${companyData?.currentShift?.orders.length} `}</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '16px' : '13px', fontWeight: '500', marginLeft: '15px' }}>{`${companyData?.currentShift?.orders.length ?? 0} `}</span>
                         </div>
                         <br />
 
