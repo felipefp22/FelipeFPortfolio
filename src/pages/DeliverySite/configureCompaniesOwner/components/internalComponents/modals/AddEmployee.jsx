@@ -38,6 +38,10 @@ export default function AddEmployee({ close, companyData, positionsOpts, fetchCo
 
 
     async function handleAddEmployee() {
+        if (!position) {
+            alert("Select a position");
+            return;
+        }
         const response = await hireEmployeeService(companyData?.id, emailToInvite, position.toUpperCase());
         if (response?.status === 200) {
             fetchCompanyData();
@@ -59,19 +63,19 @@ export default function AddEmployee({ close, companyData, positionsOpts, fetchCo
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', alignItems: 'center', marginBottom: '10px', width: '100%' }} >
                         <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', whiteSpace: 'nowrap' }}>Email: </span>
 
-                        <div style={{ display: 'flex', position: 'relative', flexGrow: 1, maxWidth: '550px' }}>
-                            <input className="inputOne" style={{ flexGrow: 1, }} type="text" autoCapitalize="none" value={emailToInvite || ""} onChange={(e) => setEmailToInvite(e.target.value)} />
-                            <div style={{
+                        <form style={{ display: 'flex', position: 'relative', flexGrow: 1, maxWidth: '550px' }} onSubmit={(e) => { e.preventDefault(); handleFindPerson(); }}>
+                            <input className="inputOne" style={{ flexGrow: 1, }} type="email" autoCapitalize="none" value={emailToInvite || ""} onChange={(e) => { setEmailToInvite(e.target.value); e.target.setCustomValidity(''); }}
+                                onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} />
+                            <button style={{
                                 borderRadius: '50%', backgroundColor: transparentCavasOne(theme), padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 width: 27, height: 27, cursor: 'pointer', position: 'absolute', right: 8, top: 4
-                            }} onClick={() => handleFindPerson()} >
+                            }} >
                                 <FontAwesomeIcon icon={faMagnifyingGlass} style={{ fontSize: '12px', fontWeight: '500', }} />
-                            </div>
-                        </div>
+                            </button>
+                        </form>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginTop: 20, border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', cursor: 'pointer' }}
-                        onClick={() => { console.log("Clicked employee") }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginTop: 20, border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', }} >
 
                         <img src={userFoundData?.urlProfilePhoto ?? avatar} alt="Logo" style={{
                             width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,

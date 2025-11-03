@@ -49,3 +49,26 @@ export async function updateEmployeePositionService(companyId, employeeEmail, po
         if (error?.response) return error.response;
     }
 }
+
+export async function fireEmployeeService(companyId, employeeEmail) {
+
+    const postData = {
+        companyId,
+        employeeEmail,
+    };
+    
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/company/remove-employee`, postData,
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
