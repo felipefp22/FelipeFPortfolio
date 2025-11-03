@@ -31,43 +31,34 @@ export default function CompanyShifts({ companyData, fetchCompanyData }) {
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'centert', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', margin: '10px auto', borderRadius: '6px', width: '90%' }} >
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%', justifyContent: 'center' }} >
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }} >
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '22px' : '18px', fontWeight: 'bold' }}>{"Shift - "}</span>
-                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '22px' : '18px', fontWeight: 'bold', marginLeft: '5px' }}>{`${companyData?.currentShift?.shiftNumber} | ${formatData(companyData?.currentShift?.startTimeUTC)} `}</span>
-                            {companyData?.currentShift?.endTimeUTC && <span style={{ color: redOne(theme), fontSize: isDesktopView ? '22px' : '18px', fontWeight: 'bold', marginLeft: '5px' }}>{` -- ${formatData(companyData?.currentShift?.endTimeUTC)} `}</span>}
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '22px' : '16px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{`Shift - ${companyData?.currentShift?.shiftNumber}` }</span>
+                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '22px' : '16px', fontWeight: '500', marginLeft: '5px' }}>{`| ${formatData(companyData?.currentShift?.startTimeUTC)} `}</span>
+                            {/* {companyData?.currentShift?.endTimeUTC && <span style={{ color: redOne(theme), fontSize: isDesktopView ? '22px' : '18px', fontWeight: 'bold', marginLeft: '5px' }}>{` -- ${formatData(companyData?.currentShift?.endTimeUTC)} `}</span>} */}
                         </div>
                     </div>
+                    <br />
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
                             <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Shift Number: "}</span>
-                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${companyData?.currentShift?.shiftNumber} `}</span>
+                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: '500', marginLeft: '15px' }}>{`${companyData?.currentShift?.shiftNumber} `}</span>
                         </div>
                         <br />
 
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Openned at: "}</span>
-                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${formatData(companyData?.currentShift?.startTimeUTC)} `}</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Openned: "}</span>
+                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: '500', marginLeft: '15px' }}>
+                                {`${formatData(companyData?.currentShift?.startTimeUTC)} - ${companyData?.currentShift?.managerWhoseOpenedShift}`}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Closed at: "}</span>
-                            <span style={{ color: redOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${companyData?.currentShift?.endTimeUTC ? formatData(companyData?.currentShift?.endTimeUTC) : 'Still Open'} `}</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Closed: "}</span>
+                            <span style={{ color: redOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: '500', marginLeft: '15px' }}>
+                                {`${companyData?.currentShift?.endTimeUTC ? formatData(companyData?.currentShift?.endTimeUTC) : 'Still Open'} - ${companyData?.currentShift?.employeeClosedShift ?? ""}`}</span>
                         </div>
                         <br />
-
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Opened by: "}</span>
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${companyData?.currentShift?.managerWhoseOpenedShift} `}</span>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Closed by: "}</span>
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>
-                                {`${companyData?.currentShift?.employeeClosedShift ? companyData?.currentShift?.employeeClosedShift : 'Still Open'} `}</span>
-                        </div>
-                        <br />
-
 
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
                             <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Orders on Shift: "}</span>
-                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${companyData?.currentShift?.orders.length} `}</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: '500', marginLeft: '15px' }}>{`${companyData?.currentShift?.orders.length} `}</span>
                         </div>
                     </div>
                 </div>
