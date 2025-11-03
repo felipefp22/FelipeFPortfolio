@@ -2,22 +2,21 @@ import { use, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { borderColorTwo, greenOne, redOne, transparentCavasOne } from "../../../../../../theme/Colors";
-import { hireEmployeeService } from "../../../../../../services/deliveryServices/EmployeeService";
+import { hireEmployeeService, updateEmployeePositionService } from "../../../../../../services/deliveryServices/EmployeeService";
 import avatar from '../../../../../../assets/noProfilePhoto.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { findPersonByEmailService } from "../../../../../../services/deliveryServices/SocialService";
 
 
-export default function AddEmployee({ close, companyData, positionsOpts, fetchCompanyData }) {
+export default function EditEmployee({ close, companyData, employeeData, positionsOpts, fetchCompanyData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [processing, setProcessing] = useState(false);
     const [adminPassword, setAdminPassword] = useState("");
 
-    const [emailToInvite, setEmailToInvite] = useState("");
-    const [position, setPosition] = useState("");
+    const [position, setPosition] = useState(positionsOpts.find((opt) => opt.toLowerCase() === employeeData?.position?.toLowerCase()) || "");
 
     const [userFoundData, setUserFoundData] = useState(null);
 
@@ -25,9 +24,9 @@ export default function AddEmployee({ close, companyData, positionsOpts, fetchCo
         console.log("CompanyID: ", companyData?.id);
     }, []);
 
-    async function handleFindPerson() {
+    async function handleFireEmployee() {
         setProcessing(true);
-        const response = await findPersonByEmailService(emailToInvite);
+        const response = await findPersonByEmailrvice(emailToInvite);
         if (response?.status === 200) {
             setUserFoundData(response?.data);
         } else {
@@ -37,13 +36,15 @@ export default function AddEmployee({ close, companyData, positionsOpts, fetchCo
     }
 
 
-    async function handleAddEmployee() {
-        const response = await hireEmployeeService(companyData?.id, emailToInvite, position.toUpperCase());
+    async function handleChangePosition() {
+        if(position.toLowerCase() === employeeData?.position?.toLowerCase()) return;
+
+        const response = await updateEmployeePositionService(companyData?.id, employeeData?.employeeEmail, position.toUpperCase());
         if (response?.status === 200) {
             fetchCompanyData();
             close();
         } else {
-            alert(`Error hiring employee: ${response?.data}`);
+            alert(`Error updating employee position: ${response?.data}`);
         }
     }
 
@@ -52,39 +53,25 @@ export default function AddEmployee({ close, companyData, positionsOpts, fetchCo
             <div className="myModal" style={{ zIndex: 100 }} >
                 <div className="modalInside" style={{ padding: '20px', minWidth: '300px', maxWidth: !isDesktopView ? "95%" : "600px", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, }}>
                     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '30px', fontSize: !isDesktopView ? '20px' : '26px', }}>
-                        <span>{`Hire`}</span>
                         <span style={{ color: borderColorTwo(theme) }}>{`${companyData?.companyName || "Company"}`}</span>
-                    </div>
-
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', alignItems: 'center', marginBottom: '10px', width: '100%' }} >
-                        <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', whiteSpace: 'nowrap' }}>Email: </span>
-
-                        <div style={{ display: 'flex', position: 'relative', flexGrow: 1, maxWidth: '550px' }}>
-                            <input className="inputOne" style={{ flexGrow: 1, }} type="text" value={emailToInvite || ""} onChange={(e) => setEmailToInvite(e.target.value)} />
-                            <div style={{
-                                borderRadius: '50%', backgroundColor: transparentCavasOne(theme), padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                width: 27, height: 27, cursor: 'pointer', position: 'absolute', right: 8, top: 4
-                            }} onClick={() => handleFindPerson()} >
-                                <FontAwesomeIcon icon={faMagnifyingGlass} style={{ fontSize: '12px', fontWeight: '500', }} />
-                            </div>
-                        </div>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginTop: 20, border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', cursor: 'pointer' }}
                         onClick={() => { console.log("Clicked employee") }}>
 
-                        <img src={userFoundData?.urlProfilePhoto ?? avatar} alt="Logo" style={{
+                        <img src={employeeData?.urlProfilePhoto ?? avatar} alt="Logo" style={{
                             width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
                             borderRadius: '50%', backgroundColor: 'transparent', border: "0px solid white", marginRight: 10
                         }} />
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                            <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}> {userFoundData ? `${userFoundData?.name} - ${userFoundData?.email}` : `"Find a Person"`}</span>
+                            <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}> {employeeData ? `${employeeData?.employeeName} - ${employeeData?.employeeEmail}` : `"Find a Person"`}</span>
                         </div>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'center', marginBottom: '10px' }} >
                         <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', }}>Position: </span>
                         <select className="inputOne" value={position || ""} onChange={(e) => setPosition(e.target.value)} style={{ maxWidth: '220px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
+                            {!position && <option value="">Select position</option>}
                             {positionsOpts.map((value, index) => (
                                 <option key={index} value={value}>
                                     {value}
@@ -97,8 +84,11 @@ export default function AddEmployee({ close, companyData, positionsOpts, fetchCo
                         <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
                             onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                        <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px', cursor: userFoundData ? 'pointer' : 'not-allowed', opacity: userFoundData ? 1 : 0.5, }}
-                            onClick={() => { handleAddEmployee() }} disabled={processing || !userFoundData}>Hire</button>
+                        <button className="buttomDarkGray" style={{
+                            backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px',
+                            cursor: (position.toLowerCase() === employeeData?.position?.toLowerCase()) ? 'not-allowed' : 'pointer', opacity: (position.toLowerCase() === employeeData?.position?.toLowerCase()) ? 0.5 : 1,
+                        }}
+                            onClick={() => { handleChangePosition() }} disabled={processing || (position.toLowerCase() === employeeData?.position?.toLowerCase())}>Update</button>
                     </div>}
 
                     {processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', height: '50px', marginTop: '10px' }}>

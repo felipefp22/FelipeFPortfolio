@@ -79,11 +79,11 @@ export default function SetUpCompany({ }) {
                 <div style={{ backgroundColor: fontColorOne(theme), opacity: '0.7', width: '100%', marginTop: '10px', height: '6px', borderRadius: '1px 1px 0px 0px', marginBottom: '0px', }} />
 
 
-                {menuSelected === "Company Profile" && <CompanyProfile companyData={companyData} fetchCompanyData={fetchCompanyData} />}
-                {menuSelected === "Employees" && <CompanyEmployees companyData={companyData} fetchCompanyData={fetchCompanyData} />}
-                {menuSelected === "Products" && <CompanyProducts companyData={companyData} fetchCompanyData={fetchCompanyData} />}
-                {menuSelected === "Shifts" && <CompanyShifts companyData={companyData} fetchCompanyData={fetchCompanyData} />}
-                {menuSelected === "Customers" && <CompanyCustomers companyData={companyData} fetchCompanyData={fetchCompanyData} />}
+                {menuSelected === "Company Profile" && <CompanyProfile companyData={companyData} fetchCompanyData={() => fetchCompanyData()} />}
+                {menuSelected === "Employees" && <CompanyEmployees companyData={companyData} fetchCompanyData={() => fetchCompanyData()} />}
+                {menuSelected === "Products" && <CompanyProducts companyData={companyData} fetchCompanyData={() => fetchCompanyData()} />}
+                {menuSelected === "Shifts" && <CompanyShifts companyData={companyData} fetchCompanyData={() => fetchCompanyData()} />}
+                {menuSelected === "Customers" && <CompanyCustomers companyData={companyData} fetchCompanyData={() => fetchCompanyData()} />}
 
 
             </div >

@@ -10,14 +10,16 @@ import waiterLogo from '../../../../../assets/waiterLogo.png';
 import avatar from '../../../../../assets/noProfilePhoto.png';
 import ModalExample from "./modals/ModalExample";
 import AddEmployee from "./modals/AddEmployee";
+import EditEmployee from "./modals/EditEmployee";
 
 
-export default function CompanyEmployees({ companyData, }) {
+export default function CompanyEmployees({ companyData, fetchCompanyData }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
     const [seeImageBig, setSeeImageBig] = useState(false);
     const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
+    const [editEmployeeModalOpen, setEditEmployeeModalOpen] = useState(false);
 
     const employeePositionsCategories = ["Manager", "Supervisor", "Waiter"];
 
@@ -46,7 +48,7 @@ export default function CompanyEmployees({ companyData, }) {
                         padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
                         opacity: 1, cursor: 'pointer',
                     }}
-                        onClick={() => { setAddEmployeeModalOpen(companyData?.id) }} >Add Employee</button>
+                        onClick={() => { setAddEmployeeModalOpen(true) }} >Add Employee</button>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexGrow: 1, overflowY: 'auto', }}>
@@ -72,7 +74,7 @@ export default function CompanyEmployees({ companyData, }) {
                                     {companyData?.employees && companyData.employees.length > 0 ? (
                                         companyData?.employees?.filter((emp) => emp.position?.toLowerCase() === position.toLowerCase()).map((employesFiltered, idx) => (
                                             <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
-                                                onClick={() => { console.log("Clicked employee") }}>
+                                                onClick={() => { setEditEmployeeModalOpen(employesFiltered); }}>
 
                                                 <img src={avatar} alt="Logo" style={{
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
@@ -102,7 +104,11 @@ export default function CompanyEmployees({ companyData, }) {
             </div>}
 
             {addEmployeeModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
-                <AddEmployee close={() => setAddEmployeeModalOpen(false)} companyData={companyData} companyID={addEmployeeModalOpen} positionsOpts={employeePositionsCategories} />
+                <AddEmployee close={() => setAddEmployeeModalOpen(false)} companyData={companyData} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
+            </div>}
+
+            {editEmployeeModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+                <EditEmployee close={() => setEditEmployeeModalOpen(false)} companyData={companyData} employeeData={editEmployeeModalOpen} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
         </>
     );
