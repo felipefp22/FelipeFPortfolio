@@ -9,8 +9,8 @@ import managerLogo from '../../../../../assets/managerLogo.png';
 import waiterLogo from '../../../../../assets/waiterLogo.png';
 import avatar from '../../../../../assets/noProfilePhoto.png';
 import ModalExample from "./modals/ModalExample";
-import AddEmployee from "./modals/AddEmployee";
-import EditEmployee from "./modals/EditEmployee";
+import AddEmployeeModal from "./modals/AddEmployeeModal";
+import EditEmployeeModal from "./modals/EditEmployeeModal";
 
 
 export default function CompanyEmployees({ companyData, fetchCompanyData }) {
@@ -108,11 +108,11 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
             </div>}
 
             {addEmployeeModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
-                <AddEmployee close={() => setAddEmployeeModalOpen(false)} companyData={companyData} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
+                <AddEmployeeModal close={() => setAddEmployeeModalOpen(false)} companyData={companyData} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
 
             {editEmployeeModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
-                <EditEmployee close={() => setEditEmployeeModalOpen(false)} companyData={companyData} employeeData={editEmployeeModalOpen} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
+                <EditEmployeeModal close={() => setEditEmployeeModalOpen(false)} companyData={companyData} employeeData={editEmployeeModalOpen} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
         </>
     );

@@ -9,7 +9,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { findPersonByEmailService } from "../../../../../../services/deliveryServices/SocialService";
 
 
-export default function AddEmployee({ close, companyData, positionsOpts, fetchCompanyData }) {
+export default function AddEmployeeModal({ close, companyData, positionsOpts, fetchCompanyData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 

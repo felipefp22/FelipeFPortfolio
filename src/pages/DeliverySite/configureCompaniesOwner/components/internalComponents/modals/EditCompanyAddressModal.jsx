@@ -12,7 +12,7 @@ const restaurantIcon = L.icon({
     popupAnchor: [0, -40],
 });
 
-export default function EditCompanyAddress({ close, companyLat, setCompanyLat, companyLng, setCompanyLng, companyAddress, setCompanyAddress }) {
+export default function EditCompanyAddressModal({ close, companyLat, setCompanyLat, companyLng, setCompanyLng, companyAddress, setCompanyAddress }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 

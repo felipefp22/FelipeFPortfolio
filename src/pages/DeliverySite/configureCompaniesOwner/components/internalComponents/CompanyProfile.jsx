@@ -7,7 +7,7 @@ import { faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { updateCompanyService } from "../../../../../services/deliveryServices/CompanySevice";
 import { Spinner } from "react-bootstrap";
 import ModalExample from "./modals/ModalExample";
-import EditCompanyAddress from "./modals/EditCompanyAddress";
+import EditCompanyAddressModal from "./modals/EditCompanyAddressModal";
 import QuitCompanyModal from "./modals/QuitCompanyModal";
 
 
@@ -167,7 +167,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
 
 
             {editAddressModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
-                <EditCompanyAddress close={() => setEditAddressModalOpen(false)} companyLat={companyLat} setCompanyLat={setCompanyLat} companyLng={companyLng} setCompanyLng={setCompanyLng} companyAddress={companyAddress} setCompanyAddress={setCompanyAddress} />
+                <EditCompanyAddressModal close={() => setEditAddressModalOpen(false)} companyLat={companyLat} setCompanyLat={setCompanyLat} companyLng={companyLng} setCompanyLng={setCompanyLng} companyAddress={companyAddress} setCompanyAddress={setCompanyAddress} />
             </div>}
 
             {quitModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >

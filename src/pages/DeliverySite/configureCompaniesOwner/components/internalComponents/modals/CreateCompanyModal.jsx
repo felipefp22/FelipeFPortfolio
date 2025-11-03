@@ -5,7 +5,7 @@ import { blueOne, greenOne, orangeOne, redOne } from "../../../../../../theme/Co
 import { borderColorTwo, transparentCavasOne, transparentCavasTwo } from "../../../../../../theme/Colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
-import EditCompanyAddress from "./EditCompanyAddress";
+import EditCompanyAddressModal from "./EditCompanyAddressModal";
 import restaurantLogo from "../../../../../../assets/restaurantLogo.png";
 import { createCompanyService } from "../../../../../../services/deliveryServices/CompanySevice";
 
@@ -131,7 +131,7 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
             </div >
 
             {editAddressModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
-                <EditCompanyAddress close={() => setEditAddressModalOpen(false)} companyLat={lat} setCompanyLat={setLat} companyLng={lng} setCompanyLng={setLng} companyAddress={address} setCompanyAddress={setAddress} />
+                <EditCompanyAddressModal close={() => setEditAddressModalOpen(false)} companyLat={lat} setCompanyLat={setLat} companyLng={lng} setCompanyLng={setLng} companyAddress={address} setCompanyAddress={setAddress} />
             </div>}
         </>
     );
