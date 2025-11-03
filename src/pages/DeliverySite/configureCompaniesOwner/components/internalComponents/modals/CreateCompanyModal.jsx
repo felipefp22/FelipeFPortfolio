@@ -14,9 +14,6 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
-    const [processing, setProcessing] = useState(false);
-    const [adminPassword, setAdminPassword] = useState("");
-
     const [name, setName] = useState(null);
     const [email, setEmail] = useState(null);
     const [phone, setPhone] = useState(null);
@@ -29,13 +26,9 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
 
     const [editAddressModalOpen, setEditAddressModalOpen] = useState(false);
 
-    // useEffect(() => {
-    //     console.log('compid ', compoundID)
-    // }, [compoundID]);
-
     async function handleCreateCompany() {
         if (name?.length > 3 && email?.length > 5 && phone?.length > 5 && lat && lng && address && numberOfTables > 0) {
-            setProcessing(true);
+            setDisable(true);
 
             const response = await createCompanyService(compoundID, name, email, phone, address, lat, lng, numberOfTables);
 
@@ -50,7 +43,7 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
             alert("Please fill all fields correctly.");
         }
 
-        setProcessing(false);
+        setDisable(false);
     }
 
 
