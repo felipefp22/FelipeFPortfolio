@@ -8,6 +8,7 @@ import { faCamera, faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-i
 import companiesGroupLogo from '../../../../../../assets/companiesGroupLogo.png';
 import noFood from '../../../../../../assets/noFood.jpg';
 import SelectProductImageModal from "./auxs/SelectProductImageModal";
+import { getImageFoodService } from "../../../../FoodsImagesService";
 
 
 export default function CreateProductModal({ close, category, companyData }) {
@@ -45,8 +46,8 @@ export default function CreateProductModal({ close, category, companyData }) {
                         <div style={{ display: 'flex', flexDirection: 'column', width: isDesktopView ? '90%' : '100%', justifyContent: 'center', alignItems: 'center', padding: '10px 0px', backgroundColor: "rgba(255, 255, 255, 0.0)", }} >
                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', height: '100%', position: 'relative' }} >
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', position: 'relative' }} >
-                                    <img src={noFood} alt="Logo" style={{
-                                        width: isDesktopView ? '140px' : '120px', height: isDesktopView ? '140px' : "120px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', border: `3px solid ${borderColorTwo(theme)}`,
+                                    <img src={getImageFoodService(imagePath)} alt="Logo" style={{
+                                        width: isDesktopView ? '140px' : '120px', height: isDesktopView ? '140px' : "120px", borderRadius: '50%', objectFit: "contain", backgroundColor: "white", cursor: 'pointer', border: `3px solid ${borderColorTwo(theme)}`,
                                         boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, padding: isDesktopView ? '3px' : '3px',
                                     }} />
                                     <div style={{
@@ -100,7 +101,7 @@ export default function CreateProductModal({ close, category, companyData }) {
             </div >
 
             {selectImageModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
-                <SelectProductImageModal close={() => setSelectImageModal(false)} setImagePath={setImagePath} />
+                <SelectProductImageModal close={() => setSelectImageModal(false)} imagePath={imagePath} setImagePath={setImagePath} />
             </div>}
         </>
     );
