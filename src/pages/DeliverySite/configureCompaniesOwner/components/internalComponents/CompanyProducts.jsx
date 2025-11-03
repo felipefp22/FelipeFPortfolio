@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import noFood from '../../../../../assets/noFood.jpg';
 import cutleryLogo from '../../../../../assets/cutleryLogo.png';
 import ModalExample from "./modals/ModalExample";
+import CreateProductModal from "./modals/CreateProductModal";
 
 
 export default function CompanyProducts({ companyData, }) {
@@ -102,12 +103,12 @@ export default function CompanyProducts({ companyData, }) {
                 }} />
             </div>}
 
-            {editProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
-                <ModalExample close={() => setEditProductModal(false)} productSelected={editProductModal} />
+            {createProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 1000 }} >
+                <CreateProductModal close={() => setCreateProductModalOpen(false)} category={createProductModal} companyData={companyData} />
             </div>}
 
-            {createProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
-                <ModalExample close={() => setCreateProductModalOpen(false)} category={createProductModal} />
+            {editProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 1000 }} >
+                <ModalExample close={() => setEditProductModal(false)} productSelected={editProductModal} />
             </div>}
         </>
     );
