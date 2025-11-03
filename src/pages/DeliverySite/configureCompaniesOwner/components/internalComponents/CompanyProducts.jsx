@@ -35,7 +35,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
         <>
             <div style={{
                 display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px',
-                minWidth: '300px', maxWidth: '100%', height: '72%', overflowX: "hidden", overflowY: 'hidden',
+                minWidth: '300px', maxWidth: '100%', height: '72%', maxHeight: isDesktopView ? '770px': '600px', overflowX: "hidden", overflowY: 'hidden',
             }} >
                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '5px' }} >
                     <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Products"} </span>
