@@ -8,6 +8,7 @@ import noFood from '../../../../../assets/noFood.jpg';
 import cutleryLogo from '../../../../../assets/cutleryLogo.png';
 import ModalExample from "./modals/ModalExample";
 import CreateProductModal from "./modals/CreateProductModal";
+import { getImageFoodService } from "../../../FoodsImagesService";
 
 
 export default function CompanyProducts({ companyData, }) {
@@ -75,7 +76,7 @@ export default function CompanyProducts({ companyData, }) {
                                             <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '6px 10px', margin: '3px 5px', cursor: 'pointer', backgroundColor: transparentCavasTwo(theme), borderRadius: '6px', }}
                                                 onClick={() => { setEditProductModal(product) }}>
 
-                                                <img src={noFood} alt="Logo" style={{
+                                                <img src={getImageFoodService(product?.imagePath)} alt="Logo" style={{
                                                     width: isDesktopView ? 36 : 28, boxShadow: `1px 2px 10px ${borderColorTwo(theme, 0.2)}`,
                                                     borderRadius: '50%', backgroundColor: 'white', marginRight: 10, padding: '2px',
                                                 }} />

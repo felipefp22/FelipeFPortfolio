@@ -5,6 +5,7 @@ import { Table } from "react-bootstrap";
 import noFoodImg from "./../../../../../assets/noFood.jpg";
 import { useSelector } from "react-redux";
 import { blueOne, borderColorTwo, greenOne, redOne } from "../../../../../theme/Colors";
+import { getImageFoodService } from "../../../FoodsImagesService";
 
 export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd }) {
     const theme = useSelector((state) => state.view.theme);
@@ -65,7 +66,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                             {productsFiltered && productsFiltered?.map((product) => (
                                 <div style={{ display: 'flex', flexDirection: 'column', width: '80px', height: "96px", margin: 5, cursor: 'pointer' }} onClick={() => { setSelectedProducts([...selectedProducts, product]); }}>
-                                    <img src={noFoodImg} alt={""} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
+                                    <img src={product?.imagePath ? getImageFoodService(product?.imagePath) : noFoodImg} alt={""} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
                                     <span style={{ fontWeight: 'bold', fontSize: "16px", textAlign: 'center', color: 'black' }}>{product?.name}</span>
                                 </div>
                             ))
