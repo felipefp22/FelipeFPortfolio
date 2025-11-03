@@ -1,15 +1,26 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, transparentCavasTwo } from "../../../../../theme/Colors";
+import { borderColorOne, borderColorTwo, fontColorOne, greenOne, greenTwo, redOne, transparentCavasTwo } from "../../../../../theme/Colors";
 import { useState } from "react";
 import restaurantLogo from '../../../../../assets/restaurantLogo.png';
 
 
-export default function CompanyShifts({ companyData,}) {
+export default function CompanyShifts({ companyData, fetchCompanyData }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
     const [seeImageBig, setSeeImageBig] = useState(false);
 
+    function formatData(isoString) {
+        const date = new Date(isoString);
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+
+        return `${year}/${month}/${day} - ${hours}:${minutes}`;
+    }
 
     return (
         <>
@@ -17,17 +28,46 @@ export default function CompanyShifts({ companyData,}) {
                 {/* <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Manage Your Companies</span> */}
                 {/* <span>Still not Implemented - It's Skill demonstration APP, I am working on it when I have free time ;)</span> */}
 
-                <div style={{ display: 'flex', flexDirection: 'column', width: isDesktopView? '80%' : '100%', maxWidth: '1000px', justifyContent: 'center', alignItems: 'center', padding: '10px 20px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
-                    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', height: '100%' }} >
-                        <img src={restaurantLogo} alt="Logo" onClick={() => setSeeImageBig(restaurantLogo)} style={{
-                            width: isDesktopView ? '200px' : '120px', height: isDesktopView ? '200px' : "120px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', border: `3px solid ${borderColorTwo(theme)}`,
-                            boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`,
-                        }} />
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'centert', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', margin: '10px auto', borderRadius: '6px', width: '90%' }} >
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%', justifyContent: 'center' }} >
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }} >
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '22px' : '18px', fontWeight: 'bold' }}>{"Shift - "}</span>
+                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '22px' : '18px', fontWeight: 'bold', marginLeft: '5px' }}>{`${companyData?.currentShift?.shiftNumber} | ${formatData(companyData?.currentShift?.startTimeUTC)} `}</span>
+                            {companyData?.currentShift?.endTimeUTC && <span style={{ color: redOne(theme), fontSize: isDesktopView ? '22px' : '18px', fontWeight: 'bold', marginLeft: '5px' }}>{` -- ${formatData(companyData?.currentShift?.endTimeUTC)} `}</span>}
+                        </div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Shift Number: "}</span>
+                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${companyData?.currentShift?.shiftNumber} `}</span>
+                        </div>
+                        <br />
 
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center' }} >
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '40px' }} >
-                                <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{"Shifts" }</span>
-                            </div>
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Openned at: "}</span>
+                            <span style={{ color: greenTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${formatData(companyData?.currentShift?.startTimeUTC)} `}</span>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Closed at: "}</span>
+                            <span style={{ color: redOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${companyData?.currentShift?.endTimeUTC ? formatData(companyData?.currentShift?.endTimeUTC) : 'Still Open'} `}</span>
+                        </div>
+                        <br />
+
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Opened by: "}</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${companyData?.currentShift?.managerWhoseOpenedShift} `}</span>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Closed by: "}</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>
+                                {`${companyData?.currentShift?.employeeClosedShift ? companyData?.currentShift?.employeeClosedShift : 'Still Open'} `}</span>
+                        </div>
+                        <br />
+
+
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', marginLeft: '40px', width: '100%' }} >
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{"Orders on Shift: "}</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', marginLeft: '15px' }}>{`${companyData?.currentShift?.orders.length} `}</span>
                         </div>
                     </div>
                 </div>
@@ -38,6 +78,10 @@ export default function CompanyShifts({ companyData,}) {
                     maxWidth: "90%", maxHeight: "90%", borderRadius: '10px', objectFit: "contain", boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.5)"
                 }} />
             </div>}
+            {/* 
+            {createProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 1000 }} >
+                <CreateProductModal close={() => setCreateProductModalOpen(false)} companyData={companyData} category={createProductModal} fetchCompanyData={() => fetchCompanyData()} />
+            </div>} */}
         </>
     );
 }
