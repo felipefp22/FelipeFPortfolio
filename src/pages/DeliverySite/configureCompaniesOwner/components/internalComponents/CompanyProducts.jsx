@@ -9,9 +9,10 @@ import cutleryLogo from '../../../../../assets/cutleryLogo.png';
 import ModalExample from "./modals/ModalExample";
 import CreateProductModal from "./modals/CreateProductModal";
 import { getImageFoodService } from "../../../FoodsImagesService";
+import EditProductModal from "./modals/EditProductModal";
 
 
-export default function CompanyProducts({ companyData, }) {
+export default function CompanyProducts({ companyData, fetchCompanyData }) {
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
 
@@ -105,11 +106,11 @@ export default function CompanyProducts({ companyData, }) {
             </div>}
 
             {createProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 1000 }} >
-                <CreateProductModal close={() => setCreateProductModalOpen(false)} category={createProductModal} companyData={companyData} />
+                <CreateProductModal close={() => setCreateProductModalOpen(false)} companyData={companyData} category={createProductModal} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
 
             {editProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 1000 }} >
-                <ModalExample close={() => setEditProductModal(false)} productSelected={editProductModal} />
+                <EditProductModal close={() => setEditProductModal(false)} companyData={companyData} productSelected={editProductModal} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
         </>
     );
