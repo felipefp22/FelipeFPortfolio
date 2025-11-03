@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import './App.css'
-import './Custom.css'
+import './theme/Custom.css'
 import Index from './Index'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch, useSelector } from 'react-redux';

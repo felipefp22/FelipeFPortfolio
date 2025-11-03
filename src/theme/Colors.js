@@ -43,6 +43,11 @@ export function greenOne(theme) {
     if (theme === 'DARK') return "#0A7D00";
 }
 
+export function greenTwo(theme) {
+    if (theme === 'LIGHT') return 'rgba(0, 255, 0, 0.7)';
+    if (theme === 'DARK') return 'rgba(0, 255, 0, 0.7)';
+}
+
 export function redOne(theme) {
     if (theme === 'LIGHT') return "rgb(255, 0, 0)";
     if (theme === 'DARK') return "rgba(227, 0, 0, 1)";

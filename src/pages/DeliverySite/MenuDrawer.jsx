@@ -86,11 +86,13 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
 
                     <ul style={{ listStyle: "none", padding: 0, color: fontColorOne(), }}>
 
-                        <li><a style={linkStyle} onClick={() => {navigate("/FelipeFPortfolio/delivery/"); setDrawerOpen(false); }}>Operation</a></li>
+                        <li><a style={linkStyle} onClick={() => { navigate("/FelipeFPortfolio/delivery/"); setDrawerOpen(false); }}>Operation</a></li>
 
                         <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`, }} />
 
-                        <li><a  style={linkStyle} onClick={() => {navigate("/FelipeFPortfolio/delivery/ManageCompaniesOwner"); setDrawerOpen(false); }}>Manage Companies</a></li>
+                        <li><a style={linkStyle} onClick={() => { navigate("/FelipeFPortfolio/delivery/ManageCompaniesOwner"); setDrawerOpen(false); }}>Manage You Companies</a></li>
+                        <li><a style={linkStyle} onClick={() => { navigate("/FelipeFPortfolio/delivery/ManageCompaniesWorkOn"); setDrawerOpen(false); }}>Companies You Work On</a></li>
+
                         {/* <li><a href="#" style={linkStyle} onClick={() => navigate("/advertisesnoownerdeactivated")}>Anúncios noOwner Desativados</a></li> */}
 
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', marginTop: '20px' }}>
@@ -99,7 +101,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', width: '100%', marginTop: '10px' }} onClick={() => handleThemeChange(theme === "DARK" ? "LIGHT" : "DARK")}>
                                 <span style={{ fontSize: '18px', fontWeight: 'bold', marginRight: '41px' }}>Dark</span>
                                 <div class="form-check form-switch" style={{ cursor: 'pointer' }}>
-                                    <input className="form-check-input" style={{ cursor: 'pointer' }} type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={theme === "LIGHT"} onChange={() => {}} />
+                                    <input className="form-check-input" style={{ cursor: 'pointer' }} type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={theme === "LIGHT"} onChange={() => { }} />
                                 </div>
                                 <span style={{ fontSize: '18px', fontWeight: 'bold', marginLeft: '20px' }}>Light</span>
                             </div>

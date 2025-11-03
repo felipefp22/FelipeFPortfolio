@@ -13,6 +13,8 @@ import { setTheme } from './redux/viewSlice';
 import SelectCompanyOperation from './pages/DeliverySite/selectCompanyOperation/SelectCompanyOperation';
 import { changeCompanyOperationID } from './redux/companyOperationSlice';
 import ManageCompaniesOwner from './pages/DeliverySite/configureCompaniesOwner/ManageCompaniesOwner';
+import ManageCompaniesWorksOn from './pages/DeliverySite/configureCompaniesWorksOn/ManageCompaniesWorkOn';
+import ManageCompaniesWorkOn from './pages/DeliverySite/configureCompaniesWorksOn/ManageCompaniesWorkOn';
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -83,6 +85,7 @@ export default function Index() {
           <Route path="/" element={<LayoutDelivery />}>
             <Route path="/FelipeFPortfolio/delivery/*" element={<SelectCompanyOperation />} />
             <Route path="/FelipeFPortfolio/delivery/ManageCompaniesOwner/*" element={<ManageCompaniesOwner />} />
+            <Route path="/FelipeFPortfolio/delivery/ManageCompaniesWorkOn/*" element={<ManageCompaniesWorkOn />} />
 
           </Route>}
 

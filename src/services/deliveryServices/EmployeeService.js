@@ -72,3 +72,39 @@ export async function fireEmployeeService(companyId, employeeEmail) {
         if (error?.response) return error.response;
     }
 }
+
+export async function acceptCompanyInviteService(companyId) {
+
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/user-actions/accept-invite-company/${companyId}`, {},
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
+
+export async function quitCompanyService(companyId) {
+
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/user-actions/quit-company/${companyId}`, {},
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}

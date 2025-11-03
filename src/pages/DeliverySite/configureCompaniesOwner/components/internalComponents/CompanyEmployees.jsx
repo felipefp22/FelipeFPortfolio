@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, fontColorOne, transparentCavasOne, transparentCavasTwo } from "../../../../../theme/Colors";
+import { borderColorTwo, fontColorOne, greenOne, greenTwo, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../../theme/Colors";
 import { useState } from "react";
 import restaurantLogo from '../../../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -80,8 +80,12 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                                                     width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'transparent', border: "0px solid white", marginRight: 10
                                                 }} />
-                                                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
                                                     <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`${employesFiltered.employeeName} - ${employesFiltered.employeeEmail}`}</span>
+                                                    <span style={{
+                                                        fontSize: isDesktopView ? '14px' : '12px', marginLeft: '10px', fontWeight: 'bold',
+                                                        color: employesFiltered.status === 'ACTIVE' ? greenTwo(theme) : redOne(theme)
+                                                    }}>{`*${employesFiltered.status.split('_')[0]}`}</span>
                                                 </div>
                                             </div>
                                         ))

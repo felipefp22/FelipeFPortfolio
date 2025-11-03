@@ -45,7 +45,8 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                                     </div>
                                 </div>
 
-                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', margin: '0px 5px', padding: '10px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme) }}>
+                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', margin: '0px 5px', padding: '10px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme),
+                                    justifyContent: isDesktopView ? 'flex-start' : 'center', flexWrap: 'wrap', }}>
 
                                     {compound?.companies?.map((comp, idx) => (
                                         <div key={idx} style={{
@@ -69,7 +70,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                                     ))}
 
                                     <div style={{
-                                        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, marginLeft: 10, cursor: 'pointer', minWidth: '120px', width: '120px',
+                                        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, marginLeft: 10, cursor: 'pointer', minWidth: '160px', width: '160px',
                                         backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px', height: '150px',
                                     }}
                                         onClick={() => { setCreateCompanyModalOpen(compound?.id); }}>
