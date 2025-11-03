@@ -10,6 +10,7 @@ import ModalExample from "./modals/ModalExample";
 import CreateProductModal from "./modals/CreateProductModal";
 import { getImageFoodService } from "../../../FoodsImagesService";
 import EditProductModal from "./modals/EditProductModal";
+import CreateProductCategoryModal from "./modals/CreateProductCategoryModal";
 
 
 export default function CompanyProducts({ companyData, fetchCompanyData }) {
@@ -18,7 +19,9 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
 
     const [seeImageBig, setSeeImageBig] = useState(false);
 
-    const [openStates, setOpenStates] = useState({}); // 👈 store open/close states by index or category
+    const [openStates, setOpenStates] = useState({});
+
+    const [createProductCategoryModal, setCreateProductCategoryModal] = useState(false);
     const [createProductModal, setCreateProductModalOpen] = useState(false);
     const [editProductModal, setEditProductModal] = useState(false);
 
@@ -35,7 +38,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
         <>
             <div style={{
                 display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px',
-                minWidth: '300px', maxWidth: '100%', height: '72%', maxHeight: isDesktopView ? '770px': '600px', overflowX: "hidden", overflowY: 'hidden',
+                minWidth: '300px', maxWidth: '100%', height: '72%', maxHeight: isDesktopView ? '770px' : '600px', overflowX: "hidden", overflowY: 'hidden',
             }} >
                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '5px' }} >
                     <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Products"} </span>
@@ -43,6 +46,19 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflowY: 'auto', }}>
+                    <div style={{ marginBottom: '10px', marginRight: '10px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
+                            onClick={() => { setCreateProductCategoryModal(true) }}>
+
+                            <div style={{ borderRadius: '50%', backgroundColor: transparentCavasOne(theme), marginRight: 10, padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+                                <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: "space-between" }} >
+                                <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: '500' }}>{`Create Category`}</span>
+                            </div>
+                        </div>
+                    </div>
+
                     {companyData?.productsCategories?.map((category, index) => {
                         const isOpen = openStates[index];
                         return (
@@ -89,7 +105,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                                         ))
                                     ) : (
                                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`No Products Found`} </span>
+                                            {/* <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`No Products Found`} </span> */}
                                         </div>
                                     )}
                                 </div>}
@@ -103,6 +119,10 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                 <img src={seeImageBig} alt="Logo" style={{
                     maxWidth: "90%", maxHeight: "90%", borderRadius: '10px', objectFit: "contain", boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.5)"
                 }} />
+            </div>}
+
+            {createProductCategoryModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 1000 }} >
+                <CreateProductCategoryModal close={() => setCreateProductCategoryModal(false)} companyData={companyData} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
 
             {createProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 1000 }} >
