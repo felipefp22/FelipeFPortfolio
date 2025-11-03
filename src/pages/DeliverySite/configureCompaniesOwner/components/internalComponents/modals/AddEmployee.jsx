@@ -60,7 +60,7 @@ export default function AddEmployee({ close, companyData, positionsOpts, fetchCo
                         <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', whiteSpace: 'nowrap' }}>Email: </span>
 
                         <div style={{ display: 'flex', position: 'relative', flexGrow: 1, maxWidth: '550px' }}>
-                            <input className="inputOne" style={{ flexGrow: 1, }} type="text" value={emailToInvite || ""} onChange={(e) => setEmailToInvite(e.target.value)} />
+                            <input className="inputOne" style={{ flexGrow: 1, }} type="text" autoCapitalize="none" value={emailToInvite || ""} onChange={(e) => setEmailToInvite(e.target.value)} />
                             <div style={{
                                 borderRadius: '50%', backgroundColor: transparentCavasOne(theme), padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 width: 27, height: 27, cursor: 'pointer', position: 'absolute', right: 8, top: 4
@@ -85,6 +85,7 @@ export default function AddEmployee({ close, companyData, positionsOpts, fetchCo
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'center', marginBottom: '10px' }} >
                         <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', }}>Position: </span>
                         <select className="inputOne" value={position || ""} onChange={(e) => setPosition(e.target.value)} style={{ maxWidth: '220px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
+                            {!position && <option value="">Select position</option>}
                             {positionsOpts.map((value, index) => (
                                 <option key={index} value={value}>
                                     {value}
