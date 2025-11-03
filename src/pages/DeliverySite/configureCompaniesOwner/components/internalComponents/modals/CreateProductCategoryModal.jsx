@@ -1,7 +1,7 @@
 import { use, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { blueOne, greenOne, greenTwo, orangeOne, redOne } from "../../../../../../theme/Colors";
+import { blueOne, fontColorOne, greenOne, greenTwo, orangeOne, redOne } from "../../../../../../theme/Colors";
 import { borderColorTwo, transparentCavasOne, transparentCavasTwo } from "../../../../../../theme/Colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -42,6 +42,9 @@ export default function CreateProductCategoryModal({ close, companyData, fetchCo
             <div className="myModal" style={{ zIndex: 100 }} >
                 <div className="modalInside" style={{ width: 'auto', padding: '10px', width: !isDesktopView ? "95%" : "70%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, }}>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: ' 6px', width: '100%' }} >
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '5px' }} >
+                            <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{companyData?.companyName} </span>
+                        </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', width: isDesktopView ? '90%' : '100%', justifyContent: 'center', alignItems: 'center', padding: '10px 0px', backgroundColor: "rgba(255, 255, 255, 0.0)", }} >
                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', height: '100%', position: 'relative' }} >
