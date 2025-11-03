@@ -85,7 +85,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                                                     <span style={{
                                                         fontSize: isDesktopView ? '14px' : '12px', marginLeft: '10px', fontWeight: 'bold',
                                                         color: employesFiltered.status === 'ACTIVE' ? greenTwo(theme) : redOne(theme)
-                                                    }}>{`*${employesFiltered.status.split('_')[0]}`}</span>
+                                                    }}>{`*${employesFiltered?.status?.split('_')[0]}`}</span>
                                                 </div>
                                             </div>
                                         ))
