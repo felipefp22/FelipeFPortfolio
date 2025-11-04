@@ -24,7 +24,7 @@ export default function AcceptOrDenyWorksOnCompany({ close, companyData, fetchUs
     }
     async function handleAcceptInvitation() {
         console.log("Accepting invitation to company ID: ", companyData?.companyID);
-        const response = await acceptCompanyInviteService(companyData?.companyID);
+        const response = await acceptCompanyInviteService(companyData?.id);
         if (response?.status === 204) {
             fetchUserInfos();
             close();

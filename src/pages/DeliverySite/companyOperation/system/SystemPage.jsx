@@ -16,6 +16,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);
+    const [isOwnerOrManagerOrSupervisor, setIsOwnerOrManagerOrSupervisor] = useState(false);
 
     const companyOperation = useSelector((state) => state.companyOperation);
     const orders = useSelector((state) => state.companyOperation.orders);
@@ -33,6 +34,17 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
     const [seeCompletedOrders, setSeeCompletedOrders] = useState(false);
     const [seeCanceledOrders, setSeeCanceledOrders] = useState(false);
 
+    useEffect(() => {
+        seeIfisOwnerOrManagerOrSupervisor(companyOperation);
+    }, [companyOperation]);
+
+    function seeIfisOwnerOrManagerOrSupervisor(companyOperationIn) {
+        if ((companyOperationIn?.ownerID && companyOperationIn?.ownerID === localStorage.getItem('userLoggedEmail'))
+            || (companyOperationIn?.employees && companyOperationIn?.employees.some(employee => employee.employeeEmail === localStorage.getItem('userLoggedEmail') && employee.position === 'MANAGER'))
+            || (companyOperationIn?.employees && companyOperationIn?.employees.some(employee => employee.employeeEmail === localStorage.getItem('userLoggedEmail') && employee.position === 'SUPERVISOR'))) {
+            setIsOwnerOrManagerOrSupervisor(true);
+        }
+    }
 
     async function findOrderToCancel() {
         let orderFound;
@@ -49,10 +61,11 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
         setSelectedOrderToCancel(null);
     }
 
+
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingTop: '8px', paddingLeft: '3px', overflowY: 'auto', }}>
-                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px',  }}>
+                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', }}>
                     <button className="buttomDarkGray" style={{ marginBottom: '20px', marginLeft: '0px', }}
                         onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
                 </div>}
@@ -61,13 +74,13 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                     {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', color: fontColorOne(theme) }}>
                             <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders Cooking</span>
-                            <button className="floatingButton" style={{
+                            {isOwnerOrManagerOrSupervisor && <button className="floatingButton" style={{
                                 backgroundColor: redOne(theme), marginBottom: '10px', marginRight: '5px',
                                 visibility: ((selectedCookingOrderID.length === 1 && selectedOnDeliveryOrderID.length === 0) || (selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length === 1)) ? 'visible' : 'hidden'
                             }}
                                 onClick={() => findOrderToCancel()}>
                                 <span>Cancel</span>
-                            </button>
+                            </button>}
                         </div>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table hover responsive="sm" >
@@ -203,20 +216,20 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                 </div >
             </div>
 
-            {changeStatusOrderModal && <div className="myModal" style={{  }} >
+            {changeStatusOrderModal && <div className="myModal" style={{}} >
                 <ChangeOrderStatusModal close={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedCookingOrderID={selectedCookingOrderID}
-                 setSelectedCookingOrderID={setSelectedCookingOrderID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
+                    setSelectedCookingOrderID={setSelectedCookingOrderID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
             </div>}
 
-            {selectedOrderToCancel && <div className="myModal" style={{  }} >
+            {selectedOrderToCancel && <div className="myModal" style={{}} >
                 <CancelOrder close={() => closeOrderToCancel()} companyOperationID={companyOperation?.companyOperationID} selectedOrderToCancel={selectedOrderToCancel} getShiftOperationData={getShiftOperationData} />
             </div>}
 
-            {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{  }} >
+            {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{}} >
                 <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperationID={companyOperation?.companyOperationID} getShiftOperationData={getShiftOperationData} />
             </div>}
 
-            {completeOrdersModal && <div className="myModal" style={{  }} >
+            {completeOrdersModal && <div className="myModal" style={{}} >
                 <CompleteOrdersModal close={() => { setSelectedOnDeliveryOrderID([]); setCompleteOrdersModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} getShiftOperationData={async () => await getShiftOperationData()} />
             </div>}
         </>

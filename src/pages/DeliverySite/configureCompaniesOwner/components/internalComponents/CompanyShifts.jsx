@@ -30,7 +30,6 @@ export default function CompanyShifts({ companyData, fetchCompanyData }) {
                 {/* <span>Still not Implemented - It's Skill demonstration APP, I am working on it when I have free time ;)</span> */}
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '5px', margin: '10px auto', borderRadius: '6px', width: isDesktopView ? '90%' : '100%' }} >
-                    <br />
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%', justifyContent: 'center' }} >
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }} >
                             <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '16px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{`Shift - ${companyData?.currentShift?.shiftNumber ?? ""}`}</span>

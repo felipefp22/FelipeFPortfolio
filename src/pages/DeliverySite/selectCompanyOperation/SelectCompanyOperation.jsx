@@ -6,12 +6,14 @@ import restaurantLogo from '../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
 import CreateGroupAndCompanyModal from "./components/CreateGroupAndCompanyModal";
-import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
+import { blueOne, borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
 import OpenShiftModal from "./components/OpenShiftModal";
 import { changeCompanyOperationID } from "../../../redux/companyOperationSlice";
+import { useNavigate } from "react-router-dom";
 
 
 export default function SelectCompanyOperation({ }) {
+    const navigate = useNavigate();
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const theme = useSelector((state) => state.view.theme);
     const dispatch = useDispatch();
@@ -90,7 +92,7 @@ export default function SelectCompanyOperation({ }) {
                         <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%' }}>
 
                             {companiesCoumpound?.map((compound, index) => (
-                                <div key={index} style={{ marginBottom: '10px'}}>
+                                <div key={index} style={{ marginBottom: '10px' }}>
                                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
                                         onClick={() => setSelectedCompaniesCoumpound(selectedCompaniesCoumpound === compound.id ? null : compound.id)}>
 
@@ -129,17 +131,31 @@ export default function SelectCompanyOperation({ }) {
                             <span style={{ fontWeight: 'bold', fontSize: isDesktopView ? '24px' : '16px' }}>Companies You Work:</span>
 
                             {companiesUserWorksOn?.map((comp, idx) => (
-                                <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
+                                <div key={idx} style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
 
                                     <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
-                                        onClick={() => { localStorage.setItem('companyOperatingID', comp.id); setCompanySelected(comp.id); }}>
+                                        onClick={() => {
+                                            if (comp?.status === 'ACTIVE') {
+                                                (comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? setOpenShiftModal(comp) : setCompanyToOperate(comp.id)) : setOpenShiftModal(comp));
+                                            } else if (comp?.status === "WAITING_ACCEPTANCE") {
+                                                navigate('/FelipeFPortfolio/delivery/ManageCompaniesWorkOn')
+                                            }
+                                        }}>
                                         <img src={restaurantLogo} alt="Logo" style={{
                                             width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
                                             borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                         }} />
-                                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                        {comp?.status === 'ACTIVE' && <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
                                             <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
-                                        </div>
+                                            <span style={{ fontSize: isDesktopView ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? redOne(theme) : greenOne(theme)) : redOne(theme) }}>
+                                                {comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? ' Shift closed' : ` Shift ${formatDateToDayMonth(comp?.lastOrOpenShift?.startTimeUTC)}`) : ' Shift closed'} </span>
+                                        </div>}
+
+                                        {comp?.status === 'WAITING_ACCEPTANCE' && <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
+                                            <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{`${comp.companyName}`}</span>
+                                            <span style={{ fontSize: isDesktopView ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: blueOne(theme) }}>
+                                                {`Accept Invite First`}</span>
+                                        </div>}
                                     </div>
                                 </div>
                             ))}

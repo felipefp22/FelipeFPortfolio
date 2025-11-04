@@ -21,6 +21,8 @@ export default function CancelOrder({ close, companyOperationID, selectedOrderTo
         if (response.status === 200) {
             getShiftOperationData();
             close();
+        } else {
+            alert(`Error cancelling order ${response?.data ?? ''}`);
         }
 
         setProcessing(false);

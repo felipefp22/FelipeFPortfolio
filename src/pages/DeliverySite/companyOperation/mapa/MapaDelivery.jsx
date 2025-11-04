@@ -56,7 +56,7 @@ export default function MapaDelivery({ }) {
       // Adicionando marcador principal
       const restaurantIcon = L.icon({
         iconUrl: restaurantLogo,
-        iconSize: [70, 70],
+        iconSize: [50, 50],
         iconAnchor: [20, 40],
         popupAnchor: [0, -40],
       });

@@ -54,6 +54,7 @@ export const slice = createSlice({
       state.companyLng = null;
       state.orders = null;
       state.employees = null;
+      state.ownerID = null;
     }
   }
 })
