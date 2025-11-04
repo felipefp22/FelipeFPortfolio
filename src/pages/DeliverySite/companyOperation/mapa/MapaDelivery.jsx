@@ -118,7 +118,7 @@ export default function MapaDelivery({ }) {
         markersRef.current.clearLayers(); // Clear existing markers
       }
 
-      const locations = orders.map(order => ({
+      const locations = orders && orders.filter(order => order.tableNumberOrDeliveryOrPickup === 'delivery').map(order => ({
         latitude: order?.customer?.lat,
         longitude: order?.customer?.lng,
         orderNum: order?.orderNumberOnShift,

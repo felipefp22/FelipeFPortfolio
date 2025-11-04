@@ -114,8 +114,13 @@ button:hover {
 }
 
 .inputOne:focus {
-    outline: 2px solid var(--borderColorTwoTransparent); /* optional: removes the default blue outline */
+    outline: 2px solid var(--borderColorTwoTransparent); 
 }
+
+.inputOne:hover {
+    outline: 2px solid var(--borderColorTwoTransparent); 
+}
+
 
 .textAreaOne{
     width: 90%;
