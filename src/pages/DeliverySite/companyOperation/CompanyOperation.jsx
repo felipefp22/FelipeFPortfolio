@@ -95,6 +95,7 @@ export default function CompanyOperation() {
     const response = await getShiftOperation(companyOperationData?.companyOperationID);
     if (response?.status === 200) {
       const shiftOperationData = response?.data;
+      // console.log('orders: ', shiftOperationData?.orders);
       dispatch(changeCurrentShift(shiftOperationData?.currentShift || null));
       dispatch(changeOrders(shiftOperationData?.orders || []));
     } else {

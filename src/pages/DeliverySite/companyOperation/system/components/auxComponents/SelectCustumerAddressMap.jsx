@@ -18,7 +18,7 @@ const addressIcon = L.icon({
     popupAnchor: [0, -40],
 });
 
-export default function SelectCustumerAddressMap({ lat, lng, address }) {
+export default function SelectCustumerAddressMap({ lat, lng, address, setLat, setLng, setSearchAddressInput, showAddressSelectorDropdown }) {
 
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const companyOperation = useSelector((state) => state.companyOperation);
@@ -33,6 +33,11 @@ export default function SelectCustumerAddressMap({ lat, lng, address }) {
     const lastSize = useRef({ width: 0, height: 0 });
     const addressMarkerRef = useRef(null);
 
+    const showAddressSelectorDropdownRef = useRef(showAddressSelectorDropdown);
+
+    useEffect(() => {
+        showAddressSelectorDropdownRef.current = showAddressSelectorDropdown;
+    }, [showAddressSelectorDropdown]);
 
     useEffect(() => {
         if (companyOperation?.companyLat !== companyLat && companyOperation?.companyLng !== companyLng) {
@@ -61,6 +66,15 @@ export default function SelectCustumerAddressMap({ lat, lng, address }) {
 
             markersRef.current = L.layerGroup().addTo(mapRef.current);
 
+            mapRef.current.on("mousedown", function (e) {
+                const { lat, lng } = e.latlng;
+
+                if (!showAddressSelectorDropdownRef.current) setTimeout(() => {
+                     setSearchAddressInput(`${lat}, ${lng}`);
+                }, 100);
+                // if (!showAddressSelectorDropdown) findAddressDirectlyByLatAndLngClick(`${lat}, ${lng}`);
+            });
+
             //------------------------------
             return () => {
                 mapRef.current.remove(); // Remove o mapa ao desmontar para evitar leaks de memória
@@ -87,7 +101,7 @@ export default function SelectCustumerAddressMap({ lat, lng, address }) {
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minWidth: 0, overflow: 'hidden', borderRadius: '6px' }} ref={mapContainerRef}>
-                <div id="mapa" style={{ width: '100%', height: '100%', minHeight: 0 }} />
+                <div id="mapa" style={{ width: '100%', height: '100%', minHeight: 0, cursor: 'pointer' }} />
             </div>
         </>
     )

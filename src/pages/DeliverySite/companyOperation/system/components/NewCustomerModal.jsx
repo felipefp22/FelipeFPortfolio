@@ -1,7 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import { createCustomer } from "../../../../../services/deliveryServices/CustomerSevice";
 import { useSelector } from "react-redux";
 import SelectCustumerAddressMap from "./auxComponents/SelectCustumerAddressMap";
@@ -32,23 +32,20 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
     const typingTimeoutRef = useRef(null);
     const [addressFoundOptions, setAddressFoundOptions] = useState(false);
     const [addressFoundSelected, setAddressFoundSelected] = useState(null);
+    const [addressSearchLoading, setAddressSearchLoading] = useState(false);
 
     const [showBoxCreateFakesCustomers, setShowBoxCreateFakesCustomers] = useState(false);
 
-    // async function handleCustomerSearchInputChange(e) {
-    //     setCustomerInputToSearch(e.target.value);
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (customerSelectorDropdownRef.current && !customerSelectorDropdownRef.current.contains(event.target)) {
+                setShowAddressSelectorDropdown(false);
+            }
+        };
 
-    //     const lowerInput = e.target.value.toLowerCase();
-
-    //     // const filtered = doctorSpecialitiesOpts
-    //     //     .filter(opt =>
-    //     //         opt.ptbrLabel.toLowerCase().includes(lowerInput) &&
-    //     //         !doctorSpecialties.includes(opt.doctorSpecialty)
-    //     //     )
-    //     //     .map(opt => opt.doctorSpecialty);
-
-    //     // setFilteredSpecialities(filtered);
-    // };
+        document.addEventListener("click", handleClickOutside);
+        return () => document.removeEventListener("click", handleClickOutside);
+    }, []);
 
     async function saveCustomer() {
         if (!name || !phone || !address || !addressNumber || !city || !state || !zipCode || !lat || !lng) {
@@ -58,8 +55,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
 
         const response = await createCustomer(companyOperationID, name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
         if (response?.status === 200) {
-            alert("Customer created successfully");
-            fetchCustomers();
+            fetchCustomers(response?.data?.id);
             close();
         } else {
             alert("Error creating customer: ", response?.data);
@@ -69,17 +65,27 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
     async function findAddress() {
         const response = await searchAddress(searchAddressInput);
         setAddressFoundOptions(response?.data?.length > 0 ? response?.data : []);
-        setShowAddressSelectorDropdown(true);
+        setAddressSearchLoading(false);
     }
 
     useEffect(() => {
         // Clear previous debounce timer
         if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
 
-        // Start a new debounce timer (2 seconds)
-        typingTimeoutRef.current = setTimeout(() => {
-            if (searchAddressInput?.length > 3) findAddress();
-        }, 1000);
+
+        if (searchAddressInput?.length > 3) {
+            setShowAddressSelectorDropdown(true);
+
+            // Start a new debounce timer (2 seconds)
+            typingTimeoutRef.current = setTimeout(() => {
+                setAddressSearchLoading(true);
+                findAddress();
+            }, 700);
+        } else {
+            setShowAddressSelectorDropdown(false);
+            setAddressSearchLoading(false);
+        }
+
     }, [searchAddressInput]);
 
 
@@ -95,47 +101,47 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
 
     return (
         <>
-            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "85%", maxHeight: '90%', padding: !isDesktopView ? '10px' : '20px',  zIndex: 10,}}>
+            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "97%", maxHeight: '90%', padding: !isDesktopView ? '10px' : '20px', zIndex: 10, }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', fontSize: isDesktopView ? '14px' : '12px', }}>
                     {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
                         <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowBoxCreateFakesCustomers(true)}>Create FAKES Customers To Test</button>
                     </div> */}
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
-                            <span style={{ fontWeight: "600", }}>Customer Name</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', width: '60%', }}>
+                            <span style={{ fontWeight: "600", fontSize: isDesktopView ? '16px' : '14px', }}>Customer Name</span>
                             <input className="inputOne" type="text" value={name} onChange={(e) => setName(e.target.value)}
-                                style={{ height: '30px', fontSize: '16px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black' }} />
+                                style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black' }} />
                         </div>
                         <div style={{ width: '3%' }}></div>
-                        <div style={{ display: 'flex', flexDirection: 'column', width: '28%', }}>
-                            <span style={{ fontWeight: "600" }}>Phone</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', width: '32%', }}>
+                            <span style={{ fontWeight: "600", fontSize: isDesktopView ? '16px' : '14px', }}>Phone</span>
                             <input className="inputOne" type="text" value={phone} onChange={(e) => setPhone(e.target.value)}
-                                style={{ height: '30px', fontSize: '16px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black'}} />
+                                style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black', textAlign: 'left' }} />
                         </div>
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', fontSize: isDesktopView ? '14px' : '12px', }}>
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '72%', }}>
-                            <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
-                            <input className="inputOne" type="text" value={address} onChange={(e) => setAddress(e.target.value)}
-                                style={{ height: '30px', fontSize: '16px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black' }} />
+                            <span style={{ fontWeight: "600", marginBottom: '5px', fontSize: isDesktopView ? '16px' : '14px', }}>Customer Address</span>
+                            <input className="inputOne" type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={true}
+                                style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'lightgray', color: 'black' }} />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
-                            <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Number</span>
-                            <input className="inputOne" type="text" value={addressNumber} onChange={(e) => setAddressNumber(e.target.value)}
-                                style={{ height: '30px', fontSize: '16px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black' }} />
+                            <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isDesktopView ? '16px' : '14px', }}>Number</span>
+                            <input className="inputOne" type="text" value={addressNumber} onChange={(e) => setAddressNumber(e.target.value)} disabled={!lat || !lng || !address}
+                                style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: (!lat || !lng || !address) ? 'lightgray' : 'white', color: 'black', textAlign: 'right' }} />
                         </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '95%' }}>
-                        <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Complement</span>
-                        <input className="inputOne" type="text" value={complement} onChange={(e) => setComplement(e.target.value)}
-                            style={{ height: '30px', fontSize: '16px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black' }} />
+                        <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isDesktopView ? '16px' : '14px', }}>Complement</span>
+                        <input className="inputOne" type="text" value={complement} onChange={(e) => setComplement(e.target.value)} disabled={!lat || !lng || !address}
+                            style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: (!lat || !lng || !address) ? 'lightgray' : 'white', color: 'black' }} />
                     </div>
                 </div>
 
@@ -158,7 +164,10 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                         {showAddressSelectorDropdown && (
                             <ul style={{ position: 'absolute', left: 9, top: 40, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 10000, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
                                 {addressFoundOptions?.length > 0 ? (
-                                    addressFoundOptions.map((addressOpt, index) => (
+                                    addressFoundOptions.map((addressOpt, index) =>
+                                    (addressSearchLoading ? (
+                                        <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: 'gray', marginTop: '10px' }} />
+                                    ) : (
                                         <li
                                             key={index}
                                             onMouseDown={() => { setAddressFoundSelected(addressOpt); setShowAddressSelectorDropdown(false); }}
@@ -166,14 +175,17 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                                         >
                                             {addressOpt?.display_name}
                                         </li>
-                                    ))
+                                    )))
+                                ) : (addressSearchLoading ? (
+                                    <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: 'gray', marginTop: '10px' }} />
                                 ) : (
                                     <li style={{ fontWeight: "600" }} >{"No matches found"}</li>
-                                )}
+                                ))
+                                }
                             </ul>
                         )}
                     </div>
-                    <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} />
+                    <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} setSearchAddressInput={setSearchAddressInput} showAddressSelectorDropdown={showAddressSelectorDropdown} />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '0px' }}>

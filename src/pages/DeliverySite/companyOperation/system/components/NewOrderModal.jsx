@@ -37,11 +37,16 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
     const [tableNumberOrDeliveryOrPickupSelected, setTableNumberOrDeliveryOrPickupSelected] = useState(tableNumberSelectedBeforeModal ?? "");
 
-    async function fetchCustomers() {
+    async function fetchCustomers(customerIDToSelectAfterFetch) {
         try {
             const response = await getAllCompanyCustomers(companyOperation?.companyOperationID);
             if (response?.status === 200) {
                 setAllCompanyCustomers(response?.data || []);
+
+                if (customerIDToSelectAfterFetch) {
+                    const customerFound = response?.data.find(customer => customer.id === customerIDToSelectAfterFetch);
+                    setCustomerSelectedToNewOrder(customerFound);
+                }
             }
         } catch (error) {
             console.log(error);
@@ -119,7 +124,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             companyOperation?.companyOperationID,
             tableNumberOrDeliveryOrPickupSelected,
             customerSelectedToNewOrder?.id,
-            customerSelectedToNewOrder?.customerName,
+            pickupNameInput ? pickupNameInput : customerSelectedToNewOrder?.customerName,
             itemsIdAndQuantity,
             " "
         );
@@ -153,11 +158,12 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
     return (
         <>
-            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "90%", maxHeight: !isDesktopView ? '90%' : '80%', padding: !isDesktopView ? '10px' : '20px', zIndex: 10, }}>
+            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "97%", maxHeight: !isDesktopView ? '90%' : '80%', padding: !isDesktopView ? '10px' : '20px', zIndex: 10, }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px' }} onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
+                        <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px',  }}
+                         onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
                             <select className="inputOne" value={!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? tableNumberOrDeliveryOrPickupSelected : ""} placeholder="Table" onChange={(e) => setTableNumberOrDeliveryOrPickupSelected(Number(e.target.value))}
@@ -302,7 +308,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             </div>
 
             {showNewCustomerModal && <div ref={newCustomerModalRef} className="myModal" style={{ zIndex: 10 }} >
-                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperation?.companyOperationID} fetchCustomers={() => fetchCustomers()} />
+                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperation?.companyOperationID} fetchCustomers={(e) => fetchCustomers(e)} />
             </div>}
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ zIndex: 10 }} >
