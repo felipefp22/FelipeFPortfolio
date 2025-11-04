@@ -132,8 +132,7 @@ export default function CompanyOperation() {
 
   useEffect(() => {
     const menuTab = queryParams.get('tab');
-    console.log("menuTab:", menuTab);
-    setSystemPageSelected(menuTab.replace(/%20/g, ' '));
+    if (menuTab) setSystemPageSelected(menuTab.replace(/%20/g, ' '));
 
   }, [queryParams]);
 
