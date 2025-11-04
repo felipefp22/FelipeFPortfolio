@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
 import ChangeTableOrCustomerModal from "./auxComponents/ChangeTableOrCustomerModal";
+import { blueOne } from "../../../../../theme/Colors";
 
 
 
@@ -114,6 +115,7 @@ export default function EditOrderModal({ close, companyOperation, tableNumberSel
                         </div>
                     </div>
                 </div>
+                <span style={{ color: blueOne(theme), fontWeight: 'bold', fontSize: "20px", textAlign: 'center' }}>{`*** Still on Development ***`}</span>
             </div>
 
             {showChangeTableOrCustomerModal && <div className="myModal" style={{ zIndex: 100 }} >
@@ -123,6 +125,7 @@ export default function EditOrderModal({ close, companyOperation, tableNumberSel
             {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ zIndex: 1000 }} >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
             </div>}
+
         </>
     );
 }

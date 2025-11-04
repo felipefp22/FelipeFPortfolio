@@ -136,8 +136,6 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                         </div>
                     </div>
                     <br />
-                    <span style={{ color: blueOne(theme), fontWeight: 'bold', fontSize: "20px", textAlign: 'center' }}>{`*** Still on Development ***`}</span>
-
                 </div >
             </div>
 

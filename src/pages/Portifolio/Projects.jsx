@@ -15,9 +15,10 @@ import reactNativeLogo from '../../assets/reactNativeLogo.png';
 import sqlLogo from '../../assets/sqlLogo.png';
 import mongoDbLogo from '../../assets/mongoDbLogo.png';
 import dockerLogo from '../../assets/dockerLogo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Projects({ activeMenu }) {
+    const navigate = useNavigate();
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const { t, i18n } = useTranslation();
@@ -82,7 +83,7 @@ export default function Projects({ activeMenu }) {
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }} >
                         <span style={{ fontWeight: 'bold', fontSize: isDesktopView ? '22px' : '19px', marginBottom: '5px', cursor: 'pointer', }} onClick={() => window.open("https://felipefp22.github.io/FelipeFPortfolio/delivery/", "_blank")}>{t("projects.restaurantDelivery.title")}</span>
                         <img src={restaurantSystemPhoto} alt="Logo" style={{ width: isDesktopView ? 300 : 250, marginBottom: '15px', cursor: 'pointer', borderRadius: '6px' }}
-                            onClick={() => { window.open(`${window.location.origin}/FelipeFPortfolio/delivery/`, "_blank"); }} />
+                            onClick={() => { navigate(`/FelipeFPortfolio/delivery/`); }} />
 
                         <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '10px' }}>
                             <img src={javaLogo} alt="Logo" style={{
@@ -116,7 +117,9 @@ export default function Projects({ activeMenu }) {
 
                             <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', justifyContent: 'left' }} >
                                 <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description2")}
-                                    <a href={`${window.location.origin}/FelipeFPortfolio/delivery/`} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Link</a></span>
+                                    {/* <a href={`${window.location.origin}/FelipeFPortfolio/delivery/`} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Link</a></span> */}
+                                    <a onClick={() => navigate(`/FelipeFPortfolio/delivery/`)} style={{ color: 'rgba(70, 181, 255, 1)' }}>Link</a></span>
+
 
                                 <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description3")}
                                     <a href="https://github.com/felipefp22/RestaurantSystem" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Java Code</a></span>
