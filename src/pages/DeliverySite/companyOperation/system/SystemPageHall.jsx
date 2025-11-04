@@ -90,7 +90,11 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                                     <div key={idx} style={{
                                         display: 'flex', flexDirection: 'column', alignItems: 'center', width: isDesktopView ? '90px' : '65px', height: isDesktopView ? "104px" : "84px", margin: 5, cursor: 'pointer',
                                         borderRadius: '5px', backgroundColor: (tableNumber === selectedTable) ? 'lightblue' : 'transparent'
-                                    }} onClick={() => { setSelectedTable(tableNumber); }} onDoubleClick={() => { setSelectedTable(tableNumber); setEditOrderModal(true); }}>
+                                    }} onClick={() => { setSelectedTable(tableNumber); }}
+                                        onDoubleClick={() => { setSelectedTable(tableNumber); setEditOrderModal(true); }}
+                                        onTouchStart={(e) => { e.currentTarget.longPressTimer = setTimeout(() => { setSelectedTable(tableNumber); setEditOrderModal(true); }, 600); }}
+                                        onTouchEnd={(e) => { clearTimeout(e.currentTarget.longPressTimer); }} onTouchMove={(e) => { clearTimeout(e.currentTarget.longPressTimer); }}>
+                                            
                                         <img src={tableColorImage} alt={""} style={{ width: isDesktopView ? '80px' : '60px', height: isDesktopView ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
                                         <span style={{ color: 'black', fontWeight: 'bold', fontSize: "16px", textAlign: 'center' }}>{`${tableNumber}`}</span>
                                     </div>
