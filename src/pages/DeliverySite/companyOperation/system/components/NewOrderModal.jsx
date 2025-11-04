@@ -10,7 +10,7 @@ import { createOrder } from "../../../../../services/deliveryServices/OrderServi
 import { useSelector } from "react-redux";
 import { borderColorTwo, greenOne } from "../../../../../theme/Colors";
 
-export default function NewOrderModal({ close, companyOperationID, getShiftOperationData, tableNumberSelectedBeforeModal }) {
+export default function NewOrderModal({ close, companyOperation, getShiftOperationData, tableNumberSelectedBeforeModal }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -37,7 +37,7 @@ export default function NewOrderModal({ close, companyOperationID, getShiftOpera
 
     async function fetchCustomers() {
         try {
-            const response = await getAllCompanyCustomers(companyOperationID);
+            const response = await getAllCompanyCustomers(companyOperation?.companyOperationID);
             if (response?.status === 200) {
                 setAllCompanyCustomers(response?.data || []);
             }
@@ -48,7 +48,7 @@ export default function NewOrderModal({ close, companyOperationID, getShiftOpera
 
     async function fetchProductsCategories() {
         try {
-            const response = await getAllProductsCategories(companyOperationID);
+            const response = await getAllProductsCategories(companyOperation?.companyOperationID);
             if (response?.status === 200) {
                 setAllCompanyProductsCategories(response?.data || []);
             }
@@ -77,6 +77,10 @@ export default function NewOrderModal({ close, companyOperationID, getShiftOpera
         setCustomersMatched(filtered);
     };
 
+    useEffect(() => {
+        console.log('companyop: ', companyOperation);
+    }, [companyOperation]);
+
     async function saveOrder() {
         setDisabled(true);
         if (!customerSelectedToNewOrder) {
@@ -101,7 +105,7 @@ export default function NewOrderModal({ close, companyOperationID, getShiftOpera
         );
 
         const response = await createOrder(
-            companyOperationID,
+            companyOperation?.companyOperationID,
             tableNumberOrDeliveryOrPickupSelected,
             customerSelectedToNewOrder?.id,
             customerSelectedToNewOrder?.customerName,
@@ -135,11 +139,21 @@ export default function NewOrderModal({ close, companyOperationID, getShiftOpera
                         <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px' }} onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
-                            <button className="buttomDarkGray" style={{
-                                fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px', minWidth: '45px',
-                                backgroundColor: tableNumberOrDeliveryOrPickupSelected === tableNumberSelectedBeforeModal ? greenOne(theme) : ''
-                            }}
-                                onClick={() => setTableNumberOrDeliveryOrPickupSelected(tableNumberSelectedBeforeModal)} disabled={disabled}>{tableNumberSelectedBeforeModal === tableNumberOrDeliveryOrPickupSelected ? tableNumberSelectedBeforeModal : 'Table'}</button>
+                            <select className="inputOne" value={!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? tableNumberOrDeliveryOrPickupSelected : ""} placeholder="Table" onChange={(e) => setTableNumberOrDeliveryOrPickupSelected(Number(e.target.value))}
+                                style={{
+                                    minWidth: '80px', maxWidth: '120px', height: '39px', padding: '5px', borderRadius: '6px', fontSize: '16px', textAlign: 'center',
+                                    backgroundColor: !isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? greenOne(theme) : ''
+                                }} >
+                                {isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) && <option value="" disabled hidden> Table </option>}
+                                {Array.from({ length: companyOperation?.numberOfTables || 0 }, (_, i) => {
+                                    const tableNumber = i + 1; // tables start from 1
+                                    const disableOpt = companyOperation?.orders.some(order => Number(order.tableNumberOrDeliveryOrPickup) === Number(tableNumber));
+                                    return (
+                                        <option key={tableNumber} value={tableNumber} disabled={disableOpt} style={{ backgroundColor: disableOpt ? 'black' : undefined, color: disableOpt ? 'rgba(255, 255, 255, 0.35)' : undefined }}> {tableNumber} </option>
+                                    );
+                                })}
+                            </select>
+
                             <button className="buttomDarkGray" style={{
                                 fontSize: isDesktopView ? '14px' : '12px', marginLeft: '2px', padding: isDesktopView ? '0px 5px' : '0px 2px',
                                 backgroundColor: tableNumberOrDeliveryOrPickupSelected === 'pickup' ? greenOne(theme) : ''
@@ -253,7 +267,7 @@ export default function NewOrderModal({ close, companyOperationID, getShiftOpera
             </div>
 
             {showNewCustomerModal && <div ref={newCustomerModalRef} className="myModal" style={{ zIndex: 10 }} >
-                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperationID} fetchCustomers={() => fetchCustomers()} />
+                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperation?.companyOperationID} fetchCustomers={() => fetchCustomers()} />
             </div>}
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ zIndex: 10 }} >

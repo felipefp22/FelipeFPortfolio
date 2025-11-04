@@ -88,7 +88,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN").sort((a, b) => Date.parse(a.openOrderDateUtc + "Z") - Date.parse(b.openOrderDateUtc + "Z")).map((order, index) => (
+                                    {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => Date.parse(a.openOrderDateUtc + "Z") - Date.parse(b.openOrderDateUtc + "Z")).map((order, index) => (
                                         <tr key={order.id} className={selectedCookingOrderID?.includes(order.id) ? "table-active" : ""}
                                             onClick={() => { setSelectedOnDeliveryOrderID([]); setSelectedCookingOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                             <td>{order.orderNumberOnShift}</td>
@@ -124,7 +124,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    {orders && orders.length > 0 && orders.filter(order => order.status === "CLOSEDWAITINGPAYMENT").sort((a, b) => Date.parse(a.closedWaitingPaymentAtUtc + "Z") - Date.parse(b.closedWaitingPaymentAtUtc + "Z")).map((order, index) => (
+                                    {orders && orders.length > 0 && orders.filter(order => order.status === "CLOSEDWAITINGPAYMENT" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => Date.parse(a.closedWaitingPaymentAtUtc + "Z") - Date.parse(b.closedWaitingPaymentAtUtc + "Z")).map((order, index) => (
                                         <tr key={order.id} className={selectedOnDeliveryOrderID?.includes(order.id) ? "table-active" : ""}
                                             onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                             <td>{order.orderNumberOnShift}</td>
@@ -165,7 +165,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    {orders && orders.length > 0 && orders.filter(order => order.status === "PAID").sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
+                                    {orders && orders.length > 0 && orders.filter(order => order.status === "PAID" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
                                         <tr key={order.id} >
                                             <td>{order.orderNumberOnShift}</td>
                                             <td>{order.customer?.customerName || "No Name"}</td>
@@ -197,7 +197,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    {orders && orders.length > 0 && orders.filter(order => order.status === "CANCELLED").sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
+                                    {orders && orders.length > 0 && orders.filter(order => order.status === "CANCELLED" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
                                         <tr key={order.id} >
                                             <td>{order.orderNumberOnShift}</td>
                                             <td>{order.customer?.customerName || "No Name"}</td>
@@ -222,7 +222,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
             </div>}
 
             {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{}} >
-                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperationID={companyOperation?.companyOperationID} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={'delivery'} />
+                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={'delivery'} />
             </div>}
 
             {completeOrdersModal && <div className="myModal" style={{}} >

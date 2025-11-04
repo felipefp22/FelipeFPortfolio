@@ -103,7 +103,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
             </div>
 
             {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{}} >
-                <NewOrderModal close={() => { setNewOrderModal(false); }} companyOperationID={companyOperation?.companyOperationID} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
+                <NewOrderModal close={() => { setNewOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
             </div>}
         </>
     );

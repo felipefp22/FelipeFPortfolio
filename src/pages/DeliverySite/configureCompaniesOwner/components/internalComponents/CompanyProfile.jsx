@@ -127,7 +127,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
                             {!editing && <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{numberOfTables ?? "N/A"}</span>}
                             {editing && <select className="inputOne" value={numberOfTables || 0} onChange={(e) => setNumberOfTables(Number(e.target.value))} style={{ maxWidth: '120px', padding: '5px', borderRadius: '6px', fontSize: '16px', textAlign: 'center' }} >
                                 {Array.from({ length: 301 }, (_, i) => (
-                                    <option key={i} value={i}>{i}</option>
+                                    <option key={i+1} value={i+1}>{i+1}</option>
                                 ))}
                             </select>}
                         </div>
