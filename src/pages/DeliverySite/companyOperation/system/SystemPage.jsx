@@ -8,6 +8,8 @@ import CancelOrder from "./components/CancelOrderModal.jsx";
 import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
 import ChangeOrderStatusModal from "./components/ChangeOrderStatusModal.jsx";
 import { borderColorTwo, fontColorOne, redOne, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
+import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
+import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 
 
 export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
@@ -16,11 +18,12 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);
-    const [isOwnerOrManagerOrSupervisor, setIsOwnerOrManagerOrSupervisor] = useState(false);
+
+    const [requesterIdOwnerOrManager, setRequesterIdOwnerOrManager] = useState(false);
+    const [requesterIsOwnerOrManagerOrSupervisor, setRequesterIsOwnerOrManagerOrSupervisor] = useState(false);
 
     const companyOperation = useSelector((state) => state.companyOperation);
     const orders = useSelector((state) => state.companyOperation.orders);
-
 
     const [selectedCookingOrderID, setSelectedCookingOrderID] = useState([]);
     const [selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID] = useState([]);
@@ -35,16 +38,9 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
     const [seeCanceledOrders, setSeeCanceledOrders] = useState(false);
 
     useEffect(() => {
-        seeIfisOwnerOrManagerOrSupervisor(companyOperation);
+        if (companyOperation) setRequesterIdOwnerOrManager(isOwnerOrManager(localStorage.getItem("userLoggedEmail"), companyOperation));
+        if (companyOperation) setRequesterIsOwnerOrManagerOrSupervisor(isOwnerOrManagerOrSupervisor(localStorage.getItem("userLoggedEmail"), companyOperation));
     }, [companyOperation]);
-
-    function seeIfisOwnerOrManagerOrSupervisor(companyOperationIn) {
-        if ((companyOperationIn?.ownerID && companyOperationIn?.ownerID === localStorage.getItem('userLoggedEmail'))
-            || (companyOperationIn?.employees && companyOperationIn?.employees.some(employee => employee.employeeEmail === localStorage.getItem('userLoggedEmail') && employee.position === 'MANAGER'))
-            || (companyOperationIn?.employees && companyOperationIn?.employees.some(employee => employee.employeeEmail === localStorage.getItem('userLoggedEmail') && employee.position === 'SUPERVISOR'))) {
-            setIsOwnerOrManagerOrSupervisor(true);
-        }
-    }
 
     async function findOrderToCancel() {
         let orderFound;
@@ -74,7 +70,7 @@ export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOp
                     {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', color: fontColorOne(theme) }}>
                             <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders Cooking</span>
-                            {isOwnerOrManagerOrSupervisor && <button className="floatingButton" style={{
+                            {requesterIsOwnerOrManagerOrSupervisor && <button className="floatingButton" style={{
                                 backgroundColor: redOne(theme), marginBottom: '10px', marginRight: '5px',
                                 visibility: ((selectedCookingOrderID.length === 1 && selectedOnDeliveryOrderID.length === 0) || (selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length === 1)) ? 'visible' : 'hidden'
                             }}
