@@ -1,8 +1,8 @@
 import { use, useEffect, useRef, useState } from 'react';
 import MapaDelivery from './mapa/MapaDelivery.jsx';
-import SystemPage from './system/SystemPage.jsx';
+import SystemPageDelivery from './system/SystemPageDelivery.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAlignJustify, faArrowLeft, faArrowRight, faLeftRight, faLock, faMapLocationDot, faPowerOff, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faAlignJustify, faArrowLeft, faArrowRight, faChain, faChair, faDoorOpen, faLeftRight, faLock, faMapLocationDot, faMotorcycle, faPowerOff, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { logOutAction } from '../../../services/deliveryServices/AuthService.js';
 import { useDispatch, useSelector } from 'react-redux';
 import './../DeliveryCss.css'
@@ -15,19 +15,28 @@ import {
   quitCompanyOperation,
   changeOwnerID
 } from '../../../redux/companyOperationSlice.js';
-import { blueOne, fontColorOne, mainColor, redOne, secondColor, secondColorInverse } from '../../../theme/Colors.js';
+import { blueOne, borderColorTwo, fontColorOne, mainColor, redOne, secondColor, secondColorInverse } from '../../../theme/Colors.js';
 import { Dropdown } from 'react-bootstrap';
 import LeaveCompanyMessage from './system/components/LeaveCompanyMessage.jsx';
 import FinishShiftModal from './system/components/FinishShiftModal.jsx';
 import { isOwnerOrManager } from '../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js';
 import SelectCompanyOperation from '../selectCompanyOperation/SelectCompanyOperation.jsx';
+import { useLocation, useNavigate } from 'react-router-dom';
+import SystemPageHall from './system/SystemPageHall.jsx';
 
 
 export default function CompanyOperation() {
+  const navigate = useNavigate();
   const theme = useSelector((state) => state.view.theme);
   const dispatch = useDispatch();
   const isDesktopView = useSelector((state) => state.view.isDesktopView);
   const companyOperationData = useSelector((state) => state.companyOperation);
+
+  const location = useLocation();
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+
+  const [systemPageSelected, setSystemPageSelected] = useState("delivery");
 
   const [screenOnFocus, setScreenOnFocus] = useState("");
   const [haveModalOpen, setHaveModalOpen] = useState(false);
@@ -56,7 +65,7 @@ export default function CompanyOperation() {
     const response = await getCompanyOperation(companyOperationData?.companyOperationID);
     if (response?.status === 200) {
       const companyOperationData = response?.data;
-      
+
       if (companyOperationData?.currentShift !== null) {
         dispatch(changeOwnerID(companyOperationData?.ownerID));
         dispatch(changeCompanyName(companyOperationData?.companyName));
@@ -76,7 +85,7 @@ export default function CompanyOperation() {
         alert("You need to open a shift to operate on this company.");
       }
     } else {
-       alert("Error fetching company operation data from server");
+      alert("Error fetching company operation data from server");
     }
   }
 
@@ -121,6 +130,13 @@ export default function CompanyOperation() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const menuTab = queryParams.get('tab');
+    console.log("menuTab:", menuTab);
+    setSystemPageSelected(menuTab.replace(/%20/g, ' '));
+
+  }, [queryParams]);
+
 
   return (
     <>
@@ -134,38 +150,53 @@ export default function CompanyOperation() {
           <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', padding: 0, flexGrow: 1, }}>
             {<div style={{ display: 'flex', flexDirection: 'column', height: '100%', flexGrow: 1, width: screenOnFocus === "map" ? '0%' : screenOnFocus === "system" ? '96%' : '50%', justifyContent: 'center', position: 'relative', visibility: screenOnFocus !== "map" ? 'visible' : 'hidden' }}>
               <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: '0px 4px' }} >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", }}>
-                  <Dropdown ref={dropdownSystemOptionsRedRef} className="nav-item header-profile" show={showDropdownSystemOptionsRed} >
-                    <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowDropdownSystemOptionsRed(!showDropdownSystemOptionsRed)} >
-                      <button className='floatingButton' style={{ backgroundColor: redOne(theme), }} >☰</button>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
-                      {requesterAreOwnerOrManager && <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer", marginBottom: "8px" }} onClick={() => { setShowFinishShiftMessage(true); setShowDropdownSystemOptionsRed(false); }}>
-                        <FontAwesomeIcon icon={faLock} flip='horizontal' style={{ color: blueOne(theme) }} />
-                        <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Finish Shift</span>
-                      </div>}
-                      <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => { setShowLeaveCompanyMessage(true); setShowDropdownSystemOptionsRed(false); }}>
-                        <FontAwesomeIcon icon={faRightFromBracket} flip='horizontal' style={{ color: "red" }} />
-                        <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Leave</span>
-                      </div>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                <div style={{ display: 'flex', flexDirection: 'row', }} >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", }}>
+                    <Dropdown ref={dropdownSystemOptionsRedRef} className="nav-item header-profile" show={showDropdownSystemOptionsRed} >
+                      <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowDropdownSystemOptionsRed(!showDropdownSystemOptionsRed)} >
+                        <button className='floatingButton' style={{ backgroundColor: redOne(theme), }} >☰</button>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
+                        {requesterAreOwnerOrManager && <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer", marginBottom: "8px" }} onClick={() => { setShowFinishShiftMessage(true); setShowDropdownSystemOptionsRed(false); }}>
+                          <FontAwesomeIcon icon={faLock} flip='horizontal' style={{ color: blueOne(theme) }} />
+                          <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Finish Shift</span>
+                        </div>}
+                        <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => { setShowLeaveCompanyMessage(true); setShowDropdownSystemOptionsRed(false); }}>
+                          <FontAwesomeIcon icon={faRightFromBracket} flip='horizontal' style={{ color: "red" }} />
+                          <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Leave</span>
+                        </div>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+
+                  {/* <button className='floatingButton' style={{ marginLeft: '10px' }}
+                    onClick={() => { if (systemPageSelected === "delivery") navigate(`/FelipeFPortfolio/delivery?tab=hall`); else if (systemPageSelected === "hall") navigate(`/FelipeFPortfolio/delivery?tab=delivery`); }}>
+                    <p style={{ margin: 0 }}><FontAwesomeIcon icon={(systemPageSelected === "delivery") ? faChair : faMotorcycle} /></p> </button> */}
                 </div>
 
-                <button className='floatingButton' style={{}}
+                <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
+                  {companyOperationData?.companyName}</span>
+
+                <button className='floatingButton' style={{ whiteSpace: 'nowrap' }}
                   onClick={() => setScreenOnFocus(screenOnFocus === "system" ? (!isDesktopView ? "map" : "") : "system")}>
                   {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
               </div>
 
-              <SystemPage screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />
+              {systemPageSelected === "delivery" && <SystemPageDelivery screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
+              {systemPageSelected === "hall" && <SystemPageHall screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
             </div>}
 
             {isDesktopView && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
 
             {<div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: screenOnFocus === "system" ? '0%' : screenOnFocus === "map" ? '100%' : '50%', }}>
-              <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: '0px 4px' }} >
+              <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: '0px 4px', whiteSpace: 'nowrap',  }} >
                 {screenOnFocus !== "system" && <button className='floatingButton' style={{}}
                   onClick={() => setScreenOnFocus(screenOnFocus === "map" ? (!isDesktopView ? "system" : "") : "map")}>{screenOnFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
+
+                {!isDesktopView && screenOnFocus === "map" && <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', }} >
+                  <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
+                    {companyOperationData?.companyName}</span>
+                </div>}
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100%', paddingTop: '8px' }} >

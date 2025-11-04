@@ -163,11 +163,11 @@ export default function SelectCompanyOperation({ }) {
                     </div>}
                 </div>
 
-                {createCompanyModal && <div className="myModal" style={{ zIndex: 100 }} >
+                {createCompanyModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
                     <CreateGroupAndCompanyModal close={() => setCreateCompanyModal(false)} getShiftOperationData={() => fetchUserInfos()} />
                 </div>}
 
-                {openShiftModal && <div className="myModal" style={{ zIndex: 100 }} >
+                {openShiftModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
                     <OpenShiftModal close={() => setOpenShiftModal(false)} openShiftModal={openShiftModal} setCompanyToOperate={setCompanyToOperate} />
                 </div>}
             </div >

@@ -8,7 +8,7 @@ import noFood from '../../../../../assets/noFood.jpg';
 import cutleryLogo from '../../../../../assets/cutleryLogo.png';
 import ModalExample from "./modals/ModalExample";
 import CreateProductModal from "./modals/CreateProductModal";
-import { getImageFoodService } from "../../../FoodsImagesService";
+import { getImageFoodService } from "../../../../../services/deliveryServices/auxServices/FoodsImagesService";
 import EditProductModal from "./modals/EditProductModal";
 import CreateProductCategoryModal from "./modals/CreateProductCategoryModal";
 

@@ -5,7 +5,7 @@ import { blueOne, greenOne, orangeOne, redOne } from "../../../../../../../theme
 import { borderColorTwo, transparentCavasOne, transparentCavasTwo } from "../../../../../../../theme/Colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { getAllDefaultsImagesFoodService, getImageFoodService } from "../../../../../FoodsImagesService";
+import { getAllDefaultsImagesFoodService, getImageFoodService } from "../../../../../../../services/deliveryServices/auxServices/FoodsImagesService";
 
 export default function SelectProductImageModal({ close, imagePath, setImagePath }) {
     const theme = useSelector((state) => state.view.theme);

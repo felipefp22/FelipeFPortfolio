@@ -12,7 +12,7 @@ import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServi
 import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 
 
-export default function SystemPage({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
+export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const dispatch = useDispatch();

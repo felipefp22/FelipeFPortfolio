@@ -1,21 +1,21 @@
-import noFood from '../../assets/noFood.jpg';
-import burguer from '../../assets/defaultsFoodsImages/burguer.png';
-import fries from '../../assets/defaultsFoodsImages/fries.png';
-import pizza from '../../assets/defaultsFoodsImages/pizza.png';
-import salad from '../../assets/defaultsFoodsImages/salad.png';
-import sushi from '../../assets/defaultsFoodsImages/sushi.png';
-import taco from '../../assets/defaultsFoodsImages/taco.png';
+import noFood from '../../../assets/noFood.jpg';
+import burguer from '../../../assets/defaultsFoodsImages/burguer.png';
+import fries from '../../../assets/defaultsFoodsImages/fries.png';
+import pizza from '../../../assets/defaultsFoodsImages/pizza.png';
+import salad from '../../../assets/defaultsFoodsImages/salad.png';
+import sushi from '../../../assets/defaultsFoodsImages/sushi.png';
+import taco from '../../../assets/defaultsFoodsImages/taco.png';
 
-import cokeBottle from '../../assets/defaultsFoodsImages/cokeBottle.png';
-import cokeCan from '../../assets/defaultsFoodsImages/cokeCan.png';
-import fanta from '../../assets/defaultsFoodsImages/fanta.png';
-import pepsi from '../../assets/defaultsFoodsImages/pepsi.png';
-import sprite from '../../assets/defaultsFoodsImages/sprite.png';
-import water from '../../assets/defaultsFoodsImages/water.png';
+import cokeBottle from '../../../assets/defaultsFoodsImages/cokeBottle.png';
+import cokeCan from '../../../assets/defaultsFoodsImages/cokeCan.png';
+import fanta from '../../../assets/defaultsFoodsImages/fanta.png';
+import pepsi from '../../../assets/defaultsFoodsImages/pepsi.png';
+import sprite from '../../../assets/defaultsFoodsImages/sprite.png';
+import water from '../../../assets/defaultsFoodsImages/water.png';
 
-import cake from '../../assets/defaultsFoodsImages/cake.png';
-import iceCream from '../../assets/defaultsFoodsImages/iceCream.png';
-import tiramisu from '../../assets/defaultsFoodsImages/tiramisu.png';
+import cake from '../../../assets/defaultsFoodsImages/cake.png';
+import iceCream from '../../../assets/defaultsFoodsImages/iceCream.png';
+import tiramisu from '../../../assets/defaultsFoodsImages/tiramisu.png';
 
 
 export async function getAllDefaultsImagesFoodService() {

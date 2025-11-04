@@ -8,7 +8,7 @@ import { faCamera, faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-i
 import companiesGroupLogo from '../../../../../../assets/companiesGroupLogo.png';
 import noFood from '../../../../../../assets/noFood.jpg';
 import SelectProductImageModal from "./auxs/SelectProductImageModal";
-import { getImageFoodService } from "../../../../FoodsImagesService";
+import { getImageFoodService } from "../../../../../../services/deliveryServices/auxServices/FoodsImagesService";
 import { createProductService } from "../../../../../../services/deliveryServices/ProductService";
 import cutleryLogo from '../../../../../../assets/cutleryLogo.png';
 import { createProductsCategoriesService } from "../../../../../../services/deliveryServices/ProductsCategoryService";
