@@ -2,7 +2,6 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { use, useEffect, useRef, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
-import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
 import { getAllCompanyCustomers } from "../../../../../services/deliveryServices/CustomerSevice";
 import { getAllProductsCategories } from "../../../../../services/deliveryServices/ProductsCategoryService";
