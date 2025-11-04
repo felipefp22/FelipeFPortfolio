@@ -37,6 +37,12 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
     const [tableNumberOrDeliveryOrPickupSelected, setTableNumberOrDeliveryOrPickupSelected] = useState(tableNumberSelectedBeforeModal ?? "");
 
+    useEffect(() => {
+        if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumberSelectedBeforeModal))) {
+            setTableNumberOrDeliveryOrPickupSelected("");
+        }
+    }, []);
+
     async function fetchCustomers(customerIDToSelectAfterFetch) {
         try {
             const response = await getAllCompanyCustomers(companyOperation?.companyOperationID);
@@ -162,8 +168,8 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '0px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px',  }}
-                         onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
+                        <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px', }}
+                            onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
                             <select className="inputOne" value={!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? tableNumberOrDeliveryOrPickupSelected : ""} placeholder="Table" onChange={(e) => setTableNumberOrDeliveryOrPickupSelected(Number(e.target.value))}
@@ -208,7 +214,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                         <span style={{ fontWeight: "600", padding: '10px 0px', }}>Name:</span>
 
                         <input className="inputOne" type="text" value={pickupNameInput} onChange={(e) => setPickupNameInput(e.target.value)}
-                            style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', margin: '10px 0px',}} />
+                            style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', margin: '10px 0px', }} />
                     </div>}
 
                     {selectUseCustomerOrPickUpName === 'Customer' && <div>

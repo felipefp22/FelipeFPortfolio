@@ -64,9 +64,15 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingTop: '8px', paddingLeft: '3px', overflowY: 'auto', }}>
-                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', }}>
-                    <button className="buttomDarkGray" style={{ marginBottom: '20px', marginLeft: '0px', }}
-                        onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
+                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px', }}>
+                    <button className="buttomDarkGray" style={{ marginBottom: '20px', marginLeft: '0px', visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
+                        onClick={() => { setNewOrderModal(true); }}>
+                        {"New Order"}</button>
+
+
+                    <button className="buttomDarkBlue" style={{ marginBottom: '20px', marginLeft: '0px', visibility: (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
+                        onClick={() => { setEditOrderModal(true); }}>
+                        {"Edit Order"}</button>
                 </div>}
 
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'auto' }}>
@@ -82,19 +88,45 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
 
                                 if (!matchesSearch) return null;
 
+                                let tableOnUse = false;
+                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "OPEN"))) tableOnUse = "OPEN";
+                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "CLOSEDWAITINGPAYMENT"))) tableOnUse = "CLOSEDWAITINGPAYMENT";
+
                                 let tableColorImage = tableGreen;
-                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "OPEN"))) tableColorImage = tableYellow;
-                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "CLOSEDWAITINGPAYMENT"))) tableColorImage = tableRed;
+                                if (tableOnUse === "OPEN") tableColorImage = tableYellow;
+                                if (tableOnUse === "CLOSEDWAITINGPAYMENT") tableColorImage = tableRed;
+
+                                function openEditOrNewOrderModal() {
+                                    if (tableOnUse) setEditOrderModal(true); else setNewOrderModal(true);
+                                }
 
                                 return (
                                     <div key={idx} style={{
                                         display: 'flex', flexDirection: 'column', alignItems: 'center', width: isDesktopView ? '90px' : '65px', height: isDesktopView ? "104px" : "84px", margin: 5, cursor: 'pointer',
                                         borderRadius: '5px', backgroundColor: (tableNumber === selectedTable) ? 'lightblue' : 'transparent'
-                                    }} onClick={() => { setSelectedTable(tableNumber); }}
-                                        onDoubleClick={() => { setSelectedTable(tableNumber); setEditOrderModal(true); }}
-                                        onTouchStart={(e) => { e.currentTarget.longPressTimer = setTimeout(() => { setSelectedTable(tableNumber); setEditOrderModal(true); }, 600); }}
+                                    }} onClick={() => { if (touchUsed) return; setSelectedTable((selectedTable === tableNumber) ? null : tableNumber); }}
+                                        onDoubleClick={() => { setSelectedTable(tableNumber); openEditOrNewOrderModal(); }}
+                                        onTouchStart={(e) => {
+                                            const now = Date.now();
+                                            const lastTap = e.currentTarget.lastTap || 0;
+                                            const DOUBLE_TAP_DELAY = 300; 
+
+                                            if (now - lastTap < DOUBLE_TAP_DELAY) {
+                                                clearTimeout(e.currentTarget.singleTapTimer);
+                                                setSelectedTable(tableNumber);
+                                                openEditOrNewOrderModal();
+                                            }
+
+                                            e.currentTarget.lastTap = now;
+
+                                            e.currentTarget.longPressTimer = setTimeout(() => {
+                                                setSelectedTable(tableNumber);
+                                                openEditOrNewOrderModal();
+                                            }, 700);
+                                        }}
+
                                         onTouchEnd={(e) => { clearTimeout(e.currentTarget.longPressTimer); }} onTouchMove={(e) => { clearTimeout(e.currentTarget.longPressTimer); }}>
-                                            
+
                                         <img src={tableColorImage} alt={""} style={{ width: isDesktopView ? '80px' : '60px', height: isDesktopView ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
                                         <span style={{ color: 'black', fontWeight: 'bold', fontSize: "16px", textAlign: 'center' }}>{`${tableNumber}`}</span>
                                     </div>

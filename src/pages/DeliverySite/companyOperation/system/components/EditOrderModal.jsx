@@ -6,7 +6,7 @@ import ChangeTableOrCustomerModal from "./auxComponents/ChangeTableOrCustomerMod
 
 
 
-export default function EditOrderModal({ close, companyOperation }) {
+export default function EditOrderModal({ close, companyOperation, tableNumberSelectedBeforeModal }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -41,7 +41,7 @@ export default function EditOrderModal({ close, companyOperation }) {
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <span style={{ fontWeight: "600", padding: '10px 0px', }}>{`Table - ${5}`}</span>
+                        <span style={{ fontWeight: "600", padding: '10px 0px', }}>{`Table - ${tableNumberSelectedBeforeModal}`}</span>
 
 
                         <button className="buttomDarkBlue" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px', }}
