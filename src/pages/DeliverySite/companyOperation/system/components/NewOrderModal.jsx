@@ -37,11 +37,6 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
     const [tableNumberOrDeliveryOrPickupSelected, setTableNumberOrDeliveryOrPickupSelected] = useState(tableNumberSelectedBeforeModal ?? "");
 
-    useEffect(() => {
-        if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumberSelectedBeforeModal))) {
-            setTableNumberOrDeliveryOrPickupSelected("");
-        }
-    }, []);
 
     async function fetchCustomers(customerIDToSelectAfterFetch) {
         try {
@@ -270,14 +265,14 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '3px' }}>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button className="buttomDarkGray" style={{ marginLeft: '0px' }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', marginTop: '5px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%',  }}>
+                            <button className="buttomDarkGray" style={{ marginLeft: '0px', height: '28px',  }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
                         <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Itens on Order</span>
-                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>

@@ -77,7 +77,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
 
 
                     <button className="buttomDarkBlue" style={{ marginBottom: '20px', marginLeft: '0px', visibility: (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
-                        onClick={() => { setEditOrderModal(true); }}>
+                        onClick={() => { setEditOrderModal(companyOperation?.orders?.find(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable))); }}>
                         {"Edit Order"}</button>
                 </div>}
 
@@ -103,7 +103,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                                 if (tableOnUse === "CLOSEDWAITINGPAYMENT") tableColorImage = tableRed;
 
                                 function openEditOrNewOrderModal() {
-                                    if (tableOnUse) setEditOrderModal(true); else setNewOrderModal(true);
+                                    if (tableOnUse) setEditOrderModal(companyOperation?.orders?.find(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber))); else setNewOrderModal(true);
                                 }
 
                                 return (
@@ -113,10 +113,9 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                                     }} onClick={() => { setSelectedTable((selectedTable === tableNumber) ? null : tableNumber); }}
                                         onDoubleClick={() => { setSelectedTable(tableNumber); openEditOrNewOrderModal(); }}
                                         onTouchStart={(e) => {
-                                            e.preventDefault();
                                             const now = Date.now();
                                             const lastTap = e.currentTarget.lastTap || 0;
-                                            const DOUBLE_TAP_DELAY = 300;
+                                            const DOUBLE_TAP_DELAY = 220;
 
                                             if (now - lastTap < DOUBLE_TAP_DELAY) {
                                                 clearTimeout(e.currentTarget.singleTapTimer);
@@ -150,7 +149,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
             </div>}
 
             {editOrderModal && <div className="myModal" style={{}} >
-                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
+                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} orderToEdit={editOrderModal} />
             </div>}
         </>
     );

@@ -1,15 +1,57 @@
 import { useSelector } from "react-redux";
 import NewCustomerModal from "../NewCustomerModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllCompanyCustomers } from "../../../../../../services/deliveryServices/CustomerSevice";
 
 
 
-export default function ChangeTableOrCustomerModal({ close, }) {
+export default function ChangeTableOrCustomerModal({ close, companyOperation, setPickupNameInput }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [disabled, setDisabled] = useState(false);
     const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
+    const [allCompanyCustomers, setAllCompanyCustomers] = useState([]);
+
+    const [customerInputToSearch, setCustomerInputToSearch] = useState("");
+    const [customersMatched, setCustomersMatched] = useState([]);
+
+
+    async function fetchCustomers(customerIDToSelectAfterFetch) {
+        try {
+            const response = await getAllCompanyCustomers(companyOperation?.companyOperationID);
+            if (response?.status === 200) {
+                setAllCompanyCustomers(response?.data || []);
+
+                if (customerIDToSelectAfterFetch) {
+                    const customerFound = response?.data.find(customer => customer.id === customerIDToSelectAfterFetch);
+                    setCustomerSelectedToNewOrder(customerFound);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    useEffect(() => {
+        fetchCustomers();
+    }, []);
+
+    useEffect(() => {
+        handleCustomerSearchInputChange();
+    }, [allCompanyCustomers, customerInputToSearch]);
+
+    async function handleCustomerSearchInputChange() {
+
+        const filtered = allCompanyCustomers
+            .filter(opt =>
+                opt.customerName?.toLowerCase().includes(customerInputToSearch.toLowerCase()) ||
+                opt.phone?.toLowerCase().replace(/\D/g, "").includes(customerInputToSearch.toLowerCase())
+            );
+
+        setCustomersMatched(filtered);
+    };
 
 
     return (
