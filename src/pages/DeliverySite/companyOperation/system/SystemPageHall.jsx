@@ -11,6 +11,9 @@ import { blueOne, borderColorTwo, fontColorOne, redOne, secondColor, secondColor
 import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import tableGreen from "../../../../assets/tableGreen.png";
+import tableYellow from "../../../../assets/tableYellow.png";
+import tableRed from "../../../../assets/tableRed.png";
+import tableBlue from "../../../../assets/tableBlue.png";
 
 export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
@@ -52,6 +55,10 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
         setSelectedOrderToCancel(orderFound);
     }
 
+    // useEffect(() => {
+    //     console.log("selectedTable", selectedTable);
+    // }, [selectedTable]);
+
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingTop: '8px', paddingLeft: '3px', overflowY: 'auto', }}>
@@ -73,13 +80,17 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
 
                                 if (!matchesSearch) return null;
 
+                                let tableColorImage = tableGreen;
+                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "OPEN"))) tableColorImage = tableYellow;
+                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "CLOSEDWAITINGPAYMENT"))) tableColorImage = tableRed;
+
                                 return (
                                     <div key={idx} style={{
                                         display: 'flex', flexDirection: 'column', alignItems: 'center', width: isDesktopView ? '90px' : '65px', height: isDesktopView ? "104px" : "84px", margin: 5, cursor: 'pointer',
-                                        borderRadius: '5px', backgroundColor: ((idx + 1) === selectedTable) ? 'lightblue' : 'transparent'
-                                    }} onClick={() => { setSelectedTable(idx + 1); }}>
-                                        <img src={tableGreen} alt={""} style={{ width: isDesktopView ? '80px' : '60px', height: isDesktopView ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
-                                        <span style={{ color: 'black', fontWeight: 'bold', fontSize: "16px", textAlign: 'center' }}>{`${idx + 1}`}</span>
+                                        borderRadius: '5px', backgroundColor: (tableNumber === selectedTable) ? 'lightblue' : 'transparent'
+                                    }} onClick={() => { setSelectedTable(tableNumber); }}>
+                                        <img src={tableColorImage} alt={""} style={{ width: isDesktopView ? '80px' : '60px', height: isDesktopView ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
+                                        <span style={{ color: 'black', fontWeight: 'bold', fontSize: "16px", textAlign: 'center' }}>{`${tableNumber}`}</span>
                                     </div>
                                 )
                             })}
@@ -91,22 +102,9 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                 </div >
             </div>
 
-            {/* {changeStatusOrderModal && <div className="myModal" style={{}} >
-                <ChangeOrderStatusModal close={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedCookingOrderID={selectedCookingOrderID}
-                    setSelectedCookingOrderID={setSelectedCookingOrderID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
-            </div>}
-
-            {selectedOrderToCancel && <div className="myModal" style={{}} >
-                <CancelOrder close={() => closeOrderToCancel()} companyOperationID={companyOperation?.companyOperationID} selectedOrderToCancel={selectedOrderToCancel} getShiftOperationData={getShiftOperationData} />
-            </div>}
-
             {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{}} >
-                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperationID={companyOperation?.companyOperationID} getShiftOperationData={getShiftOperationData} />
+                <NewOrderModal close={() => { setNewOrderModal(false); }} companyOperationID={companyOperation?.companyOperationID} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
             </div>}
-
-            {completeOrdersModal && <div className="myModal" style={{}} >
-                <CompleteOrdersModal close={() => { setSelectedOnDeliveryOrderID([]); setCompleteOrdersModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} getShiftOperationData={async () => await getShiftOperationData()} />
-            </div>} */}
         </>
     );
 }

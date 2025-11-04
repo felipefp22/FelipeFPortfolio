@@ -8,9 +8,9 @@ import { getAllCompanyCustomers } from "../../../../../services/deliveryServices
 import { getAllProductsCategories } from "../../../../../services/deliveryServices/ProductsCategoryService";
 import { createOrder } from "../../../../../services/deliveryServices/OrderService";
 import { useSelector } from "react-redux";
-import { borderColorTwo } from "../../../../../theme/Colors";
+import { borderColorTwo, greenOne } from "../../../../../theme/Colors";
 
-export default function NewOrderModal({ close, companyOperationID, getShiftOperationData }) {
+export default function NewOrderModal({ close, companyOperationID, getShiftOperationData, tableNumberSelectedBeforeModal }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -32,6 +32,8 @@ export default function NewOrderModal({ close, companyOperationID, getShiftOpera
 
     const [allCompanyProductsCategories, setAllCompanyProductsCategories] = useState([]);
     const [selectedProductsToAdd, setSelectedProductsToAdd] = useState([]);
+
+    const [tableNumberOrDeliveryOrPickupSelected, setTableNumberOrDeliveryOrPickupSelected] = useState(tableNumberSelectedBeforeModal);
 
     async function fetchCustomers() {
         try {
@@ -100,7 +102,7 @@ export default function NewOrderModal({ close, companyOperationID, getShiftOpera
 
         const response = await createOrder(
             companyOperationID,
-            "delivery",
+            tableNumberOrDeliveryOrPickupSelected,
             customerSelectedToNewOrder?.id,
             customerSelectedToNewOrder?.customerName,
             itemsIdAndQuantity,
@@ -130,7 +132,25 @@ export default function NewOrderModal({ close, companyOperationID, getShiftOpera
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button className="buttomDarkGray" style={{ marginLeft: '0px' }} onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>Create new customer</button>
+                        <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px' }} onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
+
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
+                            <button className="buttomDarkGray" style={{
+                                fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px', minWidth: '45px',
+                                backgroundColor: tableNumberOrDeliveryOrPickupSelected === tableNumberSelectedBeforeModal ? greenOne(theme) : ''
+                            }}
+                                onClick={() => setTableNumberOrDeliveryOrPickupSelected(tableNumberSelectedBeforeModal)} disabled={disabled}>{tableNumberSelectedBeforeModal === tableNumberOrDeliveryOrPickupSelected ? tableNumberSelectedBeforeModal : 'Table'}</button>
+                            <button className="buttomDarkGray" style={{
+                                fontSize: isDesktopView ? '14px' : '12px', marginLeft: '2px', padding: isDesktopView ? '0px 5px' : '0px 2px',
+                                backgroundColor: tableNumberOrDeliveryOrPickupSelected === 'pickup' ? greenOne(theme) : ''
+                            }}
+                                onClick={() => setTableNumberOrDeliveryOrPickupSelected('pickup')} disabled={disabled}>PickUp</button>
+                            <button className="buttomDarkGray" style={{
+                                fontSize: isDesktopView ? '14px' : '12px', marginLeft: '2px', padding: isDesktopView ? '0px 5px' : '0px 2px',
+                                backgroundColor: tableNumberOrDeliveryOrPickupSelected === 'delivery' ? greenOne(theme) : ''
+                            }}
+                                onClick={() => setTableNumberOrDeliveryOrPickupSelected('delivery')} disabled={disabled}>Delivery</button>
+                        </div>
                     </div>
 
                     <span style={{ fontWeight: "600" }}>Customer</span>

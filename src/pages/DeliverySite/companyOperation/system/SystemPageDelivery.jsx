@@ -222,7 +222,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
             </div>}
 
             {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{}} >
-                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperationID={companyOperation?.companyOperationID} getShiftOperationData={getShiftOperationData} />
+                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperationID={companyOperation?.companyOperationID} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={'delivery'} />
             </div>}
 
             {completeOrdersModal && <div className="myModal" style={{}} >
