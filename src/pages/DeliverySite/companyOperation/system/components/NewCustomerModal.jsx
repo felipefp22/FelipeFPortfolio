@@ -40,6 +40,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
         const handleClickOutside = (event) => {
             if (customerSelectorDropdownRef.current && !customerSelectorDropdownRef.current.contains(event.target)) {
                 setShowAddressSelectorDropdown(false);
+                setAddressFoundOptions(null);
             }
         };
 
@@ -170,7 +171,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                                     ) : (
                                         <li
                                             key={index}
-                                            onMouseDown={() => { setAddressFoundSelected(addressOpt); setShowAddressSelectorDropdown(false); }}
+                                            onMouseDown={() => { setAddressFoundSelected(addressOpt); setAddressFoundOptions(null); setShowAddressSelectorDropdown(false); }}
                                             style={{ cursor: "pointer" }}
                                         >
                                             {addressOpt?.display_name}

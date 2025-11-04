@@ -14,12 +14,14 @@ import tableGreen from "../../../../assets/tableGreen.png";
 import tableYellow from "../../../../assets/tableYellow.png";
 import tableRed from "../../../../assets/tableRed.png";
 import tableBlue from "../../../../assets/tableBlue.png";
+import EditOrderModal from "./components/EditOrderModal.jsx";
 
 export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
+    const [editOrderModal, setEditOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);
 
     const [requesterIdOwnerOrManager, setRequesterIdOwnerOrManager] = useState(false);
@@ -88,7 +90,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                                     <div key={idx} style={{
                                         display: 'flex', flexDirection: 'column', alignItems: 'center', width: isDesktopView ? '90px' : '65px', height: isDesktopView ? "104px" : "84px", margin: 5, cursor: 'pointer',
                                         borderRadius: '5px', backgroundColor: (tableNumber === selectedTable) ? 'lightblue' : 'transparent'
-                                    }} onClick={() => { setSelectedTable(tableNumber); }}>
+                                    }} onClick={() => { setSelectedTable(tableNumber); }} onDoubleClick={() => { setSelectedTable(tableNumber); setEditOrderModal(true); }}>
                                         <img src={tableColorImage} alt={""} style={{ width: isDesktopView ? '80px' : '60px', height: isDesktopView ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
                                         <span style={{ color: 'black', fontWeight: 'bold', fontSize: "16px", textAlign: 'center' }}>{`${tableNumber}`}</span>
                                     </div>
@@ -104,6 +106,10 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
 
             {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{}} >
                 <NewOrderModal close={() => { setNewOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
+            </div>}
+
+            {editOrderModal && <div className="myModal" style={{}} >
+                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
             </div>}
         </>
     );
