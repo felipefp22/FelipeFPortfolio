@@ -128,7 +128,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '72%', }}>
                             <span style={{ fontWeight: "600", marginBottom: '5px', fontSize: isDesktopView ? '16px' : '14px', }}>Customer Address</span>
-                            <input className="inputOne" type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={true}
+                            <input className="inputOne" type="text" value={address ?? ""} onChange={(e) => setAddress(e.target.value)} disabled={true}
                                 style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'lightgray', color: 'black' }} />
                         </div>
                         <div style={{ width: '3%' }}></div>
