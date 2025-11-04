@@ -1,7 +1,7 @@
 {
   "name": "RestaurantSystem",
   "short_name": "RestaurantSystem",
-  "start_url": "/",
+  "start_url": "/FelipeFPortfolio",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",

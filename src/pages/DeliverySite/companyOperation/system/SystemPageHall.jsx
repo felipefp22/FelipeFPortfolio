@@ -107,6 +107,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                                     }} onClick={() => { if (touchUsed) return; setSelectedTable((selectedTable === tableNumber) ? null : tableNumber); }}
                                         onDoubleClick={() => { setSelectedTable(tableNumber); openEditOrNewOrderModal(); }}
                                         onTouchStart={(e) => {
+                                            e.preventDefault();
                                             const now = Date.now();
                                             const lastTap = e.currentTarget.lastTap || 0;
                                             const DOUBLE_TAP_DELAY = 300; 
