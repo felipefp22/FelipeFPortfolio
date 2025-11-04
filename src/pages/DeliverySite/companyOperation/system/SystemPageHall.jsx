@@ -61,6 +61,12 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
     //     console.log("selectedTable", selectedTable);
     // }, [selectedTable]);
 
+    useEffect(() => {
+        const handler = (e) => e.preventDefault();
+        document.addEventListener('contextmenu', handler);
+        return () => document.removeEventListener('contextmenu', handler);
+    }, []);
+
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingTop: '8px', paddingLeft: '3px', overflowY: 'auto', }}>
@@ -110,7 +116,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                                             e.preventDefault();
                                             const now = Date.now();
                                             const lastTap = e.currentTarget.lastTap || 0;
-                                            const DOUBLE_TAP_DELAY = 300; 
+                                            const DOUBLE_TAP_DELAY = 300;
 
                                             if (now - lastTap < DOUBLE_TAP_DELAY) {
                                                 clearTimeout(e.currentTarget.singleTapTimer);
@@ -126,7 +132,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                                             }, 700);
                                         }}
 
-                                        onTouchEnd={(e) => {e.preventDefault(); clearTimeout(e.currentTarget.longPressTimer); }} onTouchMove={(e) => { e.preventDefault(); clearTimeout(e.currentTarget.longPressTimer); }}>
+                                        onTouchEnd={(e) => { clearTimeout(e.currentTarget.longPressTimer); }} onTouchMove={(e) => { clearTimeout(e.currentTarget.longPressTimer); }}>
 
                                         <img src={tableColorImage} alt={""} style={{ width: isDesktopView ? '80px' : '60px', height: isDesktopView ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
                                         <span style={{ color: 'black', fontWeight: 'bold', fontSize: "16px", textAlign: 'center' }}>{`${tableNumber}`}</span>
