@@ -169,9 +169,9 @@ export default function CompanyOperation() {
                     </Dropdown>
                   </div>
 
-                  {/* <button className='floatingButton' style={{ marginLeft: '10px' }}
+                  <button className='floatingButton' style={{ marginLeft: '10px' }}
                     onClick={() => { if (systemPageSelected === "delivery") navigate(`/FelipeFPortfolio/delivery?tab=hall`); else if (systemPageSelected === "hall") navigate(`/FelipeFPortfolio/delivery?tab=delivery`); }}>
-                    <p style={{ margin: 0 }}><FontAwesomeIcon icon={(systemPageSelected === "delivery") ? faChair : faMotorcycle} /></p> </button> */}
+                    <p style={{ margin: 0 }}><FontAwesomeIcon icon={(systemPageSelected === "delivery") ? faChair : faMotorcycle} /></p> </button>
                 </div>
 
                 <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>

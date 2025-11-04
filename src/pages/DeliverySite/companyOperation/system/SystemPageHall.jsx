@@ -7,10 +7,10 @@ import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faSquareCaretDown, fa
 import CancelOrder from "./components/CancelOrderModal.jsx";
 import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
 import ChangeOrderStatusModal from "./components/ChangeOrderStatusModal.jsx";
-import { borderColorTwo, fontColorOne, redOne, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
+import { blueOne, borderColorTwo, fontColorOne, redOne, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
 import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
-
+import tableGreen from "../../../../assets/tableGreen.png";
 
 export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
@@ -28,9 +28,10 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
     const [selectedCookingOrderID, setSelectedCookingOrderID] = useState([]);
     const [selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID] = useState([]);
 
-    const [changeStatusOrderModal, setChangeStatusOrderModal] = useState(false);
-    const [selectedOrderToCancel, setSelectedOrderToCancel] = useState(null);
-    const [completeOrdersModal, setCompleteOrdersModal] = useState(false);
+
+    const [inputSearchTable, setInputSearchTable] = useState("")
+
+    const [selectedTable, setSelectedTable] = useState(null);
 
     const [processing, setProcessing] = useState(false);
 
@@ -51,13 +52,6 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
         setSelectedOrderToCancel(orderFound);
     }
 
-    async function closeOrderToCancel() {
-        setSelectedCookingOrderID([]);
-        setSelectedOnDeliveryOrderID([]);
-        setSelectedOrderToCancel(null);
-    }
-
-
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingTop: '8px', paddingLeft: '3px', overflowY: 'auto', }}>
@@ -67,11 +61,37 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                 </div>}
 
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'auto' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '300px', maxHeight: '80%', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', padding: 3, overflowY: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                        <input type="number" className="inputOne" value={inputSearchTable} onChange={(e) => setInputSearchTable(e.target.value)} placeholder=""
+                            style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)', overflow: 'hidden', textAlign: 'center' }} />
+
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', width: '100%', overflowY: 'auto', flexWrap: 'wrap', }}>
+                            {Array.from({ length: companyOperation?.numberOfTables }).map((_, idx) => {
+                                const tableNumber = idx + 1; // tables start from 1
+                                const matchesSearch =
+                                    !inputSearchTable || String(tableNumber).includes(String(inputSearchTable));
+
+                                if (!matchesSearch) return null;
+
+                                return (
+                                    <div key={idx} style={{
+                                        display: 'flex', flexDirection: 'column', alignItems: 'center', width: isDesktopView ? '90px' : '65px', height: isDesktopView ? "104px" : "84px", margin: 5, cursor: 'pointer',
+                                        borderRadius: '5px', backgroundColor: ((idx + 1) === selectedTable) ? 'lightblue' : 'transparent'
+                                    }} onClick={() => { setSelectedTable(idx + 1); }}>
+                                        <img src={tableGreen} alt={""} style={{ width: isDesktopView ? '80px' : '60px', height: isDesktopView ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
+                                        <span style={{ color: 'black', fontWeight: 'bold', fontSize: "16px", textAlign: 'center' }}>{`${idx + 1}`}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                    <br />
+                    <span style={{ color: blueOne(theme), fontWeight: 'bold', fontSize: "20px", textAlign: 'center' }}>{`*** Still on Development ***`}</span>
 
                 </div >
             </div>
 
-            {changeStatusOrderModal && <div className="myModal" style={{}} >
+            {/* {changeStatusOrderModal && <div className="myModal" style={{}} >
                 <ChangeOrderStatusModal close={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedCookingOrderID={selectedCookingOrderID}
                     setSelectedCookingOrderID={setSelectedCookingOrderID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
             </div>}
@@ -86,7 +106,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
 
             {completeOrdersModal && <div className="myModal" style={{}} >
                 <CompleteOrdersModal close={() => { setSelectedOnDeliveryOrderID([]); setCompleteOrdersModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} getShiftOperationData={async () => await getShiftOperationData()} />
-            </div>}
+            </div>} */}
         </>
     );
 }
