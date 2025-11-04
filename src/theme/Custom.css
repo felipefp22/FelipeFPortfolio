@@ -13,3 +13,10 @@
   background-color: white !important; /* results dropdown visible */
   color: black !important;
 }
+
+.yourClickableClass {
+  -webkit-touch-callout: none; /* disables iOS callout (copy/save) */
+  -webkit-user-select: none;   /* disables text selection */
+  user-select: none;
+  touch-action: manipulation;  /* disables double-tap zoom & unwanted gestures */
+}
