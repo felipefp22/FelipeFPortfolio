@@ -238,7 +238,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                         <select className="inputOne" value={!isNaN(Number(newTableCandidate)) ? newTableCandidate : ""} placeholder="Table" onChange={(e) => setNewTableCandidate(Number(e.target.value))}
                             style={{
                                 minWidth: '60px', maxWidth: '120px', height: '35px', padding: '5px', borderRadius: '6px', fontSize: isDesktopView ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`,
-                                backgroundColor: (!isNaN(Number(newTableCandidate)) && newTableCandidate) ? greenOne(theme) : ''
+                                backgroundColor: (!isNaN(Number(newTableCandidate)) && newTableCandidate) ? greenOne(theme) : '', appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none',
                             }} >
                             <option value="" disabled hidden> Table </option>
                             {Array.from({ length: companyOperation?.numberOfTables || 0 }, (_, i) => {
