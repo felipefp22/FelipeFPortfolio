@@ -71,29 +71,29 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
             <div className="modalInside" style={{ width: !isDesktopView ? "99%" : "97%", maxHeight: !isDesktopView ? '97%' : '97%', padding: !isDesktopView ? '10px' : '10px', }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%",  }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '0px' }}>
-                        <span style={{ fontWeight: "600", padding: '2px 0px', }}>{`Table - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`}</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', margin: '3px 0px' }}>
+                        <span style={{ fontWeight: "600", fontSize: isDesktopView ? '18px' : '16px',}}>{`Table - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`}</span>
 
 
-                        <button className="buttomDarkBlue" style={{ fontSize: isDesktopView ? '14px' : '12px', height: '32px', padding: isDesktopView ? '0px 5px' : '0px 2px',marginBottom: '0px' }}
+                        <button className="buttomDarkBlue" style={{ fontSize: isDesktopView ? '17px' : '14px', height: '35px', padding: isDesktopView ? '0px 5px' : '0px 2px', marginBottom: '0px' }}
                             onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled}>Change Table/Customer</button>
                     </div>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'flex-start', alignContent: 'flex-start', textAlign: 'flex-start', }}>
                     {selectUseCustomerOrPickUpName === 'Name' && <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%', }}>
-                        <span style={{ fontWeight: "600", padding: '0px 0px', }}>Name:</span>
+                        <span style={{ fontWeight: "600", padding: '0px 0px',fontSize: isDesktopView ? '18px' : '16px', }}>Name:</span>
 
                         <input className="inputOne" type="text" value={pickupNameInput} disabled={true}
-                            style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
+                            style={{ height: '35px', fontSize: isDesktopView ? '17px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
 
                     </div>}
 
                     {selectUseCustomerOrPickUpName === 'Customer' && <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%', }}>
-                        <span style={{ fontWeight: "600", padding: '0px 0px', }}>Customer:</span>
+                        <span style={{ fontWeight: "600", padding: '0px 0px',fontSize: isDesktopView ? '18px' : '16px', }}>Customer:</span>
 
                         <input className="inputOne" type="text" value={customerSelected?.customerName + " / " + customerSelected?.phone} disabled={true}
-                            style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
+                            style={{ height: '35px', fontSize: isDesktopView ? '17px' : '14px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
                     </div>}
                 </div>
 
@@ -123,15 +123,15 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', marginTop: '5px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '5px' }}>
-                            <button className="buttomDarkGray" style={{ marginLeft: '0px', height: '28px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                            <button className="buttomDarkGray" style={{ marginLeft: '0px', height: '30px', fontSize: isDesktopView ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "100%" }}>Item</th>
-                                        <th style={{ width: "40px" }}>Price</th>
-                                        <th style={{ width: "40px" }}><FontAwesomeIcon icon={faTrash} /></th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -157,9 +157,9 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "100%" }}>Item</th>
-                                        <th style={{ width: "40px" }}>Price</th>
-                                        <th style={{ width: "40px" }}><FontAwesomeIcon icon={faTrash} /></th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -175,12 +175,11 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
                         </div>
                     </div>
                 </div>
-                <span style={{ color: blueOne(theme), fontWeight: 'bold', fontSize: "20px", textAlign: 'center' }}>{`*** Still on Development ***`}</span>
+                {/* <span style={{ color: blueOne(theme), fontWeight: 'bold', fontSize: "20px", textAlign: 'center' }}>{`*** Still on Development ***`}</span> */}
 
-
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '0px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginTop: '5px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', margin: 0 }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', width: '100%', height: '50px', margin: 0, fontSize: isDesktopView ? '14px' : '12px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', width: '100%',  margin: 0, fontSize: isDesktopView ? '17px' : '14px', }}>
                             {/* <button className="buttomDarkRed" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Cancel Order</button> */}
 
                             <button className="buttomDarkGray" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}

@@ -66,25 +66,25 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                         onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
                 </div>}
 
-                <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'auto' }}>
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', color: fontColorOne(theme) }}>
-                            <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders Cooking</span>
+                <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'auto',  }}>
+                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', color: fontColorOne(theme) }}>
+                            <span style={{ fontSize: '26px', fontWeight: 'bold', }}>Orders Cooking</span>
                             {requesterIsOwnerOrManagerOrSupervisor && <button className="floatingButton" style={{
-                                backgroundColor: redOne(theme), marginBottom: '10px', marginRight: '5px',
+                                backgroundColor: redOne(theme), marginRight: '5px',
                                 visibility: ((selectedCookingOrderID.length === 1 && selectedOnDeliveryOrderID.length === 0) || (selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length === 1)) ? 'visible' : 'hidden'
                             }}
                                 onClick={() => findOrderToCancel()}>
                                 <span>Cancel</span>
                             </button>}
                         </div>
-                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table hover responsive="sm" >
-                                <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
+                                <thead style={{ position: "sticky", zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "40px" }}>Num</th>
-                                        <th>Customer</th>
-                                        <th>Minutes</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Minutes</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -101,12 +101,12 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                         </div>
                     </div>}
 
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
+                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
-                            <span style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Orders on Delivery</span>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px',}}>
+                            <span style={{ fontSize: '26px', fontWeight: 'bold', }}>Orders on Delivery</span>
                             <button className="floatingButton" style={{
-                                backgroundColor: 'rgba(22, 111, 163, 1)', marginBottom: '10px', marginRight: '5px',
+                                backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px',
                                 visibility: (selectedCookingOrderID?.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden'
                             }}
                                 onClick={() => setChangeStatusOrderModal(true)}>
@@ -114,13 +114,13 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                             </button>
                         </div>
 
-                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                        <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table hover responsive="sm" >
                                 <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "40px" }}>Num</th>
-                                        <th>Customer</th>
-                                        <th>Minutes</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Minutes</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -138,12 +138,11 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
 
                     </div>}
 
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
+                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
-
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
-                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Completed Orders</span>
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '26px', fontWeight: 'bold', }}>Completed Orders</span>
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
                             <button className="floatingButton" style={{
@@ -155,13 +154,13 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                             </button>
                         </div>
 
-                        {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                        {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
-                                <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
+                                <thead style={{ position: "sticky",  zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "40px" }}>Num</th>
-                                        <th>Customer</th>
-                                        <th>Status</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -177,23 +176,23 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                             </Table>
                         </div>}
                     </div>}
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
+                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
 
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px',}}>
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
-                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Canceled Orders</span>
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '26px', fontWeight: 'bold', }}>Canceled Orders</span>
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
                         </div>
 
-                        {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', marginBottom: '20px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                        {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
-                                <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
+                                <thead style={{ position: "sticky", zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "40px" }}>Num</th>
-                                        <th>Customer</th>
-                                        <th>Status</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody >

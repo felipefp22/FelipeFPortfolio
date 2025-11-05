@@ -32,7 +32,7 @@ export default function ManageCompaniesOwner({ }) {
 
         if (response?.status === 200) {
             const userData = response?.data;
-            console.log("User data fetched:", userData);
+            console.log(`🔑User data fetched:`, userData);
             // setIsEmailConfirmed(userData?.emailConfirmed || false);
 
             setName(userData?.name || "");

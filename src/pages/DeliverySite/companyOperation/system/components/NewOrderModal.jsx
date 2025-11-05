@@ -161,15 +161,15 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
         <>
             <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "97%", maxHeight: !isDesktopView ? '90%' : '80%', padding: !isDesktopView ? '10px' : '10px', }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '0px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px', }}
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '10px', alignItems: 'center' }}>
+                        <button className="buttomDarkGray" style={{ height: '35px', fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 10px' : '0px 6px', }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
                             <select className="inputOne" value={!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? tableNumberOrDeliveryOrPickupSelected : ""} placeholder="Table" onChange={(e) => setTableNumberOrDeliveryOrPickupSelected(Number(e.target.value))}
                                 style={{
-                                    minWidth: '60px', maxWidth: '120px', height: '39px', padding: '5px', borderRadius: '6px', fontSize: isDesktopView ? '14px' : '12px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`,
+                                    minWidth: '60px', maxWidth: '120px', height: '35px', padding: '5px', borderRadius: '6px', fontSize: isDesktopView ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`,
                                     backgroundColor: (!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) && tableNumberOrDeliveryOrPickupSelected) ? greenOne(theme) : ''
                                 }} >
                                 <option value="" disabled hidden> Table </option>
@@ -183,12 +183,12 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                             </select>
 
                             <button className="buttomDarkGray" style={{
-                                fontSize: isDesktopView ? '14px' : '12px', marginLeft: '2px', padding: isDesktopView ? '0px 5px' : '0px 2px',
+                                fontSize: isDesktopView ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isDesktopView ? '0px 10px' : '0px 6px',
                                 backgroundColor: tableNumberOrDeliveryOrPickupSelected === 'pickup' ? greenOne(theme) : ''
                             }}
                                 onClick={() => { setTableNumberOrDeliveryOrPickupSelected('pickup'); setSelectUseCustomerOrPickUpName(customerSelectedToNewOrder ? 'Customer' : 'Name') }} disabled={disabled}>PickUp</button>
                             <button className="buttomDarkGray" style={{
-                                fontSize: isDesktopView ? '14px' : '12px', marginLeft: '2px', padding: isDesktopView ? '0px 5px' : '0px 2px',
+                                fontSize: isDesktopView ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isDesktopView ? '0px 10px' : '0px 6px',
                                 backgroundColor: tableNumberOrDeliveryOrPickupSelected === 'delivery' ? greenOne(theme) : ''
                             }}
                                 onClick={() => { setTableNumberOrDeliveryOrPickupSelected('delivery'); setSelectUseCustomerOrPickUpName('Customer') }} disabled={disabled}>Delivery</button>
@@ -198,7 +198,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                     <div style={{ marginBottom: '5px' }}>
                         {tableNumberOrDeliveryOrPickupSelected === 'delivery' && <span style={{ fontWeight: "600" }}>Customer</span>}
                         {tableNumberOrDeliveryOrPickupSelected !== 'delivery' && <select className="inputOne" value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
-                            style={{ minWidth: '30px', maxWidth: '90px', height: '26px', padding: '0px', borderRadius: '6px', fontSize: isDesktopView ? '14px' : '12px', textAlign: 'left', }} >
+                            style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isDesktopView ? '17px' : '14px', textAlign: 'left', }} >
                             <option value='' disabled hidden> Select </option>
                             <option value={'Customer'}> {'Customer'} </option>
                             <option value={'Name'}> {'Name'} </option>
@@ -261,24 +261,22 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                     </div>}
                 </div>
 
-
-
-                <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
+                <div style={{ width: '100%', borderTop: '1px solid lightgray', backgroundColor: 'lightgray', margin: '5px 0' }} />
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '3px' }}>
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', marginTop: '5px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%',  }}>
-                            <button className="buttomDarkGray" style={{ marginLeft: '0px', height: '28px',  }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                            <button className="buttomDarkGray" style={{ marginLeft: '0px', height: '30px', fontSize: isDesktopView ? '17px' : '14px',  }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
-                        <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Itens on Order</span>
+                        <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Items</span>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
-                                <thead>
+                                <thead >
                                     <tr>
-                                        <th style={{ width: "100%" }}>Item</th>
-                                        <th style={{ width: "40px" }}>Price</th>
-                                        <th style={{ width: "40px" }}><FontAwesomeIcon icon={faTrash} /></th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -295,13 +293,13 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '0px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginTop: '10px', fontSize: isDesktopView ? '17px' : '14px', }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button className="buttomDarkRed" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Cancel Order</button>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%',  }}>
+                            <button className="buttomDarkGray" style={{ }} onClick={() => close()} disabled={disabled}>Cancel</button>
 
-                            <button className="buttomDarkGreen" style={{ marginLeft: '0px' }}
-                                onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', margin: '0 30px', }} /> : 'Save Order'}</button>
+                            <button className="buttomDarkGreen" style={{  }}
+                                onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '30px',  }} /> : 'Save Order'}</button>
                         </div>
                     </div>
                 </div>
