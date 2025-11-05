@@ -1,23 +1,38 @@
 import { useSelector } from "react-redux";
 import NewCustomerModal from "../NewCustomerModal";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getAllCompanyCustomers } from "../../../../../../services/deliveryServices/CustomerSevice";
 import CancelOrder from "../CancelOrderModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { greenOne, redOne } from "../../../../../../theme/Colors";
+import { Spinner } from "react-bootstrap";
 
 
 
-export default function ChangeTableOrCustomerModal({ close, companyOperation, orderToEdit, getShiftOperationData }) {
+export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliveryOrPickup, setTableNumberOrDeliveryOrPickup, orderToEdit, pickupName, setPickupName, customerSelected, setCustomerSelected, companyOperation, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [disabled, setDisabled] = useState(false);
     const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
+    const customerSelectorDropdownRef = useRef(null);
+
     const [allCompanyCustomers, setAllCompanyCustomers] = useState([]);
 
     const [showCancelOrderModal, setShowCancelOrderModal] = useState(false);
 
     const [customerInputToSearch, setCustomerInputToSearch] = useState("");
     const [customersMatched, setCustomersMatched] = useState([]);
+
+    const [selectUseCustomerOrPickUpName, setSelectUseCustomerOrPickUpName] = useState(orderToEdit?.customer ? 'Customer' : 'Name');
+
+    const [editNameCustomer, setEditNameCustomer] = useState(false);
+    const [editTable, setEditTable] = useState(false);
+
+    const [newPickupNameCandidate, setNewPickupNameCandidate] = useState(null);
+    const [newCustomerCandidate, setNewCustomerCandidate] = useState(null);
+    const [newTableCandidate, setNewTableCandidate] = useState(null);
 
 
     async function fetchCustomers(customerIDToSelectAfterFetch) {
@@ -35,7 +50,6 @@ export default function ChangeTableOrCustomerModal({ close, companyOperation, or
             console.log(error);
         }
     }
-
 
     useEffect(() => {
         fetchCustomers();
@@ -56,29 +70,172 @@ export default function ChangeTableOrCustomerModal({ close, companyOperation, or
         setCustomersMatched(filtered);
     };
 
+    async function saveChangeNameOrCustomer() {
+        if (newCustomerCandidate === null && newPickupNameCandidate === null) {
+            setEditNameCustomer(false);
+            return;
+        }
+
+        if (customerSelected === newCustomerCandidate && pickupName === newPickupNameCandidate) {
+            setEditNameCustomer(false);
+            return;
+        }
+        setDisabled(true);
+
+        console.log("Save change name or customer");
+
+        setDisabled(false);
+    }
+
+    async function saveChangeTable() {
+        if (tableNumberOrDeliveryOrPickup === newTableCandidate || newTableCandidate === null) {
+            setEditTable(false);
+            return;
+        }
+        setDisabled(true);
+
+
+        setDisabled(false);
+    }
 
     return (
         <>
             <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "97%", maxHeight: !isDesktopView ? '90%' : '80%', padding: !isDesktopView ? '10px' : '10px', }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
-                        <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px', }}
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', }}>
+                        <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
-                        <button className="buttomDarkBlue" style={{ fontSize: isDesktopView ? '14px' : '12px', marginLeft: '0px', padding: isDesktopView ? '0px 5px' : '0px 2px', }}
-                            onClick={() => { setChangeTableOrCustomerModal(true) }} disabled={disabled}>Change Table</button>
+                        {!editNameCustomer && <button className="buttomDarkBlue" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
+                            onClick={() => { setEditNameCustomer(true) }} disabled={disabled}>Change Name/Customer</button>}
+
+
+                        {editNameCustomer && <div style={{ display: 'flex', flexDirection: 'row', }}>
+                            {!disabled && <button style={{
+                                display: 'flex', borderRadius: '50%', backgroundColor: redOne(theme), opacity: 0.7, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
+                                padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                            }} onClick={() => { setNewCustomerCandidate(null); setNewPickupNameCandidate(null); setEditNameCustomer(false); }} >
+                                <FontAwesomeIcon icon={faXmark} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />
+                            </button>}
+
+                            <button style={{
+                                display: 'flex', borderRadius: '50%', backgroundColor: disabled ? 'lightgray' : greenOne(theme), marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
+                                padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                            }} onClick={() => { saveChangeNameOrCustomer(); }} >
+                                {!disabled && <FontAwesomeIcon icon={faCheck} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />}
+                                {disabled && <Spinner animation="border" role="status" variant="light" style={{ width: '18px', height: '18px', margin: '0', padding: 0 }} />}
+                            </button>
+                        </div>}
                     </div>
                 </div>
 
+                {editNameCustomer && <div style={{ marginBottom: '5px' }}>
+                    {tableNumberOrDeliveryOrPickup === 'delivery' && <span style={{ fontWeight: "600" }}>Customer</span>}
+                    {tableNumberOrDeliveryOrPickup !== 'delivery' && <select className="inputOne" value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
+                        style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isDesktopView ? '17px' : '14px', textAlign: 'left', }} >
+                        <option value='' disabled hidden> Select </option>
+                        <option value={'Customer'}> {'Customer'} </option>
+                        <option value={'Name'}> {'Name'} </option>
+                    </select>}
+                </div>}
 
-                <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', flex: 1, width: "100%", marginBottom: '0px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', margin: 0 }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', margin: 0, fontSize: isDesktopView ? '14px' : '12px' }}>
+                {selectUseCustomerOrPickUpName === 'Name' && <div>
+                    {!editNameCustomer && <span style={{ fontWeight: "600", padding: '10px 0px', }}>Name:</span>}
+
+                    {!editNameCustomer && <input className="inputOne" type="text" value={pickupName} onChange={(e) => setPickupName(e.target.value)} disabled={true}
+
+                        style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', textAlign: 'center', overflowX: 'auto', margin: '10px 0px', }} />}
+                    {editNameCustomer && <input className="inputOne" type="text" value={newPickupNameCandidate ?? pickupName} onChange={(e) => setNewPickupNameCandidate(e.target.value)} disabled={disabled}
+                        style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: disabled ? 'lightgray' : 'white', color: 'black', width: '100%', textAlign: 'center', overflowX: 'auto', margin: '10px 0px', }} />}
+                </div>}
+
+                {selectUseCustomerOrPickUpName === 'Customer' && <div>
+                    <div ref={customerSelectorDropdownRef} style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%' }}>
+                        <input
+                            type="text"
+                            value={showCustomerSelectorDropdown ? customerInputToSearch : (customerSelectedToNewOrder ? customerSelectedToNewOrder?.customerName + " / " + customerSelectedToNewOrder?.phone : "")}
+                            onChange={e => setCustomerInputToSearch(e.target.value)}
+                            onFocus={() => setShowCustomerSelectorDropdown(true)}
+                            onBlur={() => { setCustomerInputToSearch(""); setShowCustomerSelectorDropdown(false); }}
+                            placeholder="Search Customer by Name or Phone"
+                            disabled={disabled}
+                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
+                        />
+                        {showCustomerSelectorDropdown && (
+                            <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 100, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
+                                {customersMatched?.length > 0 ? (
+                                    customersMatched.map((customerOpt) => (
+                                        <li
+                                            key={customerOpt.id}
+                                            onMouseDown={() => { setCustomerSelectedToNewOrder(customerOpt); }}
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            {customerOpt?.customerName + " / " + customerOpt?.phone}
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li style={{ fontWeight: "600" }} >{customersMatched?.length > 0 ? "No matches found" : "Type Name or Phone to search"}</li>
+                                )}
+                            </ul>
+                        )}
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
+
+                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
+                                <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
+                                <input className="inputOne" type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
+                                    style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
+                            </div>
+                            <div style={{ width: '3%' }}></div>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
+                                <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Phone</span>
+                                <input className="inputOne" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
+                                    style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+
+                <div style={{ width: '100%', borderTop: '1px solid lightgray', backgroundColor: 'lightgray', margin: '5px 0' }} />
+
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', }}>
+                    <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
+                        onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
+
+                    {!editNameCustomer && <button className="buttomDarkBlue" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
+                        onClick={() => { setEditNameCustomer(true) }} disabled={disabled}>Change Name/Customer</button>}
+
+
+                    {editNameCustomer && <div style={{ display: 'flex', flexDirection: 'row', }}>
+                        {!disabled && <button style={{
+                            display: 'flex', borderRadius: '50%', backgroundColor: redOne(theme), opacity: 0.7, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
+                            padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                        }} onClick={() => { setNewCustomerCandidate(null); setNewPickupNameCandidate(null); setEditNameCustomer(false); }} >
+                            <FontAwesomeIcon icon={faXmark} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />
+                        </button>}
+
+                        <button style={{
+                            display: 'flex', borderRadius: '50%', backgroundColor: disabled ? 'lightgray' : greenOne(theme), marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
+                            padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                        }} onClick={() => { saveChangeNameOrCustomer(); }} >
+                            {!disabled && <FontAwesomeIcon icon={faCheck} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />}
+                            {disabled && <Spinner animation="border" role="status" variant="light" style={{ width: '18px', height: '18px', margin: '0', padding: 0 }} />}
+                        </button>
+                    </div>}
+                </div>
+
+                <br />
+
+                <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', flex: 1, width: "100%", }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: isDesktopView ? '17px' : '14px', }}>
                             <button className="buttomDarkGray" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Cancel</button>
 
-                            <button className="buttomDarkGreen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}
-                                onClick={() => close} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', margin: '0 0px', }} /> : 'Save'}</button>
+                            {/* <button className="buttomDarkGreen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isDesktopView ? '17px' : '14px', }}
+                                onClick={() => close} disabled={disabled}>
+                                {disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', margin: '0 0px', }} /> : 'Save'}</button> */}
                         </div>
                     </div>
                 </div>

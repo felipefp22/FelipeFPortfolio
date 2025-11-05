@@ -11,7 +11,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 
 
-export default function EditOrderModal({ close, companyOperation, orderToEdit, getShiftOperationData }) {
+export default function EditOrderModal({ close, companyOperation, orderToEdit, setOrderToEdit, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -22,16 +22,15 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, g
     const [showSelectItemsModal, setShowSelectItemsModal] = useState(false);
     const selectItemsModalRef = useRef(null);
     const [showCustomerSelectorDropdown, setShowCustomerSelectorDropdown] = useState(false);
-    const customerSelectorDropdownRef = useRef(null);
 
     const [allCompanyProductsCategories, setAllCompanyProductsCategories] = useState([]);
 
     const [selectUseCustomerOrPickUpName, setSelectUseCustomerOrPickUpName] = useState(orderToEdit?.customer ? 'Customer' : 'Name');
 
-    const [tableNumberOrDeliveryOrPickup, setTableNumberOrDeliveryOrPickupSelected] = useState(null);
+    const [tableNumberOrDeliveryOrPickup, setTableNumberOrDeliveryOrPickup] = useState(null);
     const [productsAlreadyOnOrder, setProductsAlreadyOnOrder] = useState([]);
     const [customerSelected, setCustomerSelected] = useState(null);
-    const [pickupNameInput, setPickupNameInput] = useState("");
+    const [pickupName, setPickupName] = useState(null);
 
     const [selectedProductsToAdd, setSelectedProductsToAdd] = useState([]);
 
@@ -42,15 +41,22 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, g
 
         console.log("🔥 orderToEdit: ", orderToEdit);
 
-        setTableNumberOrDeliveryOrPickupSelected(orderToEdit?.tableNumberOrDeliveryOrPickup);
+        setSelectUseCustomerOrPickUpName(orderToEdit?.customer ? 'Customer' : 'Name');
+        setTableNumberOrDeliveryOrPickup(orderToEdit?.tableNumberOrDeliveryOrPickup);
         setProductsAlreadyOnOrder(orderToEdit?.orderItems);
         setCustomerSelected(orderToEdit?.customer);
-        setPickupNameInput(orderToEdit?.pickupName);
+        setPickupName(orderToEdit?.pickupName);
     }
 
     useEffect(() => {
         insertOrderToEditToLocalVars();
     }, [orderToEdit]);
+
+    useEffect(() => {
+        const orderUpdated = companyOperation?.orders.find(order => order.id === orderToEdit?.id);
+        if (orderUpdated) setOrderToEdit(orderUpdated);
+
+    }, [companyOperation]);
 
     async function fetchProductsCategories() {
         try {
@@ -74,13 +80,13 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, g
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', margin: '0px 0px' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between',  }}>
-                            <span style={{ fontWeight: "600", fontSize: isDesktopView ? '18px' : '16px', }}>{`Order [ ${orderToEdit?.orderNumberOnShift } ]`}</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
+                            <span style={{ fontWeight: "600", fontSize: isDesktopView ? '18px' : '16px', }}>{`Order [ ${orderToEdit?.orderNumberOnShift} ]`}</span>
                             <span style={{ fontWeight: "600", fontSize: isDesktopView ? '16px' : '14px', color: greenTwo(theme) }}>
                                 {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' ? 'Delivery' : (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' ? 'Pickup' : `Table - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`)}</span>
                         </div>
 
-                        <button className="buttomDarkGreen" style={{ fontSize: isDesktopView ? '17px' : '14px', height: '40px', padding: isDesktopView ? '0px 5px' : '0px 2px', marginBottom: '0px' }}
+                        <button className="buttomDarkGreen" style={{ fontSize: isDesktopView ? '17px' : '14px', height: '40px', padding: isDesktopView ? '0px 5px' : '0px 3px', marginBottom: '0px' }}
                             onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled}>Change Table/Customer</button>
                     </div>
                 </div>
@@ -89,7 +95,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, g
                     {selectUseCustomerOrPickUpName === 'Name' && <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%', }}>
                         <span style={{ fontWeight: "600", padding: '0px 0px', fontSize: isDesktopView ? '18px' : '16px', }}>Name:</span>
 
-                        <input className="inputOne" type="text" value={pickupNameInput} disabled={true}
+                        <input className="inputOne" type="text" value={pickupName} disabled={true}
                             style={{ height: '35px', fontSize: isDesktopView ? '17px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
 
                     </div>}
@@ -195,7 +201,9 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, g
             </div>
 
             {showChangeTableOrCustomerModal && <div className="myModal" style={{ zIndex: 100 }} >
-                <ChangeTableOrCustomerModal close={() => setShowChangeTableOrCustomerModal(false)} orderToEdit={orderToEdit} getShiftOperationData={() => getShiftOperationData()} companyOperation={companyOperation} pickupNameInput={pickupNameInput} setPickupNameInput={setPickupNameInput} customerSelected={customerSelected} setCustomerSelected={setCustomerSelected} />
+                <ChangeTableOrCustomerModal close={() => setShowChangeTableOrCustomerModal(false)} tableNumberOrDeliveryOrPickup={tableNumberOrDeliveryOrPickup} setTableNumberOrDeliveryOrPickup={setTableNumberOrDeliveryOrPickup}
+                    orderToEdit={orderToEdit} pickupName={pickupName} setPickupName={setPickupName} customerSelected={customerSelected} setCustomerSelected={setCustomerSelected}
+                    companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ zIndex: 1000 }} >

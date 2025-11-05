@@ -270,7 +270,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
             </div>}
 
             {editOrderModal && <div className="myModal" style={{}} >
-                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} getShiftOperationData={() => getShiftOperationData()} />
+                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>
     );
