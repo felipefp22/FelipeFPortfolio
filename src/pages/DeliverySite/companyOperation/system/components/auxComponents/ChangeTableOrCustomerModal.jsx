@@ -5,7 +5,7 @@ import { getAllCompanyCustomers } from "../../../../../../services/deliveryServi
 import CancelOrder from "../CancelOrderModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { blueOne, borderColorOne, greenOne, greenTwo, redOne } from "../../../../../../theme/Colors";
+import { blueOne, borderColorOne, borderColorTwo, greenOne, greenTwo, redOne } from "../../../../../../theme/Colors";
 import { Spinner } from "react-bootstrap";
 import { editOrderService } from "../../../../../../services/deliveryServices/OrderService";
 
@@ -17,11 +17,12 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
 
     const [disabled, setDisabled] = useState(false);
     const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
-    const customerSelectorDropdownRef = useRef(null);
 
     const [allCompanyCustomers, setAllCompanyCustomers] = useState([]);
 
     const [showCancelOrderModal, setShowCancelOrderModal] = useState(false);
+    const [showCustomerSelectorDropdown, setShowCustomerSelectorDropdown] = useState(false);
+    const customerSelectorDropdownRef = useRef(null);
 
     const [customerInputToSearch, setCustomerInputToSearch] = useState("");
     const [customersMatched, setCustomersMatched] = useState([]);
@@ -83,7 +84,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
         }
         setDisabled(true);
 
-        const response = await editOrderService(companyOperation?.companyOperationID, orderToEdit.id, newTableCandidate, customerSelected?.id, newPickupNameCandidate, null);
+        const response = await editOrderService(companyOperation?.companyOperationID, orderToEdit.id, tableNumberOrDeliveryOrPickup, newCustomerCandidate?.id, newPickupNameCandidate, null);
 
         if (response?.status === 200) {
             await getShiftOperationData();
@@ -106,7 +107,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
 
         if (response?.status === 200) {
             await getShiftOperationData();
-            setNewTableCandidate(tableNumberOrDeliveryOrPickup);
+            setNewTableCandidate(response.data.tableNumberOrDeliveryOrPickup);
             setEditTable(false);
         }
 
@@ -119,7 +120,10 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '8px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', }}>
-                        <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
+                        <button className="buttomStandart" style={{
+                            fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px',
+                            visibility: editNameCustomer ? (selectUseCustomerOrPickUpName === 'Customer' ? 'visible' : 'hidden') : 'hidden'
+                        }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
                         {!editNameCustomer && <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
@@ -130,7 +134,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                             {!disabled && <button style={{
                                 display: 'flex', borderRadius: '50%', backgroundColor: redOne(theme), opacity: 0.7, marginLeft: 10, width: isDesktopView ? '42px' : '33px', height: isDesktopView ? '42px' : '33px',
                                 padding: '6px', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-                            }} onClick={() => { setNewCustomerCandidate(null); setNewPickupNameCandidate(null); setEditNameCustomer(false); }} >
+                            }} onClick={() => { setNewCustomerCandidate(null); setNewPickupNameCandidate(null); setEditNameCustomer(false); setSelectUseCustomerOrPickUpName(orderToEdit?.customer ? 'Customer' : 'Name') }} >
                                 <FontAwesomeIcon icon={faXmark} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />
                             </button>}
 
@@ -167,15 +171,17 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
 
                 {selectUseCustomerOrPickUpName === 'Customer' && <div>
                     <div ref={customerSelectorDropdownRef} style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%' }}>
+                        {!editNameCustomer && <span style={{ fontWeight: "600", padding: '0px 0px', }}>Customer:</span>}
+
                         <input
                             type="text"
-                            value={showCustomerSelectorDropdown ? customerInputToSearch : (customerSelectedToNewOrder ? customerSelectedToNewOrder?.customerName + " / " + customerSelectedToNewOrder?.phone : "")}
+                            value={!editNameCustomer ? (customerSelected?.customerName + " / " + customerSelected?.phone) : (showCustomerSelectorDropdown ? customerInputToSearch : (newCustomerCandidate ? newCustomerCandidate?.customerName + " / " + newCustomerCandidate?.phone : ""))}
                             onChange={e => setCustomerInputToSearch(e.target.value)}
                             onFocus={() => setShowCustomerSelectorDropdown(true)}
                             onBlur={() => { setCustomerInputToSearch(""); setShowCustomerSelectorDropdown(false); }}
-                            placeholder="Search Customer by Name or Phone"
-                            disabled={disabled}
-                            style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
+                            placeholder={editNameCustomer ? "Search Customer by Name or Phone" : "Select Customer"}
+                            disabled={disabled || !editNameCustomer}
+                            style={{ height: '35px', backgroundColor: editNameCustomer ? 'white' : 'lightgray', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                         />
                         {showCustomerSelectorDropdown && (
                             <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 100, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
@@ -183,7 +189,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                                     customersMatched.map((customerOpt) => (
                                         <li
                                             key={customerOpt.id}
-                                            onMouseDown={() => { setCustomerSelectedToNewOrder(customerOpt); }}
+                                            onMouseDown={() => { setNewCustomerCandidate(customerOpt); }}
                                             style={{ cursor: "pointer" }}
                                         >
                                             {customerOpt?.customerName + " / " + customerOpt?.phone}
@@ -200,14 +206,14 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
                                 <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
-                                <input className="inputStandart" type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
-                                    style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
+                                <input className="inputStandart" type="text" value={!editNameCustomer ? (customerSelected?.address) : (newCustomerCandidate ? newCustomerCandidate.address + ", " + newCustomerCandidate.addressNumber : "")} disabled={true}
+                                    style={{ height: '25px', fontSize: isDesktopView ? '18px' : '15px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                             <div style={{ width: '3%' }}></div>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
                                 <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Phone</span>
-                                <input className="inputStandart" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
-                                    style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
+                                <input className="inputStandart" value={!editNameCustomer ? (customerSelected?.phone) : (newCustomerCandidate ? newCustomerCandidate?.phone : "")} disabled={true}
+                                    style={{ height: '25px', fontSize: isDesktopView ? '18px' : '15px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                         </div>
                     </div>
