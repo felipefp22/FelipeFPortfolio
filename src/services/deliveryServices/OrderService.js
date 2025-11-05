@@ -61,7 +61,7 @@ export async function editOrderService(companyID, orderID, tableNumberOrDelivery
         notes: notes,
     };
     try {
-        const response = await axiosInstanceRestaurantSystem.put(`/order/edit-order`, postData,
+        const response = await axiosInstanceRestaurantSystem.put(`/order/update-order`, postData,
             {
                 headers: {
 
