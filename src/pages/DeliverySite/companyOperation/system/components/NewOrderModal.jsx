@@ -99,7 +99,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             setDisabled(false);
             return;
         }
-        if (tableNumberOrDeliveryOrPickupSelected === 'pickup' && (!customerSelectedToNewOrder || !pickupNameInput)) {
+        if (tableNumberOrDeliveryOrPickupSelected === 'pickup' && !customerSelectedToNewOrder && !pickupNameInput) {
             alert("PickUp Name or Customer required to PICKUP order");
             setDisabled(false);
             return;

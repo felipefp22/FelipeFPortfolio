@@ -2,16 +2,19 @@ import { useSelector } from "react-redux";
 import NewCustomerModal from "../NewCustomerModal";
 import { useEffect, useState } from "react";
 import { getAllCompanyCustomers } from "../../../../../../services/deliveryServices/CustomerSevice";
+import CancelOrder from "../CancelOrderModal";
 
 
 
-export default function ChangeTableOrCustomerModal({ close, companyOperation, setPickupNameInput }) {
+export default function ChangeTableOrCustomerModal({ close, companyOperation, orderToEdit, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
     const [disabled, setDisabled] = useState(false);
     const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
     const [allCompanyCustomers, setAllCompanyCustomers] = useState([]);
+
+    const [showCancelOrderModal, setShowCancelOrderModal] = useState(false);
 
     const [customerInputToSearch, setCustomerInputToSearch] = useState("");
     const [customersMatched, setCustomersMatched] = useState([]);
@@ -85,6 +88,9 @@ export default function ChangeTableOrCustomerModal({ close, companyOperation, se
                 <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperation?.companyOperationID} fetchCustomers={(e) => fetchCustomers(e)} />
             </div>}
 
+            {showCancelOrderModal && <div className="myModal" style={{}} >
+                <CancelOrder close={() => setShowCancelOrderModal(false)} companyOperationID={companyOperation?.companyOperationID} selectedOrderToCancel={orderToEdit} getShiftOperationData={() => getShiftOperationData()} />
+            </div>}
         </>
     );
 }

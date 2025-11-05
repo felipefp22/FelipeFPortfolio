@@ -3,11 +3,11 @@ import { Form, Spinner, Table } from "react-bootstrap";
 import NewOrderModal from "./components/NewOrderModal.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faPen, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
 import CancelOrder from "./components/CancelOrderModal.jsx";
 import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
 import ChangeOrderStatusModal from "./components/ChangeOrderStatusModal.jsx";
-import { blueOne, borderColorTwo, fontColorOne, redOne, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
+import { blueOne, borderColorTwo, fontColorOne, greenTwo, redOne, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
 import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import tableGreen from "../../../../assets/tableGreen.png";
@@ -22,17 +22,19 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
     const [editOrderModal, setEditOrderModal] = useState(false);
-    const newOrderModalRef = useRef(null);
+    const [seeOrderResumeModal, setSeeOrderResumeModal] = useState(false);
 
-    const [requesterIdOwnerOrManager, setRequesterIdOwnerOrManager] = useState(false);
-    const [requesterIsOwnerOrManagerOrSupervisor, setRequesterIsOwnerOrManagerOrSupervisor] = useState(false);
+    const [seePickUpOrders, setSeePickUpOrders] = useState(true);
+    const [seeCompletedOrders, setSeeCompletedOrders] = useState(false);
+    const [seeCanceledOrders, setSeeCanceledOrders] = useState(false);
 
     const companyOperation = useSelector((state) => state.companyOperation);
     const orders = useSelector((state) => state.companyOperation.orders);
 
-    const [selectedCookingOrderID, setSelectedCookingOrderID] = useState([]);
-    const [selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID] = useState([]);
+    const [requesterIdOwnerOrManager, setRequesterIdOwnerOrManager] = useState(false);
+    const [requesterIsOwnerOrManagerOrSupervisor, setRequesterIsOwnerOrManagerOrSupervisor] = useState(false);
 
+    const [selectedPickUpOrCompletedOrCanceledOrderID, setSelectedPickUpOrCompletedOrCanceledOrderID] = useState(null);
 
     const [inputSearchTable, setInputSearchTable] = useState("")
 
@@ -40,26 +42,11 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
 
     const [processing, setProcessing] = useState(false);
 
-    const [seeCompletedOrders, setSeeCompletedOrders] = useState(false);
-    const [seeCanceledOrders, setSeeCanceledOrders] = useState(false);
 
     useEffect(() => {
         if (companyOperation) setRequesterIdOwnerOrManager(isOwnerOrManager(localStorage.getItem("userLoggedEmail"), companyOperation));
         if (companyOperation) setRequesterIsOwnerOrManagerOrSupervisor(isOwnerOrManagerOrSupervisor(localStorage.getItem("userLoggedEmail"), companyOperation));
     }, [companyOperation]);
-
-    async function findOrderToCancel() {
-        let orderFound;
-        if (selectedCookingOrderID.length > 0 && selectedOnDeliveryOrderID.length > 0) return;
-        if (selectedCookingOrderID.length === 1) orderFound = orders.find(order => order.id === selectedCookingOrderID[0]);
-        if (selectedOnDeliveryOrderID.length === 1) orderFound = orders.find(order => order.id === selectedOnDeliveryOrderID[0]);
-
-        setSelectedOrderToCancel(orderFound);
-    }
-
-    // useEffect(() => {
-    //     console.log("selectedTable", selectedTable);
-    // }, [selectedTable]);
 
     useEffect(() => {
         const handler = (e) => e.preventDefault();
@@ -69,20 +56,20 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingTop: '8px', paddingLeft: '3px', overflowY: 'auto', }}>
-                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px', }}>
-                    <button className="buttomDarkGray" style={{ marginBottom: '20px', marginLeft: '0px', visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingLeft: '3px', overflowY: 'auto', }}>
+                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '12px', marginBottom: '8px' }}>
+                    <button className="buttomDarkGray" style={{ visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
                         onClick={() => { setNewOrderModal(true); }}>
                         {"New Order"}</button>
 
 
-                    <button className="buttomDarkBlue" style={{ marginBottom: '20px', marginLeft: '0px', visibility: (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
+                    <button className="buttomDarkGray" style={{ visibility: (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
                         onClick={() => { setEditOrderModal(companyOperation?.orders?.find(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable))); }}>
                         {"Edit Order"}</button>
                 </div>}
 
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'auto' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '300px', maxHeight: '80%', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', padding: 3, overflowY: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '300px', maxHeight: '80%', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', padding: 3, marginBottom: '6px', overflowY: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <input type="number" className="inputOne" value={inputSearchTable} onChange={(e) => setInputSearchTable(e.target.value)} placeholder=""
                             style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)', overflow: 'hidden', textAlign: 'center' }} />
 
@@ -110,8 +97,8 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                                     <div key={idx} style={{
                                         display: 'flex', flexDirection: 'column', alignItems: 'center', width: isDesktopView ? '90px' : '65px', height: isDesktopView ? "104px" : "84px", margin: 5, cursor: 'pointer',
                                         borderRadius: '5px', backgroundColor: (tableNumber === selectedTable) ? 'lightblue' : 'transparent'
-                                    }} onClick={() => { setSelectedTable((selectedTable === tableNumber) ? null : tableNumber); }}
-                                        onDoubleClick={() => { setSelectedTable(tableNumber); openEditOrNewOrderModal(); }}
+                                    }} onClick={() => { setSelectedTable((selectedTable === tableNumber) ? null : tableNumber); setSelectedPickUpOrCompletedOrCanceledOrderID(null); }}
+                                        onDoubleClick={() => { setSelectedTable(tableNumber); setSelectedPickUpOrCompletedOrCanceledOrderID(null); openEditOrNewOrderModal(); }}
                                         onTouchStart={(e) => {
                                             const now = Date.now();
                                             const lastTap = e.currentTarget.lastTap || 0;
@@ -119,18 +106,18 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
 
                                             if (now - lastTap < DOUBLE_TAP_DELAY) {
                                                 clearTimeout(e.currentTarget.singleTapTimer);
+                                                setSelectedPickUpOrCompletedOrCanceledOrderID(null);
                                                 setSelectedTable(tableNumber);
                                                 openEditOrNewOrderModal();
                                             }
 
                                             e.currentTarget.lastTap = now;
-
                                             e.currentTarget.longPressTimer = setTimeout(() => {
+                                                setSelectedPickUpOrCompletedOrCanceledOrderID(null);
                                                 setSelectedTable(tableNumber);
                                                 openEditOrNewOrderModal();
                                             }, 700);
                                         }}
-
                                         onTouchEnd={(e) => { clearTimeout(e.currentTarget.longPressTimer); }} onTouchMove={(e) => { clearTimeout(e.currentTarget.longPressTimer); }}>
 
                                         <img src={tableColorImage} alt={""} style={{ width: isDesktopView ? '80px' : '60px', height: isDesktopView ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
@@ -140,16 +127,150 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                             })}
                         </div>
                     </div>
-                    <br />
+
+                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} >
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Waiting PickUp</span>
+                            </div>
+                            <button className="floatingButton" style={{
+                                backgroundColor: greenTwo(theme), marginRight: '5px',
+                                visibility: (selectedPickUpOrCompletedOrCanceledOrderID && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'PAID' && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'CANCELED') ? 'visible' : 'hidden'
+                            }}
+                                onClick={() => { if (selectedPickUpOrCompletedOrCanceledOrderID.status !== 'PAID' && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'CANCELED') setEditOrderModal(selectedPickUpOrCompletedOrCanceledOrderID) }}>
+                                <span><FontAwesomeIcon icon={faPen} /></span>
+                            </button>
+                        </div>
+
+                        {seePickUpOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                            <Table responsive="sm" >
+                                <thead style={{ position: "sticky", zIndex: 2, }}>
+                                    <tr>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN" && order.tableNumberOrDeliveryOrPickup === 'pickup').sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
+                                        <tr key={order.id} className={selectedPickUpOrCompletedOrCanceledOrderID?.id === order.id ? "table-active" : ""}
+                                            onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(order); }} style={{ cursor: "pointer" }}
+                                            onDoubleClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(order); setEditOrderModal(order); }}
+                                            onTouchStart={(e) => {
+                                                const now = Date.now();
+                                                const lastTap = e.currentTarget.lastTap || 0;
+                                                const DOUBLE_TAP_DELAY = 220;
+
+                                                if (now - lastTap < DOUBLE_TAP_DELAY) {
+                                                    clearTimeout(e.currentTarget.singleTapTimer);
+                                                    setSelectedTable(null);
+                                                    setSelectedPickUpOrCompletedOrCanceledOrderID(order);
+                                                    setEditOrderModal(order);
+                                                }
+
+                                                e.currentTarget.lastTap = now;
+                                                e.currentTarget.longPressTimer = setTimeout(() => {
+                                                    setSelectedTable(null);
+                                                    setSelectedPickUpOrCompletedOrCanceledOrderID(order);
+                                                    setEditOrderModal(order);
+                                                }, 700);
+                                            }}
+                                            onTouchEnd={(e) => { clearTimeout(e.currentTarget.longPressTimer); }} onTouchMove={(e) => { clearTimeout(e.currentTarget.longPressTimer); }}>
+
+                                            <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName ?? (order.pickupName ?? "No Name")}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.status}</td>
+                                            {/* <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td> */}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </div>}
+                    </div>}
+
+                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Completed Orders</span>
+                                <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
+                            </div>
+                            <button className="floatingButton" style={{
+                                backgroundColor: blueOne(theme), marginRight: '5px',
+                                visibility: selectedPickUpOrCompletedOrCanceledOrderID ? 'visible' : 'hidden'
+                            }}
+                                onClick={() => setSeeOrderResumeModal(selectedPickUpOrCompletedOrCanceledOrderID)}>
+                                <span>☰</span>
+                            </button>
+                        </div>
+
+                        {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                            <Table responsive="sm" >
+                                <thead style={{ position: "sticky", zIndex: 2, }}>
+                                    <tr>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    {orders && orders.length > 0 && orders.filter(order => order.status === "PAID").sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
+                                        <tr key={order.id} className={selectedPickUpOrCompletedOrCanceledOrderID?.id === order.id ? "table-active" : ""}
+                                            onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(order); }} style={{ cursor: "pointer" }} >
+
+                                            <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName ?? (order.pickupName ?? "No Name")}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.status}</td>
+                                            {/* <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td> */}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </div>}
+                    </div>}
+                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Canceled Orders</span>
+                                <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
+                            </div>
+                        </div>
+
+                        {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                            <Table responsive="sm" >
+                                <thead style={{ position: "sticky", zIndex: 2, }}>
+                                    <tr>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    {orders && orders.length > 0 && orders.filter(order => order.status === "CANCELLED").sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
+                                        <tr key={order.id} className={selectedPickUpOrCompletedOrCanceledOrderID?.id === order.id ? "table-active" : ""}
+                                            onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(order); }} style={{ cursor: "pointer" }} >
+
+                                            <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName || "No Name"}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.status}</td>
+                                            {/* <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td> */}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </div>}
+                    </div>}
                 </div >
             </div>
 
-            {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{}} >
+            {newOrderModal && <div className="myModal" style={{}} >
                 <NewOrderModal close={() => { setNewOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
             </div>}
 
             {editOrderModal && <div className="myModal" style={{}} >
-                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} orderToEdit={editOrderModal} />
+                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>
     );

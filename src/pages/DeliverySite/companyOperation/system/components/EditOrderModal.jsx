@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
 import ChangeTableOrCustomerModal from "./auxComponents/ChangeTableOrCustomerModal";
-import { blueOne, borderColorTwo } from "../../../../../theme/Colors";
+import { blueOne, borderColorTwo, greenOne, greenTwo, transparentCavasOne, transparentCavasTwo } from "../../../../../theme/Colors";
 import { getAllProductsCategories } from "../../../../../services/deliveryServices/ProductsCategoryService";
 import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 
 
-export default function EditOrderModal({ close, companyOperation, orderToEdit }) {
+export default function EditOrderModal({ close, companyOperation, orderToEdit, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -39,6 +39,8 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
 
     async function insertOrderToEditToLocalVars() {
         if (!orderToEdit) return;
+
+        console.log("🔥 orderToEdit: ", orderToEdit);
 
         setTableNumberOrDeliveryOrPickupSelected(orderToEdit?.tableNumberOrDeliveryOrPickup);
         setProductsAlreadyOnOrder(orderToEdit?.orderItems);
@@ -70,19 +72,22 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
         <>
             <div className="modalInside" style={{ width: !isDesktopView ? "99%" : "97%", maxHeight: !isDesktopView ? '97%' : '97%', padding: !isDesktopView ? '10px' : '10px', }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%",  }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', margin: '3px 0px' }}>
-                        <span style={{ fontWeight: "600", fontSize: isDesktopView ? '18px' : '16px',}}>{`Table - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`}</span>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', margin: '0px 0px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between',  }}>
+                            <span style={{ fontWeight: "600", fontSize: isDesktopView ? '18px' : '16px', }}>{`Order [ ${orderToEdit?.orderNumberOnShift } ]`}</span>
+                            <span style={{ fontWeight: "600", fontSize: isDesktopView ? '16px' : '14px', color: greenTwo(theme) }}>
+                                {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' ? 'Delivery' : (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' ? 'Pickup' : `Table - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`)}</span>
+                        </div>
 
-
-                        <button className="buttomDarkBlue" style={{ fontSize: isDesktopView ? '17px' : '14px', height: '35px', padding: isDesktopView ? '0px 5px' : '0px 2px', marginBottom: '0px' }}
+                        <button className="buttomDarkGreen" style={{ fontSize: isDesktopView ? '17px' : '14px', height: '40px', padding: isDesktopView ? '0px 5px' : '0px 2px', marginBottom: '0px' }}
                             onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled}>Change Table/Customer</button>
                     </div>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'flex-start', alignContent: 'flex-start', textAlign: 'flex-start', }}>
                     {selectUseCustomerOrPickUpName === 'Name' && <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%', }}>
-                        <span style={{ fontWeight: "600", padding: '0px 0px',fontSize: isDesktopView ? '18px' : '16px', }}>Name:</span>
+                        <span style={{ fontWeight: "600", padding: '0px 0px', fontSize: isDesktopView ? '18px' : '16px', }}>Name:</span>
 
                         <input className="inputOne" type="text" value={pickupNameInput} disabled={true}
                             style={{ height: '35px', fontSize: isDesktopView ? '17px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
@@ -90,7 +95,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
                     </div>}
 
                     {selectUseCustomerOrPickUpName === 'Customer' && <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%', }}>
-                        <span style={{ fontWeight: "600", padding: '0px 0px',fontSize: isDesktopView ? '18px' : '16px', }}>Customer:</span>
+                        <span style={{ fontWeight: "600", padding: '0px 0px', fontSize: isDesktopView ? '18px' : '16px', }}>Customer:</span>
 
                         <input className="inputOne" type="text" value={customerSelected?.customerName + " / " + customerSelected?.phone} disabled={true}
                             style={{ height: '35px', fontSize: isDesktopView ? '17px' : '14px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
@@ -129,17 +134,17 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
+                                        <th >Item</th>
+                                        <th >Price</th>
+                                        <th ><FontAwesomeIcon icon={faTrash} /></th>
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    {selectedProductsToAdd.map((product, index) => (
+                                    {selectedProductsToAdd?.map((product, index) => (
                                         <tr key={index}>
-                                            <td>{product.name}</td>
-                                            <td>{product.price}</td>
-                                            <td onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                            <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -152,7 +157,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '3px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', marginTop: '0px' }}>
-                        <span style={{ fontWeight: "bold", marginBottom: '5px', color: blueOne(theme) }}>Itens Already On Order</span>
+                        <span style={{ fontWeight: "bold", marginBottom: '5px', color: borderColorTwo(theme), fontSize: isDesktopView ? '24px' : '18px' }}>Itens Already On Order</span>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
                                 <thead>
@@ -163,11 +168,11 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    {selectedProductsToAdd.map((product, index) => (
+                                    {productsAlreadyOnOrder?.map((product, index) => (
                                         <tr key={index}>
-                                            <td>{product.name}</td>
-                                            <td>{product.price}</td>
-                                            <td onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                            <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -179,7 +184,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginTop: '5px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', margin: 0 }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', width: '100%',  margin: 0, fontSize: isDesktopView ? '17px' : '14px', }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', width: '100%', margin: 0, fontSize: isDesktopView ? '17px' : '14px', }}>
                             {/* <button className="buttomDarkRed" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Cancel Order</button> */}
 
                             <button className="buttomDarkGray" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}
@@ -190,13 +195,12 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit })
             </div>
 
             {showChangeTableOrCustomerModal && <div className="myModal" style={{ zIndex: 100 }} >
-                <ChangeTableOrCustomerModal close={() => setShowChangeTableOrCustomerModal(false)} companyOperation={companyOperation} pickupNameInput={pickupNameInput} setPickupNameInput={setPickupNameInput} customerSelected={customerSelected} setCustomerSelected={setCustomerSelected} />
+                <ChangeTableOrCustomerModal close={() => setShowChangeTableOrCustomerModal(false)} orderToEdit={orderToEdit} getShiftOperationData={() => getShiftOperationData()} companyOperation={companyOperation} pickupNameInput={pickupNameInput} setPickupNameInput={setPickupNameInput} customerSelected={customerSelected} setCustomerSelected={setCustomerSelected} />
             </div>}
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className="myModal" style={{ zIndex: 1000 }} >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
             </div>}
-
         </>
     );
 }

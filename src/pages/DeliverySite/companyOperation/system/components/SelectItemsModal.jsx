@@ -78,21 +78,21 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', textAlign: 'left' }}>
                     <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Itens to Add</span>
-                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', padding: '10px', width: '98%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', width: '98%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <Table responsive="sm" >
                             <thead>
                                 <tr>
-                                    <th style={{ width: "100%" }}>Item</th>
-                                    <th style={{ width: "40px" }}>Price</th>
-                                    <th style={{ width: "40px" }}><FontAwesomeIcon icon={faTrash} /></th>
+                                    <th style={{width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
+                                    <th style={{width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                    <th style={{width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                 </tr>
                             </thead>
                             <tbody >
                                 {selectedProducts.map((product, index) => (
                                     <tr key={index}>
-                                        <td>{product.name}</td>
-                                        <td>{product.price}</td>
-                                        <td onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                        <td style={{width: "100%", padding: '5px 5px' }}>{product.name}</td>
+                                        <td style={{width: "40px", padding: '5px 5px' }}>{product.price}</td>
+                                        <td style={{width: "40px", padding: '5px 5px' }} onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                     </tr>
                                 ))}
                             </tbody>
