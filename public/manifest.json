@@ -2,6 +2,7 @@
   "name": "RestaurantS",
   "short_name": "RestaurantS",
   "start_url": "/FelipeFPortfolio/delivery/",
+  "scope": "/FelipeFPortfolio/delivery/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
