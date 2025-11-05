@@ -223,8 +223,8 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                 <CompleteOrdersModal close={() => { setSelectedOnDeliveryOrderID([]); setCompleteOrdersModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} getShiftOperationData={async () => await getShiftOperationData()} />
             </div>}
 
-            {editOrderModal && <div className="myModal" style={{}} >
-                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} getShiftOperationData={() => getShiftOperationData()} />
+            {editOrderModal && <div className="myModal" style={{zIndex: 10}} >
+                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>
     );

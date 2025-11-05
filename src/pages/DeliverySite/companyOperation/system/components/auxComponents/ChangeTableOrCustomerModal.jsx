@@ -126,7 +126,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                         }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
-                        {!editNameCustomer && <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
+                        {!editNameCustomer && ! editTable && <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
                             onClick={() => { setEditNameCustomer(true) }} disabled={disabled}>Change Name/Customer</button>}
 
 
@@ -225,7 +225,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                     <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', visibility: 'hidden' }}
                         onClick={() => { }} disabled={disabled}>New customer</button>
 
-                    {!editTable && <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', marginBottom: '20px', }}
+                    {!editTable && !editNameCustomer && <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', marginBottom: '20px', }}
                         onClick={() => { setEditTable(true) }} disabled={disabled}>Change Table/PickUp/Delivery</button>}
 
 
@@ -288,7 +288,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: isDesktopView ? '17px' : '14px', }}>
                             <button className="buttomStandart" style={{ marginLeft: '0px', visibility: 'hidden' }} onClick={() => close()} disabled={disabled}>Done</button>
 
-                            <button className="buttomStandart" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Done</button>
+                            {!editNameCustomer && !editTable &&<button className="buttomStandart" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Done</button>}
 
                             {/* <button className="buttomStandart green" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isDesktopView ? '17px' : '14px', }}
                                 onClick={() => close} disabled={disabled}>
@@ -296,9 +296,6 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                         </div>
                     </div>
                 </div>
-
-                <br />
-                <span style={{ fontWeight: "600", fontSize: '26px', color: blueOne(theme), cursor: 'pointer', }} > *** Still on Development *** </span>
             </div>
 
             {showNewCustomerModal && <div className="myModal" style={{ zIndex: 100000 }} >
