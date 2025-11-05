@@ -303,7 +303,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
             </div>}
 
             {showCancelOrderModal && <div className="myModal" style={{}} >
-                <CancelOrder close={() => {console.log('Closing Cancel Order Modal'); closeFromCancel() }} companyOperationID={companyOperation?.companyOperationID} selectedOrderToCancel={orderToEdit} getShiftOperationData={() => getShiftOperationData()} />
+                <CancelOrder close={() => {setShowCancelOrderModal(false)} } closeFromCancel={() => { closeFromCancel() }} companyOperationID={companyOperation?.companyOperationID} selectedOrderToCancel={orderToEdit} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>
     );

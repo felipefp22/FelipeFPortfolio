@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { orangeOne, redOne } from "../../../../../theme/Colors";
 
 
-export default function CancelOrder({ close, companyOperationID, selectedOrderToCancel, getShiftOperationData }) {
+export default function CancelOrder({ close, closeFromCancel, companyOperationID, selectedOrderToCancel, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
     const orders = useSelector((state) => state.companyOperation.orders);
@@ -18,12 +18,9 @@ export default function CancelOrder({ close, companyOperationID, selectedOrderTo
 
         const response = await cancelOrder(companyOperationID, selectedOrderToCancel?.id, localStorage.getItem('userLoggedEmail'), adminPassword, "User Don't want the order anymore");
 
-        console.log(`🛑 Cancel Order Response:`, response);
         if (response.status === 200) {
             getShiftOperationData();
-                    console.log(`🛑 Cancel Order Response:`, response);
-
-            close();
+            closeFromCancel();
         } else {
             alert(`Error cancelling order ${response?.data ?? ''}`);
         }
@@ -38,12 +35,12 @@ export default function CancelOrder({ close, companyOperationID, selectedOrderTo
                     <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '10px' }}>
                         <span>Cancel Order?</span>
 
-                        <span style={{ color: 'rgba(45, 234, 28, 0.7)', fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500'}}>{selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.charAt(0).toUpperCase() + selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.slice(1)}</span>
-                        <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500'}}>{selectedOrderToCancel ? `${selectedOrderToCancel?.orderNumberOnShift}` + (selectedOrderToCancel?.customer ? (" - " + selectedOrderToCancel?.customer.customerName) : (" - " + selectedOrderToCancel?.pickupName ?? "")) : ""} </span>
+                        <span style={{ color: 'rgba(45, 234, 28, 0.7)', fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.charAt(0).toUpperCase() + selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.slice(1)}</span>
+                        <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{selectedOrderToCancel ? `${selectedOrderToCancel?.orderNumberOnShift}` + (selectedOrderToCancel?.customer ? (" - " + selectedOrderToCancel?.customer.customerName) : (" - " + selectedOrderToCancel?.pickupName ?? "")) : ""} </span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                        <input className="inputStandart" name="fake_pass_for_autofill" autoComplete="off" style={{ width: '90%', textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
+                        <input className="inputStandart" onFocus={(e) => e.target.setAttribute("autoComplete", "none")} style={{ width: '90%', textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
                             placeholder="Enter Admin Password" />
                         <span style={{ fontSize: '14px', color: 'rgba(200,200,200, 1)' }}>* If never Setted, default password "1234"</span>
                     </div>
