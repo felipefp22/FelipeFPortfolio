@@ -18,8 +18,11 @@ export default function CancelOrder({ close, companyOperationID, selectedOrderTo
 
         const response = await cancelOrder(companyOperationID, selectedOrderToCancel?.id, localStorage.getItem('userLoggedEmail'), adminPassword, "User Don't want the order anymore");
 
+        console.log(`🛑 Cancel Order Response:`, response);
         if (response.status === 200) {
             getShiftOperationData();
+                    console.log(`🛑 Cancel Order Response:`, response);
+
             close();
         } else {
             alert(`Error cancelling order ${response?.data ?? ''}`);
@@ -40,7 +43,7 @@ export default function CancelOrder({ close, companyOperationID, selectedOrderTo
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                        <input className="inputStandart" style={{ width: '90%', textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
+                        <input className="inputStandart" name="fake_pass_for_autofill" autoComplete="off" style={{ width: '90%', textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
                             placeholder="Enter Admin Password" />
                         <span style={{ fontSize: '14px', color: 'rgba(200,200,200, 1)' }}>* If never Setted, default password "1234"</span>
                     </div>

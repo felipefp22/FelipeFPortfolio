@@ -11,7 +11,7 @@ import { editOrderService } from "../../../../../../services/deliveryServices/Or
 
 
 
-export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliveryOrPickup, orderToEdit, pickupName, customerSelected, companyOperation, getShiftOperationData }) {
+export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tableNumberOrDeliveryOrPickup, orderToEdit, pickupName, customerSelected, companyOperation, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -286,7 +286,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                 <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', flex: 1, width: "100%", }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: isDesktopView ? '17px' : '14px', }}>
-                            <button className="buttomStandart" style={{ marginLeft: '0px', visibility: 'hidden' }} onClick={() => close()} disabled={disabled}>Done</button>
+                            <button className="buttomStandart" style={{ color: redOne(theme), marginLeft: '0px', }} onClick={() => setShowCancelOrderModal(true)} disabled={disabled}>Cancel Order</button>
 
                             {!editNameCustomer && !editTable &&<button className="buttomStandart" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Done</button>}
 
@@ -298,12 +298,12 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                 </div>
             </div>
 
-            {showNewCustomerModal && <div className="myModal" style={{ zIndex: 100000 }} >
+            {showNewCustomerModal && <div className="myModal" style={{ zIndex: 10000 }} >
                 <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperation?.companyOperationID} fetchCustomers={(e) => fetchCustomers(e)} />
             </div>}
 
             {showCancelOrderModal && <div className="myModal" style={{}} >
-                <CancelOrder close={() => setShowCancelOrderModal(false)} companyOperationID={companyOperation?.companyOperationID} selectedOrderToCancel={orderToEdit} getShiftOperationData={() => getShiftOperationData()} />
+                <CancelOrder close={() => {console.log('Closing Cancel Order Modal'); closeFromCancel() }} companyOperationID={companyOperation?.companyOperationID} selectedOrderToCancel={orderToEdit} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>
     );

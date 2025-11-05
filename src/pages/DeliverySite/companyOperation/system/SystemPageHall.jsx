@@ -265,11 +265,11 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                 </div >
             </div>
 
-            {newOrderModal && <div className="myModal" style={{}} >
+            {newOrderModal && <div className="myModal" style={{ zIndex: 100 }} >
                 <NewOrderModal close={() => { setNewOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
             </div>}
 
-            {editOrderModal && <div className="myModal" style={{}} >
+            {editOrderModal && <div className="myModal" style={{ zIndex: 100 }} >
                 <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>

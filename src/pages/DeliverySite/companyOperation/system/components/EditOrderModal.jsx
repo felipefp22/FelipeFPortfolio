@@ -201,7 +201,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
             </div>
 
             {showChangeTableOrCustomerModal && <div className="myModal" style={{ zIndex: 100 }} >
-                <ChangeTableOrCustomerModal close={() => setShowChangeTableOrCustomerModal(false)} tableNumberOrDeliveryOrPickup={tableNumberOrDeliveryOrPickup}
+                <ChangeTableOrCustomerModal close={() => setShowChangeTableOrCustomerModal(false)} closeFromCancel={() => close()} tableNumberOrDeliveryOrPickup={tableNumberOrDeliveryOrPickup}
                     orderToEdit={orderToEdit} pickupName={pickupName} customerSelected={customerSelected} 
                     companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
