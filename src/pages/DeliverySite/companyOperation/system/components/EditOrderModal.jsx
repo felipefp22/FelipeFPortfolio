@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
 import ChangeTableOrCustomerModal from "./auxComponents/ChangeTableOrCustomerModal";
-import { blueOne, borderColorTwo, greenOne, greenTwo, transparentCavasOne, transparentCavasTwo } from "../../../../../theme/Colors";
+import { blueOne, borderColorTwo, greenOne, greenTwo, transparentCanvasBgOne, transparentCavasTwo } from "../../../../../theme/Colors";
 import { getAllProductsCategories } from "../../../../../services/deliveryServices/ProductsCategoryService";
 import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -86,7 +86,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                 {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' ? 'Delivery' : (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' ? 'Pickup' : `Table - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`)}</span>
                         </div>
 
-                        <button className="buttomDarkGreen" style={{ fontSize: isDesktopView ? '17px' : '14px', height: '40px', padding: isDesktopView ? '0px 5px' : '0px 3px', marginBottom: '0px' }}
+                        <button className="buttomStandart green" style={{ fontSize: isDesktopView ? '17px' : '14px', height: '40px', padding: isDesktopView ? '0px 5px' : '0px 3px', marginBottom: '0px' }}
                             onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled}>Change Table/Customer</button>
                     </div>
                 </div>
@@ -95,7 +95,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                     {selectUseCustomerOrPickUpName === 'Name' && <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%', }}>
                         <span style={{ fontWeight: "600", padding: '0px 0px', fontSize: isDesktopView ? '18px' : '16px', }}>Name:</span>
 
-                        <input className="inputOne" type="text" value={pickupName} disabled={true}
+                        <input className="inputStandart" type="text" value={pickupName} disabled={true}
                             style={{ height: '35px', fontSize: isDesktopView ? '17px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
 
                     </div>}
@@ -103,7 +103,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                     {selectUseCustomerOrPickUpName === 'Customer' && <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%', }}>
                         <span style={{ fontWeight: "600", padding: '0px 0px', fontSize: isDesktopView ? '18px' : '16px', }}>Customer:</span>
 
-                        <input className="inputOne" type="text" value={customerSelected?.customerName + " / " + customerSelected?.phone} disabled={true}
+                        <input className="inputStandart" type="text" value={customerSelected?.customerName + " / " + customerSelected?.phone} disabled={true}
                             style={{ height: '35px', fontSize: isDesktopView ? '17px' : '14px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
                     </div>}
                 </div>
@@ -115,13 +115,13 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
                                 <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
-                                <input className="inputOne" type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
+                                <input className="inputStandart" type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
                                     style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                             <div style={{ width: '3%' }}></div>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
                                 <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Phone</span>
-                                <input className="inputOne" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
+                                <input className="inputStandart" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
                                     style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                         </div>
@@ -134,7 +134,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', marginTop: '5px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '5px' }}>
-                            <button className="buttomDarkGray" style={{ marginLeft: '0px', height: '30px', fontSize: isDesktopView ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                            <button className="buttomStandart" style={{ marginLeft: '0px', height: '30px', fontSize: isDesktopView ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
@@ -191,9 +191,9 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginTop: '5px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', margin: 0 }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', width: '100%', margin: 0, fontSize: isDesktopView ? '17px' : '14px', }}>
-                            {/* <button className="buttomDarkRed" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Cancel Order</button> */}
+                            {/* <button className="buttomStandart red" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Cancel Order</button> */}
 
-                            <button className="buttomDarkGray" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}
+                            <button className="buttomStandart" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 0 }}
                                 onClick={() => close()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', margin: '0 0px', }} /> : 'Done'}</button>
                         </div>
                     </div>

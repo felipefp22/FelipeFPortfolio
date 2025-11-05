@@ -40,16 +40,16 @@ export default function CancelOrder({ close, companyOperationID, selectedOrderTo
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                        <input className="inputOne" style={{ width: '90%', textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
+                        <input className="inputStandart" style={{ width: '90%', textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
                             placeholder="Enter Admin Password" />
                         <span style={{ fontSize: '14px', color: 'rgba(200,200,200, 1)' }}>* If never Setted, default password "1234"</span>
                     </div>
 
                     {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                        <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: 'gray', fontSize: '16px' }}
+                        <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: 'gray', fontSize: '16px' }}
                             onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                        <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
+                        <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
                             onClick={() => { handleCancelOrder() }} disabled={processing}>Cancel Order</button>
                     </div>}
 

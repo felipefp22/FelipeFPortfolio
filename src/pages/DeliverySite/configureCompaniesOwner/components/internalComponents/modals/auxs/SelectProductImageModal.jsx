@@ -55,11 +55,11 @@ export default function SelectProductImageModal({ close, imagePath, setImagePath
                                     <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Default System Photos"} </span>
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', marginBottom: '10px', flexWrap: 'wrap' }}>
-                                    <button className="buttomDarkBlue" style={{ marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
+                                    <button className="buttomStandart blue" style={{ marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
                                         onClick={() => setButtonFilter("All")}>All</button>
 
                                     {allDefaultImages?.map((category, idx) => (
-                                        <button key={idx} className="buttomDarkBlue" style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
+                                        <button key={idx} className="buttomStandart blue" style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
                                             onClick={() => setButtonFilter(category?.name)}>{category?.name}</button>
                                     ))}
                                 </div>
@@ -77,7 +77,7 @@ export default function SelectProductImageModal({ close, imagePath, setImagePath
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', padding: 3, overflowY: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
-                            <input type="text" className="inputOne" value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
+                            <input type="text" className="inputStandart" value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
                                 style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)' }} />
 
                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
@@ -94,7 +94,7 @@ export default function SelectProductImageModal({ close, imagePath, setImagePath
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '0px', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', width: '100%', height: '50px', marginTop: '10px', }}>
-                                <button className="buttomDarkGreen" style={{ marginLeft: '0px', backgroundColor: 'transparent', }} onClick={() => close()}>Save</button>
+                                <button className="buttomStandart green" style={{ marginLeft: '0px', backgroundColor: 'transparent', }} onClick={() => close()}>Save</button>
                             </div>
                         </div>
                     </div>

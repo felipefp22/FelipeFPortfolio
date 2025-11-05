@@ -76,7 +76,7 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
                                     </div>}
 
                                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: '10px' }} >
-                                        <input className="inputOne" type="text" value={name || ""} placeholder="Company Name"
+                                        <input className="inputStandart" type="text" value={name || ""} placeholder="Company Name"
                                             onChange={(e) => setName(e.target.value)} style={{ fontSize: isDesktopView ? '26px' : '18px', fontWeight: 'bold', textAlign: 'center', height: isDesktopView ? '50px' : '35px' }} />
                                     </div>
                                 </div>
@@ -85,16 +85,16 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isDesktopView ? '30px 40px' : '30px 20px', }} >
                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                                     <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Email: </span>
-                                    <input className="inputOne" type="text" value={email || ""} style={{ maxWidth: '300px' }} onChange={(e) => setEmail(e.target.value)} />
+                                    <input className="inputStandart" type="text" value={email || ""} style={{ maxWidth: '300px' }} onChange={(e) => setEmail(e.target.value)} />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                                     <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px', }}>Phone: </span>
-                                    <input className="inputOne" type="text" value={phone || ""} style={{ maxWidth: '300px' }} onChange={(e) => setPhone(e.target.value)} />
+                                    <input className="inputStandart" type="text" value={phone || ""} style={{ maxWidth: '300px' }} onChange={(e) => setPhone(e.target.value)} />
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                                     <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px', }}>Tables Qty: </span>
-                                    <select className="inputOne" value={numberOfTables || 0} onChange={(e) => setNumberOfTables(Number(e.target.value))} style={{ maxWidth: '120px', padding: '5px', borderRadius: '6px', fontSize: '16px', textAlign: 'center' }} >
+                                    <select className="inputStandart" value={numberOfTables || 0} onChange={(e) => setNumberOfTables(Number(e.target.value))} style={{ maxWidth: '120px', padding: '5px', borderRadius: '6px', fontSize: '16px', textAlign: 'center' }} >
                                         {Array.from({ length: 301 }, (_, i) => (
                                             <option key={i} value={i}>{i}</option>
                                         ))}
@@ -118,7 +118,7 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
                                     </div>
                                 </div>
 
-                                <button className="buttomDarkGray" style={{
+                                <button className="buttomStandart" style={{
                                     padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
                                     opacity: 1, cursor: 'pointer',
                                 }}
@@ -130,7 +130,7 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
                 </div>
             </div >
 
-            {editAddressModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+            {editAddressModalOpen && <div className="myModal underDeliveryLayout" style={{ zIndex: 10000 }} >
                 <EditCompanyAddressModal close={() => setEditAddressModalOpen(false)} companyLat={lat} setCompanyLat={setLat} companyLng={lng} setCompanyLng={setLng} companyAddress={address} setCompanyAddress={setAddress} />
             </div>}
         </>

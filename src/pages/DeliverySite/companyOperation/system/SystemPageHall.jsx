@@ -58,19 +58,19 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingLeft: '3px', overflowY: 'auto', }}>
                 {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '12px', marginBottom: '8px' }}>
-                    <button className="buttomDarkGray" style={{ visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
+                    <button className="buttomStandart" style={{ visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
                         onClick={() => { setNewOrderModal(true); }}>
                         {"New Order"}</button>
 
 
-                    <button className="buttomDarkGray" style={{ visibility: (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
+                    <button className="buttomStandart" style={{ visibility: (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
                         onClick={() => { setEditOrderModal(companyOperation?.orders?.find(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable))); }}>
                         {"Edit Order"}</button>
                 </div>}
 
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'auto' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '300px', maxHeight: '80%', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', padding: 3, marginBottom: '6px', overflowY: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
-                        <input type="number" className="inputOne" value={inputSearchTable} onChange={(e) => setInputSearchTable(e.target.value)} placeholder=""
+                        <input type="number" className="inputStandart" value={inputSearchTable} onChange={(e) => setInputSearchTable(e.target.value)} placeholder=""
                             style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)', overflow: 'hidden', textAlign: 'center' }} />
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', width: '100%', overflowY: 'auto', flexWrap: 'wrap', }}>

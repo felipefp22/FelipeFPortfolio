@@ -44,7 +44,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
             }} >
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '10px' }} >
                     <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Employees"} </span>
-                    <button className="buttomDarkGray" style={{
+                    <button className="buttomStandart" style={{
                         padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
                         opacity: 1, cursor: 'pointer',
                     }}
@@ -107,11 +107,11 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                 }} />
             </div>}
 
-            {addEmployeeModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
+            {addEmployeeModalOpen && <div className="myModal underDeliveryLayout" style={{ zIndex: 100 }} >
                 <AddEmployeeModal close={() => setAddEmployeeModalOpen(false)} companyData={companyData} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
 
-            {editEmployeeModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
+            {editEmployeeModalOpen && <div className="myModal underDeliveryLayout" style={{ zIndex: 100 }} >
                 <EditEmployeeModal close={() => setEditEmployeeModalOpen(false)} companyData={companyData} employeeData={editEmployeeModalOpen} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
         </>

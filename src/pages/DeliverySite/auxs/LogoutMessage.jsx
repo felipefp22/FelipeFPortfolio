@@ -25,10 +25,10 @@ export default function LogoutMessage({ close }) {
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", fontSize: '16px', margin: '5px 30px' }}
+                            <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", fontSize: '16px', margin: '5px 30px' }}
                                 onClick={() => { close(); }} >Return</button>
 
-                            <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', fontSize: '16px', margin: '5px 30px' }}
+                            <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', fontSize: '16px', margin: '5px 30px' }}
                                 onClick={() => { logOutAction(), close(); }} >Log Out <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "red", marginLeft: '3px' }} /></button>
                         </div>
                     </div>

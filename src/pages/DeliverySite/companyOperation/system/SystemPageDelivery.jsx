@@ -62,7 +62,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingTop: '8px', paddingLeft: '3px', overflowY: 'auto', }}>
                 {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', margin: '3px 0px' }}>
-                    <button className="buttomDarkGray" style={{ marginLeft: '0px', }}
+                    <button className="buttomStandart" style={{ marginLeft: '0px', }}
                         onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
                 </div>}
 

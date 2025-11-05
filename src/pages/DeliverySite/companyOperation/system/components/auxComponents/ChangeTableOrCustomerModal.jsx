@@ -119,10 +119,10 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '8px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', }}>
-                        <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
+                        <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
-                        {!editNameCustomer && <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
+                        {!editNameCustomer && <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', }}
                             onClick={() => { setEditNameCustomer(true) }} disabled={disabled}>Change Name/Customer</button>}
 
 
@@ -147,7 +147,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
 
                 {editNameCustomer && <div style={{ marginBottom: '5px' }}>
                     {tableNumberOrDeliveryOrPickup === 'delivery' && <span style={{ fontWeight: "600" }}>Customer</span>}
-                    {tableNumberOrDeliveryOrPickup !== 'delivery' && <select className="inputOne" value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
+                    {tableNumberOrDeliveryOrPickup !== 'delivery' && <select className="inputStandart" value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
                         style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isDesktopView ? '17px' : '14px', textAlign: 'left', }} >
                         <option value='' disabled hidden> Select </option>
                         <option value={'Customer'}> {'Customer'} </option>
@@ -158,10 +158,10 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                 {selectUseCustomerOrPickUpName === 'Name' && <div>
                     {!editNameCustomer && <span style={{ fontWeight: "600", padding: '10px 0px', }}>Name:</span>}
 
-                    {!editNameCustomer && <input className="inputOne" type="text" value={pickupName} onChange={(e) => { }} disabled={true}
+                    {!editNameCustomer && <input className="inputStandart" type="text" value={pickupName} onChange={(e) => { }} disabled={true}
                         style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', textAlign: 'center', overflowX: 'auto', margin: '10px 0px', }} />}
 
-                    {editNameCustomer && <input className="inputOne" type="text" value={newPickupNameCandidate ?? pickupName} onChange={(e) => setNewPickupNameCandidate(e.target.value)} disabled={disabled}
+                    {editNameCustomer && <input className="inputStandart" type="text" value={newPickupNameCandidate ?? pickupName} onChange={(e) => setNewPickupNameCandidate(e.target.value)} disabled={disabled}
                         style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: disabled ? 'lightgray' : 'white', color: 'black', width: '100%', textAlign: 'center', overflowX: 'auto', margin: '10px 0px', }} />}
                 </div>}
 
@@ -200,13 +200,13 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
                                 <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
-                                <input className="inputOne" type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
+                                <input className="inputStandart" type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
                                     style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                             <div style={{ width: '3%' }}></div>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
                                 <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Phone</span>
-                                <input className="inputOne" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
+                                <input className="inputStandart" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
                                     style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                         </div>
@@ -216,10 +216,10 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                 <div style={{ width: '100%', borderTop: '1px solid lightgray', backgroundColor: 'lightgray', margin: '10px 0' }} />
 
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '8px', }}>
-                    <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', visibility: 'hidden' }}
+                    <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', visibility: 'hidden' }}
                         onClick={() => { }} disabled={disabled}>New customer</button>
 
-                    {!editTable && <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', marginBottom: '20px', }}
+                    {!editTable && <button className="buttomStandart" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', marginBottom: '20px', }}
                         onClick={() => { setEditTable(true) }} disabled={disabled}>Change Table/PickUp/Delivery</button>}
 
 
@@ -249,7 +249,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                 {editTable && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', marginBottom: '10px', alignItems: 'center' }}>
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
-                        <select className="inputOne" value={!isNaN(Number(newTableCandidate)) ? newTableCandidate : ""} placeholder="Table" onChange={(e) => setNewTableCandidate(Number(e.target.value))}
+                        <select className="inputStandart" value={!isNaN(Number(newTableCandidate)) ? newTableCandidate : ""} placeholder="Table" onChange={(e) => setNewTableCandidate(Number(e.target.value))}
                             style={{
                                 minWidth: '60px', maxWidth: '120px', height: '35px', padding: '5px', borderRadius: '6px', fontSize: isDesktopView ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`,
                                 backgroundColor: (!isNaN(Number(newTableCandidate)) && newTableCandidate) ? greenOne(theme) : '', appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none',
@@ -264,12 +264,12 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                             })}
                         </select>
 
-                        <button className="buttomDarkGray" style={{
+                        <button className="buttomStandart" style={{
                             fontSize: isDesktopView ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isDesktopView ? '0px 10px' : '0px 6px',
                             backgroundColor: newTableCandidate === 'pickup' ? greenOne(theme) : ''
                         }}
                             onClick={() => { setNewTableCandidate('pickup'); }} disabled={disabled}>PickUp</button>
-                        <button className="buttomDarkGray" style={{
+                        <button className="buttomStandart" style={{
                             fontSize: isDesktopView ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isDesktopView ? '0px 10px' : '0px 6px',
                             backgroundColor: newTableCandidate === 'delivery' ? greenOne(theme) : ''
                         }}
@@ -280,11 +280,11 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                 <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', flex: 1, width: "100%", }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', fontSize: isDesktopView ? '17px' : '14px', }}>
-                            <button className="buttomDarkGray" style={{ marginLeft: '0px', visibility: 'hidden' }} onClick={() => close()} disabled={disabled}>Done</button>
+                            <button className="buttomStandart" style={{ marginLeft: '0px', visibility: 'hidden' }} onClick={() => close()} disabled={disabled}>Done</button>
 
-                            <button className="buttomDarkGray" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Done</button>
+                            <button className="buttomStandart" style={{ marginLeft: '0px' }} onClick={() => close()} disabled={disabled}>Done</button>
 
-                            {/* <button className="buttomDarkGreen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isDesktopView ? '17px' : '14px', }}
+                            {/* <button className="buttomStandart green" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isDesktopView ? '17px' : '14px', }}
                                 onClick={() => close} disabled={disabled}>
                                 {disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', margin: '0 0px', }} /> : 'Save'}</button> */}
                         </div>

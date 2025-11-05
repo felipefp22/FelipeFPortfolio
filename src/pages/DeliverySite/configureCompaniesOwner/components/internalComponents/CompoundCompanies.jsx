@@ -70,7 +70,7 @@ export default function CompoundCompanies({ compoundSelectedData, fetchUserInfos
                 }} />
             </div>}
 
-            {createCompanyModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100000 }} >
+            {createCompanyModalOpen && <div className="myModal underDeliveryLayout" style={{ zIndex: 100000 }} >
                 <CreateCompanyModal close={() => setCreateCompanyModalOpen(false)} compoundID={createCompanyModalOpen} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
         </>

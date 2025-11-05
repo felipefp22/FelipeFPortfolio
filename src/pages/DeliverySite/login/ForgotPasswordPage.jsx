@@ -161,10 +161,10 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
                     <label>Email</label>
                     <span style={{ color: 'red' }}> *</span>
                   </div>
-                  <input className='inputOne' style={{ width: '90%', height: '35px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
+                  <input className='inputStandart' style={{ width: '90%', height: '35px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
                     onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} required
                   />
-                  <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px', height: '40px', marginTop: '15px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}>
+                  <button className='buttomStandart' type="submit" disabled={disableEnter} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px', height: '40px', marginTop: '15px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}>
                      {disableEnter ? <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: borderColorTwo(theme),}} /> : "Reset"} </button>
                 </div>
               </form>
@@ -218,7 +218,7 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
                   </div>
                 </div>
                 <div>
-                  <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{ width: '150px', height: '40px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
+                  <button className='buttomStandart' type="submit" disabled={disableEnter} style={{ width: '150px', height: '40px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}> {disableEnter ? <Spinner animation="border" role="status" variant="primary"
                     style={{ width: '25px', height: '25px' }} /> : "Reset"} </button>
                 </div>
               </form>

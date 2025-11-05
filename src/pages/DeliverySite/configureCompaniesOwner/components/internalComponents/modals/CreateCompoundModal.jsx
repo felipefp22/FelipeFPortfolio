@@ -68,7 +68,7 @@ export default function CreateCompoundModal({ close, fetchUserInfos }) {
                                     </div>}
 
                                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: '10px', width: '100%' }} >
-                                        <input className="inputOne" type="text" value={compoundName} placeholder="Chain Name"
+                                        <input className="inputStandart" type="text" value={compoundName} placeholder="Chain Name"
                                             onChange={(e) => setCompoundName(e.target.value)} style={{ width: '100%', fontWeight: 'bold', textAlign: 'center', height: isDesktopView ? '50px' : '35px' }} />
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@ export default function CreateCompoundModal({ close, fetchUserInfos }) {
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isDesktopView ? '30px 20px' : '30px 20px', }} >
                                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px', width: '100%' }} >
                                     <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Description: </span>
-                                    <textarea className="textAreaOne" rows={7} style={{width: '100%'}} value={compoundDescription} onChange={(e) => setCompoundDescription(e.target.value)} />
+                                    <textarea className="textAreaStandart" rows={7} style={{width: '100%'}} value={compoundDescription} onChange={(e) => setCompoundDescription(e.target.value)} />
                                 </div>
                             </div>
                         </div>

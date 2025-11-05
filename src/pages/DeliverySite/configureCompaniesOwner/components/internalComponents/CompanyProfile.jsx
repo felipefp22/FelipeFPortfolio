@@ -91,7 +91,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
                                 {!disable && <FontAwesomeIcon icon={editing ? faCheck : faPen} style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: '500', }} />}
                                 {disable && <Spinner animation="border" role="status" style={{ width: isDesktopView ? '25px' : '20px', height: isDesktopView ? '25px' : '20px', color: 'white', }} />}
                             </div>}
-                            {localStorage.getItem('userLoggedEmail') !== companyData?.ownerID && <button className="buttomDarkGray" style={{
+                            {localStorage.getItem('userLoggedEmail') !== companyData?.ownerID && <button className="buttomStandart" style={{
                                 padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '80px', marginBottom: '0px', position: 'absolute', right: 5, top: 0,
                                 opacity: 1, cursor: 'pointer',
                             }}
@@ -106,7 +106,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
 
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: '10px' }} >
                                 {!editing && <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{companyData?.companyName ?? 'N/A'}</span>}
-                                {editing && <input className="inputOne" type="text" value={companyName || ""} onChange={(e) => setCompanyName(e.target.value)} style={{ fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', textAlign: 'center', height: isDesktopView ? '50px' : '35px' }} />}
+                                {editing && <input className="inputStandart" type="text" value={companyName || ""} onChange={(e) => setCompanyName(e.target.value)} style={{ fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', textAlign: 'center', height: isDesktopView ? '50px' : '35px' }} />}
                             </div>
                         </div>
                     </div>
@@ -115,17 +115,17 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Email: </span>
                             {!editing && <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyEmail ?? "N/A"}</span>}
-                            {editing && <input className="inputOne" type="text" value={companyEmail || ""} onChange={(e) => setCompanyEmail(e.target.value)} />}
+                            {editing && <input className="inputStandart" type="text" value={companyEmail || ""} onChange={(e) => setCompanyEmail(e.target.value)} />}
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Phone: </span>
                             {!editing && <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{companyPhone ?? "N/A"}</span>}
-                            {editing && <input className="inputOne" type="text" value={companyPhone || ""} onChange={(e) => setCompanyPhone(e.target.value)} />}
+                            {editing && <input className="inputStandart" type="text" value={companyPhone || ""} onChange={(e) => setCompanyPhone(e.target.value)} />}
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px', }}>Tables Qty: </span>
                             {!editing && <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{numberOfTables ?? "N/A"}</span>}
-                            {editing && <select className="inputOne" value={numberOfTables || 0} onChange={(e) => setNumberOfTables(Number(e.target.value))} style={{ maxWidth: '120px', padding: '5px', borderRadius: '6px', fontSize: '16px', textAlign: 'center' }} >
+                            {editing && <select className="inputStandart" value={numberOfTables || 0} onChange={(e) => setNumberOfTables(Number(e.target.value))} style={{ maxWidth: '120px', padding: '5px', borderRadius: '6px', fontSize: '16px', textAlign: 'center' }} >
                                 {Array.from({ length: 301 }, (_, i) => (
                                     <option key={i+1} value={i+1}>{i+1}</option>
                                 ))}
@@ -149,7 +149,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
                             </div>
                         </div>
 
-                        {editing && <button className="buttomDarkGray" style={{
+                        {editing && <button className="buttomStandart" style={{
                             padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
                             opacity: 1, cursor: 'pointer',
                         }}
@@ -166,11 +166,11 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
             </div>}
 
 
-            {editAddressModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+            {editAddressModalOpen && <div className="myModal underDeliveryLayout" style={{ zIndex: 10000 }} >
                 <EditCompanyAddressModal close={() => setEditAddressModalOpen(false)} companyLat={companyLat} setCompanyLat={setCompanyLat} companyLng={companyLng} setCompanyLng={setCompanyLng} companyAddress={companyAddress} setCompanyAddress={setCompanyAddress} />
             </div>}
 
-            {quitModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+            {quitModalOpen && <div className="myModal underDeliveryLayout" style={{ zIndex: 10000 }} >
                 <QuitCompanyModal close={() => setQuitModalOpen(false)} companyData={companyData} fetchUserInfos={() => fetchUserInfos()}/>
             </div>}
         </>

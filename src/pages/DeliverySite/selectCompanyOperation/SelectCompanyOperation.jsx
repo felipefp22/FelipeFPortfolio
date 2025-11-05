@@ -82,7 +82,7 @@ export default function SelectCompanyOperation({ }) {
                     {<div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%', }} >
                         <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Welcome {name ? " - " + name : "Guest"}</span>
 
-                        <button className="buttomDarkGray" style={{
+                        <button className="buttomStandart" style={{
                             padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '20px',
                             opacity: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 0.5 : 1, cursor: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 'not-allowed' : 'pointer',
                         }}
@@ -93,8 +93,7 @@ export default function SelectCompanyOperation({ }) {
 
                             {companiesCoumpound?.map((compound, index) => (
                                 <div key={index} style={{ marginBottom: '10px' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
-                                        onClick={() => setSelectedCompaniesCoumpound(selectedCompaniesCoumpound === compound.id ? null : compound.id)}>
+                                    <div className="transparentCanvas" onClick={() => setSelectedCompaniesCoumpound(selectedCompaniesCoumpound === compound.id ? null : compound.id)}>
 
                                         <img src={companiesGroupLogo} alt="Logo" style={{
                                             width: isDesktopView ? 50 : !isDesktopView ? 40 : 35, height: isDesktopView ? 50 : !isDesktopView ? 40 : 35,
@@ -163,11 +162,11 @@ export default function SelectCompanyOperation({ }) {
                     </div>}
                 </div>
 
-                {createCompanyModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
+                {createCompanyModal && <div className="myModal underDeliveryLayout" style={{ zIndex: 100 }} >
                     <CreateGroupAndCompanyModal close={() => setCreateCompanyModal(false)} getShiftOperationData={() => fetchUserInfos()} />
                 </div>}
 
-                {openShiftModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
+                {openShiftModal && <div className="myModal underDeliveryLayout" style={{ zIndex: 100 }} >
                     <OpenShiftModal close={() => setOpenShiftModal(false)} openShiftModal={openShiftModal} setCompanyToOperate={setCompanyToOperate} />
                 </div>}
             </div >

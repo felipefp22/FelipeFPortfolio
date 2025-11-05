@@ -87,7 +87,7 @@ export default function CreateProductModal({ close, category, companyData, fetch
                                     </div>}
 
                                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: '10px', width: '100%' }} >
-                                        <input className="inputOne" type="text" value={productName} placeholder="Product Name"
+                                        <input className="inputStandart" type="text" value={productName} placeholder="Product Name"
                                             onChange={(e) => setProductName(e.target.value)} style={{ width: '100%', fontWeight: 'bold', textAlign: 'center', height: '35px' }} />
                                     </div>
                                 </div>
@@ -96,16 +96,16 @@ export default function CreateProductModal({ close, category, companyData, fetch
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isDesktopView ? '30px 10px 0px 10px' : '30px 10px 0px 10px', }} >
                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'center', marginBottom: '10px' }} >
                                     <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px', }}>Price: </span>
-                                    <input className="inputOne" type="text" value={productPrice} style={{ maxWidth: '100px', textAlign: 'center' }} onChange={(e) => handleSetPrice(e.target.value)} />
+                                    <input className="inputStandart" type="text" value={productPrice} style={{ maxWidth: '100px', textAlign: 'center' }} onChange={(e) => handleSetPrice(e.target.value)} />
                                     <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginLeft: '5px', color: greenTwo(theme) }}>$ </span>
                                 </div>
                                 {/* <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                                     <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px', }}>xpto: </span>
-                                    <input className="inputOne" type="text" value={productPrice} style={{ maxWidth: '300px' }} onChange={(e) => setProductPrice(e.target.value)} />
+                                    <input className="inputStandart" type="text" value={productPrice} style={{ maxWidth: '300px' }} onChange={(e) => setProductPrice(e.target.value)} />
                                 </div> */}
                                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '0px', width: '100%' }} >
                                     <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Description: </span>
-                                    <textarea className="textAreaOne" rows={4} style={{ width: '100%' }} value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
+                                    <textarea className="textAreaStandart" rows={4} style={{ width: '100%' }} value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@ export default function CreateProductModal({ close, category, companyData, fetch
                 </div>
             </div >
 
-            {selectImageModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 10000 }} >
+            {selectImageModal && <div className="myModal underDeliveryLayout" style={{ zIndex: 10000 }} >
                 <SelectProductImageModal close={() => setSelectImageModal(false)} imagePath={imagePath} setImagePath={setImagePath} />
             </div>}
         </>

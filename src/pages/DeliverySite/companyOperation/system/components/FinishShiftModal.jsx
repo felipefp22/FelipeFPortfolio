@@ -57,16 +57,16 @@ export default function FinishShiftModal({ close, finishShift, companySelected, 
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
-                            <input className="inputOne" style={{ justifyContent: 'center', textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
+                            <input className="inputStandart" style={{ justifyContent: 'center', textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
                                 placeholder="Enter Admin Password" />
                             <span style={{ fontSize: '14px', color: 'rgba(200,200,200,0.7)' }}>* If never Setted, default password "1234"</span>
                         </div>
 
                         {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
+                            <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
                                 onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                            <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px' }}
+                            <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px' }}
                                 onClick={() => { handleFinishShift() }} disabled={processing}>Finish Shift</button>
                         </div>}
 
@@ -78,7 +78,7 @@ export default function FinishShiftModal({ close, finishShift, companySelected, 
                     {!requesterAreOwnerOrManager && <div>
                         <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '10px' }}>
                             <span style={{ marginBottom: "10px" }}>Only Manager can Finish Shift</span>
-                            <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px' }}
+                            <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px' }}
                                 onClick={() => { close(); }} disabled={processing}>Ok</button>
                         </div>
                     </div>}

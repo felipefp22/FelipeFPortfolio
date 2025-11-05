@@ -159,7 +159,7 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
                     <span style={{ fontSize: isDesktopView ? '22px' : '16px', fontWeight: '600', marginBottom: '10px', color: borderColorTwo(theme) }}>Search or "Click on Map Location"</span>
 
                     <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px' }}>
-                        <input className="inputOne"
+                        <input className="inputStandart"
                             type="text"
                             value={searchAddressInput}
                             onChange={e => setSearchAddressInput(e.target.value)}
@@ -200,10 +200,10 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '10px' }}>
-                        <button className="buttomDarkRed" style={{ padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '130px', opacity: 1, cursor: 'pointer', }}
+                        <button className="buttomStandart red" style={{ padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '130px', opacity: 1, cursor: 'pointer', }}
                             onClick={() => { close() }} >Cancel</button>
 
-                        <button className="buttomDarkGreen" style={{ padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '130px', opacity: 1, cursor: 'pointer', }}
+                        <button className="buttomStandart green" style={{ padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '130px', opacity: 1, cursor: 'pointer', }}
                             onClick={() => { saveNewAddress() }} >Save</button>
                     </div>
                 </div>

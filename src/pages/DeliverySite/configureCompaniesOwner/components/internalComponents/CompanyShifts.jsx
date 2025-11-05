@@ -74,7 +74,7 @@ export default function CompanyShifts({ companyData, fetchCompanyData }) {
                 }} />
             </div>}
             {/* 
-            {createProductModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 1000 }} >
+            {createProductModal && <div className="myModal underDeliveryLayout" style={{ zIndex: 1000 }} >
                 <CreateProductModal close={() => setCreateProductModalOpen(false)} companyData={companyData} category={createProductModal} fetchCompanyData={() => fetchCompanyData()} />
             </div>} */}
         </>

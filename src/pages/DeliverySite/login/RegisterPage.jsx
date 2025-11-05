@@ -104,7 +104,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                   <label>Name</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
-                <input className='inputOne' style={{ width: '90%', height: '35px' }} type="text" value={name} onChange={(e) => { setName(e.target.value); e.target.setCustomValidity(''); }} minLength={3} required
+                <input className='inputStandart' style={{ width: '90%', height: '35px' }} type="text" value={name} onChange={(e) => { setName(e.target.value); e.target.setCustomValidity(''); }} minLength={3} required
 
                   onInvalid={(e) => {
                     if (e.target.validity.valueMissing) { e.target.setCustomValidity('Name is required.'); }
@@ -117,7 +117,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                   <label>Email</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
-                <input className='inputOne' style={{ width: '90%', height: '35px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }} required
+                <input className='inputStandart' style={{ width: '90%', height: '35px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }} required
                   onInvalid={(e) => e.target.setCustomValidity('Tipe a valid email.')}
                 />
               </div>
@@ -128,7 +128,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
                 <div style={{ position: 'relative', width: '100%' }} >
-                  <input className='inputOne' style={{ width: '90%', height: '35px' }} type={showPassword ? 'text' : 'password'} value={password} minLength={6} required
+                  <input className='inputStandart' style={{ width: '90%', height: '35px' }} type={showPassword ? 'text' : 'password'} value={password} minLength={6} required
                     onChange={(e) => { setPassword(e.target.value); e.target.setCustomValidity(''); }}
                     onInvalid={(e) => {
                       if (e.target.validity.valueMissing) { e.target.setCustomValidity('Password is required.'); }
@@ -144,7 +144,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
                 <div style={{ position: 'relative', width: '100%' }} >
-                  <input className='inputOne' style={{ width: '90%', height: '35px' }} type={showPassword ? 'text' : 'password'} value={confirmPassword} minLength={6} required
+                  <input className='inputStandart' style={{ width: '90%', height: '35px' }} type={showPassword ? 'text' : 'password'} value={confirmPassword} minLength={6} required
                     onChange={(e) => { setConfirmPassword(e.target.value); e.target.setCustomValidity(''); }}
                     onInvalid={(e) => {
                       if (e.target.validity.valueMissing) { e.target.setCustomValidity('Password is required.'); }
@@ -156,7 +156,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
               </div>
 
               <div style={{  display: 'flex', alignItems: 'center', justifyContent: 'center',}}>
-                <button className='buttomDarkGray' type="submit" disabled={disableEnter} style={{  display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px', height: '40px',}}> 
+                <button className='buttomStandart' type="submit" disabled={disableEnter} style={{  display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px', height: '40px',}}> 
                   {disableEnter ? <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: borderColorTwo(theme), }} /> : "Register"} </button>
               </div>
 

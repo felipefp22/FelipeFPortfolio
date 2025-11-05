@@ -5,7 +5,7 @@ import companiesGroupLogo from '../../../../assets/companiesGroupLogo.png';
 import restaurantLogo from '../../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faGear, faPlus, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
-import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
+import { alphaC, borderColorTwo, fontColorOne, greenOne, redOne, transparentCanvasBgOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
 import { useNavigate } from "react-router-dom";
 import ModalExample from "./internalComponents/modals/ModalExample";
 import CreateCompanyModal from "./internalComponents/modals/CreateCompanyModal";
@@ -29,7 +29,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                     <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', marginBottom: '25px' }}>Manage Your Companies</span>
                     <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%' }}>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '15px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
+                        <div className="transparentCanvas" style={{ marginBottom: '15px', cursor: 'pointer', }}
                             onClick={() => { setCreateCompoundModal(true); }}>
 
                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
@@ -44,7 +44,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
 
                         {companiesCoumpound?.map((compound, index) => (
                             <div key={index} style={{ marginBottom: "10px" }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
+                                <div className="transparentCanvas" style={{ cursor: 'pointer', }}
                                     onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/compound?id=${compound?.id}`); }}>
 
                                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
@@ -65,10 +65,9 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                                 }}>
 
                                     {compound?.companies?.map((comp, idx) => (
-                                        <div key={idx} style={{
-                                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, marginLeft: 10, cursor: 'pointer', minWidth: '160px', width: '160px',
-                                            backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px', height: '150px', position: 'relative',
-                                        }} onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/company?id=${comp?.id}`); }}>
+                                        <div key={idx} className="transparentCanvas" onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesOwner/company?id=${comp?.id}`); }}
+                                            style={{ flexDirection: 'column', justifyContent: 'center', textAlign: 'center', margin: '0px 0px 5px 10px', cursor: 'pointer', width: '160px', height: '150px', backgroundColor: alphaC(transparentCanvasBgOne(theme), 0.1), }} >
+
                                             <div style={{ display: 'flex', position: 'absolute', top: 5, right: 5, }}>
                                                 <FontAwesomeIcon icon={faGear} style={{ fontSize: isDesktopView ? '20px' : '15px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
                                             </div>
@@ -85,13 +84,11 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                                         </div>
                                     ))}
 
-                                    <div style={{
-                                        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', marginBottom: 5, marginLeft: 10, cursor: 'pointer', minWidth: '160px', width: '160px',
-                                        backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '10px', borderRadius: '6px', height: '150px',
-                                    }}
-                                        onClick={() => { setCreateCompanyModalOpen(compound?.id); }}>
-                                        <div style={{
-                                            borderRadius: '50%', backgroundColor: transparentCavasOne(theme), padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    <div className="transparentCanvas" onClick={() => { setCreateCompanyModalOpen(compound?.id); }}
+                                        style={{ flexDirection: 'column', justifyContent: 'center', textAlign: 'center', margin: '0px 0px 5px 10px', cursor: 'pointer', width: '160px', height: '150px', backgroundColor: alphaC(transparentCanvasBgOne(theme), 0.1), }} >
+
+                                        <div className="transparentCanvas" style={{
+                                            borderRadius: '50%', alignItems: 'center', justifyContent: 'center',
                                             width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35, marginBottom: '10px'
                                         }} >
                                             <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
@@ -129,11 +126,11 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                 </div>}
             </div>
 
-            {createCompoundModal && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
+            {createCompoundModal && <div className="myModal underDeliveryLayout" style={{ zIndex: 100 }} >
                 <CreateCompoundModal close={() => setCreateCompoundModal(false)} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
 
-            {createCompanyModalOpen && <div className="myModalInsideDeliveryLayout" style={{ zIndex: 100 }} >
+            {createCompanyModalOpen && <div className="myModal underDeliveryLayout" style={{ zIndex: 100 }} >
                 <CreateCompanyModal close={() => setCreateCompanyModalOpen(false)} compoundID={createCompanyModalOpen} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
         </>

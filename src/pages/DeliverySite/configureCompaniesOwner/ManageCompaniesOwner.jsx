@@ -5,7 +5,7 @@ import companiesGroupLogo from '../../../assets/companiesGroupLogo.png';
 import restaurantLogo from '../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faGear, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
-import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../theme/Colors";
+import { borderColorTwo, fontColorOne, greenOne, redOne, transparentCanvasBgOne, transparentCavasTwo } from "../../../theme/Colors";
 import SelectYourComapanieToManage from "./components/SelectYourComapanieToManage";
 import { useLocation, useParams } from "react-router-dom";
 import SetUpCompound from "./components/SetUpCompound";

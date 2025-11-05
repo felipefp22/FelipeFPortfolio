@@ -84,7 +84,7 @@ export default function CompoundProfile({ compoundSelectedData, fetchUserInfos }
 
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: '10px' }} >
                                 {!editing && <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold' }}>{compoundSelectedData?.compoundName ?? 'N/A'}</span>}
-                                {editing && <input className="inputOne" type="text" value={compoundName || ""} onChange={(e) => setCompoundName(e.target.value)} style={{ fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', textAlign: 'center', height: isDesktopView ? '50px' : '35px' }} />}
+                                {editing && <input className="inputStandart" type="text" value={compoundName || ""} onChange={(e) => setCompoundName(e.target.value)} style={{ fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', textAlign: 'center', height: isDesktopView ? '50px' : '35px' }} />}
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@ export default function CompoundProfile({ compoundSelectedData, fetchUserInfos }
                         <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isDesktopView ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Description: </span>
                             {!editing && <span style={{ fontSize: isDesktopView ? '22px' : '16px' }}>{compoundSelectedData?.compoundDescription ?? "N/A"}</span>}
-                            {editing && <textarea className="textAreaOne" rows={7} value={compoundDescription || ""} onChange={(e) => setCompoundDescription(e.target.value)} />}
+                            {editing && <textarea className="textAreaStandart" rows={7} value={compoundDescription || ""} onChange={(e) => setCompoundDescription(e.target.value)} />}
                         </div>
 
                         {/* <br /> */}

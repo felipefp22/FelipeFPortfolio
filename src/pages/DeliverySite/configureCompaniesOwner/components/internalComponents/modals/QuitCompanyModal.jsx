@@ -42,15 +42,15 @@ export default function QuitCompanyModal({ close, companyData, fetchCompanyData,
                 {/* <span style={{ fontSize: isDesktopView ? '20px' : '14px', fontWeight: '600', marginBottom: '10px', color: fontColorOne(theme) }}>{` ${companyData?.position}`}</span> */}
 
                 {!processing && <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', alignItems: 'center', marginBottom: '10px', maxWidth: '550px' }} >
-                    <input className="inputOne" style={{ flexGrow: 1, textAlign: 'center' }} type="email" autoCapitalize="none" value={wordConfirmationToQuit} onChange={(e) => { setWordConfirmationToQuit(e.target.value); e.target.setCustomValidity(''); }}
+                    <input className="inputStandart" style={{ flexGrow: 1, textAlign: 'center' }} type="email" autoCapitalize="none" value={wordConfirmationToQuit} onChange={(e) => { setWordConfirmationToQuit(e.target.value); e.target.setCustomValidity(''); }}
                         onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} />
                     <span style={{ color: fontColorOne(theme), opacity: 0.8, fontSize: '12px' }}>{`Type "${wordToMatch}" to confirm`}</span>
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '50px', marginTop: '10px', width: '100%' }}>
-                        <button className="buttomDarkGray" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: 'gray', fontSize: '16px' }}
+                        <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: 'gray', fontSize: '16px' }}
                             onClick={() => { setFireConfirmationShow(false); }} disabled={processing}>Cancel</button>
 
-                        <button className="buttomDarkRed" type="submit" style={{
+                        <button className="buttomStandart red" type="submit" style={{
                             backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px',
                             cursor: (wordConfirmationToQuit !== wordToMatch) ? 'not-allowed' : 'pointer', opacity: (wordConfirmationToQuit !== wordToMatch) ? 0.5 : 1,
                         }} onClick={() => { handleQuitCompany(); }}
