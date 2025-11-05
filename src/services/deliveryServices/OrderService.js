@@ -23,7 +23,7 @@ export async function getOrderOperation(compID) {
     }
 }
 
-export async function createOrder( compId, tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, notes ) {
+export async function createOrder(compId, tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, notes) {
 
     const postData = {
         companyID: compId,
@@ -49,7 +49,36 @@ export async function createOrder( compId, tableNumberOrDeliveryOrPickup, custom
     }
 }
 
-export async function closeOrder( compID, orderID, clientSaidNoTax, discountValue ) {
+
+export async function editOrderService(companyID, orderID, tableNumberOrDeliveryOrPickup, customerID, pickupName, notes) {
+
+    const postData = {
+        companyID: companyID,
+        orderID: orderID,
+        tableNumberOrDeliveryOrPickup: tableNumberOrDeliveryOrPickup,
+        customerID: customerID,
+        pickupName: pickupName,
+        notes: notes,
+    };
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/order/edit-order`, postData,
+            {
+                headers: {
+
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
+
+
+export async function closeOrder(compID, orderID, clientSaidNoTax, discountValue) {
 
     const postData = {
         companyID: compID,
@@ -74,7 +103,7 @@ export async function closeOrder( compID, orderID, clientSaidNoTax, discountValu
     }
 }
 
-export async function reopenOrder( compID, orderID ) {
+export async function reopenOrder(compID, orderID) {
 
     const postData = {
         companyID: compID,
@@ -98,7 +127,7 @@ export async function reopenOrder( compID, orderID ) {
 }
 
 
-export async function cancelOrder( compID, orderID, managerID, adminPassword, cancellationReason ) {
+export async function cancelOrder(compID, orderID, managerID, adminPassword, cancellationReason) {
 
     const postData = {
         companyID: compID,
@@ -124,7 +153,7 @@ export async function cancelOrder( compID, orderID, managerID, adminPassword, ca
     }
 }
 
-export async function completeOrders( compID, orderID ) {
+export async function completeOrders(compID, orderID) {
 
     const postData = {
         companyID: compID,

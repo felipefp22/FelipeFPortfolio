@@ -7,10 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { blueOne, borderColorOne, greenOne, greenTwo, redOne } from "../../../../../../theme/Colors";
 import { Spinner } from "react-bootstrap";
+import { editOrderService } from "../../../../../../services/deliveryServices/OrderService";
 
 
 
-export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliveryOrPickup, setTableNumberOrDeliveryOrPickup, orderToEdit, pickupName, setPickupName, customerSelected, setCustomerSelected, companyOperation, getShiftOperationData }) {
+export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliveryOrPickup, orderToEdit, pickupName, customerSelected, companyOperation, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isDesktopView = useSelector((state) => state.view.isDesktopView);
 
@@ -82,7 +83,14 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
         }
         setDisabled(true);
 
-        console.log("Save change name or customer");
+        const response = await editOrderService(companyOperation?.companyOperationID, orderToEdit.id, newTableCandidate, customerSelected?.id, newPickupNameCandidate, null);
+
+        if (response?.status === 200) {
+            await getShiftOperationData();
+            setNewCustomerCandidate(null);
+            setNewPickupNameCandidate(null);
+            setEditNameCustomer(false);
+        }
 
         setDisabled(false);
     }
@@ -93,8 +101,14 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
             return;
         }
         setDisabled(true);
-        console.log("newtablecandidate: ", newTableCandidate);
 
+        const response = await editOrderService(companyOperation?.companyOperationID, orderToEdit.id, newTableCandidate, customerSelected?.id, pickupName, null);
+
+        if (response?.status === 200) {
+            await getShiftOperationData();
+            setNewTableCandidate(tableNumberOrDeliveryOrPickup);
+            setEditTable(false);
+        }
 
         setDisabled(false);
     }
@@ -144,9 +158,9 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                 {selectUseCustomerOrPickUpName === 'Name' && <div>
                     {!editNameCustomer && <span style={{ fontWeight: "600", padding: '10px 0px', }}>Name:</span>}
 
-                    {!editNameCustomer && <input className="inputOne" type="text" value={pickupName} onChange={(e) => setPickupName(e.target.value)} disabled={true}
-
+                    {!editNameCustomer && <input className="inputOne" type="text" value={pickupName} onChange={(e) => { }} disabled={true}
                         style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', textAlign: 'center', overflowX: 'auto', margin: '10px 0px', }} />}
+
                     {editNameCustomer && <input className="inputOne" type="text" value={newPickupNameCandidate ?? pickupName} onChange={(e) => setNewPickupNameCandidate(e.target.value)} disabled={disabled}
                         style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: disabled ? 'lightgray' : 'white', color: 'black', width: '100%', textAlign: 'center', overflowX: 'auto', margin: '10px 0px', }} />}
                 </div>}
@@ -201,7 +215,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
 
                 <div style={{ width: '100%', borderTop: '1px solid lightgray', backgroundColor: 'lightgray', margin: '10px 0' }} />
 
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '8px',  }}>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '8px', }}>
                     <button className="buttomDarkGray" style={{ fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 5px' : '0px 3px', visibility: 'hidden' }}
                         onClick={() => { }} disabled={disabled}>New customer</button>
 
@@ -259,7 +273,7 @@ export default function ChangeTableOrCustomerModal({ close, tableNumberOrDeliver
                             fontSize: isDesktopView ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isDesktopView ? '0px 10px' : '0px 6px',
                             backgroundColor: newTableCandidate === 'delivery' ? greenOne(theme) : ''
                         }}
-                            onClick={() => { setNewTableCandidate('delivery');  }} disabled={disabled}>Delivery</button>
+                            onClick={() => { setNewTableCandidate('delivery'); }} disabled={disabled}>Delivery</button>
                     </div>
                 </div>}
 
