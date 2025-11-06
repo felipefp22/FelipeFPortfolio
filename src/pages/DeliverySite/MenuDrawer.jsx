@@ -57,7 +57,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
         <>
             <div className='flexColumn' style={{
                 opacity: drawerOpen ? 1 : 0, transition: "opacity 0.3s", whiteSpace: "nowrap", position: "absolute", background: mainColor(theme),
-                height: '100%', width: '75%', maxWidth: '300px', boxShadow: "2px 0 5px rgba(0,0,0,0.3)", top: 0, padding: '10px', zIndex: 10000,
+                height: '100%', width: '75%', maxWidth: '300px', boxShadow: "2px 0 5px rgba(0,0,0,0.3)", top: 0, padding: '10px', zIndex: 100,
             }}>
 
                 <div className='flexRow spaceBetweenJC' style={{ alignItems: "center", }}>

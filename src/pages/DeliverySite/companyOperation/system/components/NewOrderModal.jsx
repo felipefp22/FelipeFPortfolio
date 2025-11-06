@@ -161,7 +161,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
         <>
             <div className='modalInside' style={{ width: !isPcV ? "100%" : "97%", maxHeight: !isPcV ? '90%' : '80%', padding: !isPcV ? '10px' : '10px', }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
+                <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
                     <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '10px', alignItems: 'center' }}>
                         <button className='buttonStandart' style={{ height: '35px', fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 10px' : '0px 6px', }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>

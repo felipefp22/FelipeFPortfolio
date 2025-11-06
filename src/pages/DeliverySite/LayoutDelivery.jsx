@@ -45,7 +45,7 @@ export default function LayoutDelivery() {
           </footer>
         </div>
 
-        {showLogOutMessage && <div className='myModal' style={{  }} >
+        {showLogOutMessage && <div className='myModal' style={{ zIndex: 200 }} >
           <LogoutMessage close={() => setShowLogOutMessage(false)} />
         </div>}
       </div>
