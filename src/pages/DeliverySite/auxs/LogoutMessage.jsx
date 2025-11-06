@@ -19,18 +19,18 @@ export default function LogoutMessage({ close }) {
 
     return (
         <>
-            <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, overflowY: "auto", fontSize: !isPcV ? '20px' : '26px', }}>
+            <div className='myModal' style={{ zIndex: 100 }} >
+                <div className='modalInside' style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, overflowY: "auto", fontSize: !isPcV ? '20px' : '26px', }}>
                     <div>
-                        <div className="flexColumn fullCenter" style={{ lineHeight: 1.8, marginBottom: '10px' }}>
+                        <div className='flexColumn fullCenter' style={{ lineHeight: 1.8, marginBottom: '10px' }}>
                             <span>Sure to LogOut?</span>
                         </div>
 
-                        <div className="flexRow" style={{ justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", fontSize: '16px', margin: '5px 30px' }}
+                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
+                            <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", fontSize: '16px', margin: '5px 30px' }}
                                 onClick={() => { close(); }} >Return</button>
 
-                            <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', fontSize: '16px', margin: '5px 30px' }}
+                            <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', fontSize: '16px', margin: '5px 30px' }}
                                 onClick={() => { handleLogout() }} >Log Out <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "red", marginLeft: '3px' }} /></button>
                         </div>
                     </div>

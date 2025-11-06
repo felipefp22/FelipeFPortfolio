@@ -44,7 +44,7 @@ export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
         <>
             <div className='flexColumn' >
                 <div className='flexRow' style={{ alignItems: 'center', marginBottom: '5px', visibility: compoundSelectedData?.compoundName ? 'visible' : 'hidden' }} >
-                    <button className='floatingButton green' style={{height: '29px', width: '29px', marginRight: '10px' }} onClick={() => navigate('/FelipeFPortfolio/delivery/ManageCompaniesOwner/')} >
+                    <button className='floatingButton green fullCenter' style={{height: '29px', width: '29px', marginRight: '10px' }} onClick={() => navigate('/FelipeFPortfolio/delivery/ManageCompaniesOwner/')} >
                         <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white", margin: 'auto', fontSize: '12px' }} />
                     </button>
                     <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold' }}>{compoundSelectedData?.compoundName ?? "Settings - Your Chain"}</span>

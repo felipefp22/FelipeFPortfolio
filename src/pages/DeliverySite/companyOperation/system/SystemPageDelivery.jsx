@@ -62,7 +62,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingLeft: '3px', overflowY: 'auto', }}>
                 {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', margin: '3px 0px' }}>
-                    <button className="buttomStandart" style={{ marginLeft: '0px', }}
+                    <button className='buttomStandart' style={{ marginLeft: '0px', }}
                         onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
                 </div>}
 
@@ -70,7 +70,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                     {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', color: fontColorOne(theme) }}>
                             <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders Cooking</span>
-                            {requesterIsOwnerOrManagerOrSupervisor && <button className="floatingButton" style={{
+                            {requesterIsOwnerOrManagerOrSupervisor && <button className='floatingButton' style={{
                                 backgroundColor: greenTwo(theme), marginRight: '5px',
                                 visibility: ((selectedCookingOrderID.length === 1 && selectedOnDeliveryOrderID.length === 0)) ? 'visible' : 'hidden'
                             }}
@@ -105,7 +105,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders on Delivery</span>
-                            <button className="floatingButton" style={{
+                            <button className='floatingButton' style={{
                                 backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px',
                                 visibility: (selectedCookingOrderID?.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden'
                             }}
@@ -145,7 +145,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Completed Delivery Orders</span>
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
-                            <button className="floatingButton" style={{
+                            <button className='floatingButton' style={{
                                 backgroundColor: greenOne(theme), marginBottom: '10px', marginRight: '5px',
                                 visibility: ((selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length > 0)) ? 'visible' : 'hidden'
                             }}
@@ -210,20 +210,20 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                 </div >
             </div>
 
-            {changeStatusOrderModal && <div className="myModal" style={{}} >
+            {changeStatusOrderModal && <div className='myModal' style={{}} >
                 <ChangeOrderStatusModal close={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedCookingOrderID={selectedCookingOrderID}
                     setSelectedCookingOrderID={setSelectedCookingOrderID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
             </div>}
 
-            {newOrderModal && <div ref={newOrderModalRef} className="myModal" style={{}} >
+            {newOrderModal && <div ref={newOrderModalRef} className='myModal' style={{}} >
                 <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={'delivery'} />
             </div>}
 
-            {completeOrdersModal && <div className="myModal" style={{}} >
+            {completeOrdersModal && <div className='myModal' style={{}} >
                 <CompleteOrdersModal close={() => { setSelectedOnDeliveryOrderID([]); setCompleteOrdersModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} getShiftOperationData={async () => await getShiftOperationData()} />
             </div>}
 
-            {editOrderModal && <div className="myModal" style={{zIndex: 10}} >
+            {editOrderModal && <div className='myModal' style={{zIndex: 10}} >
                 <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>

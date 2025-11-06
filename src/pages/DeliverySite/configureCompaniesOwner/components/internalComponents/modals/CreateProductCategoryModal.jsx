@@ -39,8 +39,8 @@ export default function CreateProductCategoryModal({ close, companyData, fetchCo
 
     return (
         <>
-            <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ width: 'auto', padding: '10px', width: !isPcV ? "95%" : "70%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
+            <div className='myModal' style={{ zIndex: 100 }} >
+                <div className='modalInside' style={{ width: 'auto', padding: '10px', width: !isPcV ? "95%" : "70%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: ' 6px', width: '100%' }} >
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '5px' }} >
                             <span style={{ color: fontColorOne(theme), fontSize: isPcV ? '22px' : '17px', fontWeight: 'bold' }}>{companyData?.companyName} </span>
@@ -77,7 +77,7 @@ export default function CreateProductCategoryModal({ close, companyData, fetchCo
                                     </div>}
 
                                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: '10px', width: '100%' }} >
-                                        <input className="inputStandart" type="text" value={categoryName} placeholder="Product Category Name"
+                                        <input className='inputStandart' type="text" value={categoryName} placeholder="Product Category Name"
                                             onChange={(e) => setCategoryName(e.target.value)} style={{ width: '100%', fontWeight: 'bold', textAlign: 'center', height: '35px' }} />
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@ export default function CreateProductCategoryModal({ close, companyData, fetchCo
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isPcV ? '30px 10px 0px 10px' : '30px 10px 0px 10px', }} >
                                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '0px', width: '100%' }} >
                                     <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Description: </span>
-                                    <textarea className="textAreaStandart" rows={4} style={{ width: '100%' }} value={categoryDescription} onChange={(e) => setCategoryDescription(e.target.value)} />
+                                    <textarea className='textAreaStandart' rows={4} style={{ width: '100%' }} value={categoryDescription} onChange={(e) => setCategoryDescription(e.target.value)} />
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@ export default function CreateProductCategoryModal({ close, companyData, fetchCo
                 </div>
             </div >
 
-            {/* {selectImageModal && <div className="myModal underDeliveryLayout" style={{ zIndex: 10000 }} >
+            {/* {selectImageModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 10000 }} >
                 <SelectProductImageModal close={() => setSelectImageModal(false)} imagePath={imagePath} setImagePath={setImagePath} />
             </div>} */}
         </>

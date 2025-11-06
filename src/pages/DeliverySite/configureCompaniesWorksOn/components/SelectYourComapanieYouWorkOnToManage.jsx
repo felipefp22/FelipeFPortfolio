@@ -18,24 +18,24 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
 
     return (
         <>
-            <div className="flexColumn" style={{ textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '10px 0px', borderRadius: '6px', }}>
-                {<div className="flexColumn" style={{ backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '0px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
+            <div className='flexColumn' style={{ textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '10px 0px', borderRadius: '6px', }}>
+                {<div className='flexColumn' style={{ backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '0px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
 
                     <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', marginBottom: '25px' }}>Manage Companies You Work On</span>
 
-                    <div className="transparentCanvas fullCenter" style={{ textAlign: 'left', backgroundColor: transparentCavasTwo(theme), minWidth: '300px', maxWidth: '100%', flexGrow: 1, overflow: "hidden", }} >
-                        <div className="flexColumn" style={{ color: "white", minWidth: '300px', width: '100%' }}>
+                    <div className='transparentCanvas fullCenter' style={{ textAlign: 'left', backgroundColor: transparentCavasTwo(theme), minWidth: '300px', maxWidth: '100%', flexGrow: 1, overflow: "hidden", }} >
+                        <div className='flexColumn' style={{ color: "white", minWidth: '300px', width: '100%' }}>
                             <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : greenOne(theme), fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold', marginBottom: '10px' }}>You Work On</span>
 
                             {companiesYouWorkOn?.filter(company => company.status === "ACTIVE").length > 0 ? (
                                 companiesYouWorkOn?.filter(company => company.status === "ACTIVE").map((company, index) => (
                                     <div key={index} className='transparentCanvas' style={{ padding: '10px', borderRadius: '6px', }} onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesWorkOn/company?id=${company?.id}`); }}>
-                                            <div className="flexRow" style={{ width: '100%', justifyContent: 'flex-start' }} >
+                                            <div className='flexRow' style={{ width: '100%', justifyContent: 'flex-start' }} >
                                                 <img src={companiesGroupLogo} alt="Logo" style={{
                                                     width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'black', border: `0px solid ${borderColorTwo(theme)}`, boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, marginRight: 10, padding: '3px',
                                                 }} />
-                                                <div className="flexRow" style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                                <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
                                                     <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{company.companyName} </span>
                                                     <FontAwesomeIcon icon={faGear} style={{ fontSize: '25px', marginRight: isPcV ? '20px' : '5px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                                 </div>
@@ -90,7 +90,7 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
                 </div>}
             </div>
 
-            {acceptOrDenyWorkInviteModal && <div className="myModal underDeliveryLayout" style={{ zIndex: 100 }} >
+            {acceptOrDenyWorkInviteModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 100 }} >
                 <AcceptOrDenyWorksOnCompany close={() => setAcceptOrDenyWorkInviteModal(false)} companyData={acceptOrDenyWorkInviteModal} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
         </>

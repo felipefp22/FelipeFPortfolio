@@ -58,7 +58,7 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
 
     return (
         <>
-            <div className="modalInside" style={{ padding: '20px', minWidth: '300px', maxWidth: !isPcV ? "95%" : "600px", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
+            <div className='modalInside' style={{ padding: '20px', minWidth: '300px', maxWidth: !isPcV ? "95%" : "600px", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
                 <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '30px', fontSize: !isPcV ? '20px' : '26px', }}>
                     <span style={{ color: borderColorTwo(theme) }}>{`${companyData?.companyName || "Company"}`}</span>
                 </div>
@@ -82,7 +82,7 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
 
                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'center', marginBottom: '10px' }} >
                     <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', }}>Position: </span>
-                    <select className="inputStandart" value={position || ""} onChange={(e) => setPosition(e.target.value)} style={{ maxWidth: '220px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
+                    <select className='inputStandart' value={position || ""} onChange={(e) => setPosition(e.target.value)} style={{ maxWidth: '220px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
                         {!position && <option value="">Select position</option>}
                         {positionsOpts.map((value, index) => (
                             <option key={index} value={value}>
@@ -93,10 +93,10 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                 </div>
 
                 {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '50px', marginTop: '10px' }}>
-                    <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
+                    <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
                         onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                    <button className="buttomStandart" style={{
+                    <button className='buttomStandart' style={{
                         backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px',
                         cursor: (position.toLowerCase() === employeeData?.position?.toLowerCase()) ? 'not-allowed' : 'pointer', opacity: (position.toLowerCase() === employeeData?.position?.toLowerCase()) ? 0.5 : 1,
                     }}
@@ -108,23 +108,23 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                 </div>}
             </div>
 
-            {fireConfirmationShow && <div className="myModal underDeliveryLayout" style={{ zIndex: 10000 }} >
-                <div className="modalInside" style={{ padding: '20px', minWidth: '300px', maxWidth: !isPcV ? "95%" : "600px", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
+            {fireConfirmationShow && <div className='myModal underDeliveryLayout' style={{ zIndex: 10000 }} >
+                <div className='modalInside' style={{ padding: '20px', minWidth: '300px', maxWidth: !isPcV ? "95%" : "600px", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
                     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '30px', fontSize: !isPcV ? '20px' : '26px', }}>
                         <span style={{ color: fontColorOne(theme) }}>{`${employeeData?.employeeName} - ${employeeData?.employeeEmail}`}</span>
                         <span style={{ color: borderColorTwo(theme) }}>{`Sure to fire ${employeeData?.employeeName} ?`}</span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', alignItems: 'center', marginBottom: '10px', maxWidth: '550px' }} >
-                        <input className="inputStandart" style={{ flexGrow: 1, textAlign: 'center' }} type="email" autoCapitalize="none" value={emailConfirmationToFire} onChange={(e) => { setEmailConfirmationToFire(e.target.value); e.target.setCustomValidity(''); }}
+                        <input className='inputStandart' style={{ flexGrow: 1, textAlign: 'center' }} type="email" autoCapitalize="none" value={emailConfirmationToFire} onChange={(e) => { setEmailConfirmationToFire(e.target.value); e.target.setCustomValidity(''); }}
                             onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} />
                         <span style={{ color: fontColorOne(theme), opacity: 0.8, fontSize: '12px' }}>{`*Type email to confirm`}</span>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '50px', marginTop: '10px', width: '100%' }}>
-                            <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: 'gray', fontSize: '16px' }}
+                            <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: 'gray', fontSize: '16px' }}
                                 onClick={() => { setFireConfirmationShow(false); }} disabled={processing}>Cancel</button>
 
-                            <button className="buttomStandart red" type="submit" style={{
+                            <button className='buttomStandart red' type="submit" style={{
                                 backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px',
                                 cursor: !emailConfirmationToFire ? 'not-allowed' : 'pointer', opacity: !emailConfirmationToFire ? 0.5 : 1,
                             }} onClick={() => { handleFireEmployee(); }}

@@ -102,7 +102,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
 
     return (
         <>
-            <div className="modalInside" style={{ width: !isPcV ? "100%" : "97%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', zIndex: 10, }}>
+            <div className='modalInside' style={{ width: !isPcV ? "100%" : "97%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', zIndex: 10, }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', fontSize: isPcV ? '14px' : '12px', }}>
                     {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
@@ -112,13 +112,13 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '60%', }}>
                             <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', }}>Customer Name</span>
-                            <input className="inputStandart" type="text" value={name} onChange={(e) => setName(e.target.value)}
+                            <input className='inputStandart' type="text" value={name} onChange={(e) => setName(e.target.value)}
                                 style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black' }} />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '32%', }}>
                             <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', }}>Phone</span>
-                            <input className="inputStandart" type="text" value={phone} onChange={(e) => setPhone(e.target.value)}
+                            <input className='inputStandart' type="text" value={phone} onChange={(e) => setPhone(e.target.value)}
                                 style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black', textAlign: 'left' }} />
                         </div>
                     </div>
@@ -129,19 +129,19 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '72%', }}>
                             <span style={{ fontWeight: "600", marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>Customer Address</span>
-                            <input className="inputStandart" type="text" value={address ?? ""} onChange={(e) => setAddress(e.target.value)} disabled={true}
+                            <input className='inputStandart' type="text" value={address ?? ""} onChange={(e) => setAddress(e.target.value)} disabled={true}
                                 style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'lightgray', color: 'black' }} />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
                             <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>Number</span>
-                            <input className="inputStandart" type="text" value={addressNumber} onChange={(e) => setAddressNumber(e.target.value)} disabled={!lat || !lng || !address}
+                            <input className='inputStandart' type="text" value={addressNumber} onChange={(e) => setAddressNumber(e.target.value)} disabled={!lat || !lng || !address}
                                 style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: (!lat || !lng || !address) ? 'lightgray' : 'white', color: 'black', textAlign: 'right' }} />
                         </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '95%' }}>
                         <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>Complement</span>
-                        <input className="inputStandart" type="text" value={complement} onChange={(e) => setComplement(e.target.value)} disabled={!lat || !lng || !address}
+                        <input className='inputStandart' type="text" value={complement} onChange={(e) => setComplement(e.target.value)} disabled={!lat || !lng || !address}
                             style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: (!lat || !lng || !address) ? 'lightgray' : 'white', color: 'black' }} />
                     </div>
                 </div>
@@ -151,7 +151,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
 
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '290px', }}>
                     <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px' }}>
-                        <input className="inputStandart"
+                        <input className='inputStandart'
                             type="text"
                             value={searchAddressInput}
                             onChange={e => setSearchAddressInput(e.target.value)}
@@ -192,8 +192,8 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '0px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button className="buttomStandart red" style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
-                            <button className="buttomStandart green" style={{ marginLeft: '0px' }} onClick={() => saveCustomer()}>Save Customer</button>
+                            <button className='buttomStandart red' style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
+                            <button className='buttomStandart green' style={{ marginLeft: '0px' }} onClick={() => saveCustomer()}>Save Customer</button>
                         </div>
                     </div>
                 </div>

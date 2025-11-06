@@ -53,8 +53,8 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
 
     return (
         <>
-            <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ padding: '20px', minWidth: '300px', maxWidth: !isPcV ? "95%" : "600px", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
+            <div className='myModal' style={{ zIndex: 100 }} >
+                <div className='modalInside' style={{ padding: '20px', minWidth: '300px', maxWidth: !isPcV ? "95%" : "600px", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
                     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '30px', fontSize: !isPcV ? '20px' : '26px', }}>
                         <span>{`Hire`}</span>
                         <span style={{ color: borderColorTwo(theme) }}>{`${companyData?.companyName || "Company"}`}</span>
@@ -64,7 +64,7 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
                         <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', whiteSpace: 'nowrap' }}>Email: </span>
 
                         <form style={{ display: 'flex', position: 'relative', flexGrow: 1, maxWidth: '550px' }} onSubmit={(e) => { e.preventDefault(); handleFindPerson(); }}>
-                            <input className="inputStandart" style={{ flexGrow: 1, }} type="email" autoCapitalize="none" value={emailToInvite || ""} onChange={(e) => { setEmailToInvite(e.target.value); e.target.setCustomValidity(''); }}
+                            <input className='inputStandart' style={{ flexGrow: 1, }} type="email" autoCapitalize="none" value={emailToInvite || ""} onChange={(e) => { setEmailToInvite(e.target.value); e.target.setCustomValidity(''); }}
                                 onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} />
                             <button style={{
                                 borderRadius: '50%', backgroundColor: transparentCavasOne(theme), padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -88,7 +88,7 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'center', marginBottom: '10px' }} >
                         <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', }}>Position: </span>
-                        <select className="inputStandart" value={position || ""} onChange={(e) => setPosition(e.target.value)} style={{ maxWidth: '220px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
+                        <select className='inputStandart' value={position || ""} onChange={(e) => setPosition(e.target.value)} style={{ maxWidth: '220px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
                             {!position && <option value="">Select position</option>}
                             {positionsOpts.map((value, index) => (
                                 <option key={index} value={value}>
@@ -99,10 +99,10 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
                     </div>
 
                     {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '50px', marginTop: '10px' }}>
-                        <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
+                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
                             onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                        <button className="buttomStandart" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px', cursor: userFoundData ? 'pointer' : 'not-allowed', opacity: userFoundData ? 1 : 0.5, }}
+                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px', cursor: userFoundData ? 'pointer' : 'not-allowed', opacity: userFoundData ? 1 : 0.5, }}
                             onClick={() => { handleAddEmployee() }} disabled={processing || !userFoundData}>Hire</button>
                     </div>}
 

@@ -45,22 +45,22 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
     return (
         <>
-            <div className="modalInside" style={{ width: !isPcV ? "100%" : "85%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', zIndex: 10, }}>
+            <div className='modalInside' style={{ width: !isPcV ? "100%" : "85%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', zIndex: 10, }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', width: '100%', marginBottom: '10px', flexWrap: 'wrap' }}>
-                        <button className="buttomStandart blue" style={{marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
+                        <button className='buttomStandart blue' style={{marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
                             onClick={() => setButtonFilter("All")}>All</button>
 
                         {allCompanyProductsCategories && allCompanyProductsCategories?.map((category) => (
-                            <button key={category?.id} className="buttomStandart blue" style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
+                            <button key={category?.id} className='buttomStandart blue' style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
                                 onClick={() => setButtonFilter(category)}>{category?.categoryName}</button>
                         ))}
 
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', padding: 3, overflowY: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
-                        <input type="text" className="inputStandart" value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
+                        <input type="text" className='inputStandart' value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
                             style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)' }} />
 
                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
@@ -103,8 +103,8 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button className="buttomStandart red" style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
-                            <button className="buttomStandart green" style={{ marginLeft: '0px' }} onClick={() => { addItemsToOrderAction(); }}>Add items</button>
+                            <button className='buttomStandart red' style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
+                            <button className='buttomStandart green' style={{ marginLeft: '0px' }} onClick={() => { addItemsToOrderAction(); }}>Add items</button>
                         </div>
                     </div>
                 </div>

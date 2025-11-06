@@ -51,7 +51,7 @@ export default function ManageCompaniesWorkOn({ }) {
 
     return (
         <>
-            <div className="flexColumn" style={{ height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isPcV ? 5 : 3, }} >
+            <div className='flexColumn' style={{ height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isPcV ? 5 : 3, }} >
                 {!companySelected && <SelectYourComapanieYouWorkOnToManage companiesYouWorkOn={companiesYouWorkOn} fetchUserInfos={() => fetchUserInfos()} />}
                 {companySelected && <SetUpCompanyYouWorkOn companiesYouWorkOn={companiesYouWorkOn} fetchUserInfos={() => fetchUserInfos()} />}
             </div >

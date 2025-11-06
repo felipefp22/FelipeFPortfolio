@@ -77,7 +77,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    <button className="floatingButton" style={{ top: 0, left: 5 }}
+                    <button className='floatingButton' style={{ top: 0, left: 5 }}
                         onClick={() => { setDrawerOpen(false); localStorage.removeItem('companyOperatingID'); }}>☰</button>
                 </div>
 
