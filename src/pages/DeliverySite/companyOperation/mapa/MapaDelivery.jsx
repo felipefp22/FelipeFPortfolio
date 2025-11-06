@@ -11,7 +11,7 @@ import "leaflet/dist/leaflet.css";
 import { fontColorOne, secondColor, secondColorInverse } from '../../../../theme/Colors';
 
 
-export default function MapaDelivery({ }) {
+export default function MapaDelivery({ setHaveModalOpen }) {
   const theme = useSelector((state) => state.view.theme);
   const isPcV = useSelector((state) => state.view.isPcV);
   const companyOperation = useSelector((state) => state.companyOperation);
@@ -156,7 +156,7 @@ export default function MapaDelivery({ }) {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflow: 'hidden', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
 
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minHeight: 0, minWidth: 0, overflow: 'hidden', borderRadius: '6px' }} ref={mapContainerRef}>
-        <div id="mapa" style={{ width: '100%', height: '100%' }} />
+        <div id="mapa" style={{ width: '100%', height: '100%', visibility: setHaveModalOpen ? 'hidden' : 'visible' }} />
       </div>
 
       <div style={{

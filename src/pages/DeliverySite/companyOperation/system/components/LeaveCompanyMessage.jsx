@@ -17,15 +17,15 @@ export default function LeaveCompanyMessage({ close, leaveCompany }) {
         <>
             <div className='modalInside' style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", overflowY: "auto", fontSize: !isPcV ? '20px' : '26px', }}>
                 <div>
-                    <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '10px' }}>
+                    <div className='flexColumn fullCenter' style={{ marginBottom: '15px' }}>
                         <span>Leave company?</span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", fontSize: '16px', margin: '5px 30px' }}
+                        <button className='buttomStandart' style={{ background: 'none', border: "none", fontSize: '16px', margin: '5px 30px' }}
                             onClick={() => { close(); }} >Return</button>
 
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', fontSize: '16px', margin: '5px 30px', border: 'none' }}
+                        <button className='buttomStandart' style={{ background: 'none',  border: 'none', fontSize: '16px', margin: '5px 30px' }}
                             onClick={() => { leaveCompany(); navigate('/FelipeFPortfolio/delivery//'); }}><FontAwesomeIcon icon={faRightFromBracket} flip="horizontal" style={{ color: "red", marginLeft: '3px' }} /> Leave</button>
                     </div>
                 </div>

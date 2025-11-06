@@ -48,11 +48,11 @@ export default function FinishShiftModal({ close, finishShift, companySelected, 
         <>
             <div className='modalInside' style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", fontSize: !isPcV ? '20px' : '26px', fontWeight: 'bold' }}>
                 {requesterAreOwnerOrManager && <div>
-                    <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '10px' }}>
-                        <span style={{ marginBottom: "10px" }}>Finish Shift?</span>
+                    <div className='flexColumn fullCenter' style={{ marginBottom: '20px', lineHeight: 1.8 }}>
+                        <span >Finish Shift?</span>
 
-                        <span style={{ margin: 10, fontSize: '15px' }}> {"From - "} <span style={{ color: blueOne(theme) }}>{formatDateToDayMonth(currentShiftData?.startTimeUTC)}</span></span>
-                        <span style={{ marginBottom: 10, fontSize: '15px' }}> {"To - "} <span style={{ color: blueOne(theme) }}>{formatDateToDayMonth(new Date(Date.now() + new Date().getTimezoneOffset() * 60000))}</span></span>
+                        <span style={{ fontSize: '15px' }}> {"From - "} <span style={{ color: blueOne(theme) }}>{formatDateToDayMonth(currentShiftData?.startTimeUTC)}</span></span>
+                        <span style={{ fontSize: '15px' }}> {"To - "} <span style={{ color: blueOne(theme) }}>{formatDateToDayMonth(new Date(Date.now() + new Date().getTimezoneOffset() * 60000))}</span></span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
