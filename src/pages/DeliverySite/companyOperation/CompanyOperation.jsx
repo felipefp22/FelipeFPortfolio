@@ -142,7 +142,9 @@ export default function CompanyOperation() {
         
         <div className='flexRow' style={{ height: '100%', width: '100%', flexGrow: 1, padding: '5px 5px' }}>
           {<div className='flexColumn' style={{ position: 'relative', height: '100%', flexGrow: 1, width: onFocus === "map" ? '0%' : onFocus === "system" ? '96%' : '50%', visibility: onFocus !== "map" ? 'visible' : 'hidden' }}>
+
             <div className='flexRow' style={{ width: '100%', justifyContent: 'space-between', padding: '0px 4px', marginBottom: '8px' }} >
+              
               <div className='flexRow' >
                 <div className='flexRow' style={{ alignItems: "center", }}>
                   <Dropdown ref={dropdownSystemOptionsRedRef} className="nav-item header-profile" show={showDropdownSystemOptionsRed} >

@@ -86,7 +86,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
 
                     <ul style={{ listStyle: "none", padding: 0, color: fontColorOne(), }}>
 
-                        <li><a style={linkStyle} onClick={() => { navigate("/FelipeFPortfolio/delivery/"); setDrawerOpen(false); }}>Operation</a></li>
+                        <li><a style={linkStyle} onClick={() => { navigate("/FelipeFPortfolio/delivery/"); setDrawerOpen(false); }}>Work now!</a></li>
 
                         <hr style={{ margin: "20px 0", border: "none", borderTop: `2px solid ${borderColorTwo(theme)}`, }} />
 

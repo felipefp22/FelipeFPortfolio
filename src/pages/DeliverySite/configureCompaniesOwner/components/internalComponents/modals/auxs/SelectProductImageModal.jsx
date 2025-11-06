@@ -25,10 +25,6 @@ export default function SelectProductImageModal({ close, imagePath, setImagePath
         fetchDefaults();
     }, []);
 
-    // useEffect(() => {
-    //     console.log("allDefaultImages", allDefaultImages);
-    // }, [allDefaultImages]);
-
     useEffect(() => {
         if (buttonFilter === "All") {
             const filteredItems = allDefaultImages?.flatMap(cat => cat.items || []);
@@ -44,10 +40,9 @@ export default function SelectProductImageModal({ close, imagePath, setImagePath
     return (
         <>
             <div className='modalInside' style={{ padding: '10px', width: !isPcV ? "95%" : "90%", maxHeight: !isPcV ? "95%" : "90%", }}>
-
                 <div className='flexColumn'>
+                    
                     <div className='flexRow' style={{ justifyContent: 'space-between', alignItems: 'center', width: '100%', }}>
-
                         <div className='flexColumn' style={{ flexWrap: 'wrap' }}>
                             <div className='flexRow' style={{ marginBottom: '5px' }} >
                                 <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '22px' : '17px', fontWeight: 'bold' }}>{"Default System Photos"} </span>
