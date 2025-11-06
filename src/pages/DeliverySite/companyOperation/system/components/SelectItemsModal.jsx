@@ -45,54 +45,53 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
     return (
         <>
-            <div className='modalInside' style={{ width: !isPcV ? "100%" : "85%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', zIndex: 10, }}>
+            <div className='modalInside' style={{ width: !isPcV ? "100%" : "85%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', width: '100%', marginBottom: '10px', flexWrap: 'wrap' }}>
-                        <button className='buttomStandart blue' style={{marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
+                <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', }}>
+                    <div className='flexRow' style={{ justifyContent: 'left', width: '100%', marginBottom: '10px', flexWrap: 'wrap' }}>
+                        <button className='buttomStandart blue' style={{ marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
                             onClick={() => setButtonFilter("All")}>All</button>
 
                         {allCompanyProductsCategories && allCompanyProductsCategories?.map((category) => (
                             <button key={category?.id} className='buttomStandart blue' style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
                                 onClick={() => setButtonFilter(category)}>{category?.categoryName}</button>
                         ))}
-
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', padding: 3, overflowY: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                    <div className='flexColumn' style={{ width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <input type="text" className='inputStandart' value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
                             style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)' }} />
 
-                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
+                        <div className='flexRow' style={{ justifyContent: 'center', width: '100%', flexWrap: 'wrap', overflowY: 'auto', }}>
                             {productsFiltered && productsFiltered?.map((product, idx) => (
-                                <div key={idx} style={{ display: 'flex', flexDirection: 'column', width: '80px', height: "96px", margin: 5, cursor: 'pointer' }} onClick={() => { setSelectedProducts([...selectedProducts, product]); }}>
+                                <div key={idx} className='flexColumn' style={{ width: '80px', margin: 5, cursor: 'pointer' }} onClick={() => { setSelectedProducts([...selectedProducts, product]); }}>
                                     <img src={product?.imagePath ? getImageFoodService(product?.imagePath) : noFoodImg} alt={""} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
                                     <span style={{ fontWeight: 'bold', fontSize: "16px", textAlign: 'center', color: 'black' }}>{product?.name}</span>
                                 </div>
-                            ))
-                            }
+                            ))}
                         </div>
                     </div>
                 </div>
 
-                <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0' }}></div>
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', textAlign: 'left' }}>
+                <div style={{ width: '100%', borderTop: '1px solid lightgray', margin: '5px 0' }}></div>
+
+                <div className='flexColumn' style={{ width: '100%', flexWrap: 'wrap', textAlign: 'left' }}>
                     <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Itens to Add</span>
-                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', marginBottom: '20px', width: '98%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                    <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <Table responsive="sm" >
                             <thead>
                                 <tr>
-                                    <th style={{width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
-                                    <th style={{width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
-                                    <th style={{width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
+                                    <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
+                                    <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                    <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                 </tr>
                             </thead>
                             <tbody >
                                 {selectedProducts.map((product, index) => (
                                     <tr key={index}>
-                                        <td style={{width: "100%", padding: '5px 5px' }}>{product.name}</td>
-                                        <td style={{width: "40px", padding: '5px 5px' }}>{product.price}</td>
-                                        <td style={{width: "40px", padding: '5px 5px' }} onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                        <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
+                                        <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
+                                        <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -100,13 +99,9 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                            <button className='buttomStandart red' style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
-                            <button className='buttomStandart green' style={{ marginLeft: '0px' }} onClick={() => { addItemsToOrderAction(); }}>Add items</button>
-                        </div>
-                    </div>
+                <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '15px' }}>
+                    <button className='buttomStandart red'  onClick={() => close()}>Cancel</button>
+                    <button className='buttomStandart green' onClick={() => { addItemsToOrderAction(); }}>Add items</button>
                 </div>
             </div>
         </>

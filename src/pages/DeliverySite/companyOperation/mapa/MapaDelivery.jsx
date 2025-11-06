@@ -160,14 +160,14 @@ export default function MapaDelivery({ }) {
       </div>
 
       <div style={{
-        position: 'absolute', bottom: 200, right: 10, width: '45px', height: '45px', backgroundColor: secondColor(theme), display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000,
+        position: 'absolute', bottom: 200, right: 10, width: '45px', height: '45px', backgroundColor: secondColor(theme), display: 'flex', alignItems: 'center', justifyContent: 'center', 
         borderRadius: 50, boxShadow: '2px 4px 6px rgba(0, 0, 0, 0.36)', cursor: 'pointer', border: '4px solid #eaa37a47',
       }} onClick={() => { recenterMap() }}>
-        <FontAwesomeIcon icon={faCrosshairs} style={{ zIndex: 100, color: fontColorOne(theme), fontSize: '28px' }} />
+        <FontAwesomeIcon icon={faCrosshairs} style={{ color: fontColorOne(theme), fontSize: '28px' }} />
       </div>
 
       <div style={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: secondColor(theme), boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.36)', borderRadius: '0px 0px 3px 3px', zIndex: 1000,
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: secondColor(theme), boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.36)', borderRadius: '0px 0px 3px 3px',
         position: 'absolute', bottom: 10, flexWrap: 'wrap', fontSize: isPcV ? '16px' : '15px', margin: '0px 5px', borderRadius: '6px', border: '4px solid #eaa37a47', color: fontColorOne(theme),
       }}>
 

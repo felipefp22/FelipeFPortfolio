@@ -103,9 +103,10 @@ export default function SelectCompanyOperation({ }) {
                                                 style={{ fontSize: isPcV ? '25px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                         </div>
                                     </div>
-                                    {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
+                                    {(selectedCompaniesCoumpound === compound.id) && <div className='flexColumn' style={{ margin: '0px 10px', padding: '0px 10px 10px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
                                         {compound?.companies?.map((comp, idx) => (
-                                            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 15, marginLeft: 20, cursor: 'pointer' }}
+                                            <div key={idx} className='flexRow' style={{ padding: '12px 10px', borderRadius: '6px', marginTop: '10px', justifyContent: 'center', backgroundColor: transparentCavasTwo(theme) }}
+
                                                 onClick={() => { (comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? setOpenShiftModal(comp) : setCompanyToOperate(comp.id)) : setOpenShiftModal(comp)); }}>
                                                 <img src={restaurantLogo} alt="Logo" style={{
                                                     width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
@@ -129,7 +130,7 @@ export default function SelectCompanyOperation({ }) {
                             {companiesUserWorksOn?.map((comp, idx) => (
                                 <div key={idx} className='flexColumn' style={{ padding: '12px 10px', borderRadius: '6px', marginTop: '10px', justifyContent: 'center', backgroundColor: transparentCavasTwo(theme) }}>
 
-                                    <div key={idx} className='flexRow fullCenter' style={{  cursor: 'pointer' }}
+                                    <div key={idx} className='flexRow fullCenter' style={{ cursor: 'pointer' }}
                                         onClick={() => {
                                             if (comp?.status === 'ACTIVE') {
                                                 (comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? setOpenShiftModal(comp) : setCompanyToOperate(comp.id)) : setOpenShiftModal(comp));
@@ -159,11 +160,11 @@ export default function SelectCompanyOperation({ }) {
                     </div>}
                 </div>
 
-                {createCompanyModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 100 }} >
+                {createCompanyModal && <div className='myModal underDeliveryLayout' >
                     <CreateGroupAndCompanyModal close={() => setCreateCompanyModal(false)} getShiftOperationData={() => fetchUserInfos()} />
                 </div>}
 
-                {openShiftModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 100 }} >
+                {openShiftModal && <div className='myModal underDeliveryLayout' >
                     <OpenShiftModal close={() => setOpenShiftModal(false)} openShiftModal={openShiftModal} setCompanyToOperate={setCompanyToOperate} />
                 </div>}
             </div >

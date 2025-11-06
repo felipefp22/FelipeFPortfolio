@@ -102,15 +102,15 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                 </div>
             </div>
 
-            {createProductCategoryModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 1000 }} >
+            {createProductCategoryModal && <div className='myModal underDeliveryLayout' >
                 <CreateProductCategoryModal close={() => setCreateProductCategoryModal(false)} companyData={companyData} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
 
-            {createProductModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 1000 }} >
+            {createProductModal && <div className='myModal underDeliveryLayout' >
                 <CreateProductModal close={() => setCreateProductModalOpen(false)} companyData={companyData} category={createProductModal} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
 
-            {editProductModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 1000 }} >
+            {editProductModal && <div className='myModal underDeliveryLayout' >
                 <EditProductModal close={() => setEditProductModal(false)} companyData={companyData} productSelected={editProductModal} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
         </>

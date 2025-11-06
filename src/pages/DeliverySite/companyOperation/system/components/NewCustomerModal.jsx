@@ -102,7 +102,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
 
     return (
         <>
-            <div className='modalInside' style={{ width: !isPcV ? "100%" : "97%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', zIndex: 10, }}>
+            <div className='modalInside' style={{ width: !isPcV ? "100%" : "97%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px',}}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', fontSize: isPcV ? '14px' : '12px', }}>
                     {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
@@ -163,7 +163,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                             style={{ width: '100%', paddingLeft: '10px', }}
                         />
                         {showAddressSelectorDropdown && (
-                            <ul style={{ position: 'absolute', left: 9, top: 40, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 10000, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
+                            <ul style={{ position: 'absolute', left: 9, top: 40, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto',  borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
                                 {addressFoundOptions?.length > 0 ? (
                                     addressFoundOptions.map((addressOpt, index) =>
                                     (addressSearchLoading ? (

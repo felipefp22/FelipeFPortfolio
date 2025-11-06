@@ -40,7 +40,7 @@
     background-color: var(--modalBackground);
     align-items: center;
     justify-content: center;
-    z-index: 2;
+    z-index: 5;
 }
 
 .myModal.underDeliveryLayout {
@@ -98,7 +98,7 @@ button:hover {
 /* Floating Buttons */
 .floatingButton {
     align-items: center;
-    z-index: 8;
+    z-index: 2;
     background-color: var(--floatingBlackButton);
     border: 2px solid white;
     color: white;

@@ -159,11 +159,11 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
             </div>}
 
 
-            {editAddressModalOpen && <div className='myModal underDeliveryLayout' style={{ zIndex: 10000 }} >
+            {editAddressModalOpen && <div className='myModal underDeliveryLayout' >
                 <EditCompanyAddressModal close={() => setEditAddressModalOpen(false)} companyLat={companyLat} setCompanyLat={setCompanyLat} companyLng={companyLng} setCompanyLng={setCompanyLng} companyAddress={companyAddress} setCompanyAddress={setCompanyAddress} />
             </div>}
 
-            {quitModalOpen && <div className='myModal underDeliveryLayout' style={{ zIndex: 10000 }} >
+            {quitModalOpen && <div className='myModal underDeliveryLayout' >
                 <QuitCompanyModal close={() => setQuitModalOpen(false)} companyData={companyData} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
         </>

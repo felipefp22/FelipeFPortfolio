@@ -19,8 +19,8 @@ export default function LogoutMessage({ close }) {
 
     return (
         <>
-            <div className='myModal' style={{ zIndex: 100 }} >
-                <div className='modalInside' style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, overflowY: "auto", fontSize: !isPcV ? '20px' : '26px', }}>
+            <div className='myModal'  >
+                <div className='modalInside' style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", overflowY: "auto", fontSize: !isPcV ? '20px' : '26px', }}>
                     <div>
                         <div className='flexColumn fullCenter' style={{ lineHeight: 1.8, marginBottom: '10px' }}>
                             <span>Sure to LogOut?</span>

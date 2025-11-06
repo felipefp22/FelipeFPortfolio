@@ -1,25 +1,21 @@
-import { use, useEffect, useRef, useState } from "react";
-import { Form, Spinner, Table } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
 import NewOrderModal from "./components/NewOrderModal.jsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faPen, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
-import CancelOrder from "./components/CancelOrderModal.jsx";
-import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
-import ChangeOrderStatusModal from "./components/ChangeOrderStatusModal.jsx";
-import { blueOne, borderColorTwo, fontColorOne, greenTwo, redOne, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
+import { faPen, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { blueOne, borderColorTwo, fontColorOne, greenTwo, } from "../../../../theme/Colors.js";
 import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import tableGreen from "../../../../assets/tableGreen.png";
 import tableYellow from "../../../../assets/tableYellow.png";
 import tableRed from "../../../../assets/tableRed.png";
-import tableBlue from "../../../../assets/tableBlue.png";
 import EditOrderModal from "./components/EditOrderModal.jsx";
 
 export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
-    const dispatch = useDispatch();
+
     const [newOrderModal, setNewOrderModal] = useState(false);
     const [editOrderModal, setEditOrderModal] = useState(false);
     const [seeOrderResumeModal, setSeeOrderResumeModal] = useState(false);
@@ -56,8 +52,8 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingLeft: '3px', overflowY: 'auto', }}>
-                {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '12px', marginBottom: '8px' }}>
+            <div className='flexColumn' style={{ height: '100%', flexGrow: 1, overflowY: 'auto', }}>
+                {onFocus !== "map" && <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '12px', marginBottom: '8px' }}>
                     <button className='buttomStandart' style={{ visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
                         onClick={() => { setNewOrderModal(true); }}>
                         {"New Order"}</button>
@@ -128,14 +124,13 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                         </div>
                     </div>
 
-                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+                    {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
 
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
-                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} >
-                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Waiting PickUp</span>
-                            </div>
-                            <button className='floatingButton' style={{
-                                backgroundColor: greenTwo(theme), marginRight: '5px',
+                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                            <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Waiting PickUp</span>
+
+                            <button className='floatingButton greenTwo' style={{
+                                marginRight: '5px',
                                 visibility: (selectedPickUpOrCompletedOrCanceledOrderID && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'PAID' && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'CANCELED') ? 'visible' : 'hidden'
                             }}
                                 onClick={() => { if (selectedPickUpOrCompletedOrCanceledOrderID.status !== 'PAID' && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'CANCELED') setEditOrderModal(selectedPickUpOrCompletedOrCanceledOrderID) }}>
@@ -189,18 +184,16 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                         </div>}
                     </div>}
 
-                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
-
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
-                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
+                    {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
+                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                            <div className='flexRow' style={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Completed Orders</span>
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
-                            <button className='floatingButton' style={{
-                                backgroundColor: blueOne(theme), marginRight: '5px',
+                            <button className='floatingButton blue' style={{
+                                marginRight: '5px',
                                 visibility: selectedPickUpOrCompletedOrCanceledOrderID ? 'visible' : 'hidden'
-                            }}
-                                onClick={() => setSeeOrderResumeModal(selectedPickUpOrCompletedOrCanceledOrderID)}>
+                            }} onClick={() => setSeeOrderResumeModal(selectedPickUpOrCompletedOrCanceledOrderID)}>
                                 <span>☰</span>
                             </button>
                         </div>
@@ -229,10 +222,9 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                             </Table>
                         </div>}
                     </div>}
-                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
-
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
-                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
+                    {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
+                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                            <div className='flexRow' style={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Canceled Orders</span>
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
@@ -265,11 +257,11 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                 </div >
             </div>
 
-            {newOrderModal && <div className='myModal' style={{ zIndex: 100 }} >
+            {newOrderModal && <div className='myModal' >
                 <NewOrderModal close={() => { setNewOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
             </div>}
 
-            {editOrderModal && <div className='myModal' style={{ zIndex: 100 }} >
+            {editOrderModal && <div className='myModal' >
                 <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>

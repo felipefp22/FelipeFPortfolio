@@ -104,7 +104,7 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                 </div>}
             </div>
 
-            {fireConfirmationShow && <div className='myModal underDeliveryLayout' style={{ zIndex: 10000 }} >
+            {fireConfirmationShow && <div className='myModal underDeliveryLayout' >
                 <div className='modalInside' style={{ padding: '20px', minWidth: '300px', maxWidth: !isPcV ? "80%" : "500px", maxHeight: !isPcV ? "95%" : "90%", }}>
 
                     <div className='flexColumn fullCenter' style={{ marginBottom: '10px', fontSize: !isPcV ? '20px' : '26px', }}>

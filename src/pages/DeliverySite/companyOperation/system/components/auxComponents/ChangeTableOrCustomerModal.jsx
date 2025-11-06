@@ -183,7 +183,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             style={{ height: '35px', backgroundColor: editNameCustomer ? 'white' : 'lightgray', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                         />
                         {showCustomerSelectorDropdown && (
-                            <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 100, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
+                            <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
                                 {customersMatched?.length > 0 ? (
                                     customersMatched.map((customerOpt) => (
                                         <li
@@ -290,11 +290,11 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                 </div>
             </div>
 
-            {showNewCustomerModal && <div className='myModal' style={{ zIndex: 10000 }} >
+            {showNewCustomerModal && <div className='myModal' >
                 <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperation?.companyOperationID} fetchCustomers={(e) => fetchCustomers(e)} />
             </div>}
 
-            {showCancelOrderModal && <div className='myModal' style={{}} >
+            {showCancelOrderModal && <div className='myModal' >
                 <CancelOrder close={() => { setShowCancelOrderModal(false) }} closeFromCancel={() => { closeFromCancel() }} companyOperationID={companyOperation?.companyOperationID} selectedOrderToCancel={orderToEdit} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>

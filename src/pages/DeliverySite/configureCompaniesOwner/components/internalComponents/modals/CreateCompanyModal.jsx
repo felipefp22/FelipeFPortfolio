@@ -116,7 +116,7 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
                 </div>
             </div>
 
-            {editAddressModalOpen && <div className='myModal underDeliveryLayout' style={{ zIndex: 10000 }} >
+            {editAddressModalOpen && <div className='myModal underDeliveryLayout' >
                 <EditCompanyAddressModal close={() => setEditAddressModalOpen(false)} companyLat={lat} setCompanyLat={setLat} companyLng={lng} setCompanyLng={setLng} companyAddress={address} setCompanyAddress={setAddress} />
             </div>}
         </>

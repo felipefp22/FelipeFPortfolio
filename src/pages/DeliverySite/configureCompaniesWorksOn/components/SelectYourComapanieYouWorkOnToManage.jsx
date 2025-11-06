@@ -90,7 +90,7 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
                 </div>}
             </div>
 
-            {acceptOrDenyWorkInviteModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 100 }} >
+            {acceptOrDenyWorkInviteModal && <div className='myModal underDeliveryLayout' >
                 <AcceptOrDenyWorksOnCompany close={() => setAcceptOrDenyWorkInviteModal(false)} companyData={acceptOrDenyWorkInviteModal} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
         </>

@@ -96,7 +96,7 @@ export default function CreateProductModal({ close, category, companyData, fetch
                     </div>
                 </div>
 
-            {selectImageModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 10000 }} >
+            {selectImageModal && <div className='myModal underDeliveryLayout' >
                 <SelectProductImageModal close={() => setSelectImageModal(false)} imagePath={imagePath} setImagePath={setImagePath} />
             </div>}
         </>

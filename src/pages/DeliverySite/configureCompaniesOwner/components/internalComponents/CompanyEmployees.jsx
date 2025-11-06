@@ -90,11 +90,11 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                 </div>
             </div>
 
-            {addEmployeeModalOpen && <div className='myModal underDeliveryLayout' style={{ zIndex: 100 }} >
+            {addEmployeeModalOpen && <div className='myModal underDeliveryLayout' >
                 <AddEmployeeModal close={() => setAddEmployeeModalOpen(false)} companyData={companyData} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
 
-            {editEmployeeModalOpen && <div className='myModal underDeliveryLayout' style={{ zIndex: 100 }} >
+            {editEmployeeModalOpen && <div className='myModal underDeliveryLayout' >
                 <EditEmployeeModal close={() => setEditEmployeeModalOpen(false)} companyData={companyData} employeeData={editEmployeeModalOpen} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
         </>

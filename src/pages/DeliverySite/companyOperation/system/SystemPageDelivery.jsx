@@ -60,18 +60,19 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingLeft: '3px', overflowY: 'auto', }}>
-                {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', margin: '3px 0px' }}>
+            <div className='flexColumn' style={{ height: '100%', overflowY: 'auto', }}>
+                {onFocus !== "map" && <div className='flexRow' style={{ width: '100%', margin: '3px 0px' }}>
                     <button className='buttomStandart' style={{ marginLeft: '0px', }}
                         onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
                 </div>}
 
-                <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'auto', }}>
-                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', color: fontColorOne(theme) }}>
+                <div className='flexColumn' >
+                    {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
+                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders Cooking</span>
-                            {requesterIsOwnerOrManagerOrSupervisor && <button className='floatingButton' style={{
-                                backgroundColor: greenTwo(theme), marginRight: '5px',
+
+                            {requesterIsOwnerOrManagerOrSupervisor && <button className='floatingButton greenTwo' style={{
+                                marginRight: '5px',
                                 visibility: ((selectedCookingOrderID.length === 1 && selectedOnDeliveryOrderID.length === 0)) ? 'visible' : 'hidden'
                             }}
                                 onClick={() => findOrderToEdit()}>
@@ -101,10 +102,10 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                         </div>
                     </div>}
 
-                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
-
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                    {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
+                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders on Delivery</span>
+
                             <button className='floatingButton' style={{
                                 backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px',
                                 visibility: (selectedCookingOrderID?.length > 0 || selectedOnDeliveryOrderID.length > 0) ? 'visible' : 'hidden'
@@ -138,15 +139,15 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
 
                     </div>}
 
-                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
-
+                    {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
-                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
+                            <div className='flexRow' style={{ alignItems: 'center' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Completed Delivery Orders</span>
+
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
-                            <button className='floatingButton' style={{
-                                backgroundColor: greenOne(theme), marginBottom: '10px', marginRight: '5px',
+                            <button className='floatingButton green' style={{
+                                marginRight: '5px',
                                 visibility: ((selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length > 0)) ? 'visible' : 'hidden'
                             }}
                                 onClick={() => setCompleteOrdersModal(true)}>
@@ -176,11 +177,12 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                             </Table>
                         </div>}
                     </div>}
-                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
+                    {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
-                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
+                            <div className='flexRow' style={{ alignItems: 'center' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Canceled Delivery Orders</span>
+
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
                         </div>
@@ -210,20 +212,20 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                 </div >
             </div>
 
-            {changeStatusOrderModal && <div className='myModal' style={{}} >
+            {changeStatusOrderModal && <div className='myModal' >
                 <ChangeOrderStatusModal close={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setChangeStatusOrderModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedCookingOrderID={selectedCookingOrderID}
                     setSelectedCookingOrderID={setSelectedCookingOrderID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} setSelectedOnDeliveryOrderID={setSelectedOnDeliveryOrderID} getShiftOperationData={getShiftOperationData} />
             </div>}
 
-            {newOrderModal && <div ref={newOrderModalRef} className='myModal' style={{}} >
+            {newOrderModal && <div ref={newOrderModalRef} className='myModal' >
                 <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={'delivery'} />
             </div>}
 
-            {completeOrdersModal && <div className='myModal' style={{}} >
+            {completeOrdersModal && <div className='myModal' >
                 <CompleteOrdersModal close={() => { setSelectedOnDeliveryOrderID([]); setCompleteOrdersModal(false); }} companyOperationID={companyOperation?.companyOperationID} selectedOnDeliveryOrderID={selectedOnDeliveryOrderID} getShiftOperationData={async () => await getShiftOperationData()} />
             </div>}
 
-            {editOrderModal && <div className='myModal' style={{zIndex: 10}} >
+            {editOrderModal && <div className='myModal' >
                 <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>

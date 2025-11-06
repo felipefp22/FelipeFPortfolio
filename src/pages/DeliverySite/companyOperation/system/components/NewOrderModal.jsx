@@ -1,6 +1,6 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./SelectItemsModal";
@@ -167,11 +167,9 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
-                            <select className='inputStandart' value={!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? tableNumberOrDeliveryOrPickupSelected : ""} placeholder="Table" onChange={(e) => setTableNumberOrDeliveryOrPickupSelected(Number(e.target.value))}
-                                style={{
-                                    minWidth: '60px', maxWidth: '120px', height: '35px', padding: '5px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`,
-                                    backgroundColor: (!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) && tableNumberOrDeliveryOrPickupSelected) ? greenOne(theme) : ''
-                                }} >
+                            <select className={`buttomStandart ${((!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) && tableNumberOrDeliveryOrPickupSelected) && 'green')}`}
+                                value={!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? tableNumberOrDeliveryOrPickupSelected : ""} placeholder="Table" onChange={(e) => setTableNumberOrDeliveryOrPickupSelected(Number(e.target.value))}
+                                style={{ height: '35px', padding: '5px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`, }} >
                                 <option value="" disabled hidden> Table </option>
                                 {Array.from({ length: companyOperation?.numberOfTables || 0 }, (_, i) => {
                                     const tableNumber = i + 1; // tables start from 1
@@ -182,15 +180,12 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 })}
                             </select>
 
-                            <button className='buttomStandart' style={{
-                                fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px',
-                                backgroundColor: tableNumberOrDeliveryOrPickupSelected === 'pickup' ? greenOne(theme) : ''
-                            }}
+                            <button className={`buttomStandart ${tableNumberOrDeliveryOrPickupSelected === 'pickup' && 'green'}`}
+                                style={{ fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px', }}
                                 onClick={() => { setTableNumberOrDeliveryOrPickupSelected('pickup'); setSelectUseCustomerOrPickUpName(customerSelectedToNewOrder ? 'Customer' : 'Name') }} disabled={disabled}>PickUp</button>
-                            <button className='buttomStandart' style={{
-                                fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px',
-                                backgroundColor: tableNumberOrDeliveryOrPickupSelected === 'delivery' ? greenOne(theme) : ''
-                            }}
+
+                            <button className={`buttomStandart ${tableNumberOrDeliveryOrPickupSelected === 'delivery' && 'green'}`}
+                                style={{ fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px', }}
                                 onClick={() => { setTableNumberOrDeliveryOrPickupSelected('delivery'); setSelectUseCustomerOrPickUpName('Customer') }} disabled={disabled}>Delivery</button>
                         </div>
                     </div>
@@ -222,10 +217,10 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 onBlur={() => { setCustomerInputToSearch(""); setShowCustomerSelectorDropdown(false); }}
                                 placeholder="Search Customer by Name or Phone"
                                 disabled={disabled}
-                                style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
+                                style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                             />
                             {showCustomerSelectorDropdown && (
-                                <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 100, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
+                                <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
                                     {customersMatched?.length > 0 ? (
                                         customersMatched.map((customerOpt) => (
                                             <li
@@ -242,20 +237,19 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 </ul>
                             )}
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
+                        <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', marginBottom: '5px', }}>
+                            <div className='flexColumn' style={{ width: '62%', }}>
+                                <span style={{ fontWeight: "600" }}>Customer Address</span>
+                                <input className='inputStandart' type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
+                                    style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', }} />
+                            </div>
 
-                            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
-                                    <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
-                                    <input className='inputStandart' type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
-                                        style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
-                                </div>
-                                <div style={{ width: '3%' }}></div>
-                                <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
-                                    <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Phone</span>
-                                    <input className='inputStandart' value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
-                                        style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
-                                </div>
+                            <div style={{ width: '3%' }}></div>
+
+                            <div className='flexColumn' style={{ width: '35%' }}>
+                                <span style={{ fontWeight: "600", whiteSpace: 'nowrap', }}>Phone</span>
+                                <input className='inputStandart' value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
+                                    style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                         </div>
                     </div>}
@@ -263,11 +257,10 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
                 <div style={{ width: '100%', borderTop: '1px solid lightgray', backgroundColor: 'lightgray', margin: '5px 0' }} />
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '3px' }}>
-
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', marginTop: '5px' }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%',  }}>
-                            <button className='buttomStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px',  }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', marginTop: '5px', }}>
+                    <div className='flexColumn' style={{ flexWrap: 'wrap', }}>
+                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', }}>
+                            <button className='buttomStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
                         <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Items</span>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
@@ -293,26 +286,25 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginTop: '10px', fontSize: isPcV ? '17px' : '14px', }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%',  }}>
-                            <button className='buttomStandart' style={{ }} onClick={() => close()} disabled={disabled}>Cancel</button>
 
-                            <button className='buttomStandart green' style={{  }}
-                                onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '30px',  }} /> : 'Save Order'}</button>
-                        </div>
-                    </div>
+                <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%' , marginTop: '15px' }}>
+                    <button className='buttomStandart' style={{}} onClick={() => close()} disabled={disabled}>Cancel</button>
+
+                    <button className='buttomStandart green' style={{}}
+                        onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '30px', }} /> : 'Save Order'}</button>
                 </div>
+            </div >
 
-            </div>
-
-            {showNewCustomerModal && <div ref={newCustomerModalRef} className='myModal' style={{ zIndex: 10 }} >
+            {showNewCustomerModal && <div ref={newCustomerModalRef} className='myModal' >
                 <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperation?.companyOperationID} fetchCustomers={(e) => fetchCustomers(e)} />
-            </div>}
+            </div>
+            }
 
-            {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' style={{ zIndex: 10 }} >
-                <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
-            </div>}
+            {
+                showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
+                    <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
+                </div>
+            }
         </>
     );
 }

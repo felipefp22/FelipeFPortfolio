@@ -92,11 +92,11 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                 </div>}
             </div>
 
-            {createCompoundModal && <div className='myModal underDeliveryLayout' style={{ zIndex: 100 }} >
+            {createCompoundModal && <div className='myModal underDeliveryLayout' >
                 <CreateCompoundModal close={() => setCreateCompoundModal(false)} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
 
-            {createCompanyModalOpen && <div className='myModal underDeliveryLayout' style={{ zIndex: 100 }} >
+            {createCompanyModalOpen && <div className='myModal underDeliveryLayout' >
                 <CreateCompanyModal close={() => setCreateCompanyModalOpen(false)} compoundID={createCompanyModalOpen} fetchUserInfos={() => fetchUserInfos()} />
             </div>}
         </>

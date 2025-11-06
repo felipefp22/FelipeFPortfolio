@@ -201,13 +201,13 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                 </div>
             </div>
 
-            {showChangeTableOrCustomerModal && <div className='myModal' style={{ zIndex: 100 }} >
+            {showChangeTableOrCustomerModal && <div className='myModal' >
                 <ChangeTableOrCustomerModal close={() => setShowChangeTableOrCustomerModal(false)} closeFromCancel={() => close()} tableNumberOrDeliveryOrPickup={tableNumberOrDeliveryOrPickup}
                     orderToEdit={orderToEdit} pickupName={pickupName} customerSelected={customerSelected}
                     companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
 
-            {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' style={{ zIndex: 1000 }} >
+            {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
             </div>}
         </>

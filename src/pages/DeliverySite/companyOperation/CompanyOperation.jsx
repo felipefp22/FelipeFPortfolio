@@ -200,11 +200,11 @@ export default function CompanyOperation() {
           </div>}
         </div >
 
-        {showLeaveCompanyMessage && <div className='myModal' style={{ zIndex: 10000 }} >
+        {showLeaveCompanyMessage && <div className='myModal' >
           <LeaveCompanyMessage close={() => setShowLeaveCompanyMessage(false)} leaveCompany={() => { dispatch(quitCompanyOperation()); setShowLeaveCompanyMessage(false); }} />
         </div>}
 
-        {showFinishShiftMessage && <div className='myModal' style={{ zIndex: 10000 }} >
+        {showFinishShiftMessage && <div className='myModal'>
           <FinishShiftModal close={() => setShowFinishShiftMessage(false)} finishShift={() => { dispatch(quitCompanyOperation()); setShowFinishShiftMessage(false); }}
             companySelected={companyOperationData?.companyOperationID} requesterAreOwnerOrManager={requesterAreOwnerOrManager} />
         </div>}
