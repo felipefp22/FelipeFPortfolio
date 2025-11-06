@@ -17,11 +17,7 @@ export default function LoginOrRegisterPage() {
 
     return (
         <>
-            <div style={{
-                background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", fontFamily: "Segoe UI, sans-serif", overflow: "hidden",
-                display: "flex", flexDirection: "column", justifyContent: "center", padding: '0px 0px'
-                // alignItems: "center",
-            }}>
+            <div className='flexColumn' style={{ background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", overflow: "hidden", padding: 0 }}>
 
                 {actualPage === 'login' && <LoginPage setActualPage={setActualPage} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />}
                 {actualPage === 'fpassword' && <ForgotPasswordPage setActualPage={setActualPage} email={email} setEmail={setEmail} />}

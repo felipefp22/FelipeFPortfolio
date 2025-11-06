@@ -19,10 +19,6 @@
     flex-direction: column;
 }
 
-.green{
-    background-color: green;
-}
-
 
 /* <> ------------------------- TRANSPARENT CANVAS ------------------------- <> */
 .transparentCanvas {
@@ -101,6 +97,9 @@ button:hover {
 
 /* Floating Buttons */
 .floatingButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 8;
     background-color: var(--floatingBlackButton);
     border: 2px solid white;
@@ -113,6 +112,10 @@ button:hover {
 
 .floatingButton.green {
     background-color: var(--greenOne);
+}
+
+.floatingButton.greenTwo {
+    background-color: var(--greenTwo);
 }
 
 .floatingButton.red {
@@ -134,12 +137,15 @@ button:hover {
     width: 42px;
     height: 42px;
 }
+
 .roundedButton.red {
     background-color: var(--redOne);
 }
+
 .roundedButton.green {
     background-color: var(--greenOne);
 }
+
 .roundedButton.small {
     width: 33px;
     height: 33px;

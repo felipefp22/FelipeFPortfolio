@@ -1,8 +1,6 @@
 import { use, useEffect, useRef, useState } from "react";
-import { getUserInfos } from "../../../../services/deliveryServices/AUserService";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import companiesGroupLogo from '../../../../assets/companiesGroupLogo.png';
-import restaurantLogo from '../../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faGear, faPlus, faPowerOff, faRightFromBracket, faSquareCaretDown, faSquareCaretUp, faUser } from "@fortawesome/free-solid-svg-icons";
 import { borderColorTwo, fontColorOne, greenOne, greenTwo, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../theme/Colors";
@@ -20,46 +18,34 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '10px 0px', borderRadius: '6px', }}>
-                {<div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '0px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
-                    {/* <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Manage Your Companies</span> */}
+            <div className="flexColumn" style={{ textAlign: 'left', alignContent: 'left', justifyItems: 'left', padding: '10px 0px', borderRadius: '6px', }}>
+                {<div className="flexColumn" style={{ backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '0px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%' }} >
 
                     <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', marginBottom: '25px' }}>Manage Companies You Work On</span>
 
-                    <div style={{
-                        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px',
-                        minWidth: '300px', maxWidth: '100%', flexGrow: 1, overflowX: "hidden", overflowY: 'hidden',
-                    }} >
-                        <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', width: '100%' }}>
+                    <div className="transparentCanvas fullCenter" style={{ textAlign: 'left', backgroundColor: transparentCavasTwo(theme), minWidth: '300px', maxWidth: '100%', flexGrow: 1, overflow: "hidden", }} >
+                        <div className="flexColumn" style={{ color: "white", minWidth: '300px', width: '100%' }}>
                             <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : greenOne(theme), fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold', marginBottom: '10px' }}>You Work On</span>
 
                             {companiesYouWorkOn?.filter(company => company.status === "ACTIVE").length > 0 ? (
                                 companiesYouWorkOn?.filter(company => company.status === "ACTIVE").map((company, index) => (
-                                    <div key={index}>
-                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
-                                            onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesWorkOn/company?id=${company?.companyID}`); }}>
-
-                                            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
+                                    <div key={index} className='transparentCanvas' style={{ padding: '10px', borderRadius: '6px', }} onClick={() => { navigate(`/FelipeFPortfolio/delivery/ManageCompaniesWorkOn/company?id=${company?.id}`); }}>
+                                            <div className="flexRow" style={{ width: '100%', justifyContent: 'flex-start' }} >
                                                 <img src={companiesGroupLogo} alt="Logo" style={{
                                                     width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'black', border: `0px solid ${borderColorTwo(theme)}`, boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, marginRight: 10, padding: '3px',
                                                 }} />
-                                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                                <div className="flexRow" style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
                                                     <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{company.companyName} </span>
                                                     <FontAwesomeIcon icon={faGear} style={{ fontSize: '25px', marginRight: isPcV ? '20px' : '5px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                                 </div>
                                             </div>
-                                        </div>
                                     </div>))
                             ) :
                                 (
-                                    <div>
-                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0px', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }} >
-                                            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
-                                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: 'bold' }}> No Companies Found</span>
-                                                </div>
-                                            </div>
+                                    <div className='transparentCanvas' style={{ marginBottom: '0px', padding: '10px', borderRadius: '6px', }} >
+                                        <div className='flexRow' style={{ width: '100%', }} >
+                                            <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: 'bold' }}> No Companies Found</span>
                                         </div>
                                     </div>
                                 )
@@ -71,21 +57,19 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
 
                             {companiesYouWorkOn?.filter(company => company.status === "WAITING_ACCEPTANCE").length > 0 ? (
                                 companiesYouWorkOn?.filter(company => company.status === "WAITING_ACCEPTANCE").map((company, index) => (
-                                    <div key={index}>
-                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0px', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }} >
+                                    <div key={index} className='transparentCanvas' style={{ padding: '10px', borderRadius: '6px', }} >
 
-                                            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
-                                                <img src={companiesGroupLogo} alt="Logo" style={{
-                                                    width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
-                                                    borderRadius: '50%', backgroundColor: 'black', border: `0px solid ${borderColorTwo(theme)}`, boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, marginRight: 10, padding: '3px',
-                                                }} />
-                                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{company.companyName} </span>
+                                        <div className='flexRow' style={{ width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
+                                            <img src={companiesGroupLogo} alt="Logo" style={{
+                                                width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
+                                                borderRadius: '50%', backgroundColor: 'black', border: `0px solid ${borderColorTwo(theme)}`, boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, marginRight: 10, padding: '3px',
+                                            }} />
+                                            <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                                <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{company.companyName} </span>
 
-                                                    <div style={{ cursor: 'pointer', }} onClick={() => setAcceptOrDenyWorkInviteModal(company)}>
-                                                        <span style={{ fontSize: isPcV ? '18px' : '13px', fontWeight: 'bold', color: redOne(theme) }}>{'Deny'} </span>
-                                                        <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: 'bold', color: greenTwo(theme) }}>{'/Accept'} </span>
-                                                    </div>
+                                                <div style={{ cursor: 'pointer', }} onClick={() => setAcceptOrDenyWorkInviteModal(company)}>
+                                                    <span style={{ fontSize: isPcV ? '18px' : '13px', fontWeight: 'bold', color: redOne(theme) }}>{'Deny'} </span>
+                                                    <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: 'bold', color: greenTwo(theme) }}>{'/Accept'} </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -93,13 +77,9 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
                                 ))
                             ) :
                                 (
-                                    <div>
-                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0px',  backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }} >
-                                            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
-                                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: 'bold' }}> No Invites Found</span>
-                                                </div>
-                                            </div>
+                                    <div className='transparentCanvas' style={{ marginBottom: '0px', padding: '10px', borderRadius: '6px', }} >
+                                        <div className='flexRow' style={{ width: '100%', }} >
+                                            <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: 'bold' }}> No Invites Found</span>
                                         </div>
                                     </div>
                                 )

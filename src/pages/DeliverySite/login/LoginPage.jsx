@@ -79,7 +79,7 @@ document.querySelectorAll('.inputStandart').forEach(input => {
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', justifyContent: 'center', justifyItems: 'center', alignContent: 'center', alignItems: 'center', padding: 5, flexGrow: 1, }}>
+      <div className='flexRow fullCenter' style={{ height: '100%', width: '100%', padding: 5, flexGrow: 1, }}>
         <div className='modalInside' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center', }}>
           <div style={{ maxWidth: '450px', width: '96%' }}>
             <h2 style={{ color: orangeOne(theme) }}>Sign in with</h2>
@@ -98,8 +98,8 @@ document.querySelectorAll('.inputStandart').forEach(input => {
             )} */}
 
             <form onSubmit={onLogin}>
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
-                <div style={{ display: 'flex', width: '90%', flexDirection: 'row', justifyContent: 'left', textAlign: 'left' }}>
+              <div className='flexColumn fullCenter' style={{ marginBottom: '15px' }}>
+                <div className='flexRow' style={{ width: '90%', justifyContent: 'left', textAlign: 'left' }}>
                   <label>Email</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
@@ -109,8 +109,8 @@ document.querySelectorAll('.inputStandart').forEach(input => {
                 {/* {errors.email && <div>{errors.email}</div>} */}
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', width: '90%' }}>
+              <div className='flexColumn fullCenter' style={{ marginBottom: '15px' }}>
+                <div className='flexRow' style={{ width: '90%' }}>
                   <label>Password</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
@@ -127,8 +127,8 @@ document.querySelectorAll('.inputStandart').forEach(input => {
                 <p> <Link onClick={() => setActualPage('fpassword')} style={{ color: fontColorOne(theme) }}>Forgot Password?</Link></p>
               </div>
 
-              <div style={{  display: 'flex', alignItems: 'center', justifyContent: 'center',}}>
-                <button className='buttomStandart' type="submit" disabled={disableEnter} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px',}}> 
+              <div className='flexRow fullCenter'>
+                <button className='buttomStandart' type="submit" disabled={disableEnter} style={{ width: '150px',}}> 
                   {disableEnter ? <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: borderColorTwo(theme), }} /> : "Sign In"} </button>
               </div>
 

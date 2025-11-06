@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Navbar, Nav, Dropdown, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { fontColorOne, mainColor, secondColor } from '../../theme/Colors';
 import { useEffect, useRef, useState } from 'react';
@@ -29,13 +29,10 @@ export default function LayoutDelivery() {
 
   return (
     <>
-      <div style={{
-        background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", fontFamily: "Segoe UI, sans-serif", overflow: "hidden",
-        display: "flex", flexDirection: "column", justifyContent: "center", padding: '0px 0px'
-        // alignItems: "center",
-      }}>
-        <div style={{ display: "flex", flexDirection: "column", height: "100%", margin: "0 auto", width: "100%", }}>
-          <button className="floatingButton" style={{ width: 'auto', alignSelf: "flex-start", visibility: drawerOpen ? 'hidden' : 'visible', marginBottom: '10px', margin: '13px 10px' }} onClick={() => { setDrawerOpen(true); }}>☰</button>
+      <div className='flexColumn fullCenter' style={{ background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", fontFamily: "Segoe UI, sans-serif", overflow: "hidden", justifyContent: "center", padding: '0' }}>
+        <div className='flexColumn' style={{ height: "100%", margin: "0 auto", width: "100%", }}>
+
+          <button className="floatingButton" style={{ alignSelf: "flex-start", visibility: drawerOpen ? 'hidden' : 'visible', marginBottom: '10px', margin: '13px 10px' }} onClick={() => { setDrawerOpen(true); }}>☰</button>
 
           {drawerOpen && <div ref={drawerRef}><MenuDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} setShowLogOutMessage={setShowLogOutMessage} /></div>}
 

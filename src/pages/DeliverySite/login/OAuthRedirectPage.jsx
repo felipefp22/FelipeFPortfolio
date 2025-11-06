@@ -34,7 +34,7 @@ export default function OAuthRedirectPage() {
       display: "flex", flexDirection: "column", justifyContent: "center", padding: '0px 0px'
       // alignItems: "center",
     }}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
+      <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
         <img src={RestaurantDeliveryLogo} alt="Restaurant Delivery Logo" style={{ maxWidth: "300px", marginBottom: "2rem", borderRadius: "50%", margin: 32 }} />
 
         <Spinner animation="grow" style={{ width: "5rem", height: "5rem", margin: 32 }} />

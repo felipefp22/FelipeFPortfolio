@@ -51,33 +51,10 @@ export default function ManageCompaniesWorkOn({ }) {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isPcV ? 5 : 3, }} >
-                {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
-                    <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white",  marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
-                </div> */}
-
+            <div className="flexColumn" style={{ height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isPcV ? 5 : 3, }} >
                 {!companySelected && <SelectYourComapanieYouWorkOnToManage companiesYouWorkOn={companiesYouWorkOn} fetchUserInfos={() => fetchUserInfos()} />}
                 {companySelected && <SetUpCompanyYouWorkOn companiesYouWorkOn={companiesYouWorkOn} fetchUserInfos={() => fetchUserInfos()} />}
-
-
             </div >
         </>
     );
 }
-
-const buttonStyle = {
-    background: "transparent",
-    border: "1px solid white",
-    color: "white",
-    padding: "8px 16px",
-    cursor: "pointer",
-    fontSize: "16px",
-    marginLeft: "20px",
-};
-
-const linkStyle = {
-    color: "white",
-    textDecoration: "none",
-    display: "block",
-    padding: "10px 0",
-};

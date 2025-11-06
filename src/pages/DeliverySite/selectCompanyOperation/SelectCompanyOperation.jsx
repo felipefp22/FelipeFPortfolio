@@ -72,14 +72,10 @@ export default function SelectCompanyOperation({ }) {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isPcV ? 5 : 3, position: 'relative', }} >
-                {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
-                    <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white",  marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
-                </div> */}
+            <div className='flexColumn' style={{ height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isPcV ? 5 : 3, position: 'relative', }} >
+                <div className='flexColumn' style={{ textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
-
-                    {<div style={{ display: 'flex', flexDirection: 'column', backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%', }} >
+                    {<div className='flexColumn' style={{ backgroundColor: "rgba(255, 255, 255, 0.0)", color: "white", padding: '10px', borderRadius: '6px', minWidth: '300px', maxWidth: '100%', }} >
                         <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Welcome {name ? " - " + name : "Guest"}</span>
 
                         <button className="buttomStandart" style={{
@@ -89,7 +85,7 @@ export default function SelectCompanyOperation({ }) {
                             onClick={() => { setCreateCompanyModal(true); }} disabled={companiesCoumpound?.length > 0 || !firstLoadingUserInfos}>Create Group and Company</button>
 
                         <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', marginBottom: '10px' }}>Your Companies Groups:</span>
-                        <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%' }}>
+                        <div className='flexColumn' style={{ color: "white", minWidth: '300px', maxWidth: '100%' }}>
 
                             {companiesCoumpound?.map((compound, index) => (
                                 <div key={index} style={{ marginBottom: '10px' }}>
@@ -99,7 +95,7 @@ export default function SelectCompanyOperation({ }) {
                                             width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
                                             borderRadius: '6px', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                         }} />
-                                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
                                             <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{compound.compoundName} </span>
                                             <FontAwesomeIcon icon={selectedCompaniesCoumpound === compound.id ? faSquareCaretUp : faSquareCaretDown}
                                                 style={{ fontSize: isPcV ? '25px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
@@ -126,13 +122,13 @@ export default function SelectCompanyOperation({ }) {
                         </div>
 
 
-                        {companiesUserWorksOn?.length > 0 && <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%', marginTop: '20px' }}>
+                        {companiesUserWorksOn?.length > 0 && <div className='flexColumn' style={{ color: "white", minWidth: '300px', maxWidth: '100%', marginTop: '20px' }}>
                             <span style={{ fontWeight: 'bold', fontSize: isPcV ? '24px' : '16px' }}>Companies You Work:</span>
 
                             {companiesUserWorksOn?.map((comp, idx) => (
-                                <div key={idx} style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
+                                <div key={idx} className='flexColumn' style={{ margin: '0px 0px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
 
-                                    <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
+                                    <div key={idx} className='flexRow fullCenter' style={{ marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
                                         onClick={() => {
                                             if (comp?.status === 'ACTIVE') {
                                                 (comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? setOpenShiftModal(comp) : setCompanyToOperate(comp.id)) : setOpenShiftModal(comp));
@@ -144,13 +140,13 @@ export default function SelectCompanyOperation({ }) {
                                             width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
                                             borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                         }} />
-                                        {comp?.status === 'ACTIVE' && <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
+                                        {comp?.status === 'ACTIVE' && <div className='flexRow' style={{ width: '100%', alignItems: 'center' }}>
                                             <span style={{ fontSize: isPcV ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
                                             <span style={{ fontSize: isPcV ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? redOne(theme) : greenOne(theme)) : redOne(theme) }}>
                                                 {comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? ' Shift closed' : ` Shift ${formatDateToDayMonth(comp?.lastOrOpenShift?.startTimeUTC)}`) : ' Shift closed'} </span>
                                         </div>}
 
-                                        {comp?.status === 'WAITING_ACCEPTANCE' && <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
+                                        {comp?.status === 'WAITING_ACCEPTANCE' && <div className='flexRow' style={{ width: '100%', alignItems: 'center' }}>
                                             <span style={{ fontSize: isPcV ? '20px' : '15px', fontWeight: 'bold' }}>{`${comp.companyName}`}</span>
                                             <span style={{ fontSize: isPcV ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: blueOne(theme) }}>
                                                 {`Accept Invite First`}</span>
@@ -173,20 +169,3 @@ export default function SelectCompanyOperation({ }) {
         </>
     );
 }
-
-const buttonStyle = {
-    background: "transparent",
-    border: "1px solid white",
-    color: "white",
-    padding: "8px 16px",
-    cursor: "pointer",
-    fontSize: "16px",
-    marginLeft: "20px",
-};
-
-const linkStyle = {
-    color: "white",
-    textDecoration: "none",
-    display: "block",
-    padding: "10px 0",
-};

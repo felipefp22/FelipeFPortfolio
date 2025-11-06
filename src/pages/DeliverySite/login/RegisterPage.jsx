@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login, signUp, updateLocalStorage } from '../../../services/deliveryServices/AuthService.js';
+import { signUp, updateLocalStorage } from '../../../services/deliveryServices/AuthService.js';
 import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -79,8 +79,8 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', justifyContent: 'center', justifyItems: 'center', alignContent: 'center', alignItems: 'center', padding: 5, flexGrow: 1, }}>
-        <div className='modalInside' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center', }}>
+      <div className='flexRow fullCenter' style={{ height: '100%', width: '100%', padding: 5, flexGrow: 1, }}>
+        <div className='modalInside fullCenter' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', }}>
 
           <div style={{ maxWidth: '450px', width: '96%' }}>
             <h2 style={{ color: blueOne(theme) }}>Sign Up With</h2>
@@ -99,8 +99,8 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
             )} */}
 
             <form onSubmit={onLogin}>
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
-                <div style={{ display: 'flex', width: '90%', flexDirection: 'row', justifyContent: 'left', textAlign: 'left' }}>
+              <div className='flexColumn fullCenter' style={{ marginBottom: '15px' }}>
+                <div className='flexRow' style={{ width: '90%', justifyContent: 'left', textAlign: 'left' }}>
                   <label>Name</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
@@ -112,8 +112,8 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                   }} />
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
-                <div style={{ display: 'flex', width: '90%', flexDirection: 'row', justifyContent: 'left', textAlign: 'left' }}>
+              <div className='flexColumn fullCenter' style={{ marginBottom: '15px' }}>
+                <div className='flexRow' style={{ width: '90%', justifyContent: 'left', textAlign: 'left' }}>
                   <label>Email</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
@@ -122,8 +122,8 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                 />
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', width: '90%' }}>
+              <div className='flexColumn fullCenter' style={{ marginBottom: '15px' }}>
+                <div className='flexRow' style={{ width: '90%', justifyContent: 'left', textAlign: 'left' }}>
                   <label>Password</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
@@ -138,8 +138,8 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', width: '90%' }}>
+              <div className='flexColumn fullCenter' style={{ marginBottom: '15px' }}>
+                <div className='flexRow' style={{ width: '90%', justifyContent: 'left', textAlign: 'left' }}>
                   <label>Confirm Password</label>
                   {/* <span style={{ color: 'red' }}> *</span> */}
                 </div>
@@ -155,8 +155,8 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
                 {errors.password && <div >{errors.password}</div>}
               </div>
 
-              <div style={{  display: 'flex', alignItems: 'center', justifyContent: 'center',}}>
-                <button className='buttomStandart' type="submit" disabled={disableEnter} style={{  display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px', height: '40px',}}> 
+              <div className='flexRow fullCenter' >
+                <button className='buttomStandart ' disabled={disableEnter} style={{ width: '150px', height: '40px',}} type="submit" > 
                   {disableEnter ? <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: borderColorTwo(theme), }} /> : "Register"} </button>
               </div>
 

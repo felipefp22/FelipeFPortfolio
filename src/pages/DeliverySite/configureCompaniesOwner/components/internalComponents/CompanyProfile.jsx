@@ -1,12 +1,11 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, greenOne, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../../theme/Colors";
+import { borderColorTwo, transparentCavasTwo } from "../../../../../theme/Colors";
 import { use, useEffect, useState } from "react";
 import restaurantLogo from '../../../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { updateCompanyService } from "../../../../../services/deliveryServices/CompanySevice";
 import { Spinner } from "react-bootstrap";
-import ModalExample from "./modals/ModalExample";
 import EditCompanyAddressModal from "./modals/EditCompanyAddressModal";
 import QuitCompanyModal from "./modals/QuitCompanyModal";
 

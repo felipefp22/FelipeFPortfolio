@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getTokenToResetPassword, login, requestPasswordReset, resetPassword } from '../../../services/deliveryServices/AuthService.js';
-import GoogleLogin from './SocialLogins/GoogleLogin.jsx';
 import { Spinner } from 'react-bootstrap';
 import { faCheck, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -149,22 +148,22 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', justifyContent: 'center', justifyItems: 'center', alignContent: 'center', alignItems: 'center', padding: 5, flexGrow: 1, }}>
-        <div className='modalInside' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', alignContent: 'center', alignItems: 'center', justifyContent: 'center', justifyItems: 'center', }}>
+      <div className='flexRow fullCenter' style={{ height: '100%', width: '100%', padding: 5, flexGrow: 1, }}>
+        <div className='modalInside fullCenter' style={{ minWidth: "350px", width: "auto", maxHeight: '90%', overflowY: "auto", overflowX: 'hidden', }}>
           <div style={{ maxWidth: '450px', width: '96%' }}>
             <h2 style={{ color: redOne(theme), marginBottom: '30px' }}>Reset Password</h2>
 
             {!wasSent && <div>
               <form onSubmit={(e) => handleRequestReset(e)}>
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: '15px' }}>
-                  <div style={{ display: 'flex', width: '90%', flexDirection: 'row', justifyContent: 'left', textAlign: 'left' }}>
+                <div className='flexColumn fullCenter' style={{ marginBottom: '15px' }}>
+                  <div className='flexRow' style={{ width: '90%', justifyContent: 'left', textAlign: 'left' }}>
                     <label>Email</label>
                     <span style={{ color: 'red' }}> *</span>
                   </div>
                   <input className='inputStandart' style={{ width: '90%', height: '35px' }} type="email" value={email} onChange={(e) => { setEmail(e.target.value); e.target.setCustomValidity(''); }}
                     onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} required
                   />
-                  <button className='buttomStandart' type="submit" disabled={disableEnter} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px', height: '40px', marginTop: '15px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}>
+                  <button className='buttomStandart fullCenter' type="submit" disabled={disableEnter} style={{ width: '150px', height: '40px', marginTop: '15px', cursor: disableEnter ? 'not-allowed' : 'pointer', }}>
                      {disableEnter ? <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: borderColorTwo(theme),}} /> : "Reset"} </button>
                 </div>
               </form>
@@ -173,7 +172,7 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
             {wasSent && !tokenToReset && <div>
               <span style={{ fontWeight: 'bold', margin: '10px 0px' }}>Code sent to Email!</span>
 
-              <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", width: "100%", }} >
+              <div className='flexRow fullCenter' style={{ width: "100%", }} >
                 {code.map((digit, index) => (
                   <input key={index} disabled={disabledCode} type="text" inputMode="numeric" maxLength={1} value={digit} ref={(el) => (inputs.current[index] = el)} onKeyDown={(e) => handleKeyPress(e, index)} onChange={(e) => handleChange(e.target.value, index)}
                     style={{ backgroundColor: "white", border: "2px solid black", fontWeight: "500", borderRadius: 6, color: "black", width: "35px", height: "45px", textAlign: "center", fontSize: "18px", margin: "15px 3px" }} />
@@ -224,9 +223,9 @@ export default function ForgotPasswordPage({ setActualPage, email, setEmail }) {
               </form>
             </div>}
 
-            {wasSent && tokenToReset && passwordResetedSuccess && <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>
+            {wasSent && tokenToReset && passwordResetedSuccess && <div className='flexColumn fullCenter'>
               <p>Password updated successfully!</p>
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 50, borderRadius: '50%', backgroundColor: 'green', width: '160px', height: '160px', opacity: !passwordResetedSuccesscheck ? 0 : 1, transition: 'opacity 0.6s ease-out', }} >
+              <div className='flexRow fullCenter' style={{ fontSize: 50, borderRadius: '50%', backgroundColor: 'green', width: '160px', height: '160px', opacity: !passwordResetedSuccesscheck ? 0 : 1, transition: 'opacity 0.6s ease-out', }} >
                 <FontAwesomeIcon icon={faCheck} style={{ color: 'white', fontSize: '80px' }} />
               </div>
             </div>}
