@@ -130,7 +130,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                         }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
-                        {!editNameCustomer && !editTable && <button className='buttomStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', }}
+                        {!editNameCustomer && !editTable && <button className='buttomStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', whiteSpace: 'nowrap', }}
                             onClick={() => { setEditNameCustomer(true) }} disabled={disabled}>Change Name/Customer</button>}
 
 
@@ -224,7 +224,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                     <button className='buttomStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', visibility: 'hidden' }}
                         onClick={() => { }} disabled={disabled}>New customer</button>
 
-                    {!editTable && !editNameCustomer && <button className='buttomStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', marginBottom: '20px', }}
+                    {!editTable && !editNameCustomer && <button className='buttomStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', marginBottom: '20px', whiteSpace: 'nowrap', }}
                         onClick={() => { setEditTable(true) }} disabled={disabled}>Change Table/PickUp/Delivery</button>}
 
 

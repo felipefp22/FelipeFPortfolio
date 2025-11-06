@@ -26,22 +26,22 @@ export default function CompleteOrdersModal({ close, companyOperationID, selecte
 
     return (
         <>
-            <div className='modalInside' style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", overflowY: "auto", fontSize: !isPcV ? '20px' : '26px', fontWeight: 'bold' }}>
+            <div className='modalInside' style={{ width: 'auto', padding: '10px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", overflowY: "auto", fontSize: !isPcV ? '20px' : '26px', fontWeight: 'bold' }}>
                 <div>
-                    <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '0px' }}>
+                    <div className='flexColumn' >
                         <span>Complete Orders?</span>
 
-                        <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500', }}>{selectedOnDeliveryOrderID.map(orderID => {
+                        <span style={{ fontSize: isPcV ? 22 : 16, fontWeight: '500', }}>{selectedOnDeliveryOrderID.map(orderID => {
                             const order = orders.find(o => o.id === orderID);
                             return order ? `${order.orderNumberOnShift} - ${order.customer?.customerName || order.pickupName || "No Name"}` : null;
                         }).filter(Boolean).join(", ")}</span>
                     </div>
 
-                    {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '0px' }}>
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px', margin: '5px 30px' }}
+                    {!processing && <div className='flexRow spaceBetween' style={{ width: '100%', marginTop: '20px' }}>
+                        <button className='buttomStandart' style={{ background: 'none', border: "none", color: redOne(theme), marginRight: '20px' }}
                             onClick={() => { close(); }} disabled={processing}>Cancel</button>
 
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px', margin: '5px 30px' }}
+                        <button className='buttomStandart' style={{ background: 'none', border: "none", color: greenOne(theme) }}
                             onClick={() => { handleCompleteOrders() }} disabled={processing}>Complete Orders</button>
                     </div>}
 
