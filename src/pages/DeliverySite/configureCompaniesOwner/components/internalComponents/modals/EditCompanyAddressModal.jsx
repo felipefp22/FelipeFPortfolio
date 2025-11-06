@@ -174,7 +174,7 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
                         />
 
                         {showAddressSelectorDropdown && (
-                            <ul style={{ position: 'absolute', left: 9, top: 40, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 10000, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
+                            <ul style={{ position: 'absolute', left: 2, top: 37, width: '99%', backgroundColor: 'white', color: 'black', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', zIndex: 10000, borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
                                 {addressFoundOptions?.length > 0 ? (
                                     addressFoundOptions.map((addressOpt, index) => (
                                         <li
