@@ -38,14 +38,14 @@ export default function CompleteOrdersModal({ close, companyOperationID, selecte
                     </div>
 
                     {!processing && <div className='flexRow spaceBetween' style={{ width: '100%', marginTop: '20px' }}>
-                        <button className='buttomStandart' style={{ background: 'none', border: "none", color: redOne(theme), marginRight: '20px' }}
+                        <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme), marginRight: '20px' }}
                             onClick={() => { close(); }} disabled={processing}>Cancel</button>
 
-                        <button className='buttomStandart' style={{ background: 'none', border: "none", color: greenOne(theme) }}
+                        <button className='buttonStandart' style={{ background: 'none', border: "none", color: greenOne(theme) }}
                             onClick={() => { handleCompleteOrders() }} disabled={processing}>Complete Orders</button>
                     </div>}
 
-                    {processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '50px', marginTop: '0px' }}>
+                    {processing && <div className='flexRow fullCenter' style={{ marginTop: '20px' }}>
                         <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
                     </div>}
                 </div>

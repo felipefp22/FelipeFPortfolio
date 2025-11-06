@@ -85,7 +85,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                             {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' ? 'Delivery' : (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' ? 'Pickup' : `Table - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`)}</span>
                     </div>
 
-                    <button className='buttomStandart green' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px' }}
+                    <button className='buttonStandart green' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px' }}
                         onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled}>Change Table/Customer</button>
                 </div>
 
@@ -129,7 +129,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
                     <div className='flexColumn' style={{ marginTop: '5px' }}>
                         <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%' }}>
-                            <button className='buttomStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                            <button className='buttonStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
 
                         <div style={{ backgroundColor: "white", color: "black", marginTop: '5px', borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
@@ -183,7 +183,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                 </div>
 
                 <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '15px' }}>
-                    <button className='buttomStandart' onClick={() => close()} disabled={disabled}>{disabled ? 
+                    <button className='buttonStandart' onClick={() => close()} disabled={disabled}>{disabled ? 
                         <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px',  }} /> : 'Done'}</button>
                 </div>
             </div>

@@ -100,7 +100,7 @@ export default function SelectCustumerAddressMap({ lat, lng, address, setLat, se
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minWidth: 0, overflow: 'hidden', borderRadius: '6px' }} ref={mapContainerRef}>
+            <div className='flexColum' style={{ height: '100%', width: '100%', minWidth: 0, overflow: 'hidden', borderRadius: '6px' }} ref={mapContainerRef}>
                 <div id="mapa" style={{ width: '100%', height: '100%', minHeight: 0, cursor: 'pointer' }} />
             </div>
         </>

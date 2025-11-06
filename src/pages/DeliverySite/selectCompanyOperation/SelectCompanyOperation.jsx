@@ -79,7 +79,7 @@ export default function SelectCompanyOperation({ }) {
                     {<div className='flexColumn' >
                         <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: isPcV ? '24px' : '20px', fontWeight: 'bold', marginBottom: '10px' }}>Choose one to Work Now</span>
 
-                        {(companiesCoumpound?.length === 0) && <button className='buttomStandart' style={{
+                        {(companiesCoumpound?.length === 0) && <button className='buttonStandart' style={{
                             borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '20px',
                             opacity: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 0.5 : 1, cursor: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 'not-allowed' : 'pointer',
                         }}

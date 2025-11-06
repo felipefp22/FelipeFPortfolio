@@ -49,11 +49,11 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', }}>
                     <div className='flexRow' style={{ justifyContent: 'left', width: '100%', marginBottom: '10px', flexWrap: 'wrap' }}>
-                        <button className='buttomStandart blue' style={{ marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
+                        <button className='buttonStandart blue' style={{ marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
                             onClick={() => setButtonFilter("All")}>All</button>
 
                         {allCompanyProductsCategories && allCompanyProductsCategories?.map((category) => (
-                            <button key={category?.id} className='buttomStandart blue' style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
+                            <button key={category?.id} className='buttonStandart blue' style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
                                 onClick={() => setButtonFilter(category)}>{category?.categoryName}</button>
                         ))}
                     </div>
@@ -100,8 +100,8 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                 </div>
 
                 <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '15px' }}>
-                    <button className='buttomStandart red'  onClick={() => close()}>Cancel</button>
-                    <button className='buttomStandart green' onClick={() => { addItemsToOrderAction(); }}>Add items</button>
+                    <button className='buttonStandart red'  onClick={() => close()}>Cancel</button>
+                    <button className='buttonStandart green' onClick={() => { addItemsToOrderAction(); }}>Add items</button>
                 </div>
             </div>
         </>

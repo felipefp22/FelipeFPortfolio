@@ -54,12 +54,12 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
         <>
             <div className='flexColumn' style={{ height: '100%', flexGrow: 1, overflowY: 'auto', }}>
                 {onFocus !== "map" && <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '12px', marginBottom: '8px' }}>
-                    <button className='buttomStandart' style={{ visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
+                    <button className='buttonStandart' style={{ visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
                         onClick={() => { setNewOrderModal(true); }}>
                         {"New Order"}</button>
 
 
-                    <button className='buttomStandart' style={{ visibility: (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
+                    <button className='buttonStandart' style={{ visibility: (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
                         onClick={() => { setEditOrderModal(companyOperation?.orders?.find(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable))); }}>
                         {"Edit Order"}</button>
                 </div>}

@@ -50,10 +50,10 @@ export default function QuitCompanyModal({ close, companyData, fetchUserInfos })
                     <span style={{ color: fontColorOne(theme), opacity: 0.8, fontSize: '12px' }}>{`Type "${wordToMatch}" to confirm`}</span>
 
                     <div className='flexRow' style={{ justifyContent: 'space-between', height: '50px', marginTop: '10px', width: '100%' }}>
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: 'gray', fontSize: '16px' }}
+                        <button className='buttonStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: 'gray', fontSize: '16px' }}
                             onClick={() => { close(); }} disabled={processing}>Cancel</button>
 
-                        <button className='buttomStandart red' type="submit" style={{
+                        <button className='buttonStandart red' type="submit" style={{
                             backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px',
                             cursor: (wordConfirmationToQuit !== wordToMatch) ? 'not-allowed' : 'pointer', opacity: (wordConfirmationToQuit !== wordToMatch) ? 0.5 : 1,
                         }} onClick={() => { handleQuitCompany(); }}

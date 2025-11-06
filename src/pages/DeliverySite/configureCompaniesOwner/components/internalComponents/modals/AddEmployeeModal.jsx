@@ -95,10 +95,10 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
                 </div>
 
                 {!processing && <div className='flexRow' style={{ justifyContent: 'space-between', marginTop: '20px' }}>
-                    <button className='buttomStandart' style={{ backgroundColor: 'none', border: "none", color: redOne(theme), }}
+                    <button className='buttonStandart' style={{ backgroundColor: 'none', border: "none", color: redOne(theme), }}
                         onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                    <button className='buttomStandart' style={{ backgroundColor: 'none', border: "none", color: greenOne(theme), cursor: userFoundData ? 'pointer' : 'not-allowed', opacity: userFoundData ? 1 : 0.5, }}
+                    <button className='buttonStandart' style={{ backgroundColor: 'none', border: "none", color: greenOne(theme), cursor: userFoundData ? 'pointer' : 'not-allowed', opacity: userFoundData ? 1 : 0.5, }}
                         onClick={() => { handleAddEmployee() }} disabled={processing || !userFoundData}>Hire</button>
                 </div>}
 

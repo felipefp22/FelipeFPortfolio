@@ -39,7 +39,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
 
                 <div className='flexRow' style={{ width: '100%', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }} >
                     <span style={{ color: borderColorTwo(theme), fontSize: '22px', fontWeight: 'bold' }}>{"Employees"} </span>
-                    <button className='buttomStandart' onClick={() => { setAddEmployeeModalOpen(true) }} >Add Employee</button>
+                    <button className='buttonStandart' onClick={() => { setAddEmployeeModalOpen(true) }} >Add Employee</button>
                 </div>
 
                 <div className='flexColumn' style={{ width: '100%', flexGrow: 1, overflowY: 'auto', }}>

@@ -49,10 +49,10 @@ export default function OpenShiftModal({ close, openShiftModal, setCompanyToOper
                         </div> */}
 
                     {!processing && <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
+                        <button className='buttonStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
                             onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                        {isOwnerOrManager && <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px' }}
+                        {isOwnerOrManager && <button className='buttonStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px' }}
                             onClick={() => { handleOpenShift() }} disabled={processing}>Open new Shift</button>}
                     </div>}
 

@@ -156,7 +156,7 @@ export default function RegisterPage({ setActualPage, email, setEmail, password,
               </div>
 
               <div className='flexRow fullCenter' >
-                <button className='buttomStandart ' disabled={disableEnter} style={{ width: '150px', height: '40px',}} type="submit" > 
+                <button className='buttonStandart ' disabled={disableEnter} style={{ width: '150px', height: '40px',}} type="submit" > 
                   {disableEnter ? <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: borderColorTwo(theme), }} /> : "Register"} </button>
               </div>
 

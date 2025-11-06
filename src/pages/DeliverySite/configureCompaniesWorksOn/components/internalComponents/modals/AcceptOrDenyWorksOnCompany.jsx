@@ -49,13 +49,13 @@ export default function AcceptOrDenyWorksOnCompany({ close, companyData, fetchUs
                         </div> */}
 
                 {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                    <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: fontColorOne(theme), fontSize: '16px' }}
+                    <button className='buttonStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: fontColorOne(theme), fontSize: '16px' }}
                         onClick={() => { close(); }} disabled={processing}>Return</button>
 
                     <div>
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
+                        <button className='buttonStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
                             onClick={() => { handleDenyInvitation() }} disabled={processing}>Deny</button>
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px' }}
+                        <button className='buttonStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px' }}
                             onClick={() => { handleAcceptInvitation() }} disabled={processing}>Accept</button>
                     </div>
                 </div>}

@@ -73,7 +73,7 @@ button:hover {
 }
 
 /* Standart Buttons */
-.buttomStandart {
+.buttonStandart {
     background-color: var(--secondColor);
     color: var(--fontColorOne);
     border: 1px solid var(--borderColorOne);
@@ -86,15 +86,15 @@ button:hover {
     height: 40px;
 }
 
-.buttomStandart.green {
+.buttonStandart.green {
     background-color: var(--greenOne);
 }
 
-.buttomStandart.red {
+.buttonStandart.red {
     background-color: var(--redOne);
 }
 
-.buttomStandart.blue {
+.buttonStandart.blue {
     background-color: var(--blueOne);
 }
 

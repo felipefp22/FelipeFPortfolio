@@ -62,10 +62,10 @@ export default function FinishShiftModal({ close, finishShift, companySelected, 
                     </div>
 
                     {!processing && <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '10px' }}>
-                        <button className='buttomStandart' style={{ background: 'none', border: "none", color: redOne(theme), fontSize: '16px' }}
+                        <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme), fontSize: '16px' }}
                             onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                        <button className='buttomStandart' style={{ background: 'none', border: "none", color: greenOne(theme), fontSize: '16px' }}
+                        <button className='buttonStandart' style={{ background: 'none', border: "none", color: greenOne(theme), fontSize: '16px' }}
                             onClick={() => { handleFinishShift() }} disabled={processing}>Finish Shift</button>
                     </div>}
 
@@ -78,7 +78,7 @@ export default function FinishShiftModal({ close, finishShift, companySelected, 
                     <div className='flexColumn fullCenter'>
                         <span style={{ fontSize: '18px' }}>Only Manager can Finish Shift</span>
 
-                        <button className='buttomStandart' style={{ background: 'none', border: "none", color: greenOne(theme), fontSize: '16px', marginTop: '30px' }}
+                        <button className='buttonStandart' style={{ background: 'none', border: "none", color: greenOne(theme), fontSize: '16px', marginTop: '30px' }}
                             onClick={() => { close(); }} disabled={processing}>Ok</button>
                     </div>
                 </div>}

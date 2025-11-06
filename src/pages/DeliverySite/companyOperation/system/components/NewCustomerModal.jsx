@@ -183,8 +183,8 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '15px' }}>
-                    <button className='buttomStandart red' style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
-                    <button className='buttomStandart green' style={{ marginLeft: '0px' }} onClick={() => saveCustomer()}>Save Customer</button>
+                    <button className='buttonStandart red' style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
+                    <button className='buttonStandart green' style={{ marginLeft: '0px' }} onClick={() => saveCustomer()}>Save Customer</button>
                 </div>
             </div>
 

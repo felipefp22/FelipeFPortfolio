@@ -128,7 +128,7 @@ document.querySelectorAll('.inputStandart').forEach(input => {
               </div>
 
               <div className='flexRow fullCenter'>
-                <button className='buttomStandart' type="submit" disabled={disableEnter} style={{ width: '150px',}}> 
+                <button className='buttonStandart' type="submit" disabled={disableEnter} style={{ width: '150px',}}> 
                   {disableEnter ? <Spinner animation="border" role="status" style={{ width: '25px', height: '25px', color: borderColorTwo(theme), }} /> : "Sign In"} </button>
               </div>
 

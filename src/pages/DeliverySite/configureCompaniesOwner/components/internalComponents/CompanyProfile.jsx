@@ -86,7 +86,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
                                     {!disable && <FontAwesomeIcon icon={editing ? faCheck : faPen} style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: '500', }} />}
                                     {disable && <Spinner animation="border" role="status" style={{ width: isPcV ? '25px' : '20px', height: isPcV ? '25px' : '20px', color: 'white', }} />}
                                 </button>}
-                            {localStorage.getItem('userLoggedEmail') !== companyData?.ownerID && <button className='buttomStandart' style={{
+                            {localStorage.getItem('userLoggedEmail') !== companyData?.ownerID && <button className='buttonStandart' style={{
                                 padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '80px', marginBottom: '0px', position: 'absolute', right: 5, top: 0,
                                 opacity: 1, cursor: 'pointer',
                             }}
@@ -142,7 +142,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
                             </div>
                         </div>
 
-                        {editing && <button className='buttomStandart' style={{
+                        {editing && <button className='buttonStandart' style={{
                             padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
                             opacity: 1, cursor: 'pointer',
                         }}

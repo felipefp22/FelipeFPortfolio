@@ -90,9 +90,9 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                 </div>
 
                 {!processing && <div className='flexRow' style={{ justifyContent: 'space-between', marginTop: '10px' }}>
-                    <button className='buttomStandart' style={{ background: 'none', border: "none", color: redOne(theme) }} onClick={() => { close(); }} disabled={processing}>Return</button>
+                    <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme) }} onClick={() => { close(); }} disabled={processing}>Return</button>
 
-                    <button className='buttomStandart' style={{
+                    <button className='buttonStandart' style={{
                         background: 'none', border: "none", color: greenOne(theme),
                         cursor: (position.toLowerCase() === employeeData?.position?.toLowerCase()) ? 'not-allowed' : 'pointer', opacity: (position.toLowerCase() === employeeData?.position?.toLowerCase()) ? 0.5 : 1,
                     }}
@@ -118,9 +118,9 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                         <span style={{ color: fontColorOne(theme), opacity: 0.8, fontSize: '12px' }}>{`*Type email to confirm`}</span>
 
                         <div className='flexRow' style={{ justifyContent: 'space-between', marginTop: '10px', width: '100%' }}>
-                            <button className='buttomStandart' style={{ background: 'none', border: "none", color: 'gray', }} onClick={() => { setFireConfirmationShow(false); }} disabled={processing}>Cancel</button>
+                            <button className='buttonStandart' style={{ background: 'none', border: "none", color: 'gray', }} onClick={() => { setFireConfirmationShow(false); }} disabled={processing}>Cancel</button>
 
-                            <button className='buttomStandart' type="submit" style={{ background: 'none', border: 'none', color: redOne(theme), cursor: !emailConfirmationToFire ? 'not-allowed' : 'pointer', opacity: !emailConfirmationToFire ? 0.5 : 1, }}
+                            <button className='buttonStandart' type="submit" style={{ background: 'none', border: 'none', color: redOne(theme), cursor: !emailConfirmationToFire ? 'not-allowed' : 'pointer', opacity: !emailConfirmationToFire ? 0.5 : 1, }}
                                 disabled={processing || !emailConfirmationToFire} onClick={() => { handleFireEmployee(); }}>Fire</button>
                         </div>
                     </div>

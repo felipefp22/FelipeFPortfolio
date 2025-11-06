@@ -163,11 +163,11 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '10px', alignItems: 'center' }}>
-                        <button className='buttomStandart' style={{ height: '35px', fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 10px' : '0px 6px', }}
+                        <button className='buttonStandart' style={{ height: '35px', fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 10px' : '0px 6px', }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
-                            <select className={`buttomStandart ${((!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) && tableNumberOrDeliveryOrPickupSelected) && 'green')}`}
+                            <select className={`buttonStandart ${((!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) && tableNumberOrDeliveryOrPickupSelected) && 'green')}`}
                                 value={!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? tableNumberOrDeliveryOrPickupSelected : ""} placeholder="Table" onChange={(e) => setTableNumberOrDeliveryOrPickupSelected(Number(e.target.value))}
                                 style={{ height: '35px', padding: '5px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`, }} >
                                 <option value="" disabled hidden> Table </option>
@@ -180,11 +180,11 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 })}
                             </select>
 
-                            <button className={`buttomStandart ${tableNumberOrDeliveryOrPickupSelected === 'pickup' && 'green'}`}
+                            <button className={`buttonStandart ${tableNumberOrDeliveryOrPickupSelected === 'pickup' && 'green'}`}
                                 style={{ fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px', }}
                                 onClick={() => { setTableNumberOrDeliveryOrPickupSelected('pickup'); setSelectUseCustomerOrPickUpName(customerSelectedToNewOrder ? 'Customer' : 'Name') }} disabled={disabled}>PickUp</button>
 
-                            <button className={`buttomStandart ${tableNumberOrDeliveryOrPickupSelected === 'delivery' && 'green'}`}
+                            <button className={`buttonStandart ${tableNumberOrDeliveryOrPickupSelected === 'delivery' && 'green'}`}
                                 style={{ fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px', }}
                                 onClick={() => { setTableNumberOrDeliveryOrPickupSelected('delivery'); setSelectUseCustomerOrPickUpName('Customer') }} disabled={disabled}>Delivery</button>
                         </div>
@@ -260,7 +260,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', marginTop: '5px', }}>
                     <div className='flexColumn' style={{ flexWrap: 'wrap', }}>
                         <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', }}>
-                            <button className='buttomStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                            <button className='buttonStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
                         <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Items</span>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
@@ -288,9 +288,9 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
 
                 <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%' , marginTop: '15px' }}>
-                    <button className='buttomStandart' style={{}} onClick={() => close()} disabled={disabled}>Cancel</button>
+                    <button className='buttonStandart' style={{}} onClick={() => close()} disabled={disabled}>Cancel</button>
 
-                    <button className='buttomStandart green' style={{}}
+                    <button className='buttonStandart green' style={{}}
                         onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '30px', }} /> : 'Save Order'}</button>
                 </div>
             </div >

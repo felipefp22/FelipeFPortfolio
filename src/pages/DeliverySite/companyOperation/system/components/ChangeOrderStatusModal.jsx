@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Spinner, Table } from "react-bootstrap";
+import { useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { closeOrder, reopenOrder } from "../../../../../services/deliveryServices/OrderService";
 import { greenOne, redOne } from "../../../../../theme/Colors";
@@ -42,6 +42,7 @@ export default function ChangeOrderStatusModal({ close, companyOperationID, sele
             <div className='modalInside' style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", fontSize: !isPcV ? '20px' : '26px', fontWeight: 'bold' }}>
                 {selectedCookingOrderID.length > 0 && <div>
                     <span>Dispach to delivery?</span>
+
                     {orders?.filter(order => selectedCookingOrderID?.includes(order.id)).map((order, i) => (
                         <div key={i}>
                             {/* <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{order} </span> */}
@@ -53,6 +54,7 @@ export default function ChangeOrderStatusModal({ close, companyOperationID, sele
 
                 {selectedOnDeliveryOrderID.length > 0 && <div>
                     <span>Reopen Orders?</span>
+
                     {orders?.filter(order => selectedOnDeliveryOrderID?.includes(order.id)).map((order, i) => (
                         <div key={i}>
                             {/* <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{order} </span> */}
@@ -63,15 +65,15 @@ export default function ChangeOrderStatusModal({ close, companyOperationID, sele
                 
                 <br />
 
-                {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '0px' }}>
-                    <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px', margin: '5px 30px' }}
+                {!processing && <div className='flexRow spaceBetween' style={{ width: '100%', marginTop: '20px' }}>
+                    <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme), marginRight: '100px', fontSize: '16px' }}
                         onClick={() => { close(); }} disabled={processing}>Cancel</button>
 
-                    <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px', margin: '5px 30px' }}
+                    <button className='buttonStandart' style={{ background: 'none', border: "none", color: greenOne(theme), fontSize: '16px'}}
                         onClick={() => { if (selectedCookingOrderID.length > 0) dispatchOrders(); if (selectedOnDeliveryOrderID.length > 0) openOrdersAgain(); }} disabled={processing}>Yes</button>
                 </div>}
 
-                {processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '50px', marginTop: '10px' }}>
+                {processing && <div className='flexRow fullCenter' style={{ width: '100%',  marginTop: '20px' }}>
                     <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
                 </div>}
             </div>

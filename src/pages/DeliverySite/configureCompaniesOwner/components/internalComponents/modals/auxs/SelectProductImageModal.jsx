@@ -48,11 +48,11 @@ export default function SelectProductImageModal({ close, imagePath, setImagePath
                                 <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '22px' : '17px', fontWeight: 'bold' }}>{"Default System Photos"} </span>
                             </div>
                             <div className='flexRow' style={{ flexWrap: 'wrap' }}>
-                                <button className='buttomStandart blue' style={{ marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
+                                <button className='buttonStandart blue' style={{ marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
                                     onClick={() => setButtonFilter("All")}>All</button>
 
                                 {allDefaultImages?.map((category, idx) => (
-                                    <button key={idx} className='buttomStandart blue' style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
+                                    <button key={idx} className='buttonStandart blue' style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
                                         onClick={() => setButtonFilter(category?.name)}>{category?.name}</button>
                                 ))}
                             </div>
@@ -85,7 +85,7 @@ export default function SelectProductImageModal({ close, imagePath, setImagePath
                 </div>
 
                 <div className='flexRow' style={{ justifyContent: 'flex-end', width: "100%", marginTop: '15px', }}>
-                    <button className='buttomStandart'  onClick={() => close()}>Save</button>
+                    <button className='buttonStandart'  onClick={() => close()}>Save</button>
                 </div>
             </div>
         </>

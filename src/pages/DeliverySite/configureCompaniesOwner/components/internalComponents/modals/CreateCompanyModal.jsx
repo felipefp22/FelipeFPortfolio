@@ -110,7 +110,7 @@ export default function CreateCompanyModal({ close, compoundID, fetchUserInfos }
                                 </div>
                             </div>
 
-                            <button className='buttomStandart' style={{ borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px', }} onClick={() => { setEditAddressModalOpen(true) }} >Select Address</button>
+                            <button className='buttonStandart' style={{ borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px', }} onClick={() => { setEditAddressModalOpen(true) }} >Select Address</button>
                         </div>
                     </div>
                 </div>

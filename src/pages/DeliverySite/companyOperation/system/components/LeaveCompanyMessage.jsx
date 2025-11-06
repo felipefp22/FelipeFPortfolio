@@ -22,10 +22,10 @@ export default function LeaveCompanyMessage({ close, leaveCompany }) {
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
-                        <button className='buttomStandart' style={{ background: 'none', border: "none", fontSize: '16px', margin: '5px 30px' }}
+                        <button className='buttonStandart' style={{ background: 'none', border: "none", fontSize: '16px', margin: '5px 30px' }}
                             onClick={() => { close(); }} >Return</button>
 
-                        <button className='buttomStandart' style={{ background: 'none',  border: 'none', fontSize: '16px', margin: '5px 30px' }}
+                        <button className='buttonStandart' style={{ background: 'none',  border: 'none', fontSize: '16px', margin: '5px 30px' }}
                             onClick={() => { leaveCompany(); navigate('/FelipeFPortfolio/delivery//'); }}><FontAwesomeIcon icon={faRightFromBracket} flip="horizontal" style={{ color: "red", marginLeft: '3px' }} /> Leave</button>
                     </div>
                 </div>
