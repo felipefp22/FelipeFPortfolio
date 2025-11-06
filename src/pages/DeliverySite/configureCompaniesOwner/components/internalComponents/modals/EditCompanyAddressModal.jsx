@@ -1,7 +1,7 @@
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { borderColorOne, borderColorTwo, greenTwo, redOne } from "../../../../../../theme/Colors";
+import { borderColorTwo, greenTwo, redOne } from "../../../../../../theme/Colors";
 import restaurantLogo from "../../../../../../assets/restaurantLogo.png";
 import { searchAddress } from "../../../../../../services/deliveryServices/auxServices/mapService";
 

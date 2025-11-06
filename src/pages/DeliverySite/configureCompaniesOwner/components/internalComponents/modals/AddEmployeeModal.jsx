@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { borderColorTwo, greenOne, redOne, transparentCavasOne } from "../../../../../../theme/Colors";
@@ -53,63 +53,58 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
 
     return (
         <>
-            <div className='myModal' style={{ zIndex: 100 }} >
-                <div className='modalInside' style={{ padding: '20px', minWidth: '300px', maxWidth: !isPcV ? "95%" : "600px", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '30px', fontSize: !isPcV ? '20px' : '26px', }}>
-                        <span>{`Hire`}</span>
-                        <span style={{ color: borderColorTwo(theme) }}>{`${companyData?.companyName || "Company"}`}</span>
-                    </div>
-
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', alignItems: 'center', marginBottom: '10px', width: '100%' }} >
-                        <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', whiteSpace: 'nowrap' }}>Email: </span>
-
-                        <form style={{ display: 'flex', position: 'relative', flexGrow: 1, maxWidth: '550px' }} onSubmit={(e) => { e.preventDefault(); handleFindPerson(); }}>
-                            <input className='inputStandart' style={{ flexGrow: 1, }} type="email" autoCapitalize="none" value={emailToInvite || ""} onChange={(e) => { setEmailToInvite(e.target.value); e.target.setCustomValidity(''); }}
-                                onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} />
-                            <button style={{
-                                borderRadius: '50%', backgroundColor: transparentCavasOne(theme), padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                width: 27, height: 27, cursor: 'pointer', position: 'absolute', right: 8, top: 4
-                            }} >
-                                <FontAwesomeIcon icon={faMagnifyingGlass} style={{ fontSize: '12px', fontWeight: '500', }} />
-                            </button>
-                        </form>
-                    </div>
-
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginTop: 20, border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', }} >
-
-                        <img src={userFoundData?.urlProfilePhoto ?? avatar} alt="Logo" style={{
-                            width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
-                            borderRadius: '50%', backgroundColor: 'transparent', border: "0px solid white", marginRight: 10
-                        }} />
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                            <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold' }}> {userFoundData ? `${userFoundData?.name} - ${userFoundData?.email}` : `"Find a Person"`}</span>
-                        </div>
-                    </div>
-
-                    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'center', marginBottom: '10px' }} >
-                        <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', }}>Position: </span>
-                        <select className='inputStandart' value={position || ""} onChange={(e) => setPosition(e.target.value)} style={{ maxWidth: '220px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
-                            {!position && <option value="">Select position</option>}
-                            {positionsOpts.map((value, index) => (
-                                <option key={index} value={value}>
-                                    {value}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '50px', marginTop: '10px' }}>
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: redOne(theme), fontSize: '16px' }}
-                            onClick={() => { close(); }} disabled={processing}>Return</button>
-
-                        <button className='buttomStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: greenOne(theme), fontSize: '16px', cursor: userFoundData ? 'pointer' : 'not-allowed', opacity: userFoundData ? 1 : 0.5, }}
-                            onClick={() => { handleAddEmployee() }} disabled={processing || !userFoundData}>Hire</button>
-                    </div>}
-
-                    {processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', height: '50px', marginTop: '10px' }}>
-                        <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
-                    </div>}
+            <div className='modalInside full' style={{ width: 'auto', padding: '20px', width: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", }}>
+                <div className='flexColumn fullCenter' style={{ marginBottom: '30px', fontSize: !isPcV ? '20px' : '26px', }}>
+                    <span>{`Hire`}</span>
+                    <span style={{ color: borderColorTwo(theme) }}>{`${companyData?.companyName || "Company"}`}</span>
                 </div>
+
+                <div className='flexRow' style={{ alignItems: 'center', marginBottom: '10px' }} >
+                    <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', whiteSpace: 'nowrap' }}>Email: </span>
+
+                    <form className='flexRow' style={{ width: '100%', position: 'relative', }} onSubmit={(e) => { e.preventDefault(); handleFindPerson(); }}>
+                        <input className='inputStandart' style={{ width: '100%' }} type="email" autoCapitalize="none" value={emailToInvite || ""} onChange={(e) => { setEmailToInvite(e.target.value); e.target.setCustomValidity(''); }}
+                            onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} />
+                        <button className='roundedButton' style={{ backgroundColor: transparentCavasOne(theme), width: 27, height: 27, position: 'absolute', right: 8, top: 4 }} >
+                            <FontAwesomeIcon icon={faMagnifyingGlass} style={{ fontSize: '12px', fontWeight: '500', }} />
+                        </button>
+                    </form>
+                </div>
+
+                <div className='flexRow' style={{ marginBottom: 20, marginTop: 20, border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', }} >
+
+                    <img src={userFoundData?.urlProfilePhoto ?? avatar} alt="Logo" style={{
+                        width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
+                        borderRadius: '50%', backgroundColor: 'transparent', border: "0px solid white", 
+                    }} />
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+                        <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold' }}> {userFoundData ? `${userFoundData?.name} - ${userFoundData?.email}` : `"Find a Person"`}</span>
+                    </div>
+                </div>
+
+                <div className='flexRow' style={{ alignItems: 'center'  }} >
+                    <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', }}>Position: </span>
+                    <select className='inputStandart' value={position || ""} onChange={(e) => setPosition(e.target.value)} style={{ maxWidth: '220px', textAlign: 'center' }} >
+                        {!position && <option value="">Select position</option>}
+                        {positionsOpts.map((value, index) => (
+                            <option key={index} value={value}>
+                                {value}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {!processing && <div className='flexRow' style={{ justifyContent: 'space-between', marginTop: '20px' }}>
+                    <button className='buttomStandart' style={{ backgroundColor: 'none', border: "none", color: redOne(theme), }}
+                        onClick={() => { close(); }} disabled={processing}>Return</button>
+
+                    <button className='buttomStandart' style={{ backgroundColor: 'none', border: "none", color: greenOne(theme), cursor: userFoundData ? 'pointer' : 'not-allowed', opacity: userFoundData ? 1 : 0.5, }}
+                        onClick={() => { handleAddEmployee() }} disabled={processing || !userFoundData}>Hire</button>
+                </div>}
+
+                {processing && <div className='flexRow' style={{ marginTop: '10px' }}>
+                    <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
+                </div>}
             </div>
         </>
     );

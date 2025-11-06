@@ -37,7 +37,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                 </div>
 
                 <div className='flexColumn' style={{ width: '100%', flexGrow: 1, overflowY: 'auto', }}>
-                    <div className='transparentCanvas' style={{ marginBottom: '15px', }} onClick={() => { setCreateCompoundModal(true); }}>
+                    <div className='transparentCanvas' style={{ marginBottom: '15px', }} onClick={() => { setCreateProductCategoryModal(true); }}>
                         <div className='flexRow' style={{ width: '100%', alignItems: 'center' }} >
                             <div className='transparentCanvas fullCenter' style={{ borderRadius: '50%', marginRight: 10, }} >
                                 <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
