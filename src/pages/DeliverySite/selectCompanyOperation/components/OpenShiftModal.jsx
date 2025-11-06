@@ -8,7 +8,7 @@ import { openNewShift } from "../../../../services/deliveryServices/ShiftService
 
 export default function OpenShiftModal({ close, openShiftModal, setCompanyToOperate }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [processing, setProcessing] = useState(false);
     const [adminPassword, setAdminPassword] = useState("");
@@ -32,7 +32,7 @@ export default function OpenShiftModal({ close, openShiftModal, setCompanyToOper
     return (
         <>
             <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "80%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, fontSize: !isDesktopView ? '20px' : '26px', }}>
+                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, fontSize: !isPcV ? '20px' : '26px', }}>
                     <div>
                         <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '10px' }}>
                             <span>Open new Shift?</span>

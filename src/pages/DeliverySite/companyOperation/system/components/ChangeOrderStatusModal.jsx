@@ -6,7 +6,7 @@ import { greenOne, redOne } from "../../../../../theme/Colors";
 
 export default function ChangeOrderStatusModal({ close, companyOperationID, selectedCookingOrderID, setSelectedCookingOrderID, selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID, getShiftOperationData, }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const orders = useSelector((state) => state.companyOperation.orders);
 
     const [processing, setProcessing] = useState(false);
@@ -39,13 +39,13 @@ export default function ChangeOrderStatusModal({ close, companyOperationID, sele
 
     return (
         <>
-            <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "80%", maxHeight: !isDesktopView ? "95%" : "90%", fontSize: !isDesktopView ? '20px' : '26px', fontWeight: 'bold' }}>
+            <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", fontSize: !isPcV ? '20px' : '26px', fontWeight: 'bold' }}>
                 {selectedCookingOrderID.length > 0 && <div>
                     <span>Dispach to delivery?</span>
                     {orders?.filter(order => selectedCookingOrderID?.includes(order.id)).map((order, i) => (
                         <div key={i}>
-                            {/* <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{order} </span> */}
-                            <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{order ? `${order?.orderNumberOnShift}` + (order?.customer ? (" - " + order?.customer.customerName) : (" - " + order?.pickupName ?? "")) : ""} </span>
+                            {/* <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{order} </span> */}
+                            <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{order ? `${order?.orderNumberOnShift}` + (order?.customer ? (" - " + order?.customer.customerName) : (" - " + order?.pickupName ?? "")) : ""} </span>
                         </div>
                     ))}
 
@@ -55,8 +55,8 @@ export default function ChangeOrderStatusModal({ close, companyOperationID, sele
                     <span>Reopen Orders?</span>
                     {orders?.filter(order => selectedOnDeliveryOrderID?.includes(order.id)).map((order, i) => (
                         <div key={i}>
-                            {/* <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{order} </span> */}
-                            <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{order ? `${order?.orderNumberOnShift}` + (order?.customer ? (" - " + order?.customer.customerName) : (" - " + order?.pickupName ?? "")) : ""} </span>
+                            {/* <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{order} </span> */}
+                            <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{order ? `${order?.orderNumberOnShift}` + (order?.customer ? (" - " + order?.customer.customerName) : (" - " + order?.pickupName ?? "")) : ""} </span>
                         </div>
                     ))}
                 </div>}

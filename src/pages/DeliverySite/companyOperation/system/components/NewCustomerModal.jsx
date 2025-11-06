@@ -10,7 +10,7 @@ import { borderColorTwo } from "../../../../../theme/Colors";
 
 export default function NewCustomerModal({ close, companyOperationID, fetchCustomers }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [disabled, setDisabled] = useState(false);
 
@@ -102,45 +102,45 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
 
     return (
         <>
-            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "97%", maxHeight: '90%', padding: !isDesktopView ? '10px' : '20px', zIndex: 10, }}>
+            <div className="modalInside" style={{ width: !isPcV ? "100%" : "97%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', zIndex: 10, }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', fontSize: isDesktopView ? '14px' : '12px', }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', fontSize: isPcV ? '14px' : '12px', }}>
                     {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginBottom: '10px' }}>
                         <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "none", color: "white", padding: "10px 20px", height: '40px', marginLeft: '0px' }} onClick={() => setShowBoxCreateFakesCustomers(true)}>Create FAKES Customers To Test</button>
                     </div> */}
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '60%', }}>
-                            <span style={{ fontWeight: "600", fontSize: isDesktopView ? '16px' : '14px', }}>Customer Name</span>
+                            <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', }}>Customer Name</span>
                             <input className="inputStandart" type="text" value={name} onChange={(e) => setName(e.target.value)}
                                 style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black' }} />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '32%', }}>
-                            <span style={{ fontWeight: "600", fontSize: isDesktopView ? '16px' : '14px', }}>Phone</span>
+                            <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', }}>Phone</span>
                             <input className="inputStandart" type="text" value={phone} onChange={(e) => setPhone(e.target.value)}
                                 style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black', textAlign: 'left' }} />
                         </div>
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', fontSize: isDesktopView ? '14px' : '12px', }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', fontSize: isPcV ? '14px' : '12px', }}>
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '72%', }}>
-                            <span style={{ fontWeight: "600", marginBottom: '5px', fontSize: isDesktopView ? '16px' : '14px', }}>Customer Address</span>
+                            <span style={{ fontWeight: "600", marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>Customer Address</span>
                             <input className="inputStandart" type="text" value={address ?? ""} onChange={(e) => setAddress(e.target.value)} disabled={true}
                                 style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'lightgray', color: 'black' }} />
                         </div>
                         <div style={{ width: '3%' }}></div>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '20%' }}>
-                            <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isDesktopView ? '16px' : '14px', }}>Number</span>
+                            <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>Number</span>
                             <input className="inputStandart" type="text" value={addressNumber} onChange={(e) => setAddressNumber(e.target.value)} disabled={!lat || !lng || !address}
                                 style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: (!lat || !lng || !address) ? 'lightgray' : 'white', color: 'black', textAlign: 'right' }} />
                         </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '95%' }}>
-                        <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isDesktopView ? '16px' : '14px', }}>Complement</span>
+                        <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>Complement</span>
                         <input className="inputStandart" type="text" value={complement} onChange={(e) => setComplement(e.target.value)} disabled={!lat || !lng || !address}
                             style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: (!lat || !lng || !address) ? 'lightgray' : 'white', color: 'black' }} />
                     </div>

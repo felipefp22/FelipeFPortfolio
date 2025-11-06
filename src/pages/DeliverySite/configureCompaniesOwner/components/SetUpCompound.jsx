@@ -10,7 +10,7 @@ import CompoundCompanies from "./internalComponents/CompoundCompanies";
 
 export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
     const navigate = useNavigate();
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);

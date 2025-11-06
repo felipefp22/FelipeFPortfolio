@@ -14,7 +14,7 @@ const restaurantIcon = L.icon({
 
 export default function EditCompanyAddressModal({ close, companyLat, setCompanyLat, companyLng, setCompanyLng, companyAddress, setCompanyAddress }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [disabled, setDisabled] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -154,9 +154,9 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
 
     return (
         <>
-            <div className="modalInside" style={{ width: 'auto', padding: '10px', width: !isDesktopView ? "95%" : "80%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, }}>
+            <div className="modalInside" style={{ width: 'auto', padding: '10px', width: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '490px', }}>
-                    <span style={{ fontSize: isDesktopView ? '22px' : '16px', fontWeight: '600', marginBottom: '10px', color: borderColorTwo(theme) }}>Search or "Click on Map Location"</span>
+                    <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginBottom: '10px', color: borderColorTwo(theme) }}>Search or "Click on Map Location"</span>
 
                     <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px' }}>
                         <input className="inputStandart"

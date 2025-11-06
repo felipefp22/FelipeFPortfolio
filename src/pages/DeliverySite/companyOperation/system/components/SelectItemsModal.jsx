@@ -9,7 +9,7 @@ import { getImageFoodService } from "../../../../../services/deliveryServices/au
 
 export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [buttonFilter, setButtonFilter] = useState("All");
     const [inputSearchItem, setInputSearchItem] = useState("")
@@ -45,7 +45,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
     return (
         <>
-            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "85%", maxHeight: '90%', padding: !isDesktopView ? '10px' : '20px', zIndex: 10, }}>
+            <div className="modalInside" style={{ width: !isPcV ? "100%" : "85%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', zIndex: 10, }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', width: '100%', marginBottom: '10px', flexWrap: 'wrap' }}>

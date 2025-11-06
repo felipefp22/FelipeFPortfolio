@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SelectCompanyOperation({ }) {
     const navigate = useNavigate();
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
     const dispatch = useDispatch();
 
@@ -72,7 +72,7 @@ export default function SelectCompanyOperation({ }) {
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isDesktopView ? 5 : 3, position: 'relative', }} >
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, padding: isPcV ? 5 : 3, position: 'relative', }} >
                 {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px' }}>
                     <button style={{ backgroundColor: 'rgba(22, 111, 163, 1)', border: "2px solid white", color: "white",  marginBottom: '20px', height: '40px', marginLeft: '0px', borderRadius: '5px' }} onClick={() => setNewOrderModal(true)}>New Order</button>
                 </div> */}
@@ -96,13 +96,13 @@ export default function SelectCompanyOperation({ }) {
                                     <div className="transparentCanvas" onClick={() => setSelectedCompaniesCoumpound(selectedCompaniesCoumpound === compound.id ? null : compound.id)}>
 
                                         <img src={companiesGroupLogo} alt="Logo" style={{
-                                            width: isDesktopView ? 50 : !isDesktopView ? 40 : 35, height: isDesktopView ? 50 : !isDesktopView ? 40 : 35,
+                                            width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
                                             borderRadius: '6px', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                         }} />
                                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '24px' : '16px', fontWeight: 'bold' }}>{compound.compoundName} </span>
+                                            <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{compound.compoundName} </span>
                                             <FontAwesomeIcon icon={selectedCompaniesCoumpound === compound.id ? faSquareCaretUp : faSquareCaretDown}
-                                                style={{ fontSize: isDesktopView ? '25px' : '16px', marginRight: isDesktopView ? '20px' : '5px', borderRadius: '4px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
+                                                style={{ fontSize: isPcV ? '25px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                         </div>
                                     </div>
                                     {(selectedCompaniesCoumpound === compound.id) && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
@@ -110,12 +110,12 @@ export default function SelectCompanyOperation({ }) {
                                             <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 15, marginLeft: 20, cursor: 'pointer' }}
                                                 onClick={() => { (comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? setOpenShiftModal(comp) : setCompanyToOperate(comp.id)) : setOpenShiftModal(comp)); }}>
                                                 <img src={restaurantLogo} alt="Logo" style={{
-                                                    width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
+                                                    width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                                 }} />
                                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
-                                                    <span style={{ fontSize: isDesktopView ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? redOne(theme) : greenOne(theme)) : redOne(theme) }}>
+                                                    <span style={{ fontSize: isPcV ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
+                                                    <span style={{ fontSize: isPcV ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? redOne(theme) : greenOne(theme)) : redOne(theme) }}>
                                                         {comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? ' Shift closed' : ` Shift ${formatDateToDayMonth(comp?.lastOrOpenShift?.startTimeUTC)}`) : ' Shift closed'} </span>
                                                 </div>
                                             </div>
@@ -127,7 +127,7 @@ export default function SelectCompanyOperation({ }) {
 
 
                         {companiesUserWorksOn?.length > 0 && <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%', marginTop: '20px' }}>
-                            <span style={{ fontWeight: 'bold', fontSize: isDesktopView ? '24px' : '16px' }}>Companies You Work:</span>
+                            <span style={{ fontWeight: 'bold', fontSize: isPcV ? '24px' : '16px' }}>Companies You Work:</span>
 
                             {companiesUserWorksOn?.map((comp, idx) => (
                                 <div key={idx} style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
@@ -141,18 +141,18 @@ export default function SelectCompanyOperation({ }) {
                                             }
                                         }}>
                                         <img src={restaurantLogo} alt="Logo" style={{
-                                            width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
+                                            width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
                                             borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                         }} />
                                         {comp?.status === 'ACTIVE' && <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
-                                            <span style={{ fontSize: isDesktopView ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? redOne(theme) : greenOne(theme)) : redOne(theme) }}>
+                                            <span style={{ fontSize: isPcV ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
+                                            <span style={{ fontSize: isPcV ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? redOne(theme) : greenOne(theme)) : redOne(theme) }}>
                                                 {comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? ' Shift closed' : ` Shift ${formatDateToDayMonth(comp?.lastOrOpenShift?.startTimeUTC)}`) : ' Shift closed'} </span>
                                         </div>}
 
                                         {comp?.status === 'WAITING_ACCEPTANCE' && <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{`${comp.companyName}`}</span>
-                                            <span style={{ fontSize: isDesktopView ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: blueOne(theme) }}>
+                                            <span style={{ fontSize: isPcV ? '20px' : '15px', fontWeight: 'bold' }}>{`${comp.companyName}`}</span>
+                                            <span style={{ fontSize: isPcV ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: blueOne(theme) }}>
                                                 {`Accept Invite First`}</span>
                                         </div>}
                                     </div>

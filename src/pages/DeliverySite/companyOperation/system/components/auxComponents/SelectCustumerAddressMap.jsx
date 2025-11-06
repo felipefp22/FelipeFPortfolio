@@ -20,7 +20,7 @@ const addressIcon = L.icon({
 
 export default function SelectCustumerAddressMap({ lat, lng, address, setLat, setLng, setSearchAddressInput, showAddressSelectorDropdown }) {
 
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const companyOperation = useSelector((state) => state.companyOperation);
     const [companyLat, setCompanyLat] = useState(null);
     const [companyLng, setCompanyLng] = useState(null);

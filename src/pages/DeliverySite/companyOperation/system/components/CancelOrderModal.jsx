@@ -7,7 +7,7 @@ import { orangeOne, redOne } from "../../../../../theme/Colors";
 
 export default function CancelOrder({ close, closeFromCancel, companyOperationID, selectedOrderToCancel, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const orders = useSelector((state) => state.companyOperation.orders);
 
     const [processing, setProcessing] = useState(false);
@@ -30,13 +30,13 @@ export default function CancelOrder({ close, closeFromCancel, companyOperationID
 
     return (
         <>
-            <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "80%", maxHeight: !isDesktopView ? "95%" : "90%", fontSize: !isDesktopView ? '20px' : '26px', fontWeight: 'bold' }}>
+            <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", fontSize: !isPcV ? '20px' : '26px', fontWeight: 'bold' }}>
                 <div>
                     <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '10px' }}>
                         <span>Cancel Order?</span>
 
-                        <span style={{ color: 'rgba(45, 234, 28, 0.7)', fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.charAt(0).toUpperCase() + selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.slice(1)}</span>
-                        <span style={{ fontSize: !isDesktopView ? '16px' : '22px', fontWeight: '500' }}>{selectedOrderToCancel ? `${selectedOrderToCancel?.orderNumberOnShift}` + (selectedOrderToCancel?.customer ? (" - " + selectedOrderToCancel?.customer.customerName) : (" - " + selectedOrderToCancel?.pickupName ?? "")) : ""} </span>
+                        <span style={{ color: 'rgba(45, 234, 28, 0.7)', fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.charAt(0).toUpperCase() + selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.slice(1)}</span>
+                        <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{selectedOrderToCancel ? `${selectedOrderToCancel?.orderNumberOnShift}` + (selectedOrderToCancel?.customer ? (" - " + selectedOrderToCancel?.customer.customerName) : (" - " + selectedOrderToCancel?.pickupName ?? "")) : ""} </span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}>

@@ -18,7 +18,7 @@ import EditOrderModal from "./components/EditOrderModal.jsx";
 
 export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
     const [editOrderModal, setEditOrderModal] = useState(false);
@@ -95,7 +95,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
 
                                 return (
                                     <div key={idx} style={{
-                                        display: 'flex', flexDirection: 'column', alignItems: 'center', width: isDesktopView ? '90px' : '65px', height: isDesktopView ? "104px" : "84px", margin: 5, cursor: 'pointer',
+                                        display: 'flex', flexDirection: 'column', alignItems: 'center', width: isPcV ? '90px' : '65px', height: isPcV ? "104px" : "84px", margin: 5, cursor: 'pointer',
                                         borderRadius: '5px', backgroundColor: (tableNumber === selectedTable) ? 'lightblue' : 'transparent'
                                     }} onClick={() => { setSelectedTable((selectedTable === tableNumber) ? null : tableNumber); setSelectedPickUpOrCompletedOrCanceledOrderID(null); }}
                                         onDoubleClick={() => { setSelectedTable(tableNumber); setSelectedPickUpOrCompletedOrCanceledOrderID(null); openEditOrNewOrderModal(); }}
@@ -120,7 +120,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                                         }}
                                         onTouchEnd={(e) => { clearTimeout(e.currentTarget.longPressTimer); }} onTouchMove={(e) => { clearTimeout(e.currentTarget.longPressTimer); }}>
 
-                                        <img src={tableColorImage} alt={""} style={{ width: isDesktopView ? '80px' : '60px', height: isDesktopView ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
+                                        <img src={tableColorImage} alt={""} style={{ width: isPcV ? '80px' : '60px', height: isPcV ? '80px' : '60px', objectFit: 'cover', borderRadius: '5px', }} />
                                         <span style={{ color: 'black', fontWeight: 'bold', fontSize: "16px", textAlign: 'center' }}>{`${tableNumber}`}</span>
                                     </div>
                                 )

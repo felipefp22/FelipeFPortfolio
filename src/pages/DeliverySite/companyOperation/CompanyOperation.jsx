@@ -29,7 +29,7 @@ export default function CompanyOperation() {
   const navigate = useNavigate();
   const theme = useSelector((state) => state.view.theme);
   const dispatch = useDispatch();
-  const isDesktopView = useSelector((state) => state.view.isDesktopView);
+  const isPcV = useSelector((state) => state.view.isPcV);
   const companyOperationData = useSelector((state) => state.companyOperation);
 
   const location = useLocation();
@@ -54,10 +54,10 @@ export default function CompanyOperation() {
   }, [companyOperationData]);
 
   useEffect(() => {
-    if (isDesktopView === false && screenOnFocus === "") {
+    if (isPcV === false && screenOnFocus === "") {
       setScreenOnFocus("system");
     }
-  }, [isDesktopView]);
+  }, [isPcV]);
 
   async function getCompanyOperationData(retryCount = 0) {
     if (!companyOperationData?.companyOperationID) return;
@@ -174,11 +174,11 @@ export default function CompanyOperation() {
                     <p style={{ margin: 0 }}><FontAwesomeIcon icon={(systemPageSelected === "delivery") ? faChair : faMotorcycle} /></p> </button>
                 </div>
 
-                <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
+                <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
                   {companyOperationData?.companyName}</span>
 
                 <button className='floatingButton' style={{ whiteSpace: 'nowrap' }}
-                  onClick={() => setScreenOnFocus(screenOnFocus === "system" ? (!isDesktopView ? "map" : "") : "system")}>
+                  onClick={() => setScreenOnFocus(screenOnFocus === "system" ? (!isPcV ? "map" : "") : "system")}>
                   {screenOnFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
               </div>
 
@@ -186,15 +186,15 @@ export default function CompanyOperation() {
               {systemPageSelected === "hall" && <SystemPageHall screenOnFocus={screenOnFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
             </div>}
 
-            {isDesktopView && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
+            {isPcV && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
 
             {<div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: screenOnFocus === "system" ? '0%' : screenOnFocus === "map" ? '100%' : '50%', }}>
               <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: '0px 4px', whiteSpace: 'nowrap',  }} >
                 {screenOnFocus !== "system" && <button className='floatingButton' style={{}}
-                  onClick={() => setScreenOnFocus(screenOnFocus === "map" ? (!isDesktopView ? "system" : "") : "map")}>{screenOnFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
+                  onClick={() => setScreenOnFocus(screenOnFocus === "map" ? (!isPcV ? "system" : "") : "map")}>{screenOnFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
 
-                {!isDesktopView && screenOnFocus === "map" && <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', }} >
-                  <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
+                {!isPcV && screenOnFocus === "map" && <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', }} >
+                  <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
                     {companyOperationData?.companyName}</span>
                 </div>}
               </div>

@@ -8,13 +8,29 @@
     /* disables double-tap zoom & unwanted gestures */
 }
 
+/* <> ------------------------- DEFAULT DIVs ------------------------- <> */
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.green{
+    background-color: green;
+}
+
+
 /* <> ------------------------- TRANSPARENT CANVAS ------------------------- <> */
 .transparentCanvas {
     display: flex;
     flex-direction: row;
     align-items: center;
     cursor: pointer;
-    background-color : var(--transparentCanvasBgOne);
+    background-color: var(--transparentCanvasBgOne);
     padding: 10px;
     border-radius: 6px;
 }
@@ -92,6 +108,7 @@ button:hover {
     padding: 5px 10px;
     box-shadow: -3px 3px 4px var(--secondColorInverseTransparent);
     border-radius: 6px;
+    cursor: pointer;
 }
 
 .floatingButton.green {
@@ -104,6 +121,28 @@ button:hover {
 
 .floatingButton.blue {
     background-color: var(--blueOne);
+}
+
+.roundedButton {
+    display: flex;
+    border-radius: 50%;
+    background-color: lightgrey;
+    padding: 6px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+}
+.roundedButton.red {
+    background-color: var(--redOne);
+}
+.roundedButton.green {
+    background-color: var(--greenOne);
+}
+.roundedButton.small {
+    width: 33px;
+    height: 33px;
 }
 
 
@@ -144,4 +183,12 @@ button:hover {
 .textAreaStandart:focus {
     outline: 2px solid var(--borderColorTwoTransparent);
     /* optional: removes the default blue outline */
+}
+
+/* <> ------------------------- AUXILIARY ------------------------- <> */
+.fullCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }

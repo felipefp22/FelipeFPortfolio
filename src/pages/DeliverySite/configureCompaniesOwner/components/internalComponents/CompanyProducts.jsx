@@ -14,7 +14,7 @@ import CreateProductCategoryModal from "./modals/CreateProductCategoryModal";
 
 
 export default function CompanyProducts({ companyData, fetchCompanyData }) {
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
 
     const [seeImageBig, setSeeImageBig] = useState(false);
@@ -38,11 +38,11 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
         <>
             <div style={{
                 display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px',
-                minWidth: '300px', maxWidth: '100%', height: '72%', maxHeight: isDesktopView ? '770px' : '600px', overflowX: "hidden", overflowY: 'hidden',
+                minWidth: '300px', maxWidth: '100%', height: '72%', maxHeight: isPcV ? '770px' : '600px', overflowX: "hidden", overflowY: 'hidden',
             }} >
                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '5px' }} >
-                    <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Products"} </span>
-                    {/* <span style={{ color: fontColorOne(theme), fontSize: isDesktopView ? '36px' : '18px', fontWeight: 'bold', marginLeft: '15px' }}>{"- "}{companyData?.companyName ?? 'N/A'} </span> */}
+                    <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '22px' : '17px', fontWeight: 'bold' }}>{"Products"} </span>
+                    {/* <span style={{ color: fontColorOne(theme), fontSize: isPcV ? '36px' : '18px', fontWeight: 'bold', marginLeft: '15px' }}>{"- "}{companyData?.companyName ?? 'N/A'} </span> */}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflowY: 'auto', }}>
@@ -54,7 +54,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                                 <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: "space-between" }} >
-                                <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: '500' }}>{`Create Category`}</span>
+                                <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: '500' }}>{`Create Category`}</span>
                             </div>
                         </div>
                     </div>
@@ -67,13 +67,13 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                                     onClick={() => toggleOpen(index)}>
 
                                     <img src={cutleryLogo} alt="Logo" style={{
-                                        width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30,
+                                        width: isPcV ? 40 : 30, height: isPcV ? 40 : 30,
                                         borderRadius: '50%', marginRight: 10, backgroundColor: 'rgba(0, 0, 32, 0.79)', padding: '6px',
                                     }} />
                                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                        <span style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: 'bold' }}>{category?.categoryName} </span>
+                                        <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold' }}>{category?.categoryName} </span>
                                         <FontAwesomeIcon icon={isOpen ? faSquareCaretUp : faSquareCaretDown}
-                                            style={{ fontSize: isDesktopView ? '20px' : '16px', marginRight: isDesktopView ? '20px' : '5px', borderRadius: '4px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
+                                            style={{ fontSize: isPcV ? '20px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                     </div>
                                 </div>
                                 {!isOpen && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 6px', padding: '3px 5px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
@@ -85,7 +85,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                                             <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: "space-between" }} >
-                                            <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: '500' }}>{`Add New Product`}</span>
+                                            <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: '500' }}>{`Add New Product`}</span>
                                         </div>
                                     </div>
                                     {category?.products && category?.products?.length > 0 ? (
@@ -94,18 +94,18 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                                                 onClick={() => { setEditProductModal(product) }}>
 
                                                 <img src={getImageFoodService(product?.imagePath)} alt="Logo" style={{
-                                                    width: isDesktopView ? 36 : 28, boxShadow: `1px 2px 10px ${borderColorTwo(theme, 0.2)}`,
+                                                    width: isPcV ? 36 : 28, boxShadow: `1px 2px 10px ${borderColorTwo(theme, 0.2)}`,
                                                     borderRadius: '50%', backgroundColor: 'white', marginRight: 10, padding: '2px',
                                                 }} />
                                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: "space-between" }} >
-                                                    <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: '500' }}>{`${product?.name}`}</span>
-                                                    <span style={{ fontSize: isDesktopView ? '16px' : '13px', fontWeight: '400', color: borderColorTwo(theme) }}>{`$ ${product?.price}`}</span>
+                                                    <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: '500' }}>{`${product?.name}`}</span>
+                                                    <span style={{ fontSize: isPcV ? '16px' : '13px', fontWeight: '400', color: borderColorTwo(theme) }}>{`$ ${product?.price}`}</span>
                                                 </div>
                                             </div>
                                         ))
                                     ) : (
                                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                            {/* <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`No Products Found`} </span> */}
+                                            {/* <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold' }}>{`No Products Found`} </span> */}
                                         </div>
                                     )}
                                 </div>}

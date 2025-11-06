@@ -10,7 +10,7 @@ import CompanyProfile from "../../configureCompaniesOwner/components/internalCom
 
 export default function SetUpCompanyYouWorkOn({ fetchUserInfos }) {
     const navigate = useNavigate();
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
     const location = useLocation();
     const { search } = useLocation();

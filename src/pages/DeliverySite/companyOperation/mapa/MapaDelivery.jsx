@@ -13,7 +13,7 @@ import { fontColorOne, secondColor, secondColorInverse } from '../../../../theme
 
 export default function MapaDelivery({ }) {
   const theme = useSelector((state) => state.view.theme);
-  const isDesktopView = useSelector((state) => state.view.isDesktopView);
+  const isPcV = useSelector((state) => state.view.isPcV);
   const companyOperation = useSelector((state) => state.companyOperation);
   const [companyLat, setCompanyLat] = useState(null);
   const [companyLng, setCompanyLng] = useState(null);
@@ -168,7 +168,7 @@ export default function MapaDelivery({ }) {
 
       <div style={{
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: secondColor(theme), boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.36)', borderRadius: '0px 0px 3px 3px', zIndex: 1000,
-        position: 'absolute', bottom: 10, flexWrap: 'wrap', fontSize: isDesktopView ? '16px' : '15px', margin: '0px 5px', borderRadius: '6px', border: '4px solid #eaa37a47', color: fontColorOne(theme),
+        position: 'absolute', bottom: 10, flexWrap: 'wrap', fontSize: isPcV ? '16px' : '15px', margin: '0px 5px', borderRadius: '6px', border: '4px solid #eaa37a47', color: fontColorOne(theme),
       }}>
 
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}>
@@ -197,12 +197,12 @@ export default function MapaDelivery({ }) {
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}>
             <div className='divMapaDeliveryPoint' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignContent: 'center', position: 'relative', backgroundColor: selectMarkerColor(68), }}>
-              <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: isDesktopView ? '18px' : '14px', position: 'absolute', bottom: isDesktopView ? 25 : 20 }} />
+              <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: isPcV ? '18px' : '14px', position: 'absolute', bottom: isPcV ? 25 : 20 }} />
             </div><span> 61-70 </span></div>
 
           <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '8px 5px', alignItems: 'center', justifyContent: 'center' }}>
             <div className='divMapaDeliveryPoint' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', backgroundColor: "#e40e0e", border: '4px solid #f36818', }}>
-              <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: isDesktopView ? '25px' : '20px', position: 'absolute', bottom: isDesktopView ? 20 : 15, textShadow: '0px 2px 100px rgba(0,0,0,0.4)' }} />
+              <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: isPcV ? '25px' : '20px', position: 'absolute', bottom: isPcV ? 20 : 15, textShadow: '0px 2px 100px rgba(0,0,0,0.4)' }} />
             </div><span> 70+ </span></div>
 
         </div>
@@ -211,8 +211,8 @@ export default function MapaDelivery({ }) {
 
       <style>{`
         .divMapaDeliveryPoint {
-          width: ${isDesktopView ? '35px' : '25px'};
-          height: ${isDesktopView ? '35px' : '25px'};
+          width: ${isPcV ? '35px' : '25px'};
+          height: ${isPcV ? '35px' : '25px'};
           border-radius: 50%;
           margin-right: 2;
           box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.30);

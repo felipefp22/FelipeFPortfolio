@@ -9,7 +9,7 @@ import { getAllDefaultsImagesFoodService, getImageFoodService } from "../../../.
 
 export default function SelectProductImageModal({ close, imagePath, setImagePath }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [disable, setDisable] = useState(false);
 
@@ -45,14 +45,14 @@ export default function SelectProductImageModal({ close, imagePath, setImagePath
     return (
         <>
             <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ width: 'auto', padding: '10px', width: !isDesktopView ? "95%" : "90%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, }}>
+                <div className="modalInside" style={{ width: 'auto', padding: '10px', width: !isPcV ? "95%" : "90%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
 
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}>
 
                             <div style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap' }}>
                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '5px' }} >
-                                    <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Default System Photos"} </span>
+                                    <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '22px' : '17px', fontWeight: 'bold' }}>{"Default System Photos"} </span>
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', marginBottom: '10px', flexWrap: 'wrap' }}>
                                     <button className="buttomStandart blue" style={{ marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}

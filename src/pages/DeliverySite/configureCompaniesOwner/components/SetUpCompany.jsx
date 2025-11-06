@@ -14,7 +14,7 @@ import CompanyCustomers from "./internalComponents/CompanyCustomers";
 
 export default function SetUpCompany({ }) {
     const navigate = useNavigate();
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
     const location = useLocation();
     const { search } = useLocation();

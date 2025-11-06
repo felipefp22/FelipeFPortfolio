@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function LayoutPortifolio() {
   const navigate = useNavigate();
-  const isDesktopView = useSelector((state) => state.view.isDesktopView);
+  const isPcV = useSelector((state) => state.view.isPcV);
 
   const [flipped, setFlipped] = useState(false);
   const [myImage, setMyImage] = useState(myPhoto);
@@ -69,28 +69,28 @@ export default function LayoutPortifolio() {
                     {/* <> --- Language */}
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', marginBottom: '40px', justifyContent: 'right' }} >
                       <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginRight: '20px' }} onClick={() => changeLanguage('pt')} >
-                        <img src={brazilFlag} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', border: i18n.language?.split("-")[0] === 'pt' ? "2px solid white" : "2px solid transparent" }} />
+                        <img src={brazilFlag} alt="Logo" style={{ width: isPcV ? 40 : 30, height: isPcV ? 40 : 30, borderRadius: '50%', border: i18n.language?.split("-")[0] === 'pt' ? "2px solid white" : "2px solid transparent" }} />
                         <h4 style={{ marginLeft: '10px', textDecoration: i18n.language?.split("-")[0] === 'pt' ? 'underline' : 'none' }}>{"PT"}</h4>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', }} onClick={() => changeLanguage('en')}>
-                        <img src={usaFlag} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', border: i18n.language?.split("-")[0] === 'en' ? "2px solid white" : "2px solid transparent" }} />
+                        <img src={usaFlag} alt="Logo" style={{ width: isPcV ? 40 : 30, height: isPcV ? 40 : 30, borderRadius: '50%', border: i18n.language?.split("-")[0] === 'en' ? "2px solid white" : "2px solid transparent" }} />
                         <h4 style={{ marginLeft: '10px', textDecoration: i18n.language?.split("-")[0] === 'en' ? 'underline' : 'none',  }}>{"EN"}</h4>
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: isDesktopView ? '60px' : '30px' }} >
-                      <h1 style={{ marginBottom: isDesktopView ? '20px' : '10px', fontSize: isDesktopView ? '36px' : '18px' }}>Felipe Ferreira de Paula</h1>
-                      <h1 style={{ fontWeight: 'bold', color: 'rgba(30, 230, 183, 0.79)', fontSize: isDesktopView ? '36px' : '22px' }}>{"< Dev BackEND | FullStack />"}</h1>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: isPcV ? '60px' : '30px' }} >
+                      <h1 style={{ marginBottom: isPcV ? '20px' : '10px', fontSize: isPcV ? '36px' : '18px' }}>Felipe Ferreira de Paula</h1>
+                      <h1 style={{ fontWeight: 'bold', color: 'rgba(30, 230, 183, 0.79)', fontSize: isPcV ? '36px' : '22px' }}>{"< Dev BackEND | FullStack />"}</h1>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', marginBottom: '30px' }} >
-                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginRight: isDesktopView ? '60px' : '20px' }} onClick={() => window.open("https://www.linkedin.com/in/felipe-de-paula3354", "_blank")} >
-                        <img src={linkedinLogo} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', backgroundColor: "black", border: "2px solid white" }} />
-                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline', fontSize: isDesktopView ? '22px' : '16px' }}>{"LinkedIn"}</h4>
+                      <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center', marginRight: isPcV ? '60px' : '20px' }} onClick={() => window.open("https://www.linkedin.com/in/felipe-de-paula3354", "_blank")} >
+                        <img src={linkedinLogo} alt="Logo" style={{ width: isPcV ? 40 : 30, height: isPcV ? 40 : 30, borderRadius: '50%', backgroundColor: "black", border: "2px solid white" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline', fontSize: isPcV ? '22px' : '16px' }}>{"LinkedIn"}</h4>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'row', cursor: 'pointer', alignItems: 'center',  }} onClick={() => window.open("https://github.com/FelipeFP22", "_blank")} >
-                        <img src={gitHubLogo2} alt="Logo" style={{ width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30, borderRadius: '50%', backgroundColor: "white", border: "2px solid white" }} />
-                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline', fontSize: isDesktopView ? '22px' : '16px' }}>{"GitHub"}</h4>
+                        <img src={gitHubLogo2} alt="Logo" style={{ width: isPcV ? 40 : 30, height: isPcV ? 40 : 30, borderRadius: '50%', backgroundColor: "white", border: "2px solid white" }} />
+                        <h4 style={{ marginLeft: '10px', textDecoration: 'underline', fontSize: isPcV ? '22px' : '16px' }}>{"GitHub"}</h4>
                       </div>
                     </div>
 
@@ -101,7 +101,7 @@ export default function LayoutPortifolio() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '100%', maxWidth: '1200px', margin: '0px 10px' }} >
-            <Container fluid style={{ flex: 1, overflow: "hidden", width: "100%", paddingBottom: 1, marginTop: isDesktopView ? '25px' : '5px' }}>
+            <Container fluid style={{ flex: 1, overflow: "hidden", width: "100%", paddingBottom: 1, marginTop: isPcV ? '25px' : '5px' }}>
               <Outlet /> {/* This will render the page-specific body */}
             </Container>
           </div>

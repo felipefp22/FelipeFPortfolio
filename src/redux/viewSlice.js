@@ -5,7 +5,7 @@ export const slice = createSlice({
   initialState: {
     windowWidth: window.innerWidth,
     windowsAvailableWithoutMenu: window.innerWidth - 240,
-    isDesktopView: '',
+    isPcV: '',
     theme: localStorage.getItem('theme') || 'DARK',
   },
   reducers: {
@@ -16,7 +16,7 @@ export const slice = createSlice({
       return {...state, windowsAvailableWithoutMenu: payload}
     },
     changeView(state, { payload }) {
-      return {...state, isDesktopView: payload}
+      return {...state, isPcV: payload}
     },
     setTheme(state, { payload }) {
       localStorage.setItem('theme', payload);

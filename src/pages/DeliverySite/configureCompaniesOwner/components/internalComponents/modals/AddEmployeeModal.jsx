@@ -11,7 +11,7 @@ import { findPersonByEmailService } from "../../../../../../services/deliverySer
 
 export default function AddEmployeeModal({ close, companyData, positionsOpts, fetchCompanyData }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [processing, setProcessing] = useState(false);
     const [adminPassword, setAdminPassword] = useState("");
@@ -54,14 +54,14 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
     return (
         <>
             <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ padding: '20px', minWidth: '300px', maxWidth: !isDesktopView ? "95%" : "600px", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '30px', fontSize: !isDesktopView ? '20px' : '26px', }}>
+                <div className="modalInside" style={{ padding: '20px', minWidth: '300px', maxWidth: !isPcV ? "95%" : "600px", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, textAlign: 'center', alignItems: 'center', justifyContent: 'center', alignContent: 'center', lineHeight: 1.8, marginBottom: '30px', fontSize: !isPcV ? '20px' : '26px', }}>
                         <span>{`Hire`}</span>
                         <span style={{ color: borderColorTwo(theme) }}>{`${companyData?.companyName || "Company"}`}</span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', alignItems: 'center', marginBottom: '10px', width: '100%' }} >
-                        <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', whiteSpace: 'nowrap' }}>Email: </span>
+                        <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', whiteSpace: 'nowrap' }}>Email: </span>
 
                         <form style={{ display: 'flex', position: 'relative', flexGrow: 1, maxWidth: '550px' }} onSubmit={(e) => { e.preventDefault(); handleFindPerson(); }}>
                             <input className="inputStandart" style={{ flexGrow: 1, }} type="email" autoCapitalize="none" value={emailToInvite || ""} onChange={(e) => { setEmailToInvite(e.target.value); e.target.setCustomValidity(''); }}
@@ -78,16 +78,16 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginTop: 20, border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', }} >
 
                         <img src={userFoundData?.urlProfilePhoto ?? avatar} alt="Logo" style={{
-                            width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
+                            width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
                             borderRadius: '50%', backgroundColor: 'transparent', border: "0px solid white", marginRight: 10
                         }} />
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                            <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}> {userFoundData ? `${userFoundData?.name} - ${userFoundData?.email}` : `"Find a Person"`}</span>
+                            <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold' }}> {userFoundData ? `${userFoundData?.name} - ${userFoundData?.email}` : `"Find a Person"`}</span>
                         </div>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left', alignItems: 'center', marginBottom: '10px' }} >
-                        <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', }}>Position: </span>
+                        <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold', marginRight: '20px', }}>Position: </span>
                         <select className="inputStandart" value={position || ""} onChange={(e) => setPosition(e.target.value)} style={{ maxWidth: '220px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
                             {!position && <option value="">Select position</option>}
                             {positionsOpts.map((value, index) => (

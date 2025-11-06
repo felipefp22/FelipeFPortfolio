@@ -12,7 +12,7 @@ import CreateCompanyModal from "./internalComponents/modals/CreateCompanyModal";
 import CreateCompoundModal from "./internalComponents/modals/CreateCompoundModal";
 
 export default function SelectYourComapanieToManage({ companiesCoumpound, fetchUserInfos }) {
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
     const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                                     <FontAwesomeIcon icon={faPlus} style={{ fontSize: '18px', fontWeight: '500', }} />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                    <span style={{ fontSize: isDesktopView ? '24px' : '16px', fontWeight: '500' }}>{`Create New Chain`} </span>
+                                    <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: '500' }}>{`Create New Chain`} </span>
                                 </div>
                             </div>
                         </div>
@@ -49,19 +49,19 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
 
                                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
                                         <img src={companiesGroupLogo} alt="Logo" style={{
-                                            width: isDesktopView ? 50 : !isDesktopView ? 40 : 35, height: isDesktopView ? 50 : !isDesktopView ? 40 : 35,
+                                            width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
                                             borderRadius: '50%', backgroundColor: 'black', border: `0px solid ${borderColorTwo(theme)}`, boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, marginRight: 10, padding: '3px',
                                         }} />
                                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '24px' : '16px', fontWeight: 'bold' }}>{compound.compoundName} </span>
-                                            <FontAwesomeIcon icon={faGear} style={{ fontSize: '25px', marginRight: isDesktopView ? '20px' : '5px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
+                                            <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{compound.compoundName} </span>
+                                            <FontAwesomeIcon icon={faGear} style={{ fontSize: '25px', marginRight: isPcV ? '20px' : '5px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div style={{
                                     display: 'flex', flexDirection: 'row', alignItems: 'center', margin: '0px 5px', padding: '10px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme),
-                                    justifyContent: isDesktopView ? 'flex-start' : 'center', flexWrap: 'wrap',
+                                    justifyContent: isPcV ? 'flex-start' : 'center', flexWrap: 'wrap',
                                 }}>
 
                                     {compound?.companies?.map((comp, idx) => (
@@ -69,17 +69,17 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                                             style={{ flexDirection: 'column', justifyContent: 'center', textAlign: 'center', margin: '0px 0px 5px 10px', cursor: 'pointer', width: '160px', height: '150px', backgroundColor: alphaC(transparentCanvasBgOne(theme), 0.1), }} >
 
                                             <div style={{ display: 'flex', position: 'absolute', top: 5, right: 5, }}>
-                                                <FontAwesomeIcon icon={faGear} style={{ fontSize: isDesktopView ? '20px' : '15px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
+                                                <FontAwesomeIcon icon={faGear} style={{ fontSize: isPcV ? '20px' : '15px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                             </div>
                                             <div style={{ width: '100%' }} >
                                                 <img src={restaurantLogo} alt="Logo" style={{
-                                                    width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35, marginBottom: 10, padding: '3px',
+                                                    width: isPcV ? 40 : 35, height: isPcV ? 40 : 35, marginBottom: 10, padding: '3px',
                                                     borderRadius: '50%', backgroundColor: 'black', border: "0px solid white", marginRight: 10
                                                 }} />
                                             </div>
 
                                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                                                <span style={{ fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{comp.companyName} </span>
+                                                <span style={{ fontSize: isPcV ? '18px' : '14px', fontWeight: 'bold' }}>{comp.companyName} </span>
                                             </div>
                                         </div>
                                     ))}
@@ -89,13 +89,13 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
 
                                         <div className="transparentCanvas" style={{
                                             borderRadius: '50%', alignItems: 'center', justifyContent: 'center',
-                                            width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35, marginBottom: '10px'
+                                            width: isPcV ? 40 : 35, height: isPcV ? 40 : 35, marginBottom: '10px'
                                         }} >
                                             <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px', fontWeight: '500', }} />
                                         </div>
 
                                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '18px' : '14px', fontWeight: 'bold' }}>{'New Company'} </span>
+                                            <span style={{ fontSize: isPcV ? '18px' : '14px', fontWeight: 'bold' }}>{'New Company'} </span>
                                         </div>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
 
                     {/* 
                         {companiesUserWorksOn?.length > 0 && <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', maxWidth: '100%', marginTop: '20px' }}>
-                            <span style={{ fontWeight: 'bold', fontSize: isDesktopView ? '24px' : '16px' }}>Companies You Work:</span>
+                            <span style={{ fontWeight: 'bold', fontSize: isPcV ? '24px' : '16px' }}>Companies You Work:</span>
 
                             {companiesUserWorksOn?.map((comp, idx) => (
                                 <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px', padding: '15px 10px', borderRadius: '6px', backgroundColor: transparentCavasTwo(theme) }}>
@@ -113,11 +113,11 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                                     <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
                                         onClick={() => { localStorage.setItem('companyOperatingID', comp.id); setCompanySelected(comp.id); }}>
                                         <img src={restaurantLogo} alt="Logo" style={{
-                                            width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
+                                            width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
                                             borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                         }} />
                                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
+                                            <span style={{ fontSize: isPcV ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
                                         </div>
                                     </div>
                                 </div>

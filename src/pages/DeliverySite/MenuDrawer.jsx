@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMessage }) {
     const navigate = useNavigate();
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const dispatch = useDispatch();
     const theme = useSelector((state) => state.view.theme);
 

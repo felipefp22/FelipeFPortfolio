@@ -6,7 +6,7 @@ import { createDefaultApiDemonstration } from "../../../../services/deliveryServ
 
 
 export default function CreateGroupAndCompanyModal({ close, getShiftOperationData }) {
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [processing, setProcessing] = useState(false);
 
@@ -26,10 +26,10 @@ export default function CreateGroupAndCompanyModal({ close, getShiftOperationDat
     return (
         <>
             <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "40%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, fontSize: !isDesktopView ? '20px' : '26px', }}>
+                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "40%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, fontSize: !isPcV ? '20px' : '26px', }}>
 
                     <span>Create Group and Company</span>
-                    <span style={{ marginBottom: '20px', fontSize: !isDesktopView ? '14px' : '18px', color: 'rgba(255, 255, 255, 0.8)' }}>How its just a skills demonstration APP, click "Create", and we will create a defaults group and company for you.</span>
+                    <span style={{ marginBottom: '20px', fontSize: !isPcV ? '14px' : '18px', color: 'rgba(255, 255, 255, 0.8)' }}>How its just a skills demonstration APP, click "Create", and we will create a defaults group and company for you.</span>
 
                     {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
                         <button style={{ backgroundColor: 'rgba(189, 13, 0, 0)', border: "none", color: "rgba(255, 69, 56, 1)", padding: "10px 20px", height: '40px', marginLeft: '0px', fontWeight: 'bold', fontSize: '16px' }}

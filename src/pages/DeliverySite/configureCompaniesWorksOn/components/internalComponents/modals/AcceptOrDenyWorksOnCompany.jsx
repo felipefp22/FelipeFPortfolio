@@ -7,7 +7,7 @@ import { acceptCompanyInviteService, quitCompanyService } from "../../../../../.
 
 export default function AcceptOrDenyWorksOnCompany({ close, companyData, fetchUserInfos }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [processing, setProcessing] = useState(false);
     const [adminPassword, setAdminPassword] = useState("");
@@ -36,11 +36,11 @@ export default function AcceptOrDenyWorksOnCompany({ close, companyData, fetchUs
     return (
         <>
             <div className="myModal" style={{ zIndex: 100 }} >
-                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "80%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, fontSize: !isDesktopView ? '20px' : '26px', }}>
-                    <span style={{ fontSize: isDesktopView ? '22px' : '16px', fontWeight: '600', marginBottom: '10px', color: borderColorTwo(theme) }}>{`${companyData?.companyName}`}</span>
+                <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, fontSize: !isPcV ? '20px' : '26px', }}>
+                    <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginBottom: '10px', color: borderColorTwo(theme) }}>{`${companyData?.companyName}`}</span>
 
-                    <span style={{ fontSize: isDesktopView ? '20px' : '14px', fontWeight: '600', marginBottom: '10px', color: fontColorOne(theme) }}>{`You received an invitation to work as:`}</span>
-                    <span style={{ fontSize: isDesktopView ? '20px' : '14px', fontWeight: '600', marginBottom: '10px', color: fontColorOne(theme) }}>{` ${companyData?.position}`}</span>
+                    <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: '600', marginBottom: '10px', color: fontColorOne(theme) }}>{`You received an invitation to work as:`}</span>
+                    <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: '600', marginBottom: '10px', color: fontColorOne(theme) }}>{` ${companyData?.position}`}</span>
 
 
                     {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }}> */}

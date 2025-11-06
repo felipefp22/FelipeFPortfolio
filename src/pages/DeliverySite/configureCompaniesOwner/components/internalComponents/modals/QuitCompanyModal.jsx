@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function QuitCompanyModal({ close, companyData, fetchCompanyData, fetchUserInfos }) {
     const navigate = useNavigate();
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [processing, setProcessing] = useState(false);
     const wordToMatch = 'quit';
@@ -35,11 +35,11 @@ export default function QuitCompanyModal({ close, companyData, fetchCompanyData,
 
     return (
         <>
-            <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isDesktopView ? "95%" : "80%", maxHeight: !isDesktopView ? "95%" : "90%", zIndex: 10, justifyContent: 'center', alignItems: 'center', textAlign: 'center', }} >
-                <span style={{ fontSize: isDesktopView ? '22px' : '16px', fontWeight: '600', marginBottom: '10px', color: borderColorTwo(theme) }}>{`${companyData?.companyName}`}</span>
+            <div className="modalInside" style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, justifyContent: 'center', alignItems: 'center', textAlign: 'center', }} >
+                <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginBottom: '10px', color: borderColorTwo(theme) }}>{`${companyData?.companyName}`}</span>
 
-                <span style={{ fontSize: isDesktopView ? '20px' : '14px', fontWeight: '600', marginBottom: '10px', color: fontColorOne(theme) }}>{`Sure to quit?`}</span>
-                {/* <span style={{ fontSize: isDesktopView ? '20px' : '14px', fontWeight: '600', marginBottom: '10px', color: fontColorOne(theme) }}>{` ${companyData?.position}`}</span> */}
+                <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: '600', marginBottom: '10px', color: fontColorOne(theme) }}>{`Sure to quit?`}</span>
+                {/* <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: '600', marginBottom: '10px', color: fontColorOne(theme) }}>{` ${companyData?.position}`}</span> */}
 
                 {!processing && <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', alignItems: 'center', marginBottom: '10px', maxWidth: '550px' }} >
                     <input className="inputStandart" style={{ flexGrow: 1, textAlign: 'center' }} type="email" autoCapitalize="none" value={wordConfirmationToQuit} onChange={(e) => { setWordConfirmationToQuit(e.target.value); e.target.setCustomValidity(''); }}

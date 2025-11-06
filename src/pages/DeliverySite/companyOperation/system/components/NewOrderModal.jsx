@@ -12,7 +12,7 @@ import { borderColorOne, borderColorTwo, greenOne } from "../../../../../theme/C
 
 export default function NewOrderModal({ close, companyOperation, getShiftOperationData, tableNumberSelectedBeforeModal }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
 
     const [disabled, setDisabled] = useState(false);
     const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
@@ -159,17 +159,17 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
     return (
         <>
-            <div className="modalInside" style={{ width: !isDesktopView ? "100%" : "97%", maxHeight: !isDesktopView ? '90%' : '80%', padding: !isDesktopView ? '10px' : '10px', }}>
+            <div className="modalInside" style={{ width: !isPcV ? "100%" : "97%", maxHeight: !isPcV ? '90%' : '80%', padding: !isPcV ? '10px' : '10px', }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '10px', alignItems: 'center' }}>
-                        <button className="buttomStandart" style={{ height: '35px', fontSize: isDesktopView ? '17px' : '14px', padding: isDesktopView ? '0px 10px' : '0px 6px', }}
+                        <button className="buttomStandart" style={{ height: '35px', fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 10px' : '0px 6px', }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
                             <select className="inputStandart" value={!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? tableNumberOrDeliveryOrPickupSelected : ""} placeholder="Table" onChange={(e) => setTableNumberOrDeliveryOrPickupSelected(Number(e.target.value))}
                                 style={{
-                                    minWidth: '60px', maxWidth: '120px', height: '35px', padding: '5px', borderRadius: '6px', fontSize: isDesktopView ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`,
+                                    minWidth: '60px', maxWidth: '120px', height: '35px', padding: '5px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`,
                                     backgroundColor: (!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) && tableNumberOrDeliveryOrPickupSelected) ? greenOne(theme) : ''
                                 }} >
                                 <option value="" disabled hidden> Table </option>
@@ -183,12 +183,12 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                             </select>
 
                             <button className="buttomStandart" style={{
-                                fontSize: isDesktopView ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isDesktopView ? '0px 10px' : '0px 6px',
+                                fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px',
                                 backgroundColor: tableNumberOrDeliveryOrPickupSelected === 'pickup' ? greenOne(theme) : ''
                             }}
                                 onClick={() => { setTableNumberOrDeliveryOrPickupSelected('pickup'); setSelectUseCustomerOrPickUpName(customerSelectedToNewOrder ? 'Customer' : 'Name') }} disabled={disabled}>PickUp</button>
                             <button className="buttomStandart" style={{
-                                fontSize: isDesktopView ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isDesktopView ? '0px 10px' : '0px 6px',
+                                fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px',
                                 backgroundColor: tableNumberOrDeliveryOrPickupSelected === 'delivery' ? greenOne(theme) : ''
                             }}
                                 onClick={() => { setTableNumberOrDeliveryOrPickupSelected('delivery'); setSelectUseCustomerOrPickUpName('Customer') }} disabled={disabled}>Delivery</button>
@@ -198,7 +198,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                     <div style={{ marginBottom: '5px' }}>
                         {tableNumberOrDeliveryOrPickupSelected === 'delivery' && <span style={{ fontWeight: "600" }}>Customer</span>}
                         {tableNumberOrDeliveryOrPickupSelected !== 'delivery' && <select className="inputStandart" value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
-                            style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isDesktopView ? '17px' : '14px', textAlign: 'left', }} >
+                            style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'left', }} >
                             <option value='' disabled hidden> Select </option>
                             <option value={'Customer'}> {'Customer'} </option>
                             <option value={'Name'}> {'Name'} </option>
@@ -209,7 +209,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                         <span style={{ fontWeight: "600", padding: '10px 0px', }}>Name:</span>
 
                         <input className="inputStandart" type="text" value={pickupNameInput} onChange={(e) => setPickupNameInput(e.target.value)}
-                            style={{ height: '35px', fontSize: isDesktopView ? '18px' : '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', margin: '10px 0px', }} />
+                            style={{ height: '35px', fontSize: isPcV ? '18px' : '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', margin: '10px 0px', }} />
                     </div>}
 
                     {selectUseCustomerOrPickUpName === 'Customer' && <div>
@@ -248,13 +248,13 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 <div style={{ display: 'flex', flexDirection: 'column', width: '64%', }}>
                                     <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
                                     <input className="inputStandart" type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
-                                        style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
+                                        style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                                 </div>
                                 <div style={{ width: '3%' }}></div>
                                 <div style={{ display: 'flex', flexDirection: 'column', width: '28%' }}>
                                     <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Phone</span>
                                     <input className="inputStandart" value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
-                                        style={{ height: '25px', fontSize: isDesktopView ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
+                                        style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                                 </div>
                             </div>
                         </div>
@@ -267,7 +267,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', marginTop: '5px' }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%',  }}>
-                            <button className="buttomStandart" style={{ marginLeft: '0px', height: '30px', fontSize: isDesktopView ? '17px' : '14px',  }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                            <button className="buttomStandart" style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px',  }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
                         <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Items</span>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
@@ -293,7 +293,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginTop: '10px', fontSize: isDesktopView ? '17px' : '14px', }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginTop: '10px', fontSize: isPcV ? '17px' : '14px', }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%',  }}>
                             <button className="buttomStandart" style={{ }} onClick={() => close()} disabled={disabled}>Cancel</button>

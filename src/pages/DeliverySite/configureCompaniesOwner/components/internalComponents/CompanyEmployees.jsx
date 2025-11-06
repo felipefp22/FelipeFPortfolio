@@ -14,7 +14,7 @@ import EditEmployeeModal from "./modals/EditEmployeeModal";
 
 
 export default function CompanyEmployees({ companyData, fetchCompanyData }) {
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
 
     const [seeImageBig, setSeeImageBig] = useState(false);
@@ -43,7 +43,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                 minWidth: '300px', maxWidth: '100%', flexGrow: 1, overflowX: "hidden", overflowY: 'hidden',
             }} >
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '10px' }} >
-                    <span style={{ color: borderColorTwo(theme), fontSize: isDesktopView ? '22px' : '17px', fontWeight: 'bold' }}>{"Employees"} </span>
+                    <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '22px' : '17px', fontWeight: 'bold' }}>{"Employees"} </span>
                     <button className="buttomStandart" style={{
                         padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
                         opacity: 1, cursor: 'pointer',
@@ -61,13 +61,13 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                                     onClick={() => setIsOpen(!isOpen)}>
 
                                     <img src={getEmployeePositionLogo(position)} alt="Logo" style={{
-                                        width: isDesktopView ? 40 : 30, height: isDesktopView ? 40 : 30,
+                                        width: isPcV ? 40 : 30, height: isPcV ? 40 : 30,
                                         borderRadius: '50%', marginRight: 10
                                     }} />
                                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                        <span style={{ fontSize: isDesktopView ? '20px' : '16px', fontWeight: 'bold' }}>{position} </span>
+                                        <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold' }}>{position} </span>
                                         <FontAwesomeIcon icon={isOpen ? faSquareCaretUp : faSquareCaretDown}
-                                            style={{ fontSize: isDesktopView ? '20px' : '16px', marginRight: isDesktopView ? '20px' : '5px', borderRadius: '4px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
+                                            style={{ fontSize: isPcV ? '20px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                     </div>
                                 </div>
                                 {isOpen && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
@@ -77,13 +77,13 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                                                 onClick={() => { setEditEmployeeModalOpen(employesFiltered); }}>
 
                                                 <img src={avatar} alt="Logo" style={{
-                                                    width: isDesktopView ? 40 : 35, height: isDesktopView ? 40 : 35,
+                                                    width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'transparent', border: "0px solid white", marginRight: 10
                                                 }} />
                                                 <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
-                                                    <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`${employesFiltered.employeeName} - ${employesFiltered.employeeEmail}`}</span>
+                                                    <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold' }}>{`${employesFiltered.employeeName} - ${employesFiltered.employeeEmail}`}</span>
                                                     <span style={{
-                                                        fontSize: isDesktopView ? '14px' : '12px', marginLeft: '10px', fontWeight: 'bold',
+                                                        fontSize: isPcV ? '14px' : '12px', marginLeft: '10px', fontWeight: 'bold',
                                                         color: employesFiltered.status === 'ACTIVE' ? greenTwo(theme) : redOne(theme)
                                                     }}>{`*${employesFiltered?.status?.split('_')[0]}`}</span>
                                                 </div>
@@ -91,7 +91,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                                         ))
                                     ) : (
                                         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                            <span style={{ fontSize: isDesktopView ? '18px' : '15px', fontWeight: 'bold' }}>{`No ${position} Found`} </span>
+                                            <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold' }}>{`No ${position} Found`} </span>
                                         </div>
                                     )}
                                 </div>}

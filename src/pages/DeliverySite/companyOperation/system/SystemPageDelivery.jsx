@@ -15,7 +15,7 @@ import EditOrderModal from "./components/EditOrderModal.jsx";
 
 export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);

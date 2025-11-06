@@ -11,7 +11,7 @@ import AcceptOrDenyWorksOnCompany from "./internalComponents/modals/AcceptOrDeny
 
 
 export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkOn, fetchUserInfos }) {
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
     const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
                         minWidth: '300px', maxWidth: '100%', flexGrow: 1, overflowX: "hidden", overflowY: 'hidden',
                     }} >
                         <div style={{ display: 'flex', flexDirection: 'column', color: "white", minWidth: '300px', width: '100%' }}>
-                            <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : greenOne(theme), fontSize: isDesktopView ? '20px' : '16px', fontWeight: 'bold', marginBottom: '10px' }}>You Work On</span>
+                            <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : greenOne(theme), fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold', marginBottom: '10px' }}>You Work On</span>
 
                             {companiesYouWorkOn?.filter(company => company.status === "ACTIVE").length > 0 ? (
                                 companiesYouWorkOn?.filter(company => company.status === "ACTIVE").map((company, index) => (
@@ -41,12 +41,12 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
 
                                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
                                                 <img src={companiesGroupLogo} alt="Logo" style={{
-                                                    width: isDesktopView ? 50 : !isDesktopView ? 40 : 35, height: isDesktopView ? 50 : !isDesktopView ? 40 : 35,
+                                                    width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'black', border: `0px solid ${borderColorTwo(theme)}`, boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, marginRight: 10, padding: '3px',
                                                 }} />
                                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isDesktopView ? '24px' : '16px', fontWeight: 'bold' }}>{company.companyName} </span>
-                                                    <FontAwesomeIcon icon={faGear} style={{ fontSize: '25px', marginRight: isDesktopView ? '20px' : '5px', padding: isDesktopView ? '5px' : '4px', opacity: 0.8 }} />
+                                                    <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{company.companyName} </span>
+                                                    <FontAwesomeIcon icon={faGear} style={{ fontSize: '25px', marginRight: isPcV ? '20px' : '5px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                                 </div>
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
                                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0px', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }} >
                                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
                                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isDesktopView ? '20px' : '14px', fontWeight: 'bold' }}> No Companies Found</span>
+                                                    <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: 'bold' }}> No Companies Found</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
                             }
 
                             <div style={{ borderTop: `2px solid ${fontColorOne(theme)}`, margin: '15px 0', opacity: 0.7, borderRadius: '6px' }} />
-                            <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : fontColorOne(theme), fontSize: isDesktopView ? '20px' : '16px', fontWeight: 'bold', marginBottom: '10px', }}>Invited to Work</span>
+                            <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : fontColorOne(theme), fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold', marginBottom: '10px', }}>Invited to Work</span>
 
 
                             {companiesYouWorkOn?.filter(company => company.status === "WAITING_ACCEPTANCE").length > 0 ? (
@@ -76,15 +76,15 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
 
                                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
                                                 <img src={companiesGroupLogo} alt="Logo" style={{
-                                                    width: isDesktopView ? 50 : !isDesktopView ? 40 : 35, height: isDesktopView ? 50 : !isDesktopView ? 40 : 35,
+                                                    width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'black', border: `0px solid ${borderColorTwo(theme)}`, boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, marginRight: 10, padding: '3px',
                                                 }} />
                                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isDesktopView ? '24px' : '16px', fontWeight: 'bold' }}>{company.companyName} </span>
+                                                    <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{company.companyName} </span>
 
                                                     <div style={{ cursor: 'pointer', }} onClick={() => setAcceptOrDenyWorkInviteModal(company)}>
-                                                        <span style={{ fontSize: isDesktopView ? '18px' : '13px', fontWeight: 'bold', color: redOne(theme) }}>{'Deny'} </span>
-                                                        <span style={{ fontSize: isDesktopView ? '20px' : '14px', fontWeight: 'bold', color: greenTwo(theme) }}>{'/Accept'} </span>
+                                                        <span style={{ fontSize: isPcV ? '18px' : '13px', fontWeight: 'bold', color: redOne(theme) }}>{'Deny'} </span>
+                                                        <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: 'bold', color: greenTwo(theme) }}>{'/Accept'} </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -97,7 +97,7 @@ export default function SelectYourComapanieYouWorkOnToManage({ companiesYouWorkO
                                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0px',  backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }} >
                                             <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'flex-start' }} >
                                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                                                    <span style={{ fontSize: isDesktopView ? '20px' : '14px', fontWeight: 'bold' }}> No Invites Found</span>
+                                                    <span style={{ fontSize: isPcV ? '20px' : '14px', fontWeight: 'bold' }}> No Invites Found</span>
                                                 </div>
                                             </div>
                                         </div>

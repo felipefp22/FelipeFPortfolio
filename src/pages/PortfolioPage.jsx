@@ -6,10 +6,10 @@ import Projects from './Portifolio/Projects';
 import Contacts from './Portifolio/Contacts';
 
 export default function PortfolioPage() {
-    const isDesktopView = useSelector((state) => state.view.isDesktopView);
+    const isPcV = useSelector((state) => state.view.isPcV);
     const { t, i18n } = useTranslation();
 
-    const menus = isDesktopView ? [t("aboutMe.title"), t("projects.title"), t("contacts.title")] : [t("skills.title"), t("aboutMe.title"), t("projects.title"), t("contacts.title")];
+    const menus = isPcV ? [t("aboutMe.title"), t("projects.title"), t("contacts.title")] : [t("skills.title"), t("aboutMe.title"), t("projects.title"), t("contacts.title")];
     const [active, setActive] = useState(0);
 
     // --- KEYBOARD navigation ---
