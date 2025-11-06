@@ -16,7 +16,7 @@ import tableRed from "../../../../assets/tableRed.png";
 import tableBlue from "../../../../assets/tableBlue.png";
 import EditOrderModal from "./components/EditOrderModal.jsx";
 
-export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
+export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
     const dispatch = useDispatch();
@@ -57,7 +57,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingLeft: '3px', overflowY: 'auto', }}>
-                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '12px', marginBottom: '8px' }}>
+                {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '12px', marginBottom: '8px' }}>
                     <button className="buttomStandart" style={{ visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
                         onClick={() => { setNewOrderModal(true); }}>
                         {"New Order"}</button>
@@ -128,7 +128,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                         </div>
                     </div>
 
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} >
@@ -189,7 +189,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                         </div>}
                     </div>}
 
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
@@ -229,7 +229,7 @@ export default function SystemPageHall({ screenOnFocus, setHaveModalOpen, getShi
                             </Table>
                         </div>}
                     </div>}
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>

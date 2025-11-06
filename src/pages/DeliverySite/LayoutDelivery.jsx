@@ -32,7 +32,7 @@ export default function LayoutDelivery() {
       <div className='flexColumn fullCenter' style={{ background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", fontFamily: "Segoe UI, sans-serif", overflow: "hidden", justifyContent: "center", padding: '0' }}>
         <div className='flexColumn' style={{ height: "100%", margin: "0 auto", width: "100%", }}>
 
-          <button className="floatingButton" style={{ alignSelf: "flex-start", visibility: drawerOpen ? 'hidden' : 'visible', marginBottom: '10px', margin: '13px 10px' }} onClick={() => { setDrawerOpen(true); }}>☰</button>
+          <button className="floatingButton" style={{ alignSelf: "flex-start", visibility: drawerOpen ? 'hidden' : 'visible',  margin: '13px 10px' }} onClick={() => { setDrawerOpen(true); }}>☰</button>
 
           {drawerOpen && <div ref={drawerRef}><MenuDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} setShowLogOutMessage={setShowLogOutMessage} /></div>}
 

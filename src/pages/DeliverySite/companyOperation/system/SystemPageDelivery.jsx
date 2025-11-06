@@ -13,7 +13,7 @@ import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServi
 import EditOrderModal from "./components/EditOrderModal.jsx";
 
 
-export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, getShiftOperationData }) {
+export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
     const dispatch = useDispatch();
@@ -60,14 +60,14 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
 
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingTop: '8px', paddingLeft: '3px', overflowY: 'auto', }}>
-                {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', margin: '3px 0px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', alignContent: 'left', flexGrow: 1, paddingLeft: '3px', overflowY: 'auto', }}>
+                {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', margin: '3px 0px' }}>
                     <button className="buttomStandart" style={{ marginLeft: '0px', }}
                         onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
                 </div>}
 
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'auto', }}>
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', color: fontColorOne(theme) }}>
                             <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders Cooking</span>
                             {requesterIsOwnerOrManagerOrSupervisor && <button className="floatingButton" style={{
@@ -101,7 +101,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                         </div>
                     </div>}
 
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders on Delivery</span>
@@ -138,7 +138,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
 
                     </div>}
 
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
@@ -176,7 +176,7 @@ export default function SystemPageDelivery({ screenOnFocus, setHaveModalOpen, ge
                             </Table>
                         </div>}
                     </div>}
-                    {screenOnFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
+                    {onFocus !== "map" && <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', alignContent: 'left', justifyItems: 'left', marginBottom: '5px', }}>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>

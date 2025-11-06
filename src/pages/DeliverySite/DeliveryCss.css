@@ -97,8 +97,6 @@ button:hover {
 
 /* Floating Buttons */
 .floatingButton {
-    display: flex;
-    justify-content: center;
     align-items: center;
     z-index: 8;
     background-color: var(--floatingBlackButton);
@@ -108,6 +106,7 @@ button:hover {
     box-shadow: -3px 3px 4px var(--secondColorInverseTransparent);
     border-radius: 6px;
     cursor: pointer;
+    height: 38px;
 }
 
 .floatingButton.green {
