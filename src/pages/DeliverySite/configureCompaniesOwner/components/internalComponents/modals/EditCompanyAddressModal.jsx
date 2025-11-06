@@ -1,7 +1,7 @@
 import { use, useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { borderColorOne, borderColorTwo, redOne } from "../../../../../../theme/Colors";
+import { borderColorOne, borderColorTwo, greenTwo, redOne } from "../../../../../../theme/Colors";
 import restaurantLogo from "../../../../../../assets/restaurantLogo.png";
 import { searchAddress } from "../../../../../../services/deliveryServices/auxServices/mapService";
 
@@ -154,8 +154,8 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
 
     return (
         <>
-            <div className='modalInside' style={{ width: 'auto', padding: '10px', width: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", zIndex: 10, }}>
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '490px', }}>
+            <div className='modalInside' style={{ width: 'auto', padding: '10px', width: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", }}>
+                <div className='flexColumn' style={{ height: '490px', }}>
                     <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginBottom: '10px', color: borderColorTwo(theme) }}>Search or "Click on Map Location"</span>
 
                     <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px' }}>
@@ -195,16 +195,14 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
                             </ul>
                         )}
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', minWidth: 0, overflow: 'hidden', borderRadius: '0px 0px 6px 6px' }} ref={mapContainerRef}>
+                    <div className='flexColumn' style={{ height: '100%', width: '100%', overflow: 'hidden', borderRadius: '0px 0px 6px 6px' }} ref={mapContainerRef}>
                         <div id="mapa" style={{ width: '100%', height: '100%', minHeight: 0, cursor: 'pointer' }} />
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '10px' }}>
-                        <button className='buttomStandart red' style={{ padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '130px', opacity: 1, cursor: 'pointer', }}
-                            onClick={() => { close() }} >Cancel</button>
+                    <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '20px' }}>
+                        <button className='buttomStandart' style={{ background: 'none', color: 'gray', border: 'none' }} onClick={() => { close() }} >Cancel</button>
 
-                        <button className='buttomStandart green' style={{ padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '130px', opacity: 1, cursor: 'pointer', }}
-                            onClick={() => { saveNewAddress() }} >Save</button>
+                        <button className='buttomStandart' style={{ background: 'none', color: greenTwo(theme), border: 'none' }} onClick={() => { saveNewAddress() }} >Save</button>
                     </div>
                 </div>
             </div>

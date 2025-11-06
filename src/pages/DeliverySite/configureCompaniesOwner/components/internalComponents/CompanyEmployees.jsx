@@ -1,14 +1,12 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, fontColorOne, greenOne, greenTwo, redOne, transparentCavasOne, transparentCavasTwo } from "../../../../../theme/Colors";
+import { borderColorTwo, greenTwo, redOne, transparentCavasTwo } from "../../../../../theme/Colors";
 import { useState } from "react";
-import restaurantLogo from '../../../../../assets/restaurantLogo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
 import supervisorLogo from '../../../../../assets/supervisorLogo.png';
 import managerLogo from '../../../../../assets/managerLogo.png';
 import waiterLogo from '../../../../../assets/waiterLogo.png';
 import avatar from '../../../../../assets/noProfilePhoto.png';
-import ModalExample from "./modals/ModalExample";
 import AddEmployeeModal from "./modals/AddEmployeeModal";
 import EditEmployeeModal from "./modals/EditEmployeeModal";
 
@@ -17,7 +15,6 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
     const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
 
-    const [seeImageBig, setSeeImageBig] = useState(false);
     const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
     const [editEmployeeModalOpen, setEditEmployeeModalOpen] = useState(false);
 
@@ -38,49 +35,41 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
 
     return (
         <>
-            <div style={{
-                display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px',
-                minWidth: '300px', maxWidth: '100%', flexGrow: 1, overflowX: "hidden", overflowY: 'hidden',
-            }} >
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '10px' }} >
-                    <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '22px' : '17px', fontWeight: 'bold' }}>{"Employees"} </span>
-                    <button className='buttomStandart' style={{
-                        padding: '8px', borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '0px',
-                        opacity: 1, cursor: 'pointer',
-                    }}
-                        onClick={() => { setAddEmployeeModalOpen(true) }} >Add Employee</button>
+            <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%', maxHeight: '640px' }} >
+
+                <div className='flexRow' style={{ width: '100%', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }} >
+                    <span style={{ color: borderColorTwo(theme), fontSize: '22px', fontWeight: 'bold' }}>{"Employees"} </span>
+                    <button className='buttomStandart' onClick={() => { setAddEmployeeModalOpen(true) }} >Add Employee</button>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', flexGrow: 1, overflowY: 'auto', }}>
+                <div className='flexColumn' style={{ width: '100%', flexGrow: 1, overflowY: 'auto', }}>
                     {employeePositionsCategories.map((position, index) => {
                         const [isOpen, setIsOpen] = useState(true);
 
                         return (
                             <div key={index} style={{ marginBottom: '15px', marginRight: '10px' }}>
-                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '0px', cursor: 'pointer', backgroundColor: transparentCavasOne(theme), padding: '10px', borderRadius: '6px', }}
-                                    onClick={() => setIsOpen(!isOpen)}>
+                                <div className='transparentCanvas' style={{ width: '100%', borderRadius: '6px', }} onClick={() => setIsOpen(!isOpen)}>
 
                                     <img src={getEmployeePositionLogo(position)} alt="Logo" style={{
                                         width: isPcV ? 40 : 30, height: isPcV ? 40 : 30,
                                         borderRadius: '50%', marginRight: 10
                                     }} />
-                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                    <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
                                         <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold' }}>{position} </span>
                                         <FontAwesomeIcon icon={isOpen ? faSquareCaretUp : faSquareCaretDown}
                                             style={{ fontSize: isPcV ? '20px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                     </div>
                                 </div>
-                                {isOpen && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px', padding: '15px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
+                                {isOpen && <div className='flexColumn' style={{ margin: '0px 10px', padding: '15px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
                                     {companyData?.employees && companyData.employees.length > 0 ? (
                                         companyData?.employees?.filter((emp) => emp.position?.toLowerCase() === position.toLowerCase()).map((employesFiltered, idx) => (
-                                            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }}
-                                                onClick={() => { setEditEmployeeModalOpen(employesFiltered); }}>
+                                            <div key={idx} className='flexRow' style={{ alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }} onClick={() => { setEditEmployeeModalOpen(employesFiltered); }}>
 
                                                 <img src={avatar} alt="Logo" style={{
                                                     width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
                                                     borderRadius: '50%', backgroundColor: 'transparent', border: "0px solid white", marginRight: 10
                                                 }} />
-                                                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
+                                                <div className='flexRow' style={{ width: '100%', alignItems: 'center' }}>
                                                     <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold' }}>{`${employesFiltered.employeeName} - ${employesFiltered.employeeEmail}`}</span>
                                                     <span style={{
                                                         fontSize: isPcV ? '14px' : '12px', marginLeft: '10px', fontWeight: 'bold',
@@ -90,7 +79,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                                             </div>
                                         ))
                                     ) : (
-                                        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
+                                        <div className='flexRow' style={{ width: '100%', alignItems: 'center' }}>
                                             <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold' }}>{`No ${position} Found`} </span>
                                         </div>
                                     )}
@@ -100,12 +89,6 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                     })}
                 </div>
             </div>
-
-            {seeImageBig && <div onClick={() => setSeeImageBig(false)} style={{ position: 'fixed', top: 0, left: 0, height: '100vh', width: '100vw', backgroundColor: 'rgba(0, 0, 0, 0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} >
-                <img src={seeImageBig} alt="Logo" style={{
-                    maxWidth: "90%", maxHeight: "90%", borderRadius: '10px', objectFit: "contain", boxShadow: "1px 2px 20px rgba(0, 0, 0, 0.5)"
-                }} />
-            </div>}
 
             {addEmployeeModalOpen && <div className='myModal underDeliveryLayout' style={{ zIndex: 100 }} >
                 <AddEmployeeModal close={() => setAddEmployeeModalOpen(false)} companyData={companyData} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
