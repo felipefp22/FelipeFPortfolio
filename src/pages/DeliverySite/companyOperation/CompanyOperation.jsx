@@ -195,7 +195,7 @@ export default function CompanyOperation() {
             </div>
 
             <div className='flexRow' style={{ width: '100%', height: '100%', paddingTop: '8px' }} >
-              <MapaDelivery setHaveModalOpen={showLeaveCompanyMessage || showFinishShiftMessage} />
+              <MapaDelivery setHaveModalOpen={null} />
             </div>
           </div>}
         </div >
