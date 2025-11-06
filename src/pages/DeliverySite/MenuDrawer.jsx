@@ -100,7 +100,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
                             <span style={{ fontSize: '18px', fontWeight: 'bold', padding: '0px 10px' }}>Theme</span>
                             <div className='flexRow fullCenter' style={{ cursor: 'pointer', width: '100%', marginTop: '10px' }} onClick={() => handleThemeChange(theme === "DARK" ? "LIGHT" : "DARK")}>
                                 <span style={{ fontSize: '18px', fontWeight: 'bold', marginRight: '41px' }}>Dark</span>
-                                <div class="form-check form-switch" style={{ cursor: 'pointer' }}>
+                                <div className="form-check form-switch" style={{ cursor: 'pointer' }}>
                                     <input className="form-check-input" style={{ cursor: 'pointer' }} type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={theme === "LIGHT"} onChange={() => { }} />
                                 </div>
                                 <span style={{ fontSize: '18px', fontWeight: 'bold', marginLeft: '20px' }}>Light</span>
