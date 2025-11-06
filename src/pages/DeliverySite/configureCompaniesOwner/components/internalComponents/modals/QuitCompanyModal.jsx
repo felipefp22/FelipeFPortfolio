@@ -49,7 +49,7 @@ export default function QuitCompanyModal({ close, companyData, fetchUserInfos })
                         onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} />
                     <span style={{ color: fontColorOne(theme), opacity: 0.8, fontSize: '12px' }}>{`Type "${wordToMatch}" to confirm`}</span>
 
-                    <div className='flexRow' style={{ justifyContent: 'space-between', height: '50px', marginTop: '10px', width: '100%' }}>
+                    <div className='flexRow spaceBetweenJC' style={{ height: '50px', marginTop: '10px', width: '100%' }}>
                         <button className='buttonStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: 'gray', fontSize: '16px' }}
                             onClick={() => { close(); }} disabled={processing}>Cancel</button>
 

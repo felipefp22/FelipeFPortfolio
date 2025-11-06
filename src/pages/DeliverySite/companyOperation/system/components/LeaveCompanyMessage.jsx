@@ -21,7 +21,7 @@ export default function LeaveCompanyMessage({ close, leaveCompany }) {
                         <span>Leave company?</span>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
+                    <div className='flexRow spaceBetweenJC' style={{ width: '100%', height: '50px', marginTop: '10px' }}>
                         <button className='buttonStandart' style={{ background: 'none', border: "none", fontSize: '16px', margin: '5px 30px' }}
                             onClick={() => { close(); }} >Return</button>
 

@@ -41,7 +41,7 @@ export default function CompoundCompanies({ compoundSelectedData, fetchUserInfos
                                         width: isPcV ? 40 : 30, height: isPcV ? 40 : 30, border: `0px solid ${borderColorTwo(theme)}`, boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`,
                                         borderRadius: '50%', marginRight: 10, backgroundColor: "black", padding: '3px',
                                     }} />
-                                    <div className='flexRow' style={{ width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <div className='flexRow spaceBetweenJC' style={{ width: '100%', alignItems: 'center' }}>
                                         <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold' }}>{company?.companyName ?? "N/A"} </span>
                                         <FontAwesomeIcon icon={faGear} style={{ fontSize: isPcV ? '22px' : '18px', marginRight: isPcV ? '20px' : '5px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
                                     </div>

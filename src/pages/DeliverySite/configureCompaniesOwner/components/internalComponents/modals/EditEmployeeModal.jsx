@@ -60,7 +60,7 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                     <span style={{ color: borderColorTwo(theme) }}>{`${companyData?.companyName || "Company"}`}</span>
                 </div>
 
-                <div className='flexRow' style={{ justifyContent: 'space-between', alignItems: 'center',  border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', marginTop: '20px' }} >
+                <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center',  border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', marginTop: '20px' }} >
 
                     <div className='flexRow' >
                         <img src={employeeData?.urlProfilePhoto ?? avatar} alt="Logo" style={{
@@ -89,7 +89,7 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                     </select>
                 </div>
 
-                {!processing && <div className='flexRow' style={{ justifyContent: 'space-between', marginTop: '10px' }}>
+                {!processing && <div className='flexRow spaceBetweenJC' style={{ marginTop: '10px' }}>
                     <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme) }} onClick={() => { close(); }} disabled={processing}>Return</button>
 
                     <button className='buttonStandart' style={{
@@ -117,7 +117,7 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                             onInvalid={(e) => e.target.setCustomValidity('Enter a valid email address.')} />
                         <span style={{ color: fontColorOne(theme), opacity: 0.8, fontSize: '12px' }}>{`*Type email to confirm`}</span>
 
-                        <div className='flexRow' style={{ justifyContent: 'space-between', marginTop: '10px', width: '100%' }}>
+                        <div className='flexRow spaceBetweenJC' style={{ marginTop: '10px', width: '100%' }}>
                             <button className='buttonStandart' style={{ background: 'none', border: "none", color: 'gray', }} onClick={() => { setFireConfirmationShow(false); }} disabled={processing}>Cancel</button>
 
                             <button className='buttonStandart' type="submit" style={{ background: 'none', border: 'none', color: redOne(theme), cursor: !emailConfirmationToFire ? 'not-allowed' : 'pointer', opacity: !emailConfirmationToFire ? 0.5 : 1, }}

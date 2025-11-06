@@ -65,7 +65,7 @@ export default function ChangeOrderStatusModal({ close, companyOperationID, sele
                 
                 <br />
 
-                {!processing && <div className='flexRow spaceBetween' style={{ width: '100%', marginTop: '20px' }}>
+                {!processing && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '20px' }}>
                     <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme), marginRight: '100px', fontSize: '16px' }}
                         onClick={() => { close(); }} disabled={processing}>Cancel</button>
 

@@ -60,7 +60,7 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
                 height: '100%', width: '75%', maxWidth: '300px', boxShadow: "2px 0 5px rgba(0,0,0,0.3)", top: 0, padding: '10px', zIndex: 10000,
             }}>
 
-                <div className='flexRow' style={{ justifyContent: "space-between", alignItems: "center", }}>
+                <div className='flexRow spaceBetweenJC' style={{ alignItems: "center", }}>
                     <Dropdown ref={dropdownProfileRef} className="nav-item header-profile" show={showProfileDropdown} >
                         <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowProfileDropdown(!showProfileDropdown)} >
                             <img src={profilePhoto ?? avatar} alt="" width="45" height="45" style={{ borderRadius: '50%', objectFit: 'cover', boxShadow: `-1px 1px 5px ${borderColorTwo(theme, 0.1)}` }} onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = avatar; }} />

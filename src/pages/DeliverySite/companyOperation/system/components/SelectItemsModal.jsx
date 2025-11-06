@@ -99,7 +99,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                     </div>
                 </div>
 
-                <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '15px' }}>
+                <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
                     <button className='buttonStandart red'  onClick={() => close()}>Cancel</button>
                     <button className='buttonStandart green' onClick={() => { addItemsToOrderAction(); }}>Add items</button>
                 </div>

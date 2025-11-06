@@ -37,7 +37,7 @@ export default function CompleteOrdersModal({ close, companyOperationID, selecte
                         }).filter(Boolean).join(", ")}</span>
                     </div>
 
-                    {!processing && <div className='flexRow spaceBetween' style={{ width: '100%', marginTop: '20px' }}>
+                    {!processing && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '20px' }}>
                         <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme), marginRight: '20px' }}
                             onClick={() => { close(); }} disabled={processing}>Cancel</button>
 

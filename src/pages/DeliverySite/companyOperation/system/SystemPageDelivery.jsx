@@ -68,7 +68,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
 
                 <div className='flexColumn' >
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
-                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                        <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders Cooking</span>
 
                             {requesterIsOwnerOrManagerOrSupervisor && <button className='floatingButton greenTwo' style={{
@@ -103,7 +103,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                     </div>}
 
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
-                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                        <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders on Delivery</span>
 
                             <button className='floatingButton' style={{
@@ -140,7 +140,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                     </div>}
 
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                        <div className='flexRow spaceBetweenJC' style={{width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Completed Delivery Orders</span>
 
@@ -179,7 +179,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                     </div>}
 
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '8px', }}>
+                        <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Canceled Delivery Orders</span>
 

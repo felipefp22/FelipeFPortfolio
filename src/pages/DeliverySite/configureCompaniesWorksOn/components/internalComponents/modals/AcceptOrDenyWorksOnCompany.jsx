@@ -48,7 +48,7 @@ export default function AcceptOrDenyWorksOnCompany({ close, companyData, fetchUs
                             <span style={{ fontSize: '14px', color: 'rgba(200,200,200,0.7)' }}>* If never Setted, default password "1234"</span>
                         </div> */}
 
-                {!processing && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
+                {!processing && <div className='flexRow spaceBetweenJC' style={{ width: '100%', height: '50px', marginTop: '10px' }}>
                     <button className='buttonStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", color: fontColorOne(theme), fontSize: '16px' }}
                         onClick={() => { close(); }} disabled={processing}>Return</button>
 

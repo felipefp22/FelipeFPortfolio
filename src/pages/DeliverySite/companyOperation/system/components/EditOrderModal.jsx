@@ -78,7 +78,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
         <>
             <div className='modalInside' style={{ width: !isPcV ? "99%" : "97%", maxHeight: !isPcV ? '97%' : '97%', padding: !isPcV ? '10px' : '10px', }}>
 
-                <div className='flexRow' style={{ justifyContent: 'space-between', alignItems: 'center', width: '100%', }}>
+                <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', width: '100%', }}>
                     <div className='flexColumn' style={{ textAlign: 'left', justifyContent: 'space-between', }}>
                         <span style={{ fontWeight: "600", fontSize: isPcV ? '18px' : '16px', }}>{`Order [ ${orderToEdit?.orderNumberOnShift} ]`}</span>
                         <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', color: greenTwo(theme) }}>
@@ -128,7 +128,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, }}>
 
                     <div className='flexColumn' style={{ marginTop: '5px' }}>
-                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%' }}>
+                        <div className='flexRow spaceBetweenJC' style={{ width: '100%' }}>
                             <button className='buttonStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
 
@@ -182,7 +182,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                     </div>
                 </div>
 
-                <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '15px' }}>
+                <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
                     <button className='buttonStandart' onClick={() => close()} disabled={disabled}>{disabled ? 
                         <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px',  }} /> : 'Done'}</button>
                 </div>

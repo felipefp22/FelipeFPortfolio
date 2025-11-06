@@ -37,7 +37,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
         <>
             <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%', maxHeight: '640px' }} >
 
-                <div className='flexRow' style={{ width: '100%', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }} >
+                <div className='flexRow spaceBetweenJC' style={{ width: '100%', alignItems: 'center', marginBottom: '10px' }} >
                     <span style={{ color: borderColorTwo(theme), fontSize: '22px', fontWeight: 'bold' }}>{"Employees"} </span>
                     <button className='buttonStandart' onClick={() => { setAddEmployeeModalOpen(true) }} >Add Employee</button>
                 </div>
@@ -54,7 +54,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                                         width: isPcV ? 40 : 30, height: isPcV ? 40 : 30,
                                         borderRadius: '50%', marginRight: 10
                                     }} />
-                                    <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                    <div className='flexRow spaceBetweenJC' style={{ width: '100%', alignItems: 'center' }}>
                                         <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold' }}>{position} </span>
                                         <FontAwesomeIcon icon={isOpen ? faSquareCaretUp : faSquareCaretDown}
                                             style={{ fontSize: isPcV ? '20px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />

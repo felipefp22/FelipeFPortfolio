@@ -94,7 +94,7 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
                     </select>
                 </div>
 
-                {!processing && <div className='flexRow' style={{ justifyContent: 'space-between', marginTop: '20px' }}>
+                {!processing && <div className='flexRow spaceBetweenJC' style={{ marginTop: '20px' }}>
                     <button className='buttonStandart' style={{ backgroundColor: 'none', border: "none", color: redOne(theme), }}
                         onClick={() => { close(); }} disabled={processing}>Return</button>
 

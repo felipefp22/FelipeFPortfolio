@@ -48,7 +48,7 @@ export default function CancelOrder({ close, closeFromCancel, companyOperationID
                         <span style={{ fontSize: '14px', color: 'rgba(200,200,200, 1)' }}>* If never Setted, default password "1234"</span>
                     </div>
 
-                    {!processing && <div className='flexRow spaceBetween' style={{ width: '100%', marginTop: '20px' }}>
+                    {!processing && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '20px' }}>
                         <button className='buttonStandart' style={{ background: 'none', border: "none", color: 'gray', fontSize: '16px' }}
                             onClick={() => { close(); }} disabled={processing}>Return</button>
 

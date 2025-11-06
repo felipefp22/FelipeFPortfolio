@@ -45,7 +45,7 @@ export default function SelectYourComapanieToManage({ companiesCoumpound, fetchU
                                             width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
                                             borderRadius: '50%', backgroundColor: 'black', border: `0px solid ${borderColorTwo(theme)}`, boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, marginRight: 10, padding: '3px',
                                         }} />
-                                        <div className='flexRow fullCenter' style={{ width: '100%', justifyContent: 'space-between' }}>
+                                        <div className='flexRow spaceBetweenJC fullCenter' style={{ width: '100%' }}>
                                             <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{compound.compoundName} </span>
                                             <FontAwesomeIcon icon={faGear} style={{ fontSize: '25px', opacity: 0.8 }} />
                                         </div>

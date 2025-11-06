@@ -123,7 +123,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
             <div className='modalInside' style={{ width: !isPcV ? "100%" : "97%", maxHeight: !isPcV ? '90%' : '80%', padding: !isPcV ? '10px' : '10px', }}>
 
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '8px' }}>
-                    <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', }}>
+                    <div className='flexRow spaceBetweenJC' style={{ width: '100%', }}>
                         <button className='buttonStandart' style={{
                             fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px',
                             visibility: editNameCustomer ? (selectUseCustomerOrPickUpName === 'Customer' ? 'visible' : 'hidden') : 'hidden'
@@ -220,7 +220,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
                 <div style={{ width: '100%', borderTop: '1px solid lightgray', backgroundColor: 'lightgray', margin: '10px 0' }} />
 
-                <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '8px', }}>
+                <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '8px', }}>
                     <button className='buttonStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', visibility: 'hidden' }}
                         onClick={() => { }} disabled={disabled}>New customer</button>
 
@@ -278,7 +278,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
                 <div className='flexColumn' style={{ textAlign: 'left', flex: 1, width: "100%", }}>
                     <div className='flexColumn' style={{ width: '100%', flexWrap: 'wrap', }}>
-                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', fontSize: isPcV ? '17px' : '14px', }}>
+                        <div className='flexRow spaceBetweenJC' style={{ width: '100%', fontSize: isPcV ? '17px' : '14px', }}>
                             <button className='buttonStandart' style={{ marginLeft: '0px', visibility: (editNameCustomer || editTable) ? 'hidden' : 'visible' }} onClick={() => close()} disabled={disabled}>Done</button>
 
                             <button className='buttonStandart' style={{ color: redOne(theme), marginLeft: '0px', visibility: (editNameCustomer || editTable) ? 'hidden' : 'visible' }} onClick={() => setShowCancelOrderModal(true)} disabled={disabled}>Cancel Order</button>

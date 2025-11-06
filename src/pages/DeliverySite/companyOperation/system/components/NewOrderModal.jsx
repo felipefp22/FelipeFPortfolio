@@ -162,7 +162,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             <div className='modalInside' style={{ width: !isPcV ? "100%" : "97%", maxHeight: !isPcV ? '90%' : '80%', padding: !isPcV ? '10px' : '10px', }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: '10px', alignItems: 'center' }}>
+                    <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '10px', alignItems: 'center' }}>
                         <button className='buttonStandart' style={{ height: '35px', fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 10px' : '0px 6px', }}
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
@@ -259,7 +259,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', marginTop: '5px', }}>
                     <div className='flexColumn' style={{ flexWrap: 'wrap', }}>
-                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', }}>
+                        <div className='flexRow spaceBetweenJC' style={{ width: '100%', }}>
                             <button className='buttonStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
                         </div>
                         <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Items</span>
@@ -287,7 +287,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                 </div>
 
 
-                <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%' , marginTop: '15px' }}>
+                <div className='flexRow spaceBetweenJC' style={{ width: '100%' , marginTop: '15px' }}>
                     <button className='buttonStandart' style={{}} onClick={() => close()} disabled={disabled}>Cancel</button>
 
                     <button className='buttonStandart green' style={{}}

@@ -143,7 +143,7 @@ export default function CompanyOperation() {
         <div className='flexRow' style={{ height: '100%', width: '100%', flexGrow: 1, padding: '5px 5px' }}>
           {<div className='flexColumn' style={{ position: 'relative', height: '100%', flexGrow: 1, width: onFocus === "map" ? '0%' : onFocus === "system" ? '96%' : '50%', visibility: onFocus !== "map" ? 'visible' : 'hidden' }}>
 
-            <div className='flexRow' style={{ width: '100%', justifyContent: 'space-between', padding: '0px 4px', marginBottom: '8px' }} >
+            <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', marginBottom: '8px' }} >
               
               <div className='flexRow' >
                 <div className='flexRow' style={{ alignItems: "center", }}>
@@ -184,7 +184,7 @@ export default function CompanyOperation() {
           {isPcV && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
 
           {<div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: onFocus === "system" ? '0%' : onFocus === "map" ? '100%' : '50%', }}>
-            <div className='flexRow' style={{ width: '100%', justifyContent: 'space-between', padding: '0px 4px', whiteSpace: 'nowrap', }} >
+            <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', whiteSpace: 'nowrap', }} >
               {onFocus !== "system" && <button className='floatingButton' style={{}}
                 onClick={() => setOnFocus(onFocus === "map" ? (!isPcV ? "system" : "") : "map")}>{onFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
 

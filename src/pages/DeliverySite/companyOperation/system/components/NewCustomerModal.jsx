@@ -182,7 +182,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                     <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} setSearchAddressInput={setSearchAddressInput} showAddressSelectorDropdown={showAddressSelectorDropdown} />
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: '15px' }}>
+                <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
                     <button className='buttonStandart red' style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
                     <button className='buttonStandart green' style={{ marginLeft: '0px' }} onClick={() => saveCustomer()}>Save Customer</button>
                 </div>

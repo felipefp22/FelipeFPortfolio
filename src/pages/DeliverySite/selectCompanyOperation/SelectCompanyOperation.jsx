@@ -97,7 +97,7 @@ export default function SelectCompanyOperation({ }) {
                                             width: isPcV ? 50 : !isPcV ? 40 : 35, height: isPcV ? 50 : !isPcV ? 40 : 35,
                                             borderRadius: '6px', backgroundColor: 'white', border: "2px solid white", marginRight: 10
                                         }} />
-                                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                        <div className='flexRow spaceBetweenJC' style={{ width: '100%', alignItems: 'center' }}>
                                             <span style={{ fontSize: isPcV ? '24px' : '16px', fontWeight: 'bold' }}>{compound.compoundName} </span>
                                             <FontAwesomeIcon icon={selectedCompaniesCoumpound === compound.id ? faSquareCaretUp : faSquareCaretDown}
                                                 style={{ fontSize: isPcV ? '25px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />

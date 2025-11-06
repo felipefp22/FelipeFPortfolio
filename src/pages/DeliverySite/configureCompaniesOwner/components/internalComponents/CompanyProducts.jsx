@@ -58,7 +58,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                                         width: isPcV ? 40 : 30, height: isPcV ? 40 : 30,
                                         borderRadius: '50%', marginRight: 10, backgroundColor: 'rgba(0, 0, 32, 0.79)', padding: '6px',
                                     }} />
-                                    <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                    <div className='flexRow spaceBetweenJC' style={{ width: '100%', alignItems: 'center' }}>
                                         <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold' }}>{category?.categoryName} </span>
                                         <FontAwesomeIcon icon={isOpen ? faSquareCaretUp : faSquareCaretDown}
                                             style={{ fontSize: isPcV ? '20px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
@@ -84,7 +84,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                                                     width: isPcV ? 36 : 28, boxShadow: `1px 2px 10px ${borderColorTwo(theme, 0.2)}`,
                                                     borderRadius: '50%', backgroundColor: 'white', marginRight: 10, padding: '2px',
                                                 }} />
-                                                <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                                                <div className='flexRow spaceBetweenJC' style={{ width: '100%', alignItems: 'center' }}>
                                                     <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: '500' }}>{`${product?.name}`}</span>
                                                     <span style={{ fontSize: isPcV ? '16px' : '13px', fontWeight: '400', color: borderColorTwo(theme) }}>{`$ ${product?.price}`}</span>
                                                 </div>

@@ -26,7 +26,7 @@ export default function LogoutMessage({ close }) {
                             <span>Sure to LogOut?</span>
                         </div>
 
-                        <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', height: '50px', marginTop: '10px' }}>
+                        <div className='flexRow spaceBetweenJC' style={{ width: '100%', height: '50px', marginTop: '10px' }}>
                             <button className='buttonStandart' style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: "none", fontSize: '16px', margin: '5px 30px' }}
                                 onClick={() => { close(); }} >Return</button>
 

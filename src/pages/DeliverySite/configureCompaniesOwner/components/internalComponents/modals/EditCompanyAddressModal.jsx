@@ -199,7 +199,7 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
                         <div id="mapa" style={{ width: '100%', height: '100%', minHeight: 0, cursor: 'pointer' }} />
                     </div>
 
-                    <div className='flexRow' style={{ justifyContent: 'space-between', width: '100%', marginTop: '20px' }}>
+                    <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '20px' }}>
                         <button className='buttonStandart' style={{ background: 'none', color: 'gray', border: 'none' }} onClick={() => { close() }} >Cancel</button>
 
                         <button className='buttonStandart' style={{ background: 'none', color: greenTwo(theme), border: 'none' }} onClick={() => { saveNewAddress() }} >Save</button>
