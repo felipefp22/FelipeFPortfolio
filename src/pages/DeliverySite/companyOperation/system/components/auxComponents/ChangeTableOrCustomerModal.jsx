@@ -180,7 +180,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             onBlur={() => { setCustomerInputToSearch(""); setShowCustomerSelectorDropdown(false); }}
                             placeholder={editNameCustomer ? "Search Customer by Name or Phone" : "Select Customer"}
                             disabled={disabled || !editNameCustomer}
-                            style={{ height: '35px', backgroundColor: editNameCustomer ? 'white' : 'lightgray', color: 'black', width: '95%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
+                            style={{ height: '35px', backgroundColor: editNameCustomer ? 'white' : 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                         />
                         {showCustomerSelectorDropdown && (
                             <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
@@ -203,7 +203,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                     <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
 
                         <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', }}>
-                            <div className='flexColumn' style={{ width: '64%', }}>
+                            <div className='flexColumn' style={{ width: '69%', }}>
                                 <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
                                 <input className='inputStandart' type="text" value={!editNameCustomer ? (customerSelected?.address) : (newCustomerCandidate ? newCustomerCandidate.address + ", " + newCustomerCandidate.addressNumber : "")} disabled={true}
                                     style={{ height: '25px', fontSize: isPcV ? '18px' : '15px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
@@ -272,7 +272,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px',
                             backgroundColor: newTableCandidate === 'delivery' ? greenOne(theme) : ''
                         }}
-                            onClick={() => { setNewTableCandidate('delivery'); }} disabled={disabled}>Delivery</button>
+                            onClick={() => { if (orderToEdit?.customer) setNewTableCandidate('delivery'); else {alert('For delivery ADD Customer first.'); setSelectUseCustomerOrPickUpName('Customer'); setEditTable(false); setEditNameCustomer(true); } }} disabled={disabled}>Delivery</button>
                     </div>
                 </div>}
 
