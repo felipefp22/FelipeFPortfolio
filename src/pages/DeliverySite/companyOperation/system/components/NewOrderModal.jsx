@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
 import NewCustomerModal from "./NewCustomerModal";
-import SelectItemsModal from "./SelectItemsModal";
+import SelectItemsModal from "./auxComponents/SelectItemsModal";
 import { getAllCompanyCustomers } from "../../../../../services/deliveryServices/CustomerSevice";
 import { getAllProductsCategories } from "../../../../../services/deliveryServices/ProductsCategoryService";
 import { createOrder } from "../../../../../services/deliveryServices/OrderService";
@@ -287,7 +287,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                 </div>
 
 
-                <div className='flexRow spaceBetweenJC' style={{ width: '100%' , marginTop: '15px' }}>
+                <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
                     <button className='buttonStandart' style={{}} onClick={() => close()} disabled={disabled}>Cancel</button>
 
                     <button className='buttonStandart green' style={{}}
@@ -300,11 +300,9 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             </div>
             }
 
-            {
-                showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
-                    <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
-                </div>
-            }
+            {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
+                <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
+            </div>}
         </>
     );
 }

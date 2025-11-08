@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import NewCustomerModal from "./NewCustomerModal";
-import SelectItemsModal from "./SelectItemsModal";
+import SelectItemsModal from "./auxComponents/SelectItemsModal";
 import ChangeTableOrCustomerModal from "./auxComponents/ChangeTableOrCustomerModal";
 import { blueOne, borderColorTwo, greenOne, greenTwo, transparentCanvasBgOne, transparentCavasTwo } from "../../../../../theme/Colors";
 import { getAllProductsCategories } from "../../../../../services/deliveryServices/ProductsCategoryService";
-import { Table } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { addItemsToOrderService, editOrderService } from '../../../../../services/deliveryServices/OrderService';
 
 
 
@@ -33,7 +34,6 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
     const [pickupName, setPickupName] = useState(null);
 
     const [selectedProductsToAdd, setSelectedProductsToAdd] = useState([]);
-
 
 
     async function insertOrderToEditToLocalVars() {
@@ -73,6 +73,42 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
         fetchProductsCategories();
     }, []);
 
+    async function handleAddItemsToOrder() {
+        if (selectedProductsToAdd.length === 0) return;
+        console.log("selectedToADD: ", selectedProductsToAdd);
+        setDisabled(true);
+        const aggregated = Array.from(
+            selectedProductsToAdd.reduce((map, item) => {
+                if (map.has(item.id)) {
+                    map.set(item.id, map.get(item.id) + 1); // count repetitions
+                } else {
+                    map.set(item.id, 1);
+                }
+                return map;
+            }, new Map())
+        ).map(([id, quantity]) => ({ productID: id, quantity }));
+
+        console.log("Aggregated products to add:", aggregated);
+
+        const response = await addItemsToOrderService(companyOperation?.companyOperationID, orderToEdit.id, aggregated);
+
+        if (response?.status === 200) {
+            await getShiftOperationData();
+            setSelectedProductsToAdd([]);
+        }
+
+        setDisabled(false);
+    }
+
+    async function removeProductToAdd(productID) {
+        const index = selectedProductsToAdd.findIndex(p => p.id === productID);
+
+        if (index !== -1) {
+            const newSelectedProducts = [...selectedProductsToAdd];
+            newSelectedProducts.splice(index, 1); // remove only the first occurrence
+            setSelectedProductsToAdd(newSelectedProducts);
+        }
+    }
 
     return (
         <>
@@ -136,9 +172,9 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>
-                                        <th >Item</th>
-                                        <th >Price</th>
-                                        <th ><FontAwesomeIcon icon={faTrash} /></th>
+                                        <th th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
+                                        <th th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                        <th th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -146,7 +182,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                         <tr key={index}>
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeProductToAdd(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -158,7 +194,13 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                 <div style={{ width: '100%', borderTop: '1px solid lightgray', margin: '5px 0', marginTop: '7px' }} />
 
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', }}>
-                    <span style={{ fontWeight: "bold", color: borderColorTwo(theme), fontSize: isPcV ? '24px' : '18px' }}>Itens Already On Order</span>
+                    <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', width: '100%' }}>
+                        <span style={{ fontWeight: "bold", color: borderColorTwo(theme), fontSize: isPcV ? '24px' : '18px' }}>Itens Already On Order</span>
+
+                        <button className='floatingButton' style={{ backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px', visibility: selectedProductsToAdd.length > 0 ? 'visible' : 'hidden' }} onClick={() => handleAddItemsToOrder()} >
+                            <FontAwesomeIcon icon={faArrowDown} flip="horizontal" />
+                        </button>
+                    </div>
 
                     <div style={{ backgroundColor: "white", color: "black", marginTop: 5, borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <Table responsive="sm" >
@@ -169,22 +211,26 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                     <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                 </tr>
                             </thead>
-                            <tbody >
-                                {productsAlreadyOnOrder?.map((product, index) => (
-                                    <tr key={index}>
-                                        <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
-                                        <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
-                                        <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
-                                    </tr>
-                                ))}
+                            <tbody>
+                                {productsAlreadyOnOrder?.flatMap((product, index) =>
+                                    Array.from({ length: product.quantity }).map((_, i) => (
+                                        <tr key={`${index}-${i}`}>
+                                            <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => removeProductToAdd(product.id)}>
+                                                <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} />
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
                             </tbody>
                         </Table>
                     </div>
                 </div>
 
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
-                    <button className='buttonStandart' onClick={() => close()} disabled={disabled}>{disabled ? 
-                        <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px',  }} /> : 'Done'}</button>
+                    <button className='buttonStandart' onClick={() => close()} disabled={disabled}>{disabled ?
+                        <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Done'}</button>
                 </div>
             </div>
 

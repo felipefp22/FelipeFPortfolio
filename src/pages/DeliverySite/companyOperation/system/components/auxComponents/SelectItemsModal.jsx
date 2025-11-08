@@ -2,10 +2,10 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { use, useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
-import noFoodImg from "./../../../../../assets/noFood.jpg";
+import noFoodImg from "./../../../../../../assets/noFood.jpg";
 import { useSelector } from "react-redux";
-import { blueOne, borderColorTwo, greenOne, redOne } from "../../../../../theme/Colors";
-import { getImageFoodService } from "../../../../../services/deliveryServices/auxServices/FoodsImagesService";
+import { blueOne, borderColorTwo, greenOne, redOne } from "../../../../../../theme/Colors";
+import { getImageFoodService } from "../../../../../../services/deliveryServices/auxServices/FoodsImagesService";
 
 export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd }) {
     const theme = useSelector((state) => state.view.theme);

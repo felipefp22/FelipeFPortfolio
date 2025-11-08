@@ -77,6 +77,32 @@ export async function editOrderService(companyID, orderID, tableNumberOrDelivery
     }
 }
 
+export async function addItemsToOrderService(companyID, orderID, itemsToADD) {
+
+    const postData = {
+        companyID: companyID,
+        orderID: orderID,
+        orderItemsIDs: itemsToADD
+    };
+
+    try {
+        const response = await axiosInstanceRestaurantSystem.post(`/order/add-products-on-order`, postData,
+            {
+                headers: {
+
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
+
+
 
 export async function closeOrder(compID, orderID, clientSaidNoTax, discountValue) {
 
