@@ -80,7 +80,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                             </button>}
                         </div>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
-                            <Table hover responsive="sm" >
+                            <Table responsive="sm" >
                                 <thead style={{ position: "sticky", zIndex: 2, }}>
                                     <tr>
                                         <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
@@ -116,8 +116,8 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                         </div>
 
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
-                            <Table hover responsive="sm" >
-                                <thead style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 2, }}>
+                            <Table responsive="sm" >
+                                <thead style={{ position: "sticky", top: 0, zIndex: 2, }}>
                                     <tr>
                                         <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
                                         <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
@@ -127,7 +127,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                                 <tbody >
                                     {orders && orders.length > 0 && orders.filter(order => order.status === "CLOSEDWAITINGPAYMENT" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => Date.parse(a.closedWaitingPaymentAtUtc + "Z") - Date.parse(b.closedWaitingPaymentAtUtc + "Z")).map((order, index) => (
                                         <tr key={order.id} className={selectedOnDeliveryOrderID?.includes(order.id) ? "table-active" : ""}
-                                            onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
+                                            onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); console.log(selectedOnDeliveryOrderID) }} style={{ cursor: "pointer" }}>
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName || "No Name"}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{Math.max(0, Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000))}</td>

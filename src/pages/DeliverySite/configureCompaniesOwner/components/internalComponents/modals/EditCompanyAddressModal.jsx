@@ -158,7 +158,7 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
                 <div className='flexColumn' style={{ height: '490px', }}>
                     <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginBottom: '10px', color: borderColorTwo(theme) }}>Search or "Click on Map Location"</span>
 
-                    <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px' }}>
+                    <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px', zIndex: 5 }}>
                         <input className='inputStandart'
                             type="text"
                             value={searchAddressInput}
@@ -195,8 +195,8 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
                             </ul>
                         )}
                     </div>
-                    <div className='flexColumn' style={{ height: '100%', width: '100%', overflow: 'hidden', borderRadius: '0px 0px 6px 6px' }} ref={mapContainerRef}>
-                        <div id="mapa" style={{ width: '100%', height: '100%', minHeight: 0, cursor: 'pointer' }} />
+                    <div className='flexColumn' style={{ height: '100%', width: '100%', overflow: 'hidden', borderRadius: '0px 0px 6px 6px', zIndex: 4 }} ref={mapContainerRef}>
+                        <div id="mapa" style={{ width: '100%', height: '100%', minHeight: 0, cursor: 'pointer', zIndex: 4 }} />
                     </div>
 
                     <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '20px' }}>

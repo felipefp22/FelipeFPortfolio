@@ -26,7 +26,6 @@ function App() {
 
     document.documentElement.style.setProperty('--transparentCanvasBgOne', alphaC(transparentCanvasBgOne(theme), theme === 'DARK' ? 0.2 : theme === 'LIGHT' ? 0.6 : 0.6));
 
-
     document.documentElement.style.setProperty('--modalBackground', modalBackground(theme));
 
     document.documentElement.style.setProperty('--greenOne', greenOne(theme));

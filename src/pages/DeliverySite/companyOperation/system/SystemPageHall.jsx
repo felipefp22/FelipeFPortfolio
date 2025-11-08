@@ -150,7 +150,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                                 <tbody >
                                     {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN" && order.tableNumberOrDeliveryOrPickup === 'pickup').sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
                                         <tr key={order.id} className={selectedPickUpOrCompletedOrCanceledOrderID?.id === order.id ? "table-active" : ""}
-                                            onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(order); }} style={{ cursor: "pointer" }}
+                                            onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(selectedPickUpOrCompletedOrCanceledOrderID === order ? null : order); }} style={{ cursor: "pointer" }}
                                             onDoubleClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(order); setEditOrderModal(order); }}
                                             onTouchStart={(e) => {
                                                 const now = Date.now();
@@ -210,7 +210,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                                 <tbody >
                                     {orders && orders.length > 0 && orders.filter(order => order.status === "PAID").sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
                                         <tr key={order.id} className={selectedPickUpOrCompletedOrCanceledOrderID?.id === order.id ? "table-active" : ""}
-                                            onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(order); }} style={{ cursor: "pointer" }} >
+                                            onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(selectedPickUpOrCompletedOrCanceledOrderID === order ? null : order); }} style={{ cursor: "pointer" }} >
 
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName ?? (order.pickupName ?? "No Name")}</td>
@@ -242,7 +242,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                                 <tbody >
                                     {orders && orders.length > 0 && orders.filter(order => order.status === "CANCELLED").sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
                                         <tr key={order.id} className={selectedPickUpOrCompletedOrCanceledOrderID?.id === order.id ? "table-active" : ""}
-                                            onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(order); }} style={{ cursor: "pointer" }} >
+                                            onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(selectedPickUpOrCompletedOrCanceledOrderID === order ? null : order); }} style={{ cursor: "pointer" }} >
 
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName || "No Name"}</td>

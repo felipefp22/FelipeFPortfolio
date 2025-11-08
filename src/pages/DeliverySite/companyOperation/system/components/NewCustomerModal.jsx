@@ -143,7 +143,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0', marginTop: '5px' }}></div>
 
                 <div className='flexColumn' style={{ width: '100%', height: '290px', }}>
-                    <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px' }}>
+                    <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px', zIndex: 5 }}>
                         <input className='inputStandart'
                             type="text"
                             value={searchAddressInput}

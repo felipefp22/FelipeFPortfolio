@@ -41,10 +41,10 @@ export default function Contacts({ activeMenu }) {
                             <span style={{ fontWeight: 'bold', fontSize: isPcV ? '22px' : '19px', marginBottom: '5px' }}>{email}</span>
                             {/* <span>{t("projects.myHealth.description")}</span> */}
 
-                            {copiedEmailMsg && <div style={{ display: 'flex', flexDirection: 'row', position: 'absolute', top: 60, padding: '20px 20px', backgroundColor: 'rgba(255, 255, 255, 0.3)', borderRadius: '6px', padding: '5px', 
+                            {copiedEmailMsg && <div style={{ display: 'flex', flexDirection: 'row', position: 'absolute', top: 60, padding: 20, backgroundColor: 'rgba(255, 255, 255, 0.3)', borderRadius: '6px', 
                                 alignItems: 'center', animation: 'fadeInOut 20s' }}>
 
-                                <span style={{ margin: '5px 10px', fontSize: isPcV ? '18px' : '16px', color: 'white', fontWeight: 'bold' }}>{copiedEmailMsg}</span> 
+                                <span style={{ fontSize: isPcV ? '18px' : '16px', color: 'white', fontWeight: 'bold' }}>{copiedEmailMsg}</span> 
                                 <FontAwesomeIcon icon={faCheck} style={{ color: 'rgba(30, 230, 183, 0.79)' }} />
                             </div>}
                         </div>
