@@ -13,7 +13,9 @@ import {
   changeEmployees,
   quitCompanyOperation,
   changeOwnerID,
-  changeTaxServicePercentage
+  changeTaxServicePercentage,
+  changeDeliveryHasServiceTax,
+  changePickupHasServiceTax
 } from '../../../redux/companyOperationSlice.js';
 import { blueOne, borderColorTwo, fontColorOne, mainColor, redOne, secondColor, secondColorInverse } from '../../../theme/Colors.js';
 import { Dropdown } from 'react-bootstrap';
@@ -80,6 +82,8 @@ export default function CompanyOperation() {
         dispatch(changeNumberOfTables(companyOperationData?.numberOfTables || 0));
         dispatch(changeEmployees(companyOperationData?.employees || null));
         dispatch(changeTaxServicePercentage(companyOperationData?.taxServicePercentage || 0));
+        dispatch(changeDeliveryHasServiceTax(companyOperationData?.deliveryHasServiceTax || false));
+        dispatch(changePickupHasServiceTax(companyOperationData?.pickupHasServiceTax || false));
 
       } else {
         alert("You need to open a shift to operate on this company.");

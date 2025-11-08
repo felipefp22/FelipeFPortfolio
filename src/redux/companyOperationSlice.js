@@ -19,6 +19,8 @@ export const slice = createSlice({
     orders: null,
     employees: null,
     taxServicePercentage: null,
+    deliveryHasServiceTax: null,
+    pickupHasServiceTax: null,
   },
   reducers: {
     changeCompanyOperationID(state, { payload }) { return { ...state, companyOperationID: payload } },
@@ -37,6 +39,8 @@ export const slice = createSlice({
     changeOrders(state, { payload }) { return { ...state, orders: payload } },
     changeEmployees(state, { payload }) { return { ...state, employees: payload } },
     changeTaxServicePercentage(state, { payload }) { return { ...state, taxServicePercentage: payload } },
+    changeDeliveryHasServiceTax(state, { payload }) { return { ...state, deliveryHasServiceTax: payload } },
+    changePickupHasServiceTax(state, { payload }) { return { ...state, pickupHasServiceTax: payload } },
 
     quitCompanyOperation(state) {
       localStorage.removeItem('companyOperatingID');
@@ -58,6 +62,8 @@ export const slice = createSlice({
       state.employees = null;
       state.ownerID = null;
       state.taxServicePercentage = null;
+      state.deliveryHasServiceTax = null;
+      state.pickupHasServiceTax = null;
     }
   }
 })
@@ -79,6 +85,8 @@ export const {
   changeOrders,
   changeEmployees,
   changeTaxServicePercentage,
+  changeDeliveryHasServiceTax,
+  changePickupHasServiceTax,
 
   quitCompanyOperation
 } = slice.actions;
