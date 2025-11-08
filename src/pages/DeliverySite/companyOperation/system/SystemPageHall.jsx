@@ -78,7 +78,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                                 if (!matchesSearch) return null;
 
                                 let tableOnUse = false;
-                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "OPEN"))) tableOnUse = "OPEN";
+                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order?.status !== "CLOSED") && (order.status === "OPEN"))) tableOnUse = "OPEN";
                                 if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "CLOSEDWAITINGPAYMENT"))) tableOnUse = "CLOSEDWAITINGPAYMENT";
 
                                 let tableColorImage = tableGreen;

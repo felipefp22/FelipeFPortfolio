@@ -180,6 +180,7 @@ export async function cancelOrder(compID, orderID, managerID, adminPassword, can
 }
 
 export async function completeOrders(compID, orderID) {
+    console.log("Completing ");
 
     const postData = {
         companyID: compID,

@@ -9,6 +9,7 @@ import { Spinner, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { addItemsToOrderService, editOrderService } from '../../../../../services/deliveryServices/OrderService';
+import CloseOrFinishOrderModal from './auxComponents/CloseOrFinishOrderModal';
 
 
 
@@ -23,6 +24,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
     const [showSelectItemsModal, setShowSelectItemsModal] = useState(false);
     const selectItemsModalRef = useRef(null);
     const [showCustomerSelectorDropdown, setShowCustomerSelectorDropdown] = useState(false);
+    const [showCloseOrFinishOrderModal, setShowCloseOrFinishOrderModal] = useState(false);
 
     const [allCompanyProductsCategories, setAllCompanyProductsCategories] = useState([]);
 
@@ -231,6 +233,9 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
                     <button className='buttonStandart' onClick={() => close()} disabled={disabled}>{disabled ?
                         <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Done'}</button>
+
+                    {(orderToEdit?.status === 'OPEN' || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') &&
+                        <button className='buttonStandart green' onClick={() => setShowCloseOrFinishOrderModal(true)} disabled={disabled}>{orderToEdit?.status === 'OPEN' ? 'Close Order' : 'Finish Order'}</button>}
                 </div>
             </div>
 
@@ -242,6 +247,10 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
+            </div>}
+
+            {showCloseOrFinishOrderModal && <div  className='myModal' >
+                <CloseOrFinishOrderModal close={() => setShowCloseOrFinishOrderModal(false)} closeAll={() => close()} orderToEdit={orderToEdit} companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>
     );

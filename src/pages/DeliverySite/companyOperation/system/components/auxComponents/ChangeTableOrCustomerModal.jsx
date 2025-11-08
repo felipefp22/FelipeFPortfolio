@@ -272,7 +272,8 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px',
                             backgroundColor: newTableCandidate === 'delivery' ? greenOne(theme) : ''
                         }}
-                            onClick={() => { if (orderToEdit?.customer) setNewTableCandidate('delivery'); else {alert('For delivery ADD Customer first.'); setSelectUseCustomerOrPickUpName('Customer'); setEditTable(false); setEditNameCustomer(true); } }} disabled={disabled}>Delivery</button>
+                            onClick={() => { if (orderToEdit?.customer) setNewTableCandidate('delivery'); else { alert('For delivery ADD Customer first.'); setSelectUseCustomerOrPickUpName('Customer'); setEditTable(false); setEditNameCustomer(true); } }}
+                            disabled={disabled}>Delivery</button>
                     </div>
                 </div>}
 
