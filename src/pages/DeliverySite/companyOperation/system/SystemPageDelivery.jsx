@@ -144,6 +144,8 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
 
                     </div>}
 
+                    <div style={{ width: '100%', borderTop: '1px solid lightgray', backgroundColor: 'lightgray', margin: '2px 0' }} />
+
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
@@ -241,7 +243,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
             </div>}
 
             {seeOrderResumeModal && <div className='myModal' >
-                <OrderResumeModal close={() => {setSeeOrderResumeModal(false), setSeeCompletedOrCancelledOrders(null)}} orderToEdit={seeCompletedOrCancelledOrders} companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
+                <OrderResumeModal close={() => { setSeeOrderResumeModal(false), setSeeCompletedOrCancelledOrders(null) }} orderToEdit={seeCompletedOrCancelledOrders} companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>
     );

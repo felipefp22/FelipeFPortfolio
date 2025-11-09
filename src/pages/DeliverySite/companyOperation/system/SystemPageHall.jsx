@@ -129,11 +129,11 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
 
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
-                            <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Waiting PickUp</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: '24px', fontWeight: 'bold', }}>Waiting PickUp</span>
 
                             <button className='floatingButton greenTwo' style={{
                                 marginRight: '5px',
-                                visibility: (selectedPickUpOrCompletedOrCanceledOrderID && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'PAID' && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'CANCELED') ? 'visible' : 'hidden'
+                                visibility: (selectedPickUpOrCompletedOrCanceledOrderID && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'PAID' && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'CANCELLED') ? 'visible' : 'hidden'
                             }}
                                 onClick={() => { if (selectedPickUpOrCompletedOrCanceledOrderID.status !== 'PAID' && selectedPickUpOrCompletedOrCanceledOrderID.status !== 'CANCELED') setEditOrderModal(selectedPickUpOrCompletedOrCanceledOrderID) }}>
                                 <span><FontAwesomeIcon icon={faPen} /></span>
@@ -186,11 +186,13 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                         </div>}
                     </div>}
 
+                    <div style={{ width: '100%', borderTop: '1px solid lightgray', backgroundColor: 'lightgray', margin: '2px 0' }} />
+
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
-                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Completed Orders</span>
-                                <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>Completed Orders</span>
+                                <FontAwesomeIcon style={{ marginLeft: '3px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
                         </div>
 
@@ -221,8 +223,8 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
-                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Canceled Orders</span>
-                                <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>Canceled Orders</span>
+                                <FontAwesomeIcon style={{ marginLeft: '3px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
                             <button className='floatingButton blue' style={{
                                 marginRight: '5px',
