@@ -11,6 +11,7 @@ import { borderColorTwo, fontColorOne, greenOne, greenTwo, redOne, secondColor, 
 import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import EditOrderModal from "./components/EditOrderModal.jsx";
+import OrderResumeModal from './components/auxComponents/OrderResumeModal.jsx';
 
 
 export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShiftOperationData }) {
@@ -37,6 +38,10 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
 
     const [seeCompletedOrders, setSeeCompletedOrders] = useState(false);
     const [seeCanceledOrders, setSeeCanceledOrders] = useState(false);
+
+    const [seeCompletedOrCancelledOrders, setSeeCompletedOrCancelledOrders] = useState(false);
+    const [seeOrderResumeModal, setSeeOrderResumeModal] = useState(false);
+
 
     useEffect(() => {
         if (companyOperation) setRequesterIdOwnerOrManager(isOwnerOrManager(localStorage.getItem("userLoggedEmail"), companyOperation));
@@ -140,7 +145,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                     </div>}
 
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
-                        <div className='flexRow spaceBetweenJC' style={{width: '100%', marginBottom: '8px', }}>
+                        <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Completed Delivery Orders</span>
 
@@ -166,7 +171,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                                 </thead>
                                 <tbody >
                                     {orders && orders.length > 0 && orders.filter(order => order.status === "PAID" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
-                                        <tr key={order.id} >
+                                        <tr key={order.id} className={seeCompletedOrCancelledOrders === order ? "table-active" : ""} onClick={() => { setSeeCompletedOrCancelledOrders(seeCompletedOrCancelledOrders === order ? null : order); }} style={{ cursor: "pointer" }} >
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName || "No Name"}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.status}</td>
@@ -185,6 +190,12 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
 
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
+                            <button className='floatingButton blue' style={{
+                                marginRight: '5px',
+                                visibility: (seeCompletedOrCancelledOrders ? 'visible' : 'hidden')
+                            }} onClick={() => setSeeOrderResumeModal(seeCompletedOrCancelledOrders)}>
+                                <span>☰</span>
+                            </button>
                         </div>
 
                         {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
@@ -198,7 +209,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                                 </thead>
                                 <tbody >
                                     {orders && orders.length > 0 && orders.filter(order => order.status === "CANCELLED" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
-                                        <tr key={order.id} >
+                                        <tr key={order.id} className={seeCompletedOrCancelledOrders === order ? "table-active" : ""} onClick={() => { setSeeCompletedOrCancelledOrders(seeCompletedOrCancelledOrders === order ? null : order); }} style={{ cursor: "pointer" }} >
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName || "No Name"}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.status}</td>
@@ -227,6 +238,10 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
 
             {editOrderModal && <div className='myModal' >
                 <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
+            </div>}
+
+            {seeOrderResumeModal && <div className='myModal' >
+                <OrderResumeModal close={() => {setSeeOrderResumeModal(false), setSeeCompletedOrCancelledOrders(null)}} orderToEdit={seeCompletedOrCancelledOrders} companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>
     );

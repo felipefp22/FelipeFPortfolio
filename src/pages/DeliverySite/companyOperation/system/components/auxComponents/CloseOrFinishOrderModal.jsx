@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { borderColorTwo, fontColorOne, greenOne, greenTwo } from '../../../../../../theme/Colors';
+import { blueOne, borderColorTwo, fontColorOne, greenOne, greenTwo } from '../../../../../../theme/Colors';
 import { closeOrder, completeOrders } from '../../../../../../services/deliveryServices/OrderService';
 import { Spinner } from 'react-bootstrap';
 
@@ -100,6 +100,15 @@ export default function CloseOrFinishOrderModal({ close, closeAll, orderToEdit, 
                         <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>{`$ ${Number(orderToEdit?.totalPrice ?? 0).toFixed(2)}`}</span>
                     </div>}
                 </div>
+
+                {orderToEdit?.status === 'OPEN' && <div className='flexColumn fullCenter'>
+                    <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: blueOne(theme) }}>{`[ Open ]`}</span>
+                </div>}
+
+                {orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' && <div className='flexColumn fullCenter'>
+                    <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: blueOne(theme) }}>{`[ Closed Waiting Payment ]`}</span>
+                </div>}
+
 
                 {!disabled && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
                     <button className='buttonStandart' style={{ background: 'none', border: 'none' }} onClick={() => close()} disabled={disabled}>

@@ -11,6 +11,8 @@ import tableGreen from "../../../../assets/tableGreen.png";
 import tableYellow from "../../../../assets/tableYellow.png";
 import tableRed from "../../../../assets/tableRed.png";
 import EditOrderModal from "./components/EditOrderModal.jsx";
+import OrderClosedOrPaidDetailsModal from './components/auxComponents/OrderResumeModal.jsx';
+import OrderResumeModal from './components/auxComponents/OrderResumeModal.jsx';
 
 export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
@@ -190,12 +192,6 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Completed Orders</span>
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
-                            <button className='floatingButton blue' style={{
-                                marginRight: '5px',
-                                visibility: selectedPickUpOrCompletedOrCanceledOrderID ? 'visible' : 'hidden'
-                            }} onClick={() => setSeeOrderResumeModal(selectedPickUpOrCompletedOrCanceledOrderID)}>
-                                <span>☰</span>
-                            </button>
                         </div>
 
                         {seeCompletedOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
@@ -228,6 +224,12 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                                 <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '24px', fontWeight: 'bold', }}>Canceled Orders</span>
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
+                            <button className='floatingButton blue' style={{
+                                marginRight: '5px',
+                                visibility: ((selectedPickUpOrCompletedOrCanceledOrderID && selectedPickUpOrCompletedOrCanceledOrderID?.status !== 'OPEN' && selectedPickUpOrCompletedOrCanceledOrderID?.status !== 'CLOSEDWAITINGPAYMENT') ? 'visible' : 'hidden')
+                            }} onClick={() => setSeeOrderResumeModal(selectedPickUpOrCompletedOrCanceledOrderID)}>
+                                <span>☰</span>
+                            </button>
                         </div>
 
                         {seeCanceledOrders && <div style={{ backgroundColor: "white", color: "black", borderRadius: '5px', minWidth: '80%', height: '100%', minHeight: '200px', maxHeight: '250px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
@@ -263,6 +265,10 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
 
             {editOrderModal && <div className='myModal' >
                 <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
+            </div>}
+
+            {seeOrderResumeModal && <div className='myModal' >
+                <OrderResumeModal close={() => setSeeOrderResumeModal(false)} orderToEdit={seeOrderResumeModal} companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>
     );
