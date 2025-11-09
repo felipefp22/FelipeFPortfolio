@@ -91,6 +91,8 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
             setNewCustomerCandidate(null);
             setNewPickupNameCandidate(null);
             setEditNameCustomer(false);
+        } else {
+            alert(`Error changing name/customer: ${response?.data}`);
         }
 
         setDisabled(false);
@@ -109,6 +111,8 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
             await getShiftOperationData();
             setNewTableCandidate(response.data.tableNumberOrDeliveryOrPickup);
             setEditTable(false);
+        } else {
+            alert(`Error changing table/pickup/delivery: ${response?.data}`);
         }
 
         setDisabled(false);

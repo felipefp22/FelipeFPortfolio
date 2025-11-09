@@ -8,7 +8,7 @@ import { getAllProductsCategories } from "../../../../../services/deliveryServic
 import { Spinner, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { addItemsToOrderService, editOrderService } from '../../../../../services/deliveryServices/OrderService';
+import { addItemsToOrderService, editOrderService, reopenOrder } from '../../../../../services/deliveryServices/OrderService';
 import CloseOrFinishOrderModal from './auxComponents/CloseOrFinishOrderModal';
 
 
@@ -110,6 +110,17 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
             newSelectedProducts.splice(index, 1); // remove only the first occurrence
             setSelectedProductsToAdd(newSelectedProducts);
         }
+    }
+
+    async function openOrderAgain() {
+        setDisabled(true);
+        const response = await reopenOrder(companyOperation?.companyOperationID, orderToEdit.id);
+        if (response?.status === 200) {
+            await getShiftOperationData();
+        } else {
+            alert(`Error reopening order: ${response?.data}`);
+        }
+        setDisabled(false);
     }
 
     return (
@@ -234,8 +245,13 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                     <button className='buttonStandart' onClick={() => close()} disabled={disabled}>{disabled ?
                         <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Done'}</button>
 
-                    {(orderToEdit?.status === 'OPEN' || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') &&
-                        <button className='buttonStandart green' onClick={() => setShowCloseOrFinishOrderModal(true)} disabled={disabled}>{orderToEdit?.status === 'OPEN' ? 'Close Order' : 'Finish Order'}</button>}
+                    <div className='flexRow fullCenter' >
+                        {(orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') &&
+                            <button className='buttonStandart green' style={{ marginRight: 5 }} onClick={() => { openOrderAgain() }} disabled={disabled}>{'Reopen'}</button>}
+
+                        {(orderToEdit?.status === 'OPEN' || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') &&
+                            <button className='buttonStandart green' onClick={() => setShowCloseOrFinishOrderModal(true)} disabled={disabled}>{orderToEdit?.status === 'OPEN' ? 'Close Order' : 'Finish Order'}</button>}
+                    </div>
                 </div>
             </div>
 
@@ -249,7 +265,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
             </div>}
 
-            {showCloseOrFinishOrderModal && <div  className='myModal' >
+            {showCloseOrFinishOrderModal && <div className='myModal' >
                 <CloseOrFinishOrderModal close={() => setShowCloseOrFinishOrderModal(false)} closeAll={() => close()} orderToEdit={orderToEdit} companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
         </>

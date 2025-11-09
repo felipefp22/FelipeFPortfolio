@@ -148,7 +148,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN" && order.tableNumberOrDeliveryOrPickup === 'pickup').sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
+                                    {orders && orders.length > 0 && orders.filter(order => (order.status === "OPEN" || order.status === "CLOSEDWAITINGPAYMENT") && order.tableNumberOrDeliveryOrPickup === 'pickup').sort((a, b) => a.orderNumberOnShift - b.orderNumberOnShift).map((order, index) => (
                                         <tr key={order.id} className={selectedPickUpOrCompletedOrCanceledOrderID?.id === order.id ? "table-active" : ""}
                                             onClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(selectedPickUpOrCompletedOrCanceledOrderID === order ? null : order); }} style={{ cursor: "pointer" }}
                                             onDoubleClick={() => { setSelectedTable(null); setSelectedPickUpOrCompletedOrCanceledOrderID(order); setEditOrderModal(order); }}
@@ -175,7 +175,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
 
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName ?? (order.pickupName ?? "No Name")}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.status}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.status === "CLOSEDWAITINGPAYMENT" ? "CLOSE" : order?.status}</td>
                                             {/* <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td> */}
                                         </tr>
                                     ))}

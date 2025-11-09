@@ -57,34 +57,48 @@ export default function CloseOrFinishOrderModal({ close, closeAll, orderToEdit, 
                 </div>
 
                 <div className='flexRow fullCenter'>
-                    <div className='flexColumn' >
-                        <div className='flexRow fullCenter'>
-                            <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: fontColorOne(theme) }}>{`Service Tax: `}</span>
-                            {orderToEdit?.status === 'OPEN' && <span style={{ marginRight: 10, fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>
-                                {`$ ${!noServiceTax ? Number(orderToEdit?.price * (companyOperation?.taxServicePercentage / 100)).toFixed(2) : 0} ${!noServiceTax ? '( ' + companyOperation?.taxServicePercentage + ' %)' : '( 0% )'}`}</span>}
-                        </div>
 
-                        <div className='flexRow fullCenter'>
-                            <input
-                                type="checkbox"
-                                checked={noServiceTax} // checked means tax is applied
-                                onChange={(e) => setNoServiceTax(e.target.checked)}
-                            />
-                            {"NoTax?"}
-                        </div>
-                    </div>
+                    {((orderToEdit?.tableNumberOrDeliveryOrPickup !== 'delivery' && orderToEdit?.tableNumberOrDeliveryOrPickup !== 'pickup') ||
+                        (orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' && companyOperation?.deliveryHasServiceTax) || (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' && companyOperation?.pickupHasServiceTax)) &&
+                        <div className='flexColumn' >
+                            < div className='flexRow fullCenter'>
+                                <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: fontColorOne(theme) }}>{`Service Tax: `}</span>
+                                {orderToEdit?.status === 'OPEN' && <span style={{ marginRight: 10, fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>
+                                    {`$ ${!noServiceTax ? Number(orderToEdit?.price * (companyOperation?.taxServicePercentage / 100)).toFixed(2) : 0} ${!noServiceTax ? '( ' + companyOperation?.taxServicePercentage + ' %)' : '( 0% )'}`}</span>}
 
-                    {orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' && <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>{`$ ${Number(orderToEdit?.serviceTax).toFixed(2)}`}</span>}
+                                {orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' && <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>{`$ ${Number(orderToEdit?.serviceTax).toFixed(2)}`}</span>}
+                            </div>
+
+                            {orderToEdit?.status === 'OPEN' && <div className='flexRow fullCenter'>
+                                <input
+                                    type="checkbox"
+                                    checked={noServiceTax} // checked means tax is applied
+                                    onChange={(e) => setNoServiceTax(e.target.checked)}
+                                />
+                                {"NoTax?"}
+                            </div>}
+                        </div>
+                    }
                 </div>
 
                 <br />
 
-                <div className='flexRow fullCenter'>
-                    <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: fontColorOne(theme) }}>{`Total Price - `}</span>
-                    {orderToEdit?.status === 'OPEN' && <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>
-                        {`$ ${!noServiceTax ? Number(orderToEdit?.price + (orderToEdit?.price * (companyOperation?.taxServicePercentage / 100))).toFixed(2) : 0}`}</span>}
 
-                    {orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' && <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>{`$ ${Number(orderToEdit?.totalPrice ?? 0).toFixed(2)}`}</span>}
+                <div className='flexRow fullCenter'>
+                    {((orderToEdit?.tableNumberOrDeliveryOrPickup !== 'delivery' && orderToEdit?.tableNumberOrDeliveryOrPickup !== 'pickup') ||
+                        (orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' && companyOperation?.deliveryHasServiceTax) || (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' && companyOperation?.pickupHasServiceTax)) &&
+                        orderToEdit?.status === 'OPEN' && <div className='flexRow fullCenter' >
+                            <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: fontColorOne(theme) }}>{`Total Price: `}</span>
+
+                            <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>
+                                {`$ ${!noServiceTax ? Number(orderToEdit?.price +
+                                    (orderToEdit?.price * (companyOperation?.taxServicePercentage / 100))).toFixed(2) : Number(orderToEdit?.price).toFixed(2)}`}</span>
+                        </div>}
+
+                    {orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' && <div className='flexRow fullCenter' >
+                        <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: fontColorOne(theme) }}>{`Total Price: `}</span>
+                        <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>{`$ ${Number(orderToEdit?.totalPrice ?? 0).toFixed(2)}`}</span>
+                    </div>}
                 </div>
 
                 {!disabled && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
@@ -98,7 +112,7 @@ export default function CloseOrFinishOrderModal({ close, closeAll, orderToEdit, 
                 {disabled && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', marginTop: '15px' }}>
                     <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
                 </div>}
-            </div>
+            </div >
         </>
     );
 }

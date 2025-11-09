@@ -85,17 +85,37 @@ button:hover {
     border-radius: 5px;
     height: 40px;
 }
-
 .buttonStandart.green {
     background-color: var(--greenOne);
 }
-
 .buttonStandart.red {
     background-color: var(--redOne);
 }
-
 .buttonStandart.blue {
     background-color: var(--blueOne);
+}
+
+.buttonNoBgNoBorder {
+    background: none;
+    color: var(--fontColorOne);
+    border: none;
+    height: 40px;
+    margin-left: 0px;
+    border-radius: 5px;
+    padding: 0px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 16px;
+}
+.buttonNoBgNoBorder.fontGreen {
+    color: var(--greenOne);
+}
+.buttonNoBgNoBorder.fontGreenTwo {
+    color: var(--greenTwo);
+}
+.buttonNoBgNoBorder.fontRed {
+    color: var(--redOne);
 }
 
 /* Floating Buttons */

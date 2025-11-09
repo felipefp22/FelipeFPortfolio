@@ -66,10 +66,10 @@ export default function ChangeOrderStatusModal({ close, companyOperationID, sele
                 <br />
 
                 {!processing && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '20px' }}>
-                    <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme), marginRight: '100px', fontSize: '16px' }}
+                    <button className='buttonNoBgNoBorder fontRed' style={{ marginRight: '100px', fontSize: '16px' }}
                         onClick={() => { close(); }} disabled={processing}>Cancel</button>
 
-                    <button className='buttonStandart' style={{ background: 'none', border: "none", color: greenOne(theme), fontSize: '16px'}}
+                    <button className='buttonNoBgNoBorder fontGreen' style={{ fontSize: '16px'}}
                         onClick={() => { if (selectedCookingOrderID.length > 0) dispatchOrders(); if (selectedOnDeliveryOrderID.length > 0) openOrdersAgain(); }} disabled={processing}>Yes</button>
                 </div>}
 

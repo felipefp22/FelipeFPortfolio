@@ -38,11 +38,11 @@ export default function CompleteOrdersModal({ close, companyOperationID, selecte
                     </div>
 
                     {!processing && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '20px' }}>
-                        <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme), marginRight: '20px' }}
+                        <button className='buttonNoBgNoBorder fontRed' style={{ marginRight: '20px' }} 
                             onClick={() => { close(); }} disabled={processing}>Cancel</button>
 
-                        <button className='buttonStandart' style={{ background: 'none', border: "none", color: greenOne(theme) }}
-                            onClick={() => { handleCompleteOrders() }} disabled={processing}>Complete Orders</button>
+                        <button className='buttonNoBgNoBorder fontGreen' 
+                            onClick={() => { handleCompleteOrders() }} disabled={processing}>Finish Orders</button>
                     </div>}
 
                     {processing && <div className='flexRow fullCenter' style={{ marginTop: '20px' }}>
