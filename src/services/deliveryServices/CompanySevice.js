@@ -51,7 +51,7 @@ export async function getCompanyOperation(compID) {
     }
 }
 
-export async function updateCompanyService(companyID, companyName, companyEmail, companyPhone, companyAddress, companyLat, companyLng, numberOfTables) {
+export async function updateCompanyService(companyID, companyName, companyEmail, companyPhone, companyAddress, companyLat, companyLng, numberOfTables, taxServicePercentage) {
 
     const postData = {
         companyID: companyID,
@@ -62,6 +62,7 @@ export async function updateCompanyService(companyID, companyName, companyEmail,
         companyLat: companyLat,
         companyLng: companyLng,
         numberOfTables: numberOfTables,
+        taxServicePercentage: taxServicePercentage,
     };
     try {
         const response = await axiosInstanceRestaurantSystem.put(`/company/update-company`, postData,

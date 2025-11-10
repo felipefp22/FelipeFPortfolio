@@ -24,6 +24,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
     const [companyAddress, setCompanyAddress] = useState(null);
     const [companyLat, setCompanyLat] = useState(null);
     const [companyLng, setCompanyLng] = useState(null);
+    const [companyServiceTax, setCompanyServiceTax] = useState(null);
     const [numberOfTables, setNumberOfTables] = useState(null);
 
     const [disable, setDisable] = useState(false);
@@ -47,6 +48,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
         setCompanyAddress(companyData?.companyAddress || null);
         setCompanyLat(companyData?.companyLat || null);
         setCompanyLng(companyData?.companyLng || null);
+        setCompanyServiceTax(companyData?.taxServicePercentage || null);
         setNumberOfTables(companyData?.numberOfTables || null);
     }
 
@@ -54,10 +56,10 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
         if (companyData?.companyName !== companyName || companyData?.companyEmail !== companyEmail ||
             companyData?.companyPhone !== companyPhone || companyData?.companyAddress !== companyAddress ||
             companyData?.companyLat !== companyLat || companyData?.companyLng !== companyLng ||
-            companyData?.numberOfTables !== numberOfTables) {
+            companyData?.numberOfTables !== numberOfTables || companyData?.taxServicePercentage !== companyServiceTax) {
 
             setDisable(true);
-            const response = await updateCompanyService(companyID, companyName, companyEmail, companyPhone, companyAddress, companyLat, companyLng, numberOfTables);
+            const response = await updateCompanyService(companyID, companyName, companyEmail, companyPhone, companyAddress, companyLat, companyLng, numberOfTables, companyServiceTax);
 
             if (response?.status === 200) {
                 fetchCompanyData();
@@ -114,6 +116,13 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
                             <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Phone: </span>
                             {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{companyPhone ?? "N/A"}</span>}
                             {editing && <input className='inputStandart' type="text" value={companyPhone || ""} onChange={(e) => setCompanyPhone(e.target.value)} />}
+                        </div>
+                        <div className='flexRow' style={{ width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
+                            <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Service Tax: </span>
+                            {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{companyServiceTax ? companyServiceTax + " %" : ""}</span>}
+                            {editing && <input className='inputStandart' type="number" min={0} max={100} style={{ width: 70, textAlign: 'center', }} value={companyServiceTax || ""}
+                                onChange={(e) => { const value = e.target.value; if (!/^\d*$/.test(value)) return; if ((Number(value) >= 0 && Number(value) <= 99)) setCompanyServiceTax(Number(value)); }}
+                                onKeyDown={(e) => { if (["-", "+", "e", "."].includes(e.key)) e.preventDefault(); }} />}
                         </div>
                         <div className='flexRow' style={{ width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
                             <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px', }}>Tables Qty: </span>
