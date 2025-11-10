@@ -86,7 +86,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                                                 }} />
                                                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', alignItems: 'center' }}>
                                                     <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: '500' }}>{`${product?.name}`}</span>
-                                                    <span style={{ fontSize: isPcV ? '16px' : '13px', fontWeight: '400', color: borderColorTwo(theme) }}>{`$ ${product?.price}`}</span>
+                                                    <span style={{ fontSize: isPcV ? '16px' : '13px', fontWeight: '400', color: borderColorTwo(theme) }}>{`$ ${Number(product?.price).toFixed(2)}`}</span>
                                                 </div>
                                             </div>
                                         ))

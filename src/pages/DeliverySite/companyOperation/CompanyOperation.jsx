@@ -24,6 +24,7 @@ import FinishShiftModal from './system/components/FinishShiftModal.jsx';
 import { isOwnerOrManager } from '../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SystemPageHall from './system/SystemPageHall.jsx';
+import { verifyNewOrderPrints } from '../../../services/deliveryServices/auxServices/PrintService.js';
 
 
 export default function CompanyOperation() {
@@ -102,6 +103,7 @@ export default function CompanyOperation() {
       // console.log('orders: ', shiftOperationData?.orders);
       dispatch(changeCurrentShift(shiftOperationData?.currentShift || null));
       dispatch(changeOrders(shiftOperationData?.orders || []));
+      verifyNewOrderPrints(shiftOperationData?.orders);
     } else {
       // alert("Error fetching orders operation data");
     }

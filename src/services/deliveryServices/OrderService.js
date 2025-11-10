@@ -205,3 +205,28 @@ export async function completeOrders(compID, orderID) {
     }
 }
 
+//
+export async function markOrderPrintSyncPrinted(compID, orderPrintSyncID) {
+
+    const postData = {
+        companyID: compID,
+        orderPrintSyncID: orderPrintSyncID,
+    };
+
+    console.log("Completing orders:", postData);
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/order/mark-orderPrintSync-printed`, postData,
+            {
+                headers: {
+
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
