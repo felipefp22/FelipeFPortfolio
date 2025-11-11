@@ -112,7 +112,7 @@ export default function CompanyOperation() {
   useEffect(() => {
     getCompanyOperationData();
     getShiftOperationData();
-
+ 
     if (companyOperationData?.companyOperationID == null) dispatch(quitCompanyOperation());
   }, [companyOperationData?.companyOperationID]);
 
