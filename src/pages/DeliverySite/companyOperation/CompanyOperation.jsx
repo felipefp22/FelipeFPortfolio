@@ -25,7 +25,7 @@ import { isOwnerOrManager } from '../../../services/deliveryServices/auxServices
 import { useLocation, useNavigate } from 'react-router-dom';
 import SystemPageHall from './system/SystemPageHall.jsx';
 import { verifyNewOrderPrints } from '../../../services/deliveryServices/auxServices/PrintService.js';
-
+import SignalRService from '../../../services/deliveryServices/auxServices/SignalRService.jsx';
 
 export default function CompanyOperation() {
   const navigate = useNavigate();
@@ -33,6 +33,8 @@ export default function CompanyOperation() {
   const dispatch = useDispatch();
   const isPcV = useSelector((state) => state.view.isPcV);
   const companyOperationData = useSelector((state) => state.companyOperation);
+  const [signalRAlreadyCharged, setSignalRAlreadyCharged] = useState(false);
+  const [lastShiftOperationUpdate, setLastShiftOperationUpdate] = useState(null);
 
   const location = useLocation();
   const { search } = useLocation();
@@ -96,35 +98,44 @@ export default function CompanyOperation() {
 
   async function getShiftOperationData() {
     if (!companyOperationData?.companyOperationID) return;
+    
+    console.log("last update: ", lastShiftOperationUpdate ? (new Date().getTime() - lastShiftOperationUpdate) : "Never updated");
+    if (companyOperationData.currentShift && signalRAlreadyCharged && (new Date().getTime() - lastShiftOperationUpdate < 60_000)) return;
 
     const response = await getShiftOperation(companyOperationData?.companyOperationID);
     if (response?.status === 200) {
       const shiftOperationData = response?.data;
       // console.log('orders: ', shiftOperationData?.orders);
-      dispatch(changeCurrentShift(shiftOperationData?.currentShift || null));
-      dispatch(changeOrders(shiftOperationData?.orders || []));
-      verifyNewOrderPrints(shiftOperationData?.orders);
+      updateShiftfData(shiftOperationData);
     } else {
       // alert("Error fetching orders operation data");
     }
   }
 
+  async function updateShiftfData(shiftOperationData) {
+    console.log("📟 Updating shift data...");
+    setLastShiftOperationUpdate(new Date().getTime());
+
+    dispatch(changeCurrentShift(shiftOperationData?.currentShift || null));
+    dispatch(changeOrders(shiftOperationData?.orders || []));
+    verifyNewOrderPrints(shiftOperationData?.orders);
+  }
+
   useEffect(() => {
     getCompanyOperationData();
     getShiftOperationData();
- 
+
     if (companyOperationData?.companyOperationID == null) dispatch(quitCompanyOperation());
   }, [companyOperationData?.companyOperationID]);
 
   useEffect(() => {
-    getShiftOperationData();
 
     const interval = setInterval(() => {
       getShiftOperationData();
     }, 12000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [companyOperationData.currentShift, signalRAlreadyCharged]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -147,17 +158,17 @@ export default function CompanyOperation() {
   return (
     <>
       <div className='flexColumn' style={{ background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", overflow: "hidden", justifyContent: "center", padding: '0px 0px' }}>
-        
+
         <div className='flexRow' style={{ height: '100%', width: '100%', flexGrow: 1, padding: '5px 5px' }}>
           {<div className='flexColumn' style={{ position: 'relative', height: '100%', flexGrow: 1, width: onFocus === "map" ? '0%' : onFocus === "system" ? '96%' : '50%', visibility: onFocus !== "map" ? 'visible' : 'hidden' }}>
 
             <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', marginBottom: '8px' }} >
-              
+
               <div className='flexRow' >
                 <div className='flexRow' style={{ alignItems: "center", }}>
                   <Dropdown ref={dropdownSystemOptionsRedRef} className="nav-item header-profile" show={showDropdownSystemOptionsRed} >
                     <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowDropdownSystemOptionsRed(!showDropdownSystemOptionsRed)} >
-                      <button className='floatingButton'  style={{ backgroundColor: redOne(theme), }} >☰</button>
+                      <button className='floatingButton' style={{ backgroundColor: redOne(theme), }} >☰</button>
                     </Dropdown.Toggle>
                     <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
                       {requesterAreOwnerOrManager && <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer", marginBottom: "8px" }} onClick={() => { setShowFinishShiftMessage(true); setShowDropdownSystemOptionsRed(false); }}>
@@ -173,16 +184,16 @@ export default function CompanyOperation() {
                 </div>
 
                 <button className='floatingButton' style={{ marginLeft: '10px' }}
-                    onClick={() => { if (systemPageSelected === "delivery") navigate(`/FelipeFPortfolio/delivery?tab=hall`); else if (systemPageSelected === "hall") navigate(`/FelipeFPortfolio/delivery?tab=delivery`); }}>
-                    <p style={{ margin: 0 }}><FontAwesomeIcon icon={(systemPageSelected === "delivery") ? faChair : faMotorcycle} /></p> </button>
+                  onClick={() => { if (systemPageSelected === "delivery") navigate(`/FelipeFPortfolio/delivery?tab=hall`); else if (systemPageSelected === "hall") navigate(`/FelipeFPortfolio/delivery?tab=delivery`); }}>
+                  <p style={{ margin: 0 }}><FontAwesomeIcon icon={(systemPageSelected === "delivery") ? faChair : faMotorcycle} /></p> </button>
               </div>
 
               <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
-                  {companyOperationData?.companyName}</span>
+                {companyOperationData?.companyName}</span>
 
-                <button className='floatingButton' style={{ whiteSpace: 'nowrap' }}
-                  onClick={() => setOnFocus(onFocus === "system" ? (!isPcV ? "map" : "") : "system")}>
-                  {onFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
+              <button className='floatingButton' style={{ whiteSpace: 'nowrap' }}
+                onClick={() => setOnFocus(onFocus === "system" ? (!isPcV ? "map" : "") : "system")}>
+                {onFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
             </div>
 
             {systemPageSelected === "delivery" && <SystemPageDelivery onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
@@ -217,6 +228,7 @@ export default function CompanyOperation() {
             companySelected={companyOperationData?.companyOperationID} requesterAreOwnerOrManager={requesterAreOwnerOrManager} />
         </div>}
       </div>
+      <SignalRService companyOperation={companyOperationData} setSignalRAlreadyCharged={setSignalRAlreadyCharged} updateShiftfData={updateShiftfData} />
     </>
   );
 }

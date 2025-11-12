@@ -38,7 +38,7 @@ export default function MapaDelivery({ setHaveModalOpen }) {
 
   useEffect(() => {
     if (companyOperation && zoom && companyLat && companyLng) {
-      console.log("Initializing map at:", companyLat, companyLng);
+      // console.log("Initializing map at:", companyLat, companyLng);
       // Inicializa o mapa
       mapRef.current = L.map('mapa').setView([companyLat, companyLng], zoom); // Define a centralização do mapa
 

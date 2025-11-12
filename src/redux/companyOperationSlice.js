@@ -64,6 +64,8 @@ export const slice = createSlice({
       state.taxServicePercentage = null;
       state.deliveryHasServiceTax = null;
       state.pickupHasServiceTax = null;
+
+      
     }
   }
 })

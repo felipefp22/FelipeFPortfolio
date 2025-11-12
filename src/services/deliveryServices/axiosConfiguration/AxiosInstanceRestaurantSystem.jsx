@@ -74,7 +74,7 @@ async function refreshAccessToken() {
             associatedToken: localStorage.getItem('access_token')
         };
 
-        console.log("Refreshing token...", postData);
+        // console.log("Refreshing token...", postData);
 
         const response = await axios.post(`${API_URL}/auth/refresh-token`, postData,
             {
