@@ -13,6 +13,7 @@ import tableRed from "../../../../assets/tableRed.png";
 import EditOrderModal from "./components/EditOrderModal.jsx";
 import OrderClosedOrPaidDetailsModal from './components/auxComponents/OrderResumeModal.jsx';
 import OrderResumeModal from './components/auxComponents/OrderResumeModal.jsx';
+import SignalRService from '../../../../services/deliveryServices/auxServices/SignalRService.jsx';
 
 export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);

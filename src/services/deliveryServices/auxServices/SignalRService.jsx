@@ -1,13 +1,18 @@
-import { use, useEffect } from 'react';
+import { use, useEffect, useRef } from 'react';
 import axiosInstanceRestaurantSystem from '../axiosConfiguration/AxiosInstanceRestaurantSystem';
 import * as signalR from "@microsoft/signalr";
 
 
 export default function SignalRService({ companyOperation, setSignalRAlreadyCharged, updateShiftfData }) {
-
-
+    const connectionRef = useRef(null);
 
     async function connectSignalR() {
+        if (window.signalRConnection) {
+            console.log("⚡ Already connected!");
+            return window.signalRConnection;
+        }
+        window.signalRConnection = true;
+
         const res = await axiosInstanceRestaurantSystem.post(`/webs/negotiate`);
         const { url, accessToken } = res.data;
 
@@ -28,10 +33,19 @@ export default function SignalRService({ companyOperation, setSignalRAlreadyChar
 
         if (signalRConnection.state === signalR.HubConnectionState.Connected) setSignalRAlreadyCharged(true);
         console.log("✅ Connected to SignalR!");
+
+        connectionRef.current = signalRConnection;
     }
 
     useEffect(() => {
         connectSignalR();
+
+        return () => {
+            if (connectionRef.current) {
+                connectionRef.current.stop().then(() => console.log("🔌 SignalR disconnected"));
+                connectionRef.current = null;
+            }
+        };
     }, []);
 
     return (
