@@ -94,9 +94,10 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
         if (tableNumberOrDeliveryOrPickupSelected === 'delivery') {
             if (!customerSelectedToNewOrder) alert("Customer required to DELIVERY order");
-            if (getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM) alert(`Can't Order to this customer, distance exceeds maximum(${companyOperation?.maxDeliveryDistanceKM}) delivery distance.`);
-
-            return;
+            if (getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM) {
+                alert(`Can't Order to this customer, distance exceeds maximum(${companyOperation?.maxDeliveryDistanceKM}) delivery distance.`);
+                return;
+            }
         }
 
         if (tableNumberOrDeliveryOrPickupSelected === 'pickup' && !customerSelectedToNewOrder && !pickupNameInput) {
@@ -322,7 +323,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                     <button className='buttonStandart' style={{}} onClick={() => close()} disabled={disabled}>Cancel</button>
 
                     <button className='buttonStandart green' style={{}}
-                        onClick={() =>  saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Save Order'}</button>
+                        onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Save Order'}</button>
                 </div>
             </div >
 
