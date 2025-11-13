@@ -89,7 +89,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
 
     return (
         <>
-            <div className='flexColumn' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", alignItems: 'center', padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%',  maxHeight: '670px', overflowY: 'auto' }} >
+            <div className='flexColumn' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", alignItems: 'center', padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%',  flex: 1,  overflowY: 'auto' }} >
 
                     <div className='flexColumn fullCenter' style={{ width: isPcV ? '80%' : '100%', maxWidth: '1000px', padding: '10px 0px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
                         <div className='flexRow' style={{ width: '100%', alignItems: 'center', height: '100%' }} >

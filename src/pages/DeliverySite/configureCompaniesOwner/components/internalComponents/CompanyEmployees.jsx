@@ -10,6 +10,7 @@ import avatar from '../../../../../assets/noProfilePhoto.png';
 import AddEmployeeModal from "./modals/AddEmployeeModal";
 import EditEmployeeModal from "./modals/EditEmployeeModal";
 import motoLogo from '../../../../../assets/motoLogo2.png';
+import serverLogo from '../../../../../assets/serverLogo.png';
 
 
 export default function CompanyEmployees({ companyData, fetchCompanyData }) {
@@ -19,10 +20,12 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
     const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
     const [editEmployeeModalOpen, setEditEmployeeModalOpen] = useState(false);
 
-    const employeePositionsCategories = ["Manager", "Supervisor", "Waiter", 'Delivery-Man'];
+    const employeePositionsCategories = ["Server","Manager", "Supervisor", "Waiter", 'Delivery-Man'];
 
     function getEmployeePositionLogo(position) {
         switch (position) {
+            case "Server":
+                return serverLogo;
             case "Manager":
                 return managerLogo;
             case "Supervisor":
@@ -38,6 +41,8 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
 
     function getBackendEnumPosition(position) {
         switch (position) {
+            case "Server":
+                return "SERVER";
             case "Manager":
                 return "MANAGER";
             case "Supervisor":
