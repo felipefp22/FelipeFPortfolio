@@ -9,6 +9,7 @@ import waiterLogo from '../../../../../assets/waiterLogo.png';
 import avatar from '../../../../../assets/noProfilePhoto.png';
 import AddEmployeeModal from "./modals/AddEmployeeModal";
 import EditEmployeeModal from "./modals/EditEmployeeModal";
+import motoLogo from '../../../../../assets/motoLogo2.png';
 
 
 export default function CompanyEmployees({ companyData, fetchCompanyData }) {
@@ -18,7 +19,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
     const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
     const [editEmployeeModalOpen, setEditEmployeeModalOpen] = useState(false);
 
-    const employeePositionsCategories = ["Manager", "Supervisor", "Waiter"];
+    const employeePositionsCategories = ["Manager", "Supervisor", "Waiter", 'Delivery-Man'];
 
     function getEmployeePositionLogo(position) {
         switch (position) {
@@ -28,8 +29,25 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                 return supervisorLogo;
             case "Waiter":
                 return waiterLogo;
+            case "Delivery-Man":
+                return motoLogo;
             default:
                 return supervisorLogo;
+        }
+    }
+
+    function getBackendEnumPosition(position) {
+        switch (position) {
+            case "Manager":
+                return "MANAGER";
+            case "Supervisor":
+                return "SUPERVISOR";
+            case "Waiter":
+                return "WAITER";
+            case "Delivery-Man":
+                return "DELIVERYMAN";
+            default:
+                return null;
         }
     }
 
@@ -62,7 +80,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                                 </div>
                                 {isOpen && <div className='flexColumn' style={{ margin: '0px 10px', padding: '15px 10px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
                                     {companyData?.employees && companyData.employees.length > 0 ? (
-                                        companyData?.employees?.filter((emp) => emp.position?.toLowerCase() === position.toLowerCase()).map((employesFiltered, idx) => (
+                                        companyData?.employees?.filter((emp) => emp.position?.toUpperCase() === getBackendEnumPosition(position)).map((employesFiltered, idx) => (
                                             <div key={idx} className='flexRow' style={{ alignItems: 'center', marginBottom: 5, marginLeft: 20, cursor: 'pointer' }} onClick={() => { setEditEmployeeModalOpen(employesFiltered); }}>
 
                                                 <img src={avatar} alt="Logo" style={{
@@ -91,11 +109,11 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
             </div>
 
             {addEmployeeModalOpen && <div className='myModal underDeliveryLayout' >
-                <AddEmployeeModal close={() => setAddEmployeeModalOpen(false)} companyData={companyData} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
+                <AddEmployeeModal close={() => setAddEmployeeModalOpen(false)} companyData={companyData} positionsOpts={employeePositionsCategories} getBackendEnumPosition={getBackendEnumPosition} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
 
             {editEmployeeModalOpen && <div className='myModal underDeliveryLayout' >
-                <EditEmployeeModal close={() => setEditEmployeeModalOpen(false)} companyData={companyData} employeeData={editEmployeeModalOpen} positionsOpts={employeePositionsCategories} fetchCompanyData={() => fetchCompanyData()} />
+                <EditEmployeeModal close={() => setEditEmployeeModalOpen(false)} companyData={companyData} employeeData={editEmployeeModalOpen} positionsOpts={employeePositionsCategories} getBackendEnumPosition={getBackendEnumPosition} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
         </>
     );

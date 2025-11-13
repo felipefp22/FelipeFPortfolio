@@ -35,6 +35,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
 
     useEffect(() => {
         if (companyData) {
+            console.log('👾 company data: ', companyData)
             getDatasFromCompanyData();
         }
     }, [companyData]);

@@ -9,7 +9,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { findPersonByEmailService } from "../../../../../../services/deliveryServices/SocialService";
 
 
-export default function AddEmployeeModal({ close, companyData, positionsOpts, fetchCompanyData }) {
+export default function AddEmployeeModal({ close, companyData, positionsOpts, getBackendEnumPosition, fetchCompanyData }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -42,7 +42,7 @@ export default function AddEmployeeModal({ close, companyData, positionsOpts, fe
             alert("Select a position");
             return;
         }
-        const response = await hireEmployeeService(companyData?.id, emailToInvite, position.toUpperCase());
+        const response = await hireEmployeeService(companyData?.id, emailToInvite, getBackendEnumPosition(position));
         if (response?.status === 200) {
             fetchCompanyData();
             close();

@@ -6,7 +6,7 @@ import { fireEmployeeService, hireEmployeeService, updateEmployeePositionService
 import avatar from '../../../../../../assets/noProfilePhoto.png';
 
 
-export default function EditEmployeeModal({ close, companyData, employeeData, positionsOpts, fetchCompanyData }) {
+export default function EditEmployeeModal({ close, companyData, employeeData, positionsOpts, getBackendEnumPosition, fetchCompanyData }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -42,9 +42,10 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
 
 
     async function handleChangePosition() {
-        if (position.toLowerCase() === employeeData?.position?.toLowerCase()) return;
+        const positionToSet = getBackendEnumPosition(position);
+        if (positionToSet === employeeData?.position?.toUpperCase()) return;
 
-        const response = await updateEmployeePositionService(companyData?.id, employeeData?.employeeEmail, position.toUpperCase());
+        const response = await updateEmployeePositionService(companyData?.id, employeeData?.employeeEmail, positionToSet);
         if (response?.status === 200) {
             fetchCompanyData();
             close();
@@ -60,7 +61,7 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                     <span style={{ color: borderColorTwo(theme) }}>{`${companyData?.companyName || "Company"}`}</span>
                 </div>
 
-                <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center',  border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', marginTop: '20px' }} >
+                <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', border: `1px solid ${borderColorTwo(theme)}`, borderRadius: '6px', padding: '20px', marginTop: '20px' }} >
 
                     <div className='flexRow' >
                         <img src={employeeData?.urlProfilePhoto ?? avatar} alt="Logo" style={{
@@ -99,7 +100,7 @@ export default function EditEmployeeModal({ close, companyData, employeeData, po
                         onClick={() => { handleChangePosition() }} disabled={processing || (position.toLowerCase() === employeeData?.position?.toLowerCase())}>Update</button>
                 </div>}
 
-                {processing && <div className='flexRow fullCenter' style={{  marginTop: '10px' }}>
+                {processing && <div className='flexRow fullCenter' style={{ marginTop: '10px' }}>
                     <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
                 </div>}
             </div>

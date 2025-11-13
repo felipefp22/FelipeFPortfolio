@@ -21,6 +21,12 @@ export const slice = createSlice({
     taxServicePercentage: null,
     deliveryHasServiceTax: null,
     pickupHasServiceTax: null,
+
+    maxRecommendedDistanceKM: null,
+    maxDeliveryDistanceKM: null,
+    baseDeliveryDistanceKM: null,
+    baseDeliveryTax: null,
+    taxPerExtraKM: null,
   },
   reducers: {
     changeCompanyOperationID(state, { payload }) { return { ...state, companyOperationID: payload } },
@@ -41,6 +47,12 @@ export const slice = createSlice({
     changeTaxServicePercentage(state, { payload }) { return { ...state, taxServicePercentage: payload } },
     changeDeliveryHasServiceTax(state, { payload }) { return { ...state, deliveryHasServiceTax: payload } },
     changePickupHasServiceTax(state, { payload }) { return { ...state, pickupHasServiceTax: payload } },
+
+    changeMaxRecommendedDistanceKM(state, { payload }) { return { ...state, maxRecommendedDistanceKM: payload } },
+    changeMaxDeliveryDistanceKM(state, { payload }) { return { ...state, maxDeliveryDistanceKM: payload } },
+    changeBaseDeliveryDistanceKM(state, { payload }) { return { ...state, baseDeliveryDistanceKM: payload } },
+    changeBaseDeliveryTax(state, { payload }) { return { ...state, baseDeliveryTax: payload } },
+    changeTaxPerExtraKM(state, { payload }) { return { ...state, taxPerExtraKM: payload } },
 
     quitCompanyOperation(state) {
       localStorage.removeItem('companyOperatingID');
@@ -65,7 +77,11 @@ export const slice = createSlice({
       state.deliveryHasServiceTax = null;
       state.pickupHasServiceTax = null;
 
-      
+      state.maxRecommendedDistanceKM = null;
+      state.maxDeliveryDistanceKM = null;
+      state.baseDeliveryDistanceKM = null;
+      state.baseDeliveryTax = null;
+      state.taxPerExtraKM = null;
     }
   }
 })
@@ -89,6 +105,12 @@ export const {
   changeTaxServicePercentage,
   changeDeliveryHasServiceTax,
   changePickupHasServiceTax,
+
+  changeMaxRecommendedDistanceKM,
+  changeMaxDeliveryDistanceKM,
+  changeBaseDeliveryDistanceKM,
+  changeBaseDeliveryTax,
+  changeTaxPerExtraKM,
 
   quitCompanyOperation
 } = slice.actions;
