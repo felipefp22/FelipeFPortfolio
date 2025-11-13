@@ -130,7 +130,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
         }
         setDisabled(true);
 
-        const response = await editOrderService(companyOperation?.companyOperationID, orderToEdit.id, newTableCandidate, customerSelected?.id, pickupName, null);
+        const response = await editOrderService(companyOperation?.companyOperationID, orderToEdit.id, newTableCandidate, customerSelected?.id, pickupName, null, getCustomerEstimatedKm().km);
 
         if (response?.status === 200) {
             await getShiftOperationData();
