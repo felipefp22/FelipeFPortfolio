@@ -13,7 +13,7 @@ export default function CompanyCustomers({ companyData,}) {
 
     return (
         <>
-            <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%', maxHeight: '640px' }} >
+            <div className='menuTransparentCanvas'  >
                 {/* <span style={{ color: fontColorOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>Manage Your Companies</span> */}
                 <span style={{ color: blueOne(theme), fontSize: '26px', fontWeight: 'bold', marginBottom: '10px' }}>
                     Being Implemented - I work on it at my free time ;)</span>

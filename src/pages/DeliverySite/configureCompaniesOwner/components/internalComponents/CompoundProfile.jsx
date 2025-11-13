@@ -56,41 +56,39 @@ export default function CompoundProfile({ compoundSelectedData, fetchUserInfos }
 
     return (
         <>
-            <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%' }} >
+            <div className='menuTransparentCanvas'  >
 
-                <div className='flexColumn fullCenter' style={{ width: isPcV ? '80%' : '100%', maxWidth: '1000px', padding: '10px 0px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
-                    <div className='flexRow fullCenter' style={{ width: '100%', height: '100%' }} >
-                        <img src={compoundPhoto ?? companiesGroupLogo} alt="Logo" onClick={() => setSeeImageBig(compoundPhoto)} style={{
-                            width: isPcV ? '200px' : '120px', height: isPcV ? '200px' : "120px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', border: `3px solid ${borderColorTwo(theme)}`,
-                            boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, padding: compoundPhoto ? '0px' : (isPcV ? '50px' : '20px'),
-                        }} />
+                <div className='flexRow fullCenter' style={{ width: '100%', }} >
+                    <img src={compoundPhoto ?? companiesGroupLogo} alt="Logo" onClick={() => setSeeImageBig(compoundPhoto)} style={{
+                        width: isPcV ? '200px' : '120px', height: isPcV ? '200px' : "120px", borderRadius: '50%', objectFit: "contain", backgroundColor: "black", cursor: 'pointer', border: `3px solid ${borderColorTwo(theme)}`,
+                        boxShadow: `1px 2px 20px ${borderColorTwo(theme, 0.2)}`, padding: compoundPhoto ? '0px' : (isPcV ? '50px' : '20px'),
+                    }} />
 
-                        <div className='flexColumn fullCenter' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center', position: 'relative' }} >
-                            <button className={`roundedButton ${(editing && !disable && 'green')} ${!isPcV && 'small'}`} style={{
-                         marginLeft: 10,
-                                position: 'absolute', right: 5, top: 0,
-                            }} onClick={() => { editing ? handleUpdateCompound() : setEditing(true) }} >
-                                {!disable && <FontAwesomeIcon icon={editing ? faCheck : faPen} style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: '500', }} />}
-                                {disable && <Spinner animation="border" role="status" style={{ width: isPcV ? '25px' : '20px', height: isPcV ? '25px' : '20px', color: 'white', }} />}
-                            </button>
-                            {editing && !disable && <button className={`roundedButton red ${!isPcV && 'small'}`} style={{ opacity: 0.7, position: 'absolute', right: isPcV ? 65 : 50, top: 0, }}
-                                onClick={() => { getDatasFromCompoundData(); setEditing(false); }} >
-                                <FontAwesomeIcon icon={faXmark} style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: '500', }} />
-                            </button>}
+                    <div className='flexColumn fullCenter' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center', position: 'relative' }} >
+                        <button className={`roundedButton ${(editing && !disable && 'green')} ${!isPcV && 'small'}`} style={{
+                            marginLeft: 10,
+                            position: 'absolute', right: 5, top: 0,
+                        }} onClick={() => { editing ? handleUpdateCompound() : setEditing(true) }} >
+                            {!disable && <FontAwesomeIcon icon={editing ? faCheck : faPen} style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: '500', }} />}
+                            {disable && <Spinner animation="border" role="status" style={{ width: isPcV ? '25px' : '20px', height: isPcV ? '25px' : '20px', color: 'white', }} />}
+                        </button>
+                        {editing && !disable && <button className={`roundedButton red ${!isPcV && 'small'}`} style={{ opacity: 0.7, position: 'absolute', right: isPcV ? 65 : 50, top: 0, }}
+                            onClick={() => { getDatasFromCompoundData(); setEditing(false); }} >
+                            <FontAwesomeIcon icon={faXmark} style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: '500', }} />
+                        </button>}
 
-                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: '10px' }} >
-                                {!editing && <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '36px' : '18px', fontWeight: 'bold' }}>{compoundSelectedData?.compoundName ?? 'N/A'}</span>}
-                                {editing && <input className='inputStandart' type="text" value={compoundName || ""} onChange={(e) => setCompoundName(e.target.value)} style={{ fontSize: isPcV ? '36px' : '18px', fontWeight: 'bold', textAlign: 'center', height: isPcV ? '50px' : '35px' }} />}
-                            </div>
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: '10px' }} >
+                            {!editing && <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '36px' : '18px', fontWeight: 'bold' }}>{compoundSelectedData?.compoundName ?? 'N/A'}</span>}
+                            {editing && <input className='inputStandart' type="text" value={compoundName || ""} onChange={(e) => setCompoundName(e.target.value)} style={{ fontSize: isPcV ? '36px' : '18px', fontWeight: 'bold', textAlign: 'center', height: isPcV ? '50px' : '35px' }} />}
                         </div>
                     </div>
+                </div>
 
-                    <div className='flexColumn' style={{ width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isPcV ? '30px 40px' : '30px 20px', }} >
-                        <div className='flexColumn' style={{ width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
-                            <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Description: </span>
-                            {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{compoundSelectedData?.compoundDescription ?? "N/A"}</span>}
-                            {editing && <textarea className='textAreaStandart' rows={7} value={compoundDescription || ""} onChange={(e) => setCompoundDescription(e.target.value)} />}
-                        </div>
+                <div className='flexColumn' style={{ width: '100%', justifyContent: 'left', alignItems: 'flex-start', padding: isPcV ? '30px 40px' : '30px 20px', }} >
+                    <div className='flexColumn' style={{ width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
+                        <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Description: </span>
+                        {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{compoundSelectedData?.compoundDescription ?? "N/A"}</span>}
+                        {editing && <textarea className='textAreaStandart' rows={7} value={compoundDescription || ""} onChange={(e) => setCompoundDescription(e.target.value)} />}
                     </div>
                 </div>
             </div>

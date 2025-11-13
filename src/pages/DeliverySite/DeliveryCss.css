@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: row;
 }
+
 .flexRow.spaceBetweenJC {
     justify-content: space-between;
 }
@@ -33,6 +34,25 @@
     background-color: var(--transparentCanvasBgOne);
     padding: 10px;
     border-radius: 6px;
+}
+
+.transparentCanvas .bgSoft {
+    background-color: var(--transparentCanvasBgTwo);
+}
+
+
+.menuTransparentCanvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    background-color: var(--transparentCanvasBgTwo);
+    color: var(--fontColorOne);
+    padding: 10px;
+    border-radius: 0px 0px 6px 6px;
+    width: 100%;
+    overflow-y: auto;
 }
 
 /* <> ------------------------- MODALS ------------------------- <> */
@@ -85,12 +105,15 @@ button:hover {
     border-radius: 5px;
     height: 40px;
 }
+
 .buttonStandart.green {
     background-color: var(--greenOne);
 }
+
 .buttonStandart.red {
     background-color: var(--redOne);
 }
+
 .buttonStandart.blue {
     background-color: var(--blueOne);
 }
@@ -108,12 +131,15 @@ button:hover {
     height: 40px;
     font-size: 16px;
 }
+
 .buttonNoBgNoBorder.fontGreen {
     color: var(--greenOne);
 }
+
 .buttonNoBgNoBorder.fontGreenTwo {
     color: var(--greenTwo);
 }
+
 .buttonNoBgNoBorder.fontRed {
     color: var(--redOne);
 }

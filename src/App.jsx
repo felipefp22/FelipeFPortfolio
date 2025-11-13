@@ -6,7 +6,7 @@ import Index from './Index'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeView } from './redux/viewSlice';
-import { alphaC, blueOne, borderColorOne, borderColorTwo, floatingBlackButton, fontColorOne, greenOne, greenTwo, mainColor, modalBackground, redOne, secondColor, secondColorInverse, transparentCanvasBgOne } from './theme/Colors';
+import { alphaC, blueOne, borderColorOne, borderColorTwo, floatingBlackButton, fontColorOne, greenOne, greenTwo, mainColor, modalBackground, redOne, secondColor, secondColorInverse, transparentCanvasBgOne, transparentCanvasBgTwo } from './theme/Colors';
 
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
     document.documentElement.style.setProperty('--fontColorOne', fontColorOne(theme));
 
     document.documentElement.style.setProperty('--transparentCanvasBgOne', alphaC(transparentCanvasBgOne(theme), theme === 'DARK' ? 0.2 : theme === 'LIGHT' ? 0.6 : 0.6));
+    document.documentElement.style.setProperty('--transparentCanvasBgTwo', alphaC(transparentCanvasBgTwo(theme), theme === 'DARK' ? 0.1 : theme === 'LIGHT' ? 0.4 : 0.4));
 
     document.documentElement.style.setProperty('--modalBackground', modalBackground(theme));
 

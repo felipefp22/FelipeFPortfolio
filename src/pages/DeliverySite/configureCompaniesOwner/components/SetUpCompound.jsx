@@ -42,7 +42,7 @@ export default function SetUpCompound({ companiesCoumpound, fetchUserInfos }) {
 
     return (
         <>
-            <div className='flexColumn' >
+            <div className='flexColumn' style={{height: '100%'}} >
                 <div className='flexRow' style={{ alignItems: 'center', marginBottom: '5px', visibility: compoundSelectedData?.compoundName ? 'visible' : 'hidden' }} >
                     <button className='floatingButton green fullCenter' style={{height: '29px', width: '29px', marginRight: '10px' }} onClick={() => navigate('/FelipeFPortfolio/delivery/ManageCompaniesOwner/')} >
                         <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white", margin: 'auto', fontSize: '12px' }} />

@@ -58,14 +58,15 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
 
     return (
         <>
-            <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%', maxHeight: '640px' }} >
+            <div className='menuTransparentCanvas' >
 
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', alignItems: 'center', marginBottom: '10px' }} >
                     <span style={{ color: borderColorTwo(theme), fontSize: '22px', fontWeight: 'bold' }}>{"Employees"} </span>
                     <button className='buttonStandart' onClick={() => { setAddEmployeeModalOpen(true) }} >Add Employee</button>
                 </div>
 
-                <div className='flexColumn' style={{ width: '100%', flexGrow: 1, overflowY: 'auto', }}>
+
+                <div className='flexColumn' style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
                     {employeePositionsCategories.map((position, index) => {
                         const [isOpen, setIsOpen] = useState(true);
 

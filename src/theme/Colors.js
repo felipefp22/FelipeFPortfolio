@@ -69,8 +69,12 @@ export function blueOne(theme) {
 
 
 export function transparentCanvasBgOne(theme, opacity = 0.6) {
-    if (theme === 'LIGHT') { const color = `rgba(5, 156, 244, 1)`; return color; }
-    if (theme === 'DARK') { const color = `rgba(255, 255, 255, 1)`; return color; }
+    if (theme === 'LIGHT') return `rgba(5, 156, 244, 1)`;
+    if (theme === 'DARK') return `rgba(255, 255, 255, 1)`;
+}
+export function transparentCanvasBgTwo(theme) {
+    if (theme === 'LIGHT') return "rgba(5, 156, 244, 1)";
+    if (theme === 'DARK') return "rgba(255, 255, 255, 1)";
 }
 
 export function transparentCavasOne(theme) {

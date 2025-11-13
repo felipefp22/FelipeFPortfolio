@@ -24,7 +24,7 @@ export default function CompanyShifts({ companyData, fetchCompanyData }) {
 
     return (
         <>
-            <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%' }} >
+            <div className='menuTransparentCanvas' >
 
                 <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%', width: '100%' }} >
                     <div className='flexColumn' style={{ alignItems: 'flex-start', width: '100%', height: '100%', justifyContent: 'center' }} >

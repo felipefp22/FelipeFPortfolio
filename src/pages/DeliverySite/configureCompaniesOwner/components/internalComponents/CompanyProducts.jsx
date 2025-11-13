@@ -30,13 +30,13 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
 
     return (
         <>
-            <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%', flex: 1,  }} >
+            <div className='menuTransparentCanvas' >
 
                 <div className='flexRow' style={{ width: '100%', justifyContent: 'left', alignItems: 'left', textAlign: 'left', marginBottom: '5px' }} >
                     <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '22px' : '17px', fontWeight: 'bold' }}>{"Products"} </span>
                 </div>
 
-                <div className='flexColumn' style={{ width: '100%', flexGrow: 1, overflowY: 'auto', }}>
+                <div className='flexColumn' style={{ width: '100%', height: '100%', overflowY: 'auto', }}>
                     <div className='transparentCanvas' style={{ marginBottom: '15px', }} onClick={() => { setCreateProductCategoryModal(true); }}>
                         <div className='flexRow' style={{ width: '100%', alignItems: 'center' }} >
                             <div className='transparentCanvas fullCenter' style={{ borderRadius: '50%', marginRight: 10, }} >
