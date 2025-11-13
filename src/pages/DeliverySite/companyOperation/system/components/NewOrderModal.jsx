@@ -8,7 +8,8 @@ import { getAllCompanyCustomers } from "../../../../../services/deliveryServices
 import { getAllProductsCategories } from "../../../../../services/deliveryServices/ProductsCategoryService";
 import { createOrder } from "../../../../../services/deliveryServices/OrderService";
 import { useSelector } from "react-redux";
-import { borderColorOne, borderColorTwo, greenOne } from "../../../../../theme/Colors";
+import { blueOne, borderColorOne, borderColorTwo, greenOne, greenTwo, orangeOne, redOne } from "../../../../../theme/Colors";
+import { calculateEstimatedKm, calculatePrice } from '../../../../../redux/calculateDeliveryDistancePrice';
 
 export default function NewOrderModal({ close, companyOperation, getShiftOperationData, tableNumberSelectedBeforeModal }) {
     const theme = useSelector((state) => state.view.theme);
@@ -127,7 +128,8 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             customerSelectedToNewOrder?.id,
             pickupNameInput ? pickupNameInput : customerSelectedToNewOrder?.customerName,
             itemsIdAndQuantity,
-            " "
+            " ",
+            getCustomerEstimatedKm().km
         );
 
         if (response?.status === 200) {
@@ -156,6 +158,14 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
     // useEffect(() => {
     //     console.log("tableNumberOrDeliveryOrPickupSelected: ", tableNumberOrDeliveryOrPickupSelected);
     // }, [tableNumberOrDeliveryOrPickupSelected]);
+
+    function getCustomerEstimatedKm() {
+        const distance = calculateEstimatedKm(customerSelectedToNewOrder?.lat, customerSelectedToNewOrder?.lng, companyOperation?.companyLat, companyOperation?.companyLng);
+        const price = calculatePrice(distance, companyOperation);
+
+        return { km: distance, price: price };
+    }
+
 
     return (
         <>
@@ -237,7 +247,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 </ul>
                             )}
                         </div>
-                        <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', marginBottom: '5px', }}>
+                        <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', }}>
                             <div className='flexColumn' style={{ width: '62%', }}>
                                 <span style={{ fontWeight: "600" }}>Customer Address</span>
                                 <input className='inputStandart' type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
@@ -252,6 +262,21 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                     style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                         </div>
+
+                        {customerSelectedToNewOrder && <div className='flexRow fullCenter' style={{ margin: '3px 0px', }} >
+                            <span style={{ fontWeight: "600", }}>Distance:</span>
+                            <span style={{ fontWeight: "600", color: blueOne(theme), marginLeft: 5 }}>{getCustomerEstimatedKm().km + " Km"}</span>
+                            {getCustomerEstimatedKm().km > companyOperation?.maxRecommendedDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: orangeOne(theme), marginLeft: 2 }}>
+                                {'⚠️Above Ideal '}</span>}
+                            {getCustomerEstimatedKm().km > companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: blueOne(theme), marginLeft: 2 }}>
+                                {'🚫'}</span>}
+                            <span style={{ fontWeight: "600", color: greenTwo(theme), marginLeft: 5 }}>{'$' + getCustomerEstimatedKm().price}</span>
+
+                            <span style={{ fontWeight: "600", padding: '0px 8px', }}>{'|'}</span>
+
+                            <span style={{ fontWeight: "600", }}> Max: </span>
+                            <span style={{ fontWeight: "600", color: redOne(theme), marginLeft: 5 }}>{companyOperation?.maxDeliveryDistanceKM + 'Km'}</span>
+                        </div>}
                     </div>}
                 </div>
 
@@ -291,12 +316,12 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                     <button className='buttonStandart' style={{}} onClick={() => close()} disabled={disabled}>Cancel</button>
 
                     <button className='buttonStandart green' style={{}}
-                        onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '30px', }} /> : 'Save Order'}</button>
+                        onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Save Order'}</button>
                 </div>
             </div >
 
             {showNewCustomerModal && <div ref={newCustomerModalRef} className='myModal' >
-                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperation?.companyOperationID} fetchCustomers={(e) => fetchCustomers(e)} />
+                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperation={companyOperation} fetchCustomers={(e) => fetchCustomers(e)} />
             </div>
             }
 

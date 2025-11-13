@@ -43,9 +43,12 @@ export default function OrderResumeModal({ close, orderToEdit, companyOperation,
                     <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: fontColorOne(theme) }}>{`Price: `}</span>
                     <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>{`$ ${Number(orderToEdit?.price ?? 0).toFixed(2)}`}</span>
                 </div>
+                {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' && <div className='flexRow fullCenter'>
+                    <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: fontColorOne(theme) }}>{`Delivery Tax: `}</span>
+                    <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>{`$ ${Number(orderToEdit?.deliveryTax ?? 0).toFixed(2)}`}</span>
+                </div>}
 
                 <div className='flexRow fullCenter'>
-
                     {((orderToEdit?.tableNumberOrDeliveryOrPickup !== 'delivery' && orderToEdit?.tableNumberOrDeliveryOrPickup !== 'pickup') ||
                         (orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' && companyOperation?.deliveryHasServiceTax) || (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' && companyOperation?.pickupHasServiceTax)) &&
                         <div className='flexColumn' >
@@ -63,7 +66,7 @@ export default function OrderResumeModal({ close, orderToEdit, companyOperation,
                     <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', color: greenTwo(theme) }}>{`$ ${Number(orderToEdit?.totalPrice ?? 0).toFixed(2)}`}</span>
                 </div>}
 
-                
+
                 {orderToEdit?.status === 'PAID' && <div className='flexColumn fullCenter'>
                     <span style={{ fontSize: isPcV ? '22px' : '16px', fontWeight: '600', marginRight: '10px', color: greenTwo(theme) }}>{`[ PAID ]`}</span>
                 </div>}

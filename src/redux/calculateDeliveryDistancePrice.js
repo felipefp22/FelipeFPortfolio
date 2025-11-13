@@ -1,4 +1,4 @@
-function calculateEstimatedKm(lat1, lon1, lat2, lon2) {
+export function calculateEstimatedKm(lat1, lon1, lat2, lon2) {
     const R = 6371; // Earth's radius in km
 
     const toRad = (deg) => deg * Math.PI / 180;
@@ -25,4 +25,14 @@ function calculateEstimatedKm(lat1, lon1, lat2, lon2) {
     console.log("Rounded distance (km): ", distance);
 
     return distance;
+}
+
+export function calculatePrice(distance, companyOperation) {
+    if (!companyOperation) return null;
+
+    const extraKm = Math.ceil(Math.max(0, distance - companyOperation?.baseDeliveryDistanceKM));
+    let price = companyOperation?.baseDeliveryTax
+    price += extraKm * companyOperation?.taxPerExtraKM;
+
+    return price;
 }

@@ -21,7 +21,6 @@ export const slice = createSlice({
     taxServicePercentage: null,
     deliveryHasServiceTax: null,
     pickupHasServiceTax: null,
-
     maxRecommendedDistanceKM: null,
     maxDeliveryDistanceKM: null,
     baseDeliveryDistanceKM: null,
@@ -47,7 +46,6 @@ export const slice = createSlice({
     changeTaxServicePercentage(state, { payload }) { return { ...state, taxServicePercentage: payload } },
     changeDeliveryHasServiceTax(state, { payload }) { return { ...state, deliveryHasServiceTax: payload } },
     changePickupHasServiceTax(state, { payload }) { return { ...state, pickupHasServiceTax: payload } },
-
     changeMaxRecommendedDistanceKM(state, { payload }) { return { ...state, maxRecommendedDistanceKM: payload } },
     changeMaxDeliveryDistanceKM(state, { payload }) { return { ...state, maxDeliveryDistanceKM: payload } },
     changeBaseDeliveryDistanceKM(state, { payload }) { return { ...state, baseDeliveryDistanceKM: payload } },
@@ -76,7 +74,6 @@ export const slice = createSlice({
       state.taxServicePercentage = null;
       state.deliveryHasServiceTax = null;
       state.pickupHasServiceTax = null;
-
       state.maxRecommendedDistanceKM = null;
       state.maxDeliveryDistanceKM = null;
       state.baseDeliveryDistanceKM = null;
@@ -105,7 +102,6 @@ export const {
   changeTaxServicePercentage,
   changeDeliveryHasServiceTax,
   changePickupHasServiceTax,
-
   changeMaxRecommendedDistanceKM,
   changeMaxDeliveryDistanceKM,
   changeBaseDeliveryDistanceKM,

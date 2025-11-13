@@ -23,7 +23,7 @@ export async function getOrderOperation(compID) {
     }
 }
 
-export async function createOrder(compId, tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, notes) {
+export async function createOrder(compId, tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, notes, deliveryDistanceKM) {
 
     const postData = {
         companyID: compId,
@@ -32,6 +32,7 @@ export async function createOrder(compId, tableNumberOrDeliveryOrPickup, custome
         pickupName: pickupName,
         orderItemsIDs: orderItemsIDs,
         notes: notes,
+        deliveryDistanceKM: deliveryDistanceKM,
     };
     try {
         const response = await axiosInstanceRestaurantSystem.post(`/order/create-order`, postData,
@@ -50,7 +51,7 @@ export async function createOrder(compId, tableNumberOrDeliveryOrPickup, custome
 }
 
 
-export async function editOrderService(companyID, orderID, tableNumberOrDeliveryOrPickup, customerID, pickupName, notes) {
+export async function editOrderService(companyID, orderID, tableNumberOrDeliveryOrPickup, customerID, pickupName, notes, deliveryDistanceKM) {
 
     const postData = {
         companyID: companyID,
@@ -59,6 +60,7 @@ export async function editOrderService(companyID, orderID, tableNumberOrDelivery
         customerID: customerID,
         pickupName: pickupName,
         notes: notes,
+        deliveryDistanceKM: deliveryDistanceKM,
     };
     try {
         const response = await axiosInstanceRestaurantSystem.put(`/order/update-order`, postData,

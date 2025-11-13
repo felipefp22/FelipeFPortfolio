@@ -7,8 +7,9 @@ import { useSelector } from "react-redux";
 import SelectCustumerAddressMap from "./auxComponents/SelectCustumerAddressMap";
 import { searchAddress } from "../../../../../services/deliveryServices/auxServices/mapService";
 import { borderColorTwo } from "../../../../../theme/Colors";
+import { calculateEstimatedKm, calculatePrice } from '../../../../../redux/calculateDeliveryDistancePrice';
 
-export default function NewCustomerModal({ close, companyOperationID, fetchCustomers }) {
+export default function NewCustomerModal({ close, companyOperation, fetchCustomers }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -54,7 +55,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
             return;
         }
 
-        const response = await createCustomer(companyOperationID, name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
+        const response = await createCustomer(companyOperation?.companyOperationID, name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
         if (response?.status === 200) {
             fetchCustomers(response?.data?.id);
             close();
@@ -99,6 +100,13 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
         setZipCode(addressFoundSelected?.display_name)
         setShowAddressSelectorDropdown(false);
     }, [addressFoundSelected]);
+
+    function getCustomerEstimatedKm() {
+        const distance = calculateEstimatedKm(customerSelectedToNewOrder?.lat, customerSelectedToNewOrder?.lng, companyOperation?.companyLat, companyOperation?.companyLng);
+        const price = calculatePrice(distance, companyOperation);
+
+        return { km: distance, price: price };
+    }
 
     return (
         <>
@@ -179,7 +187,7 @@ export default function NewCustomerModal({ close, companyOperationID, fetchCusto
                             </ul>
                         )}
                     </div>
-                    <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} setSearchAddressInput={setSearchAddressInput} showAddressSelectorDropdown={showAddressSelectorDropdown} />
+                    <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} setSearchAddressInput={setSearchAddressInput} showAddressSelectorDropdown={showAddressSelectorDropdown}/>
                 </div>
 
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>

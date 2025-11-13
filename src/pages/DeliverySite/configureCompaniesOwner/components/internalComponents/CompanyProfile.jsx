@@ -27,6 +27,12 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
     const [companyServiceTax, setCompanyServiceTax] = useState(null);
     const [numberOfTables, setNumberOfTables] = useState(null);
 
+    const [maxDeliveryDistanceKM, setMaxDeliveryDistanceKM] = useState(null);
+    const [maxRecommendedDistanceKM, setMaxRecommendedDistanceKM] = useState(null);
+    const [baseDeliveryDistanceKM, setBaseDeliveryDistanceKM] = useState(null);
+    const [baseDeliveryTax, setBaseDeliveryTax] = useState(null);
+    const [taxPerExtraKM, setTaxPerExtraKM] = useState(null);
+
     const [disable, setDisable] = useState(false);
     const [editing, setEditing] = useState(false);
 
@@ -51,16 +57,25 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
         setCompanyLng(companyData?.companyLng || null);
         setCompanyServiceTax(companyData?.taxServicePercentage || null);
         setNumberOfTables(companyData?.numberOfTables || null);
+        setMaxDeliveryDistanceKM(companyData?.maxDeliveryDistanceKM || null);
+        setMaxRecommendedDistanceKM(companyData?.maxRecommendedDistanceKM || null);
+        setBaseDeliveryDistanceKM(companyData?.baseDeliveryDistanceKM || null);
+        setBaseDeliveryTax(companyData?.baseDeliveryTax || null);
+        setTaxPerExtraKM(companyData?.taxPerExtraKM || null);
     }
 
     async function handleUpdateCompany() {
         if (companyData?.companyName !== companyName || companyData?.companyEmail !== companyEmail ||
             companyData?.companyPhone !== companyPhone || companyData?.companyAddress !== companyAddress ||
             companyData?.companyLat !== companyLat || companyData?.companyLng !== companyLng ||
-            companyData?.numberOfTables !== numberOfTables || companyData?.taxServicePercentage !== companyServiceTax) {
+            companyData?.numberOfTables !== numberOfTables || companyData?.taxServicePercentage !== companyServiceTax ||
+            companyData?.maxDeliveryDistanceKM !== maxDeliveryDistanceKM || companyData?.maxRecommendedDistanceKM !== maxRecommendedDistanceKM ||
+            companyData?.baseDeliveryDistanceKM !== baseDeliveryDistanceKM || companyData?.baseDeliveryTax !== baseDeliveryTax ||
+            companyData?.taxPerExtraKM !== taxPerExtraKM) {
 
             setDisable(true);
-            const response = await updateCompanyService(companyID, companyName, companyEmail, companyPhone, companyAddress, companyLat, companyLng, numberOfTables, companyServiceTax);
+            const response = await updateCompanyService(companyID, companyName, companyEmail, companyPhone, companyAddress, companyLat, companyLng, numberOfTables, companyServiceTax, 
+                maxDeliveryDistanceKM, maxRecommendedDistanceKM, baseDeliveryDistanceKM, baseDeliveryTax, taxPerExtraKM);
 
             if (response?.status === 200) {
                 fetchCompanyData();
@@ -74,7 +89,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
 
     return (
         <>
-            <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%' }} >
+            <div className='flexColumn fullCenter' style={{ backgroundColor: transparentCavasTwo(theme), color: "white", padding: '10px', borderRadius: '0px 0px 6px 6px', minWidth: '300px', maxWidth: '100%', }} >
                 <div className='flexColumn fullCenter' style={{ width: isPcV ? '80%' : '100%', maxWidth: '1000px', padding: '10px 0px', backgroundColor: "rgba(255, 255, 255, 0.0)" }} >
                     <div className='flexRow' style={{ width: '100%', alignItems: 'center', height: '100%' }} >
                         <img src={compoundPhoto ?? restaurantLogo} alt="Logo" onClick={() => setSeeImageBig(compoundPhoto)} style={{
@@ -118,14 +133,14 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
                             {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{companyPhone ?? "N/A"}</span>}
                             {editing && <input className='inputStandart' type="text" value={companyPhone || ""} onChange={(e) => setCompanyPhone(e.target.value)} />}
                         </div>
-                        <div className='flexRow' style={{ width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
+                        <div className='flexRow fullCenter' style={{ width: '100%', justifyContent: 'left', marginBottom: '10px' }} >
                             <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Service Tax: </span>
                             {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{companyServiceTax ? companyServiceTax + " %" : ""}</span>}
                             {editing && <input className='inputStandart' type="number" min={0} max={100} style={{ width: 70, textAlign: 'center', }} value={companyServiceTax || ""}
                                 onChange={(e) => { const value = e.target.value; if (!/^\d*$/.test(value)) return; if ((Number(value) >= 0 && Number(value) <= 99)) setCompanyServiceTax(Number(value)); }}
                                 onKeyDown={(e) => { if (["-", "+", "e", "."].includes(e.key)) e.preventDefault(); }} />}
                         </div>
-                        <div className='flexRow' style={{ width: '100%', justifyContent: 'left', alignItems: 'flex-start', marginBottom: '10px' }} >
+                        <div className='flexRow fullCenter' style={{ width: '100%', justifyContent: 'left', marginBottom: '10px' }} >
                             <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px', }}>Tables Qty: </span>
                             {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{numberOfTables ?? "N/A"}</span>}
                             {editing && <select className='inputStandart' value={numberOfTables || 0} onChange={(e) => setNumberOfTables(Number(e.target.value))} style={{ maxWidth: '120px', padding: '5px', borderRadius: '6px', fontSize: '16px', textAlign: 'center' }} >
@@ -133,6 +148,51 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
                                     <option key={i + 1} value={i + 1}>{i + 1}</option>
                                 ))}
                             </select>}
+                        </div>
+
+                        <br />
+                        <div className='flexRow fullCenter' style={{ width: '100%', justifyContent: 'left', marginBottom: '10px' }} >
+                            <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Max Distance: </span>
+                            {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{maxDeliveryDistanceKM ?? "N/A"}</span>}
+                            {editing && <input className='inputStandart' type="number" min={0} max={100} style={{ width: 70, textAlign: 'center', }} value={maxDeliveryDistanceKM || ""}
+                                onChange={(e) => { const value = e.target.value; if (!/^\d*$/.test(value)) return; if ((Number(value) >= 0 && Number(value) <= 99)) setMaxDeliveryDistanceKM(Number(value)); }}
+                                onKeyDown={(e) => { if (["-", "+", "e", "."].includes(e.key)) e.preventDefault(); }} />}
+                            <span style={{ fontSize: isPcV ? '22px' : '16px', marginLeft: 5 }}>KM </span>
+                        </div>
+                        <div className='flexRow fullCenter' style={{ width: '100%', justifyContent: 'left', marginBottom: '10px' }} >
+                            <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Max Ideal Distance: </span>
+                            {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{maxRecommendedDistanceKM ?? "N/A"}</span>}
+                            {editing && <input className='inputStandart' type="number" min={0} max={100} style={{ width: 70, textAlign: 'center', }} value={maxRecommendedDistanceKM || ""}
+                                onChange={(e) => { const value = e.target.value; if (!/^\d*$/.test(value)) return; if ((Number(value) >= 0 && Number(value) <= 99)) setMaxRecommendedDistanceKM(Number(value)); }}
+                                onKeyDown={(e) => { if (["-", "+", "e", "."].includes(e.key)) e.preventDefault(); }} />}
+                            <span style={{ fontSize: isPcV ? '22px' : '16px', marginLeft: 5 }}>KM </span>
+                        </div>
+
+                        <br />
+
+                        <div className='flexRow fullCenter' style={{ width: '100%', justifyContent: 'left', marginBottom: '10px' }} >
+                            <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Base Distance: </span>
+                            {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{baseDeliveryDistanceKM ?? "N/A"}</span>}
+                            {editing && <input className='inputStandart' type="number" min={0} max={100} style={{ width: 70, textAlign: 'center', }} value={baseDeliveryDistanceKM || ""}
+                                onChange={(e) => { const value = e.target.value; if (!/^\d*$/.test(value)) return; if ((Number(value) >= 0 && Number(value) <= 99)) setBaseDeliveryDistanceKM(Number(value)); }}
+                                onKeyDown={(e) => { if (["-", "+", "e", "."].includes(e.key)) e.preventDefault(); }} />}
+                            <span style={{ fontSize: isPcV ? '22px' : '16px', marginLeft: 5 }}>KM </span>
+                        </div>
+                        <div className='flexRow fullCenter' style={{ width: '100%', justifyContent: 'left', marginBottom: '10px' }} >
+                            <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Base Distance Tax: </span>
+                            {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{baseDeliveryTax?.toFixed(2) ?? "N/A"}</span>}
+                            {editing && <input className='inputStandart' type="number" min={0} max={100} style={{ width: 70, textAlign: 'center', }} value={baseDeliveryTax || ""}
+                                onChange={(e) => {let value = e.target.value.replace(",", "."); if (!/^\d*\.?\d{0,2}$/.test(value)) return; const num = Number(value); if (!isNaN(num) && num >= 0) setBaseDeliveryTax(num); }}
+                                onKeyDown={(e) => { if (["e", "E", "+", "-"].includes(e.key)) e.preventDefault(); }} /> }
+                            <span style={{ fontSize: isPcV ? '22px' : '16px', marginLeft: 5 }}>$</span>
+                        </div>
+                        <div className='flexRow fullCenter' style={{ width: '100%', justifyContent: 'left', marginBottom: '10px' }} >
+                            <span style={{ fontSize: isPcV ? '24px' : '18px', fontWeight: 'bold', marginRight: '20px' }}>Extra KM Tax: </span>
+                            {!editing && <span style={{ fontSize: isPcV ? '22px' : '16px' }}>{taxPerExtraKM?.toFixed(2) ?? "N/A"}</span>}
+                            {editing && <input className='inputStandart' type="number" style={{ width: 70, textAlign: 'center', }} value={taxPerExtraKM || ""}
+                                onChange={(e) => {let value = e.target.value.replace(",", "."); if (!/^\d*\.?\d{0,2}$/.test(value)) return; const num = Number(value); if (!isNaN(num) && num >= 0) setTaxPerExtraKM(num); }}
+                                onKeyDown={(e) => { if (["e", "E", "+", "-"].includes(e.key)) e.preventDefault(); }} /> }
+                            <span style={{ fontSize: isPcV ? '22px' : '16px', marginLeft: 5 }}>$</span>
                         </div>
 
                         <br />
