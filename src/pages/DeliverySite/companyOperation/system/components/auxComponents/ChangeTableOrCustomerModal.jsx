@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { getAllCompanyCustomers } from "../../../../../../services/deliveryServices/CustomerSevice";
 import CancelOrder from "../CancelOrderModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { blueOne, borderColorOne, borderColorTwo, greenOne, greenTwo, redOne } from "../../../../../../theme/Colors";
+import { faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { blueOne, borderColorOne, borderColorTwo, greenOne, greenTwo, orangeOne, redOne } from "../../../../../../theme/Colors";
 import { Spinner } from "react-bootstrap";
 import { editOrderService } from "../../../../../../services/deliveryServices/OrderService";
+import { calculateEstimatedKm, calculatePrice } from '../../../../../../redux/calculateDeliveryDistancePrice';
 
 
 
@@ -54,6 +55,13 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
     }
 
     useEffect(() => {
+        if (newCustomerCandidate) {
+            setNewCustomerCandidate(allCompanyCustomers.find(cust => cust.id === newCustomerCandidate.id) || null);
+        }
+
+    }, [allCompanyCustomers]);
+
+    useEffect(() => {
         fetchCustomers();
     }, []);
 
@@ -82,9 +90,18 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
             setEditNameCustomer(false);
             return;
         }
+
+        if (tableNumberOrDeliveryOrPickup === 'delivery') {
+            if (getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM) {
+                alert(`Can't Order to this customer, distance exceeds maximum(${companyOperation?.maxDeliveryDistanceKM}) delivery distance.`);
+                setEditNameCustomer(false);
+                return;
+            }
+        }
+
         setDisabled(true);
 
-        const response = await editOrderService(companyOperation?.companyOperationID, orderToEdit.id, tableNumberOrDeliveryOrPickup, newCustomerCandidate?.id, newPickupNameCandidate, null);
+        const response = await editOrderService(companyOperation?.companyOperationID, orderToEdit.id, tableNumberOrDeliveryOrPickup, newCustomerCandidate?.id, newPickupNameCandidate, null, getCustomerEstimatedKm().km);
 
         if (response?.status === 200) {
             await getShiftOperationData();
@@ -103,6 +120,14 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
             setEditTable(false);
             return;
         }
+
+        if (newTableCandidate === 'delivery') {
+            if (getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM) {
+                alert(`Can't Order to this customer, distance exceeds maximum(${companyOperation?.maxDeliveryDistanceKM}) delivery distance.`);
+                setEditTable(false);
+                return;
+            }
+        }
         setDisabled(true);
 
         const response = await editOrderService(companyOperation?.companyOperationID, orderToEdit.id, newTableCandidate, customerSelected?.id, pickupName, null);
@@ -120,6 +145,16 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
     function cn(...classes) {
         return classes.filter(Boolean).join(" ");
+    }
+
+    function getCustomerEstimatedKm() {
+        const latToFind = editNameCustomer ? newCustomerCandidate?.lat : customerSelected?.lat;
+        const lngToFind = editNameCustomer ? newCustomerCandidate?.lng : customerSelected?.lng;
+
+        const distance = calculateEstimatedKm(latToFind, lngToFind, companyOperation?.companyLat, companyOperation?.companyLng);
+        const price = calculatePrice(distance, companyOperation);
+
+        return { km: distance, price: price };
     }
 
     return (
@@ -153,13 +188,19 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                 </div>
 
                 {editNameCustomer && <div style={{ marginBottom: '5px' }}>
-                    {tableNumberOrDeliveryOrPickup === 'delivery' && <span style={{ fontWeight: "600" }}>Customer</span>}
-                    {tableNumberOrDeliveryOrPickup !== 'delivery' && <select className='inputStandart' value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
-                        style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'left', }} >
-                        <option value='' disabled hidden> Select </option>
-                        <option value={'Customer'}> {'Customer'} </option>
-                        <option value={'Name'}> {'Name'} </option>
-                    </select>}
+                    <div className='flexRow spaceBetweenJC' style={{ width: '100%' }}>
+                        {tableNumberOrDeliveryOrPickup === 'delivery' && <span style={{ fontWeight: "600" }}>Customer</span>}
+                        {tableNumberOrDeliveryOrPickup !== 'delivery' && <select className='inputStandart' value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
+                            style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'left', }} >
+                            <option value='' disabled hidden> Select </option>
+                            <option value={'Customer'}> {'Customer'} </option>
+                            <option value={'Name'}> {'Name'} </option>
+                        </select>}
+
+                        {selectUseCustomerOrPickUpName === 'Customer' && newCustomerCandidate && <button className={`buttonStandart`}
+                            style={{ fontSize: isPcV ? '17px' : '14px', height: '28px', padding: isPcV ? '0px 10px' : '0px 6px', }}
+                            onClick={() => { setShowNewCustomerModal(newCustomerCandidate); }} disabled={disabled}><FontAwesomeIcon icon={faPen} /><span style={{ fontWeight: "600" }}> Edit Customer</span></button>}
+                    </div>
                 </div>}
 
                 {selectUseCustomerOrPickUpName === 'Name' && <div>
@@ -174,7 +215,9 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
                 {selectUseCustomerOrPickUpName === 'Customer' && <div>
                     <div ref={customerSelectorDropdownRef} style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%' }}>
-                        {!editNameCustomer && <span style={{ fontWeight: "600", padding: '0px 0px', }}>Customer:</span>}
+                        <div className='flexRow spaceBetweenJC' style={{ width: '100%' }}>
+                            {!editNameCustomer && <span style={{ fontWeight: "600", padding: '0px 0px', }}>Customer:</span>}
+                        </div>
 
                         <input
                             type="text"
@@ -187,7 +230,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             style={{ height: '35px', backgroundColor: editNameCustomer ? 'white' : 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                         />
                         {showCustomerSelectorDropdown && (
-                            <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
+                            <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '268px', overflowY: 'auto', borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
                                 {customersMatched?.length > 0 ? (
                                     customersMatched.map((customerOpt) => (
                                         <li
@@ -219,6 +262,21 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                                     style={{ height: '25px', fontSize: isPcV ? '18px' : '15px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                         </div>
+                    </div>
+
+                    <div className='flexRow fullCenter' style={{ margin: '3px 0px', }} >
+                        <span style={{ fontWeight: "600", }}>Distance:</span>
+                        <span style={{ fontWeight: "600", color: blueOne(theme), marginLeft: 5 }}>{getCustomerEstimatedKm().km ? getCustomerEstimatedKm().km + " Km" : "0"}</span>
+                        {getCustomerEstimatedKm().km >= companyOperation?.maxRecommendedDistanceKM && getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: orangeOne(theme), marginLeft: 2 }}>
+                            {'⚠️Above Ideal '}</span>}
+                        {getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: blueOne(theme), marginLeft: 2 }}>
+                            {'🚫'}</span>}
+                        {getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", color: greenTwo(theme), marginLeft: 5 }}>{'$' + getCustomerEstimatedKm().price}</span>}
+
+                        <span style={{ fontWeight: "600", padding: '0px 8px', }}>{'|'}</span>
+
+                        <span style={{ fontWeight: "600", }}> Max: </span>
+                        <span style={{ fontWeight: "600", color: redOne(theme), marginLeft: 5 }}>{companyOperation?.maxDeliveryDistanceKM + 'Km'}</span>
                     </div>
                 </div>}
 
@@ -296,7 +354,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
             </div>
 
             {showNewCustomerModal && <div className='myModal' >
-                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperationID={companyOperation?.companyOperationID} fetchCustomers={(e) => fetchCustomers(e)} />
+                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperation={companyOperation} customerToEdit={showNewCustomerModal} fetchCustomers={(e) => fetchCustomers(e)} />
             </div>}
 
             {showCancelOrderModal && <div className='myModal' >

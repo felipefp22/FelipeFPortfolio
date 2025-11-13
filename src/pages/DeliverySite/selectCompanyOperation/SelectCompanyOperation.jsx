@@ -72,19 +72,20 @@ export default function SelectCompanyOperation({ }) {
 
     return (
         <>
-            <div className='flexColumn' style={{ height: '100%', width: '100%', alignContent: 'left', }} >
-                <div className='flexColumn' style={{ textAlign: 'left', alignContent: 'left', justifyItems: 'left', }}>
-                    <span style={{ color: fontColorOne(theme), fontSize: isPcV ? '24px' : '20px', fontWeight: 'bold', position: 'absolute', top: isPcV ? 14 : 16, left: 60, whiteSpace: 'nowrap' }}>Welcome {name?.split(' ')[0] ?? ''}</span>
+            <div className='flexColumn' style={{ height: '100%', width: '100%', alignContent: 'left', textAlign: 'left' }} >
+                <span style={{ color: fontColorOne(theme), fontSize: isPcV ? '24px' : '20px', fontWeight: 'bold', position: 'absolute', top: isPcV ? 14 : 16, left: 60, whiteSpace: 'nowrap' }}>Welcome {name?.split(' ')[0] ?? ''}</span>
 
-                    {<div className='flexColumn' >
-                        <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: isPcV ? '24px' : '20px', fontWeight: 'bold', marginBottom: '10px' }}>Choose one to Work Now</span>
+                <div className='flexColumn' style={{ height: '100%', width: '100%', overflowY: 'auto', }} >
+                    <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: isPcV ? '24px' : '20px', fontWeight: 'bold', marginBottom: '10px' }}>Choose one to Work Now</span>
 
-                        {(companiesCoumpound?.length === 0) && <button className='buttonStandart' style={{
-                            borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '20px',
-                            opacity: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 0.5 : 1, cursor: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 'not-allowed' : 'pointer',
-                        }}
-                            onClick={() => { setCreateCompanyModal(true); }} disabled={companiesCoumpound?.length > 0 || !firstLoadingUserInfos}>Create Group and Company</button>}
+                    {(companiesCoumpound?.length === 0) && <button className='buttonStandart' style={{
+                        borderRadius: '6px', margin: '10px 0px', width: '250px', marginBottom: '20px',
+                        opacity: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 0.5 : 1, cursor: (companiesCoumpound?.length > 0 || !firstLoadingUserInfos) ? 'not-allowed' : 'pointer',
+                    }}
+                        onClick={() => { setCreateCompanyModal(true); }} disabled={companiesCoumpound?.length > 0 || !firstLoadingUserInfos}>Create Group and Company</button>}
 
+
+                    <div className='flexColumn' style={{ height: '100%', width: '100%', overflowY: 'auto', }} >
 
                         <span style={{ color: fontColorOne(theme), fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold', }}>Your Companies</span>
                         <div className='flexColumn' >
@@ -157,7 +158,7 @@ export default function SelectCompanyOperation({ }) {
                                 </div>
                             ))}
                         </div>}
-                    </div>}
+                    </div>
                 </div>
 
                 {createCompanyModal && <div className='myModal underDeliveryLayout' >

@@ -2,19 +2,20 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
-import { createCustomer } from "../../../../../services/deliveryServices/CustomerSevice";
+import { createCustomer, updateCustomerService } from "../../../../../services/deliveryServices/CustomerSevice";
 import { useSelector } from "react-redux";
 import SelectCustumerAddressMap from "./auxComponents/SelectCustumerAddressMap";
 import { searchAddress } from "../../../../../services/deliveryServices/auxServices/mapService";
 import { borderColorTwo } from "../../../../../theme/Colors";
 import { calculateEstimatedKm, calculatePrice } from '../../../../../redux/calculateDeliveryDistancePrice';
 
-export default function NewCustomerModal({ close, companyOperation, fetchCustomers }) {
+export default function NewCustomerModal({ close, companyOperation, customerToEdit, fetchCustomers }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
     const [disabled, setDisabled] = useState(false);
 
+    const [customerToEditID, setCustomerToEditID] = useState(null);
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
@@ -38,6 +39,27 @@ export default function NewCustomerModal({ close, companyOperation, fetchCustome
     const [showBoxCreateFakesCustomers, setShowBoxCreateFakesCustomers] = useState(false);
 
     useEffect(() => {
+        console.log("customerToEdit", customerToEdit);
+    }, []);
+
+    useEffect(() => {
+        if (customerToEdit && customerToEdit?.id) {
+            setCustomerToEditID(customerToEdit?.id);
+            setName(customerToEdit?.customerName || "");
+            setPhone(customerToEdit?.phone || "");
+            setEmail(customerToEdit?.email || "");
+            setAddress(customerToEdit?.address || "");
+            setAddressNumber(customerToEdit?.addressNumber || "");
+            setCity(customerToEdit?.city || "");
+            setState(customerToEdit?.state || "");
+            setZipCode(customerToEdit?.zipCode || "");
+            setLat(customerToEdit?.lat || "");
+            setLng(customerToEdit?.lng || "");
+            setComplement(customerToEdit?.complement || "");
+        }
+    }, []);
+
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (customerSelectorDropdownRef.current && !customerSelectorDropdownRef.current.contains(event.target)) {
                 setShowAddressSelectorDropdown(false);
@@ -55,6 +77,7 @@ export default function NewCustomerModal({ close, companyOperation, fetchCustome
             return;
         }
 
+        setDisabled(true);
         const response = await createCustomer(companyOperation?.companyOperationID, name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
         if (response?.status === 200) {
             fetchCustomers(response?.data?.id);
@@ -62,6 +85,27 @@ export default function NewCustomerModal({ close, companyOperation, fetchCustome
         } else {
             alert("Error creating customer: ", response?.data);
         }
+        setDisabled(false);
+    }
+
+    async function updateCustomer() {
+        if (!name || !phone || !address || !addressNumber || !city || !state || !zipCode || !lat || !lng) {
+            alert("Please fill in all fields");
+            return;
+        }
+
+        if (customerToEdit?.customerName !== name || customerToEdit?.phone !== phone || customerToEdit?.email !== email || customerToEdit?.address !== address || customerToEdit?.addressNumber !== addressNumber ||
+            customerToEdit?.city !== city || customerToEdit?.state !== state || customerToEdit?.zipCode !== zipCode || customerToEdit?.lat !== lat || customerToEdit?.lng !== lng || customerToEdit?.complement !== complement) {
+            setDisabled(true);
+            const response = await updateCustomerService(companyOperation?.companyOperationID, customerToEdit?.id, name, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement);
+            if (response?.status === 200) {
+                fetchCustomers(response?.data?.id);
+                close();
+            } else {
+                alert("Error updating customer: ", response?.data);
+            }
+        }
+        setDisabled(false);
     }
 
     async function findAddress() {
@@ -92,6 +136,7 @@ export default function NewCustomerModal({ close, companyOperation, fetchCustome
 
 
     useEffect(() => {
+        if (addressFoundSelected == null) return;
         setLat(addressFoundSelected?.lat);
         setLng(addressFoundSelected?.lon);
         setAddress(addressFoundSelected?.display_name);
@@ -100,13 +145,6 @@ export default function NewCustomerModal({ close, companyOperation, fetchCustome
         setZipCode(addressFoundSelected?.display_name)
         setShowAddressSelectorDropdown(false);
     }, [addressFoundSelected]);
-
-    function getCustomerEstimatedKm() {
-        const distance = calculateEstimatedKm(customerSelectedToNewOrder?.lat, customerSelectedToNewOrder?.lng, companyOperation?.companyLat, companyOperation?.companyLng);
-        const price = calculatePrice(distance, companyOperation);
-
-        return { km: distance, price: price };
-    }
 
     return (
         <>
@@ -187,12 +225,16 @@ export default function NewCustomerModal({ close, companyOperation, fetchCustome
                             </ul>
                         )}
                     </div>
-                    <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} setSearchAddressInput={setSearchAddressInput} showAddressSelectorDropdown={showAddressSelectorDropdown}/>
+
+                    <div style={{ pointerEvents: disabled ? "none" : "auto", opacity: disabled ? 0.6 : 1, width: '100%', height: '100%' }} >
+                        <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} setSearchAddressInput={setSearchAddressInput} showAddressSelectorDropdown={showAddressSelectorDropdown} />
+                    </div>
                 </div>
 
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
-                    <button className='buttonStandart red' style={{ marginLeft: '0px' }} onClick={() => close()}>Cancel</button>
-                    <button className='buttonStandart green' style={{ marginLeft: '0px' }} onClick={() => saveCustomer()}>Save Customer</button>
+                    <button className='buttonStandart red' style={{ marginLeft: '0px', visibility: disabled ? 'hidden' : 'visible' }} onClick={() => close()} disabled={disabled}>Cancel</button>
+                    <button className='buttonStandart green' style={{ marginLeft: '0px' }} onClick={() => customerToEdit?.id ? updateCustomer() : saveCustomer()} disabled={disabled}>
+                        {disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : "Save Customer"}</button>
                 </div>
             </div>
 

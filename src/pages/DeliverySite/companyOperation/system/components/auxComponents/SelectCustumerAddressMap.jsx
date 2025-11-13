@@ -115,11 +115,12 @@ export default function SelectCustumerAddressMap({ lat, lng, address, setLat, se
             <div className='flexRow fullCenter' style={{ margin: '3px 0px', }} >
                 <span style={{ fontWeight: "600", }}>Distance:</span>
                 <span style={{ fontWeight: "600", color: blueOne(theme), marginLeft: 5 }}>{getCustomerEstimatedKm().km ? getCustomerEstimatedKm().km + " Km" : "0"}</span>
-                {getCustomerEstimatedKm().km > companyOperation?.maxRecommendedDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: orangeOne(theme), marginLeft: 2 }}>
+                {getCustomerEstimatedKm().km >= companyOperation?.maxRecommendedDistanceKM && getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: orangeOne(theme), marginLeft: 2 }}>
                     {'⚠️Above Ideal '}</span>}
-                {getCustomerEstimatedKm().km > companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: blueOne(theme), marginLeft: 2 }}>
+                {getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: blueOne(theme), marginLeft: 2 }}>
                     {'🚫'}</span>}
-
+                {getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", color: greenTwo(theme), marginLeft: 5 }}>{'$' + getCustomerEstimatedKm().price}</span>}
+                
                 <span style={{ fontWeight: "600", padding: '0px 8px', }}>{'|'}</span>
 
                 <span style={{ fontWeight: "600", }}> Max: </span>

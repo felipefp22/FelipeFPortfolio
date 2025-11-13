@@ -50,3 +50,36 @@ export async function createCustomer(compID, customerName, phone, email, address
         if (error?.response) return error.response;
     }
 }
+
+export async function updateCustomerService(compID, customerID, customerName, phone, email, address, addressNumber, city, state, zipCode, lat, lng, complement) {
+    const postData = {
+        companyID: compID,
+        id: customerID,
+        customerName: customerName,
+        phone: phone,
+        email: email,
+        address: address,
+        addressNumber: addressNumber,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+        lat: lat,
+        lng: lng,
+        complement: complement,
+    };
+
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/customer/update-customer`, postData,
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.error(error);
+        if (error?.response) return error.response;
+    }
+}

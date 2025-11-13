@@ -15,14 +15,14 @@ export function calculateEstimatedKm(lat1, lon1, lat2, lon2) {
 
     let distance = R * c; // Haversine distance in km
 
-    console.log("Raw distance (km): ", distance);
+    // console.log("Raw distance (km): ", distance);
     // Apply correction factor
     distance *= 1.3;
-    console.log("Corrected distance (km): ", distance);
+    // console.log("Corrected distance (km): ", distance);
 
     // Round up to the next integer
     distance = Math.ceil(distance);
-    console.log("Rounded distance (km): ", distance);
+    // console.log("Rounded distance (km): ", distance);
 
     return distance;
 }

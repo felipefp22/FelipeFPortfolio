@@ -1,4 +1,4 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
@@ -87,30 +87,29 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
     };
 
     async function saveOrder() {
-        setDisabled(true);
-
         if (!tableNumberOrDeliveryOrPickupSelected) {
             alert("TableNumber/Delivery/Pickup option required");
-            setDisabled(false);
             return;
         }
 
-        if (tableNumberOrDeliveryOrPickupSelected === 'delivery' && !customerSelectedToNewOrder) {
-            alert("Customer required to DELIVERY order");
-            setDisabled(false);
+        if (tableNumberOrDeliveryOrPickupSelected === 'delivery') {
+            if (!customerSelectedToNewOrder) alert("Customer required to DELIVERY order");
+            if (getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM) alert(`Can't Order to this customer, distance exceeds maximum(${companyOperation?.maxDeliveryDistanceKM}) delivery distance.`);
+
             return;
         }
+
         if (tableNumberOrDeliveryOrPickupSelected === 'pickup' && !customerSelectedToNewOrder && !pickupNameInput) {
             alert("PickUp Name or Customer required to PICKUP order");
-            setDisabled(false);
             return;
         }
 
         if (selectedProductsToAdd.length === 0) {
             alert("At least one item is required");
-            setDisabled(false);
             return;
         }
+
+        setDisabled(true);
 
         const itemsIdAndQuantity = Object.values(
             selectedProductsToAdd.reduce((acc, item) => {
@@ -134,9 +133,12 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
         if (response?.status === 200) {
             await getShiftOperationData();
-            setDisabled(false);
             close();
+        } else {
+            alert("Error creating order, try again later");
         }
+
+        setDisabled(false);
     }
 
     async function removeProduct(productID) {
@@ -200,7 +202,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                         </div>
                     </div>
 
-                    <div style={{ marginBottom: '5px' }}>
+                    <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', marginBottom: 2, marginTop: 2 }} >
                         {tableNumberOrDeliveryOrPickupSelected === 'delivery' && <span style={{ fontWeight: "600" }}>Customer</span>}
                         {tableNumberOrDeliveryOrPickupSelected !== 'delivery' && <select className='inputStandart' value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
                             style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'left', }} >
@@ -208,6 +210,10 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                             <option value={'Customer'}> {'Customer'} </option>
                             <option value={'Name'}> {'Name'} </option>
                         </select>}
+
+                        {customerSelectedToNewOrder && selectUseCustomerOrPickUpName === 'Customer' && <button className={`buttonStandart`}
+                            style={{ fontSize: isPcV ? '17px' : '14px', height: '28px', padding: isPcV ? '0px 10px' : '0px 6px', }}
+                            onClick={() => { setShowNewCustomerModal(customerSelectedToNewOrder) }} disabled={disabled}><FontAwesomeIcon icon={faPen} /><span style={{ fontWeight: "600" }}> Edit Customer</span></button>}
                     </div>
 
                     {selectUseCustomerOrPickUpName === 'Name' && <div>
@@ -230,7 +236,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                             />
                             {showCustomerSelectorDropdown && (
-                                <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '200px', maxHeight: '468px', overflowY: 'auto', borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
+                                <ul style={{ position: 'absolute', top: 33, backgroundColor: 'white', color: 'black', width: '89%', minHeight: '100px', maxHeight: '268px', overflowY: 'auto', borderRadius: "0px 0px 5px 5px", borderBottom: '1px solid black' }}>
                                     {customersMatched?.length > 0 ? (
                                         customersMatched.map((customerOpt) => (
                                             <li
@@ -266,11 +272,11 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                         {customerSelectedToNewOrder && <div className='flexRow fullCenter' style={{ margin: '3px 0px', }} >
                             <span style={{ fontWeight: "600", }}>Distance:</span>
                             <span style={{ fontWeight: "600", color: blueOne(theme), marginLeft: 5 }}>{getCustomerEstimatedKm().km + " Km"}</span>
-                            {getCustomerEstimatedKm().km > companyOperation?.maxRecommendedDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: orangeOne(theme), marginLeft: 2 }}>
+                            {getCustomerEstimatedKm().km >= companyOperation?.maxRecommendedDistanceKM && getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: orangeOne(theme), marginLeft: 2 }}>
                                 {'⚠️Above Ideal '}</span>}
-                            {getCustomerEstimatedKm().km > companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: blueOne(theme), marginLeft: 2 }}>
+                            {getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: blueOne(theme), marginLeft: 2 }}>
                                 {'🚫'}</span>}
-                            <span style={{ fontWeight: "600", color: greenTwo(theme), marginLeft: 5 }}>{'$' + getCustomerEstimatedKm().price}</span>
+                            {getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", color: greenTwo(theme), marginLeft: 5 }}>{'$' + getCustomerEstimatedKm().price}</span>}
 
                             <span style={{ fontWeight: "600", padding: '0px 8px', }}>{'|'}</span>
 
@@ -316,12 +322,12 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                     <button className='buttonStandart' style={{}} onClick={() => close()} disabled={disabled}>Cancel</button>
 
                     <button className='buttonStandart green' style={{}}
-                        onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Save Order'}</button>
+                        onClick={() =>  saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Save Order'}</button>
                 </div>
             </div >
 
             {showNewCustomerModal && <div ref={newCustomerModalRef} className='myModal' >
-                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperation={companyOperation} fetchCustomers={(e) => fetchCustomers(e)} />
+                <NewCustomerModal close={() => setShowNewCustomerModal(false)} companyOperation={companyOperation} customerToEdit={showNewCustomerModal} fetchCustomers={(e) => fetchCustomers(e)} />
             </div>
             }
 
