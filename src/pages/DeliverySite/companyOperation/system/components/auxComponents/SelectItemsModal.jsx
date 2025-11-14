@@ -87,7 +87,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                                 </tr>
                             </thead>
                             <tbody >
-                                {selectedProducts.map((product, index) => (
+                                {selectedProducts?.map((product, index) => (
                                     <tr key={index}>
                                         <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
                                         <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>

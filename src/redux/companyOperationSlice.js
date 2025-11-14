@@ -26,6 +26,7 @@ export const slice = createSlice({
     baseDeliveryDistanceKM: null,
     baseDeliveryTax: null,
     taxPerExtraKM: null,
+    noUserDeliveryMans: null,
   },
   reducers: {
     changeCompanyOperationID(state, { payload }) { return { ...state, companyOperationID: payload } },
@@ -51,6 +52,7 @@ export const slice = createSlice({
     changeBaseDeliveryDistanceKM(state, { payload }) { return { ...state, baseDeliveryDistanceKM: payload } },
     changeBaseDeliveryTax(state, { payload }) { return { ...state, baseDeliveryTax: payload } },
     changeTaxPerExtraKM(state, { payload }) { return { ...state, taxPerExtraKM: payload } },
+    changeNoUserDeliveryMans(state, { payload }) { return { ...state, noUserDeliveryMans: payload } },
 
     quitCompanyOperation(state) {
       localStorage.removeItem('companyOperatingID');
@@ -79,6 +81,7 @@ export const slice = createSlice({
       state.baseDeliveryDistanceKM = null;
       state.baseDeliveryTax = null;
       state.taxPerExtraKM = null;
+      state.noUserDeliveryMans = null;
     }
   }
 })
@@ -107,7 +110,8 @@ export const {
   changeBaseDeliveryDistanceKM,
   changeBaseDeliveryTax,
   changeTaxPerExtraKM,
-
+  changeNoUserDeliveryMans,
+  
   quitCompanyOperation
 } = slice.actions;
 

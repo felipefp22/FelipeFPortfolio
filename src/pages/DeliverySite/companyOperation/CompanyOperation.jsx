@@ -20,7 +20,8 @@ import {
   changeMaxDeliveryDistanceKM,
   changeBaseDeliveryDistanceKM,
   changeBaseDeliveryTax,
-  changeTaxPerExtraKM
+  changeTaxPerExtraKM,
+  changeNoUserDeliveryMans
 } from '../../../redux/companyOperationSlice.js';
 import { blueOne, borderColorTwo, fontColorOne, mainColor, redOne, secondColor, secondColorInverse } from '../../../theme/Colors.js';
 import { Dropdown } from 'react-bootstrap';
@@ -98,6 +99,7 @@ export default function CompanyOperation() {
         dispatch(changeBaseDeliveryDistanceKM(companyOperationData?.baseDeliveryDistanceKM || 0));
         dispatch(changeBaseDeliveryTax(companyOperationData?.baseDeliveryTax || 0));
         dispatch(changeTaxPerExtraKM(companyOperationData?.taxPerExtraKM || 0));
+        dispatch(changeNoUserDeliveryMans(companyOperationData?.noUserDeliveryMans || []));
 
       } else {
         alert("You need to open a shift to operate on this company.");

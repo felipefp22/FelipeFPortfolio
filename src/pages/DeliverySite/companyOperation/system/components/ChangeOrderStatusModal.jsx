@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { closeOrder, reopenOrder } from "../../../../../services/deliveryServices/OrderService";
-import { blueOne, greenOne, redOne } from "../../../../../theme/Colors";
+import { blueOne, fontColorOne, greenOne, redOne } from "../../../../../theme/Colors";
 
 export default function ChangeOrderStatusModal({ close, companyOperation, selectedCookingOrderID, setSelectedCookingOrderID, selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID, getShiftOperationData, }) {
     const theme = useSelector((state) => state.view.theme);
@@ -14,7 +14,7 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
 
 
     async function dispatchOrders() {
-        if (!deliverymanSelectedID){
+        if (!deliverymanSelectedID) {
             alert("Please select a Delivery-Man");
             return;
         }
@@ -46,7 +46,7 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
     return (
         <>
             <div className='modalInside' style={{ maxWidth: isPcV ? "80%" : "85%", maxHeight: isPcV ? "90%" : "95%", fontSize: !isPcV ? '18px' : '22px', fontWeight: 'bold' }}>
-                {selectedCookingOrderID.length > 0 && <div className='flexColumn fullCenter' style={{    }}>
+                {selectedCookingOrderID.length > 0 && <div className='flexColumn fullCenter' style={{}}>
                     <span>Dispach to delivery?</span>
 
                     {orders?.filter(order => selectedCookingOrderID?.includes(order.id)).map((order, i) => (
@@ -60,11 +60,23 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
                     <br />
                     <select className='inputStandart' value={deliverymanSelectedID || ""} onChange={(e) => setDeliverymanSelectedID(e.target.value)} style={{ fontSize: 16, flexGrow: 1, maxWidth: '520px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
                         {!deliverymanSelectedID && <option value="">Select Delivery-Man</option>}
-                        {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").map((value, index) => (
-                            <option key={index} value={value.employeeEmail}>
-                                {value.employeeEmail}
-                            </option>
-                        ))}
+                        <optgroup label="Registered Users" style={{ color:blueOne(theme)}}>
+                            {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").map((value, index) => (
+                                <option key={index} value={value.employeeEmail} style={{ color: fontColorOne(theme)}}>
+                                    {value.employeeEmail}
+                                </option>
+                            ))}
+                        </optgroup>
+                        
+                        <optgroup />
+
+                        <optgroup label="Unregistered Users" style={{ color:blueOne(theme)}}>
+                            {companyOperation?.noUserDeliveryMans?.map((value, index) => (
+                                <option key={index} value={value} style={{ color: fontColorOne(theme)}}>
+                                    {value}
+                                </option>
+                            ))}
+                        </optgroup>
                     </select>
                 </div>}
 

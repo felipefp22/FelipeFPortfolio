@@ -11,6 +11,7 @@ import AddEmployeeModal from "./modals/AddEmployeeModal";
 import EditEmployeeModal from "./modals/EditEmployeeModal";
 import motoLogo from '../../../../../assets/motoLogo2.png';
 import serverLogo from '../../../../../assets/serverLogo.png';
+import NoUserDeliveryMan from './modals/NoUserDeliveryMan';
 
 
 export default function CompanyEmployees({ companyData, fetchCompanyData }) {
@@ -20,7 +21,7 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
     const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
     const [editEmployeeModalOpen, setEditEmployeeModalOpen] = useState(false);
 
-    const employeePositionsCategories = ["Server","Manager", "Supervisor", "Waiter", 'Delivery-Man'];
+    const employeePositionsCategories = ["Server", "Manager", "Supervisor", "Waiter", 'Delivery-Man'];
 
     function getEmployeePositionLogo(position) {
         switch (position) {
@@ -107,6 +108,9 @@ export default function CompanyEmployees({ companyData, fetchCompanyData }) {
                                             <span style={{ fontSize: isPcV ? '18px' : '15px', fontWeight: 'bold' }}>{`No ${position} Found`} </span>
                                         </div>
                                     )}
+                                    <div className='flexColumn' style={{ marginTop: 10 }} >
+                                        {getBackendEnumPosition(position) === 'DELIVERYMAN' && <NoUserDeliveryMan style={{ marginTop: 100 }} companyData={companyData} fetchCompanyData={() => fetchCompanyData()} />}
+                                    </div>
                                 </div>}
                             </div>
                         )

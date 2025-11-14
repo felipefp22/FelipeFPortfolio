@@ -86,3 +86,47 @@ export async function updateCompanyService(companyID, companyName, companyEmail,
         if (error?.response) return error.response;
     }
 }
+
+export async function addNoUserDeliverymanService(companyID, noUserDeliveryMan) {
+
+    const postData = {
+        companyID: companyID,
+        noUserDeliveryMan: noUserDeliveryMan
+    };
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/company/add-no-user-deliveryman`, postData,
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
+
+export async function removeNoUserDeliverymanService(companyID, noUserDeliveryMan) {
+
+    const postData = {
+        companyID: companyID,
+        noUserDeliveryMan: noUserDeliveryMan
+    };
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/company/remove-no-user-deliveryman`, postData,
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
