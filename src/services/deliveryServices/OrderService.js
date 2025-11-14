@@ -106,13 +106,14 @@ export async function addItemsToOrderService(companyID, orderID, itemsToADD) {
 
 
 
-export async function closeOrder(compID, orderID, clientSaidNoTax, discountValue) {
+export async function closeOrder(compID, orderID, clientSaidNoTax, discountValue, deliverymanID) {
 
     const postData = {
         companyID: compID,
         orderID: orderID,
         clientSaidNoTax: clientSaidNoTax,
         discountValue: discountValue,
+        deliverymanID: deliverymanID
     };
     try {
         const response = await axiosInstanceRestaurantSystem.put(`/order/close-order`, postData,
