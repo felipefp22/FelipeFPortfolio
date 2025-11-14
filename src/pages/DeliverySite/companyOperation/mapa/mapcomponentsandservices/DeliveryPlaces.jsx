@@ -4,12 +4,12 @@ import ReactDOMServer from 'react-dom/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFireFlameCurved } from '@fortawesome/free-solid-svg-icons';
 
-export const PutDeliveryPlaces = ({ map, markersGroup, lat, lng, label, minutes }) => {
+export const PutDeliveryPlaces = ({ id, map, markersGroup, lat, lng, label, minutes, selectedCookingOrderID, toggleSelectedCookingOrderID }) => {
     const markerColor = selectMarkerColor(minutes);
 
     const pizzaIcon = L.divIcon({
         html: ReactDOMServer.renderToStaticMarkup(
-            <MarkerLabel label={label} markerColor={markerColor} minutes={minutes} />
+            <MarkerLabel id={id} label={label} markerColor={markerColor} minutes={minutes} selectedCookingOrderID={selectedCookingOrderID} />
         ),
         iconSize: [40, 40],
         iconAnchor: [20, 40],
@@ -17,6 +17,9 @@ export const PutDeliveryPlaces = ({ map, markersGroup, lat, lng, label, minutes 
         className: "custom-marker"
     });
     const marker = L.marker([lat, lng], { icon: pizzaIcon }).bindPopup(`${minutes}min`);
+    marker.on('click', () => {
+        toggleSelectedCookingOrderID(id);
+    });
 
     markersGroup.addLayer(marker);
 };
@@ -52,25 +55,31 @@ export function selectMarkerColor(minutes) {
     }
 }
 
-function MarkerLabel({ label, markerColor, minutes }) {
+function MarkerLabel({ id, label, markerColor, minutes, selectedCookingOrderID }) {
     return (
-        <div style={{
-            position: "relative",
-            width: "40px",
-            height: "40px",
-            backgroundColor: markerColor,
-            textAlign: "center",
-            lineHeight: "40px",
-            fontWeight: "800",
-            color: "white",
-            fontSize: "21px",
-            borderRadius: "50%",
-            WebkitTextStroke: "1.5px black",
-            boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)'
-        }}>
-            {minutes > 60 && <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: '18px', position: 'absolute', bottom: 30, right: 0, textShadow: '0px 2px 100px rgba(0,0,0,0.4)', zIndex: 1000 }} />}
-            {minutes > 70 && <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: '30px', position: 'absolute', bottom: 28, right: 0, textShadow: '0px 2px 100px rgba(0,0,0,0.4)', zIndex: 1000 }} />}
-            {label}
+        <div className='fullCenter' style={{ width: 50, height: 50, borderRadius: '50%', background: selectedCookingOrderID?.includes(id) ? '#6f6f6f51' : 'none', border: selectedCookingOrderID?.includes(id) ? '1px solid #6a6a6aa9' : 'none' }}>
+            <div style={{
+                position: "relative",
+                width: "40px",
+                height: "40px",
+                background: markerColor,
+                textAlign: "center",
+                lineHeight: "40px",
+                fontWeight: "800",
+                color: "white",
+                fontSize: "21px",
+                borderRadius: "50%",
+                WebkitTextStroke: "1.5px black",
+                boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.30)',
+
+            }} >
+                {selectedCookingOrderID?.includes(id) &&
+                    <div className='flexRow fullCenter' style={{ position: 'absolute', top: -20, left: -15, width: 32, height: 32, borderRadius: '50%', backgroundColor: '#22b4f3ff', border: '1px solid white', fontSize: 21, color: 'white', zIndex: 1001 }}>
+                        {selectedCookingOrderID.indexOf(id) + 1}</div>}
+                {minutes > 60 && <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: '18px', position: 'absolute', bottom: 30, right: 0, textShadow: '0px 2px 100px rgba(0,0,0,0.4)', zIndex: 1000 }} />}
+                {minutes > 70 && <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: '30px', position: 'absolute', bottom: 28, right: 0, textShadow: '0px 2px 100px rgba(0,0,0,0.4)', zIndex: 1000 }} />}
+                {label}
+            </div>
         </div>
     );
 }

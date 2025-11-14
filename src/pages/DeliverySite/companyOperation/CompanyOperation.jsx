@@ -168,6 +168,13 @@ export default function CompanyOperation() {
   }, [queryParams]);
 
 
+  // <>--- Orders coockingLogic to map and delivery share ---<> //
+  const [selectedCookingOrderID, setSelectedCookingOrderID] = useState([]);
+  async function toggleSelectedCookingOrderID(id) {
+    setSelectedCookingOrderID(prev => prev.includes(id) ? prev.filter(prevId => prevId !== id) : [...prev, id]);
+  }
+  // <> ------------------------------------------------------<> //
+
   return (
     <>
       <div className='flexColumn' style={{ background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", overflow: "hidden", justifyContent: "center", padding: '0px 0px' }}>
@@ -210,7 +217,8 @@ export default function CompanyOperation() {
                   {onFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
               </div>
 
-              {systemPageSelected === "delivery" && <SystemPageDelivery onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
+              {systemPageSelected === "delivery" && <SystemPageDelivery onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()}
+                selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID} toggleSelectedCookingOrderID={toggleSelectedCookingOrderID} />}
               {systemPageSelected === "hall" && <SystemPageHall onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
             </div>}
 
@@ -229,7 +237,7 @@ export default function CompanyOperation() {
               </div>
 
               <div className='flexRow' style={{ width: '100%', height: '100%', paddingTop: '8px' }} >
-                <MapaDelivery setHaveModalOpen={null} />
+                <MapaDelivery selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID} toggleSelectedCookingOrderID={toggleSelectedCookingOrderID} getShiftOperationData={async () => await getShiftOperationData()}  />
               </div>
             </div>}
 

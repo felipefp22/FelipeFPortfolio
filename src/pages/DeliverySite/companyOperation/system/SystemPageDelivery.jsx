@@ -14,7 +14,7 @@ import EditOrderModal from "./components/EditOrderModal.jsx";
 import OrderResumeModal from './components/auxComponents/OrderResumeModal.jsx';
 
 
-export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShiftOperationData }) {
+export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShiftOperationData, selectedCookingOrderID, setSelectedCookingOrderID, toggleSelectedCookingOrderID }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
     const dispatch = useDispatch();
@@ -28,7 +28,6 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
     const companyOperation = useSelector((state) => state.companyOperation);
     const orders = useSelector((state) => state.companyOperation.orders);
 
-    const [selectedCookingOrderID, setSelectedCookingOrderID] = useState([]);
     const [selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID] = useState([]);
 
     const [changeStatusOrderModal, setChangeStatusOrderModal] = useState(false);
@@ -96,7 +95,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                                 <tbody >
                                     {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => Date.parse(a.openOrderDateUtc + "Z") - Date.parse(b.openOrderDateUtc + "Z")).map((order, index) => (
                                         <tr key={order.id} className={selectedCookingOrderID?.includes(order.id) ? "table-active" : ""}
-                                            onClick={() => { setSelectedOnDeliveryOrderID([]); setSelectedCookingOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
+                                            onClick={() => { setSelectedOnDeliveryOrderID([]); toggleSelectedCookingOrderID( order.id); }} style={{ cursor: "pointer" }}>
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName?.split(" ")[0] || "No Name"}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{Math.max(0, Math.floor((Date.now() - Date.parse(order.openOrderDateUtc + "Z")) / 60000))}</td>

@@ -60,23 +60,25 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
                     <br />
                     <select className='inputStandart' value={deliverymanSelectedID || ""} onChange={(e) => setDeliverymanSelectedID(e.target.value)} style={{ fontSize: 16, flexGrow: 1, maxWidth: '520px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
                         {!deliverymanSelectedID && <option value="">Select Delivery-Man</option>}
-                        <optgroup label="Registered Users" style={{ color:blueOne(theme)}}>
+                        {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").length > 0 && <optgroup label="Registered Users" style={{ color: blueOne(theme) }}>
                             {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").map((value, index) => (
-                                <option key={index} value={value.employeeEmail} style={{ color: fontColorOne(theme)}}>
+                                <option key={index} value={value.employeeEmail} style={{ color: fontColorOne(theme) }}>
                                     {value.employeeEmail}
                                 </option>
                             ))}
-                        </optgroup>
-                        
-                        <optgroup />
+                        </optgroup>}
 
-                        <optgroup label="Unregistered Users" style={{ color:blueOne(theme)}}>
+                        {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").length > 0 && companyOperation?.noUserDeliveryMans?.length > 0 && <optgroup />}
+
+                        {companyOperation?.noUserDeliveryMans?.length > 0 && <optgroup label="Unregistered Users" style={{ color: blueOne(theme) }}>
                             {companyOperation?.noUserDeliveryMans?.map((value, index) => (
-                                <option key={index} value={value} style={{ color: fontColorOne(theme)}}>
+                                <option key={index} value={value} style={{ color: fontColorOne(theme) }}>
                                     {value}
                                 </option>
                             ))}
-                        </optgroup>
+                        </optgroup>}
+
+                        {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").length === 0 && companyOperation?.noUserDeliveryMans?.length === 0 && <optgroup label='Please SetUp Delivery-Mans' style={{ color: redOne(theme), fontWeight: '300' }}/>}
                     </select>
                 </div>}
 
