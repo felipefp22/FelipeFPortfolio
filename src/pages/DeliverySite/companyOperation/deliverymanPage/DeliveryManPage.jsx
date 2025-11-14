@@ -59,41 +59,28 @@ export default function DeliveryManPage({ companyOperation, getShiftOperationDat
     }
 
     async function goMaps(orders) {
-        console.log("Orders for routing:", orders);
-        // 1. Validate the list of orders
         if (!orders || orders.length === 0) {
             console.error("Orders list cannot be empty for routing.");
             return;
         }
 
-        // Utility function to format coordinates as lat,lng
         const getCoords = (order) => `${order?.customer?.lat},${order?.customer?.lng}`;
 
-        // 1. The first stop for the user is now the first order's location.
-        // Waypoints will include all stops from the first order up to the second-to-last.
-        // The user's device location will be the starting origin.
         const waypoints = orders
-            .slice(0, -1) // Get all orders *except* the last one (which is the destination)
+            .slice(0, -1) 
             .map(getCoords)
             .join('|');
 
-        // 2. Define the Destination (Last Stop)
         const destination = getCoords(orders[orders.length - 1]);
 
-        // 3. Construct the Google Maps URL
-        // IMPORTANT: The 'origin' parameter is intentionally excluded so Maps defaults to 'MY_LOCATION'.
-        let googleMapsUrl = 'https://www.google.com/maps/dir/' +
+       let googleMapsUrl = 'https://www.google.com/maps/dir/?api=1' +
             `&destination=${destination}`;
 
-        // Add waypoints (which contains all intermediate order locations)
         if (waypoints.length > 0) {
             googleMapsUrl += `&waypoints=${waypoints}`;
         }
 
-        // Add a travel mode for drivers (optional, but helpful)
         googleMapsUrl += `&dir_action=navigate&travelmode=driving`;
-
-        // 4. Open the map in a new tab
         window.open(googleMapsUrl, '_blank');
     }
 
