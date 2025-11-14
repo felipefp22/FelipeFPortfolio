@@ -97,6 +97,21 @@ export default function DeliveryManPage({ companyOperation, getShiftOperationDat
         window.open(googleMapsUrl, '_blank');
     }
 
+    function openMaps() {
+        // const url = `geo:${lat},${lng}?q=${lat},${lng}`;
+        let url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
+
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+        if (isSafari) {
+            url = `http://maps.apple.com/?daddr=${lat},${lng}&dirflg=d`;
+        }
+
+        window.open(url, '_blank'); // open in new tab
+        setGoToOutsideModalVisible(false)
+    };
+
+
     return (
         <>
             <div className='flexColumn' style={{ height: '100%', flexGrow: 1, overflowY: 'auto', }}>

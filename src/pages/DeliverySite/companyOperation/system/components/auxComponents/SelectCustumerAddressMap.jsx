@@ -20,10 +20,9 @@ const addressIcon = L.icon({
     popupAnchor: [0, -40],
 });
 
-export default function SelectCustumerAddressMap({ lat, lng, address, setLat, setLng, setSearchAddressInput, showAddressSelectorDropdown }) {
+export default function SelectCustumerAddressMap({ lat, lng, address, setLat, setLng, companyOperation, setSearchAddressInput, showAddressSelectorDropdown }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
-    const companyOperation = useSelector((state) => state.companyOperation);
     const [companyLat, setCompanyLat] = useState(null);
     const [companyLng, setCompanyLng] = useState(null);
     const [orders, setOrders] = useState([]);

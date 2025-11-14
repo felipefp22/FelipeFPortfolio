@@ -33,22 +33,15 @@ export default function EditCompanyAddressModal({ close, companyLat, setCompanyL
     const [addressFoundOptions, setAddressFoundOptions] = useState(false);
     const [addressFoundSelected, setAddressFoundSelected] = useState(null);
 
-    const [candidateNewLat, setCandidateNewLat] = useState("33.715831");
-    const [candidateNewLng, setCandidateNewLng] = useState("-117.989569");
-    const [candidateNewAddress, setCandidateNewAddress] = useState(null);
+    const [candidateNewLat, setCandidateNewLat] = useState(companyLat);
+    const [candidateNewLng, setCandidateNewLng] = useState(companyLng);
+    const [candidateNewAddress, setCandidateNewAddress] = useState(companyAddress);
     const [candidateNewCity, setCandidateNewCity] = useState(null);
     const [candidateNewState, setCandidateNewState] = useState(null);
     const [candidateNewZipCode, setCandidateNewZipCode] = useState(null);
 
     useEffect(() => {
-        if (companyLat && companyLng && companyAddress) {
-            setCandidateNewLat(companyLat);
-            setCandidateNewLng(companyLng);
-            setCandidateNewAddress(companyAddress);
-        }
-    }, [companyLat, companyLng, companyAddress]);
-
-    useEffect(() => {
+        if (companyLat === null || companyLng === null) return;
         if (mapRef.current || !mapContainerRef.current) return;
 
         const checkContainerReady = setInterval(() => {

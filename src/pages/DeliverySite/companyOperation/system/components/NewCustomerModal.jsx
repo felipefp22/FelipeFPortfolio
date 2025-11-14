@@ -227,7 +227,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
                     </div>
 
                     <div style={{ pointerEvents: disabled ? "none" : "auto", opacity: disabled ? 0.6 : 1, width: '100%', height: '100%' }} >
-                        <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} setSearchAddressInput={setSearchAddressInput} showAddressSelectorDropdown={showAddressSelectorDropdown} />
+                        <SelectCustumerAddressMap lat={lat} setLat={setLat} lng={lng} setLng={setLng} address={address} setAddress={setAddress} companyOperation={companyOperation} setSearchAddressInput={setSearchAddressInput} showAddressSelectorDropdown={showAddressSelectorDropdown} />
                     </div>
                 </div>
 
