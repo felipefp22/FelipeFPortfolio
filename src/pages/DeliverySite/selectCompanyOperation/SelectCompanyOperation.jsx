@@ -126,9 +126,43 @@ export default function SelectCompanyOperation({ }) {
                         </div>
 
                         {companiesUserWorksOn?.length > 0 && <div className='flexColumn' style={{ color: "white", minWidth: '300px', maxWidth: '100%', marginTop: '20px' }}>
-                            <span style={{ color: fontColorOne(theme), fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold', }}>Your Work on</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold', }}>You Work on</span>
 
-                            {companiesUserWorksOn?.map((comp, idx) => (
+                            {companiesUserWorksOn?.filter(x => x.position !== 'DELIVERYMAN').map((comp, idx) => (
+                                <div key={idx} className='flexColumn' style={{ padding: '12px 10px', borderRadius: '6px', marginTop: '10px', justifyContent: 'center', backgroundColor: transparentCavasTwo(theme) }}>
+
+                                    <div key={idx} className='flexRow fullCenter' style={{ cursor: 'pointer' }}
+                                        onClick={() => {
+                                            if (comp?.status === 'ACTIVE') {
+                                                (comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? setOpenShiftModal(comp) : setCompanyToOperate(comp.id)) : setOpenShiftModal(comp));
+                                            } else if (comp?.status === "WAITING_ACCEPTANCE") {
+                                                navigate('/FelipeFPortfolio/delivery/ManageCompaniesWorkOn')
+                                            }
+                                        }}>
+                                        <img src={restaurantLogo} alt="Logo" style={{
+                                            width: isPcV ? 40 : 35, height: isPcV ? 40 : 35,
+                                            borderRadius: '50%', backgroundColor: 'white', border: "2px solid white", marginRight: 10
+                                        }} />
+                                        {comp?.status === 'ACTIVE' && <div className='flexRow' style={{ width: '100%', alignItems: 'center' }}>
+                                            <span style={{ fontSize: isPcV ? '20px' : '15px', fontWeight: 'bold' }}>{comp.companyName} </span>
+                                            <span style={{ fontSize: isPcV ? '15px' : '10px', fontWeight: 'bold', marginLeft: '15px', color: comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? redOne(theme) : greenOne(theme)) : redOne(theme) }}>
+                                                {comp?.lastOrOpenShift ? (comp?.lastOrOpenShift?.endTimeUTC ? ' Shift closed' : ` Shift ${formatDateToDayMonth(comp?.lastOrOpenShift?.startTimeUTC)}`) : ' Shift closed'} </span>
+                                        </div>}
+
+                                        {comp?.status === 'WAITING_ACCEPTANCE' && <div className='flexRow' style={{ width: '100%', alignItems: 'center' }}>
+                                            <span style={{ fontSize: isPcV ? '20px' : '15px', fontWeight: 'bold' }}>{`${comp.companyName}`}</span>
+                                            <span style={{ fontSize: isPcV ? '15px' : '12px', fontWeight: 'bold', marginLeft: '15px', color: blueOne(theme) }}>
+                                                {`Accept Invite First`}</span>
+                                        </div>}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>}
+
+                        {companiesUserWorksOn?.length > 0 && companiesUserWorksOn?.filter(x => x.position === 'DELIVERYMAN').length > 0 && <div className='flexColumn' style={{ color: "white", minWidth: '300px', maxWidth: '100%', marginTop: '20px' }}>
+                            <span style={{ color: fontColorOne(theme), fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold', }}>You're Delivery-Man</span>
+
+                            {companiesUserWorksOn?.filter(x => x.position === 'DELIVERYMAN').map((comp, idx) => (
                                 <div key={idx} className='flexColumn' style={{ padding: '12px 10px', borderRadius: '6px', marginTop: '10px', justifyContent: 'center', backgroundColor: transparentCavasTwo(theme) }}>
 
                                     <div key={idx} className='flexRow fullCenter' style={{ cursor: 'pointer' }}

@@ -111,7 +111,7 @@ export default function CompanyOperation() {
 
   async function getShiftOperationData() {
     if (!companyOperationData?.companyOperationID) return;
-    
+
     console.log("last update: ", lastShiftOperationUpdate ? (new Date().getTime() - lastShiftOperationUpdate) : "Never updated");
     if (companyOperationData.currentShift && signalRAlreadyCharged && (new Date().getTime() - lastShiftOperationUpdate < 60_000)) return;
 
@@ -173,63 +173,81 @@ export default function CompanyOperation() {
       <div className='flexColumn' style={{ background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", overflow: "hidden", justifyContent: "center", padding: '0px 0px' }}>
 
         <div className='flexRow' style={{ height: '100%', width: '100%', flexGrow: 1, padding: '5px 5px' }}>
-          {<div className='flexColumn' style={{ position: 'relative', height: '100%', flexGrow: 1, width: onFocus === "map" ? '0%' : onFocus === "system" ? '96%' : '50%', visibility: onFocus !== "map" ? 'visible' : 'hidden' }}>
+          {(localStorage.getItem("userLoggedEmail") === companyOperationData?.ownerID || companyOperationData?.employees?.some(emp => emp.employeeEmail === localStorage.getItem("userLoggedEmail") && emp.position !== "DELIVERYMAN")) &&
+            <div className='flexColumn' style={{ position: 'relative', height: '100%', flexGrow: 1, width: onFocus === "map" ? '0%' : onFocus === "system" ? '96%' : '50%', visibility: onFocus !== "map" ? 'visible' : 'hidden' }}>
 
-            <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', marginBottom: '8px' }} >
+              <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', marginBottom: '8px' }} >
 
-              <div className='flexRow' >
-                <div className='flexRow' style={{ alignItems: "center", }}>
-                  <Dropdown ref={dropdownSystemOptionsRedRef} className="nav-item header-profile" show={showDropdownSystemOptionsRed} >
-                    <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowDropdownSystemOptionsRed(!showDropdownSystemOptionsRed)} >
-                      <button className='floatingButton' style={{ backgroundColor: redOne(theme), }} >☰</button>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
-                      {requesterAreOwnerOrManager && <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer", marginBottom: "8px" }} onClick={() => { setShowFinishShiftMessage(true); setShowDropdownSystemOptionsRed(false); }}>
-                        <FontAwesomeIcon icon={faLock} flip='horizontal' style={{ color: blueOne(theme) }} />
-                        <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Finish Shift</span>
-                      </div>}
-                      <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => { setShowLeaveCompanyMessage(true); setShowDropdownSystemOptionsRed(false); }}>
-                        <FontAwesomeIcon icon={faRightFromBracket} flip='horizontal' style={{ color: "red" }} />
-                        <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Leave</span>
-                      </div>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                <div className='flexRow' >
+                  <div className='flexRow' style={{ alignItems: "center", }}>
+                    <Dropdown ref={dropdownSystemOptionsRedRef} className="nav-item header-profile" show={showDropdownSystemOptionsRed} >
+                      <Dropdown.Toggle className="nav-link i-false p-0" as="div" onClick={() => setShowDropdownSystemOptionsRed(!showDropdownSystemOptionsRed)} >
+                        <button className='floatingButton' style={{ backgroundColor: redOne(theme), }} >☰</button>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
+                        {requesterAreOwnerOrManager && <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer", marginBottom: "8px" }} onClick={() => { setShowFinishShiftMessage(true); setShowDropdownSystemOptionsRed(false); }}>
+                          <FontAwesomeIcon icon={faLock} flip='horizontal' style={{ color: blueOne(theme) }} />
+                          <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Finish Shift</span>
+                        </div>}
+                        <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => { setShowLeaveCompanyMessage(true); setShowDropdownSystemOptionsRed(false); }}>
+                          <FontAwesomeIcon icon={faRightFromBracket} flip='horizontal' style={{ color: "red" }} />
+                          <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Leave</span>
+                        </div>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+
+                  <button className='floatingButton' style={{ marginLeft: '10px' }}
+                    onClick={() => { if (systemPageSelected === "delivery") navigate(`/FelipeFPortfolio/delivery?tab=hall`); else if (systemPageSelected === "hall") navigate(`/FelipeFPortfolio/delivery?tab=delivery`); }}>
+                    <p style={{ margin: 0 }}><FontAwesomeIcon icon={(systemPageSelected === "delivery") ? faChair : faMotorcycle} /></p> </button>
                 </div>
 
-                <button className='floatingButton' style={{ marginLeft: '10px' }}
-                  onClick={() => { if (systemPageSelected === "delivery") navigate(`/FelipeFPortfolio/delivery?tab=hall`); else if (systemPageSelected === "hall") navigate(`/FelipeFPortfolio/delivery?tab=delivery`); }}>
-                  <p style={{ margin: 0 }}><FontAwesomeIcon icon={(systemPageSelected === "delivery") ? faChair : faMotorcycle} /></p> </button>
+                <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
+                  {companyOperationData?.companyName}</span>
+
+                <button className='floatingButton' style={{ whiteSpace: 'nowrap' }}
+                  onClick={() => setOnFocus(onFocus === "system" ? (!isPcV ? "map" : "") : "system")}>
+                  {onFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
               </div>
 
-              <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
-                {companyOperationData?.companyName}</span>
-
-              <button className='floatingButton' style={{ whiteSpace: 'nowrap' }}
-                onClick={() => setOnFocus(onFocus === "system" ? (!isPcV ? "map" : "") : "system")}>
-                {onFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
-            </div>
-
-            {systemPageSelected === "delivery" && <SystemPageDelivery onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
-            {systemPageSelected === "hall" && <SystemPageHall onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
-          </div>}
+              {systemPageSelected === "delivery" && <SystemPageDelivery onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
+              {systemPageSelected === "hall" && <SystemPageHall onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
+            </div>}
 
           {isPcV && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
 
-          {<div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: onFocus === "system" ? '0%' : onFocus === "map" ? '100%' : '50%', }}>
-            <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', whiteSpace: 'nowrap', }} >
-              {onFocus !== "system" && <button className='floatingButton' style={{}}
-                onClick={() => setOnFocus(onFocus === "map" ? (!isPcV ? "system" : "") : "map")}>{onFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
+          {(localStorage.getItem("userLoggedEmail") === companyOperationData?.ownerID || companyOperationData?.employees?.some(emp => emp.employeeEmail === localStorage.getItem("userLoggedEmail") && emp.position !== "DELIVERYMAN")) &&
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: onFocus === "system" ? '0%' : onFocus === "map" ? '100%' : '50%', }}>
+              <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', whiteSpace: 'nowrap', }} >
+                {onFocus !== "system" && <button className='floatingButton' style={{}}
+                  onClick={() => setOnFocus(onFocus === "map" ? (!isPcV ? "system" : "") : "map")}>{onFocus === "map" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faAlignJustify} /><FontAwesomeIcon icon={faArrowRight} /></p> : <FontAwesomeIcon icon={faArrowLeft} />}</button>}
 
-              {!isPcV && onFocus === "map" && <div className='flexRow' style={{ width: '100%', justifyContent: 'center', }} >
+                {!isPcV && onFocus === "map" && <div className='flexRow' style={{ width: '100%', justifyContent: 'center', }} >
+                  <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
+                    {companyOperationData?.companyName}</span>
+                </div>}
+              </div>
+
+              <div className='flexRow' style={{ width: '100%', height: '100%', paddingTop: '8px' }} >
+                <MapaDelivery setHaveModalOpen={null} />
+              </div>
+            </div>}
+
+
+          {companyOperationData?.employees?.some(emp => emp.employeeEmail === localStorage.getItem("userLoggedEmail") && emp.position === "DELIVERYMAN") &&
+            <div className='flexColumn' style={{ position: 'relative', height: '100%', flexGrow: 1, width: onFocus === "map" ? '96%' : onFocus === "system" ? '96%' : '50%', visibility: onFocus !== "map" ? 'visible' : 'hidden' }}>
+
+              <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', marginBottom: '8px' }} >
+                <button className='floatingButton red' onClick={() => { setShowLeaveCompanyMessage(true); }}>
+                  <p style={{ margin: 0 }}><FontAwesomeIcon icon={faRightFromBracket} flip='horizontal' /></p> </button>
+
                 <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '18px' : '14px', fontWeight: 'bold', margin: '3px 5px 0px 5px', whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', }}>
                   {companyOperationData?.companyName}</span>
-              </div>}
-            </div>
+              </div>
 
-            <div className='flexRow' style={{ width: '100%', height: '100%', paddingTop: '8px' }} >
-              <MapaDelivery setHaveModalOpen={null} />
-            </div>
-          </div>}
+              {"hello deliveryman"}
+            </div>}
+
         </div >
 
         {showLeaveCompanyMessage && <div className='myModal' >
