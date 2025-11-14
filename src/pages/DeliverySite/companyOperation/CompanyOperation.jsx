@@ -32,6 +32,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SystemPageHall from './system/SystemPageHall.jsx';
 import { verifyNewOrderPrints } from '../../../services/deliveryServices/auxServices/PrintService.js';
 import SignalRService from '../../../services/deliveryServices/auxServices/SignalRService.jsx';
+import DeliveryManPage from './deliverymanPage/DeliveryManPage.jsx';
 
 export default function CompanyOperation() {
   const navigate = useNavigate();
@@ -253,7 +254,7 @@ export default function CompanyOperation() {
                   {companyOperationData?.companyName}</span>
               </div>
 
-              {"hello deliveryman"}
+              <DeliveryManPage companyOperation={companyOperationData} getShiftOperationData={async () => await getShiftOperationData()} />
             </div>}
 
         </div >

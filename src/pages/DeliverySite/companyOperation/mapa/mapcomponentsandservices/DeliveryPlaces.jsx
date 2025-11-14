@@ -74,7 +74,7 @@ function MarkerLabel({ id, label, markerColor, minutes, selectedCookingOrderID }
 
             }} >
                 {selectedCookingOrderID?.includes(id) &&
-                    <div className='flexRow fullCenter' style={{ position: 'absolute', top: -20, left: -15, width: 32, height: 32, borderRadius: '50%', backgroundColor: '#22b4f3ff', border: '1px solid white', fontSize: 21, color: 'white', zIndex: 1001 }}>
+                    <div className='flexRow fullCenter' style={{ position: 'absolute', top: -20, left: -15, width: 32, height: 32, borderRadius: '50%', backgroundColor: '#7810d3ff', border: '1px solid white', fontSize: 21, color: 'white', zIndex: 1001 }}>
                         {selectedCookingOrderID.indexOf(id) + 1}</div>}
                 {minutes > 60 && <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: '18px', position: 'absolute', bottom: 30, right: 0, textShadow: '0px 2px 100px rgba(0,0,0,0.4)', zIndex: 1000 }} />}
                 {minutes > 70 && <FontAwesomeIcon icon={faFireFlameCurved} style={{ color: '#FFD43B', fontSize: '30px', position: 'absolute', bottom: 28, right: 0, textShadow: '0px 2px 100px rgba(0,0,0,0.4)', zIndex: 1000 }} />}

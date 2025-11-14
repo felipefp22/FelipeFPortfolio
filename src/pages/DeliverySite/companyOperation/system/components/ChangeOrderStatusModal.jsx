@@ -22,7 +22,7 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
         setProcessing(true);
         await Promise.all(
             selectedCookingOrderID.map(orderID =>
-                closeOrder(companyOperation?.companyOperationID, orderID, false, 0, deliverymanSelectedID)
+                closeOrder(companyOperation?.companyOperationID, orderID, false, 0, deliverymanSelectedID, selectedCookingOrderID)
             )
         );
 
