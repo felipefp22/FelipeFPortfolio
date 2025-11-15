@@ -7,7 +7,7 @@ import { faArrowDown, faArrowUp, faCircleDown, faCircleUp, faPen, faSquareCaretD
 import CancelOrder from "./components/CancelOrderModal.jsx";
 import CompleteOrdersModal from "./components/CompleteOrdersModal.jsx";
 import ChangeOrderStatusModal from "./components/ChangeOrderStatusModal.jsx";
-import { borderColorTwo, fontColorOne, greenOne, greenTwo, redOne, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
+import { borderColorTwo, fontColorOne, greenOne, greenTwo, purpleOne, redOne, secondColor, secondColorInverse } from "../../../../theme/Colors.js";
 import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import EditOrderModal from "./components/EditOrderModal.jsx";
@@ -102,7 +102,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName?.split(" ")[0] || "No Name"}</td>
                                             <td style={{ width: "40px", padding: '5px 5px', position: 'relative' }}>
                                                 {selectedCookingOrderID?.includes(order.id) && <div className='flexRow fullCenter'
-                                                    style={{ position: 'absolute', top: 0, right: 0, width: 25, height: 25, borderRadius: '50%', backgroundColor: '#7810d3ff', border: '1px solid white', fontSize: 17, fontWeight: 'bold', color: 'white', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.52)' }}>
+                                                    style={{ position: 'absolute', top: 0, right: 0, width: 25, height: 25, borderRadius: '50%', backgroundColor: purpleOne(theme), border: '1px solid white', fontSize: 17, fontWeight: 'bold', color: 'white', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.52)' }}>
                                                     {selectedCookingOrderID.indexOf(order.id) + 1}</div>}
                                                 {Math.max(0, Math.floor((Date.now() - Date.parse(order.openOrderDateUtc + "Z")) / 60000))}
                                             </td>

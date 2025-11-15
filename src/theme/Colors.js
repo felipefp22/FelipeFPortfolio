@@ -66,7 +66,10 @@ export function blueOne(theme) {
     if (theme === 'LIGHT') return "rgba(5, 156, 244, 1)";
     if (theme === 'DARK') return "rgba(5, 156, 244, 1)";
 }
-
+export function purpleOne(theme) {
+    if (theme === 'LIGHT') return "rgba(125, 6, 194, 1)";
+    if (theme === 'DARK') return "rgba(125, 6, 194, 1)";
+}
 
 export function transparentCanvasBgOne(theme, opacity = 0.6) {
     if (theme === 'LIGHT') return `rgba(5, 156, 244, 1)`;
