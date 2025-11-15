@@ -139,7 +139,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                                 <tbody >
                                     {orders && orders.length > 0 && orders.filter(order => order.status === "CLOSEDWAITINGPAYMENT" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => Date.parse(a.closedWaitingPaymentAtUtc + "Z") - Date.parse(b.closedWaitingPaymentAtUtc + "Z")).map((order, index) => (
                                         <tr key={order.id} className={selectedOnDeliveryOrderID?.includes(order.id) ? "table-active" : ""}
-                                            onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); console.log(selectedOnDeliveryOrderID) }} style={{ cursor: "pointer" }}>
+                                            onClick={() => { setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID(prev => prev.includes(order.id) ? prev.filter(id => id !== order.id) : [...prev, order.id]); }} style={{ cursor: "pointer" }}>
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName?.split(" ")[0] || "No Name"}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{Math.max(0, Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000))}</td>

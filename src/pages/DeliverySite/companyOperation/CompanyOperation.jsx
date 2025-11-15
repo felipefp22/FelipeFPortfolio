@@ -113,8 +113,8 @@ export default function CompanyOperation() {
   async function getShiftOperationData() {
     if (!companyOperationData?.companyOperationID) return;
 
-    console.log("last update: ", lastShiftOperationUpdate ? (new Date().getTime() - lastShiftOperationUpdate) : "Never updated");
-    if (companyOperationData.currentShift && signalRAlreadyCharged && (new Date().getTime() - lastShiftOperationUpdate < 60_000)) return;
+    // console.log("last update: ", lastShiftOperationUpdate ? (new Date().getTime() - lastShiftOperationUpdate) : "Never updated");
+    // if (companyOperationData.currentShift && signalRAlreadyCharged && (new Date().getTime() - lastShiftOperationUpdate < 60_000)) return;
 
     const response = await getShiftOperation(companyOperationData?.companyOperationID);
     if (response?.status === 200) {
@@ -169,12 +169,17 @@ export default function CompanyOperation() {
   }, [queryParams]);
 
 
+
   // <>--- Orders coockingLogic to map and delivery share ---<> //
   const [selectedCookingOrderID, setSelectedCookingOrderID] = useState([]);
   async function toggleSelectedCookingOrderID(id) {
     setSelectedCookingOrderID(prev => prev.includes(id) ? prev.filter(prevId => prevId !== id) : [...prev, id]);
   }
   // <> ------------------------------------------------------<> //
+
+  useEffect(() => {
+    console.log("Selected Cooking Order ID changed:", selectedCookingOrderID);
+  }, [selectedCookingOrderID]);
 
   return (
     <>
@@ -238,7 +243,7 @@ export default function CompanyOperation() {
               </div>
 
               <div className='flexRow' style={{ width: '100%', height: '100%', paddingTop: '8px' }} >
-                <MapaDelivery companyOperation={companyOperationData} selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID} toggleSelectedCookingOrderID={toggleSelectedCookingOrderID} getShiftOperationData={async () => await getShiftOperationData()}  />
+                <MapaDelivery companyOperation={companyOperationData} selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID} toggleSelectedCookingOrderID={toggleSelectedCookingOrderID} getShiftOperationData={async () => await getShiftOperationData()} />
               </div>
             </div>}
 
@@ -268,7 +273,7 @@ export default function CompanyOperation() {
             companySelected={companyOperationData?.companyOperationID} requesterAreOwnerOrManager={requesterAreOwnerOrManager} />
         </div>}
       </div>
-      <SignalRService companyOperation={companyOperationData} setSignalRAlreadyCharged={setSignalRAlreadyCharged} updateShiftfData={updateShiftfData} />
+      {/* <SignalRService companyOperation={companyOperationData} setSignalRAlreadyCharged={setSignalRAlreadyCharged} updateShiftfData={updateShiftfData} /> */}
     </>
   );
 }

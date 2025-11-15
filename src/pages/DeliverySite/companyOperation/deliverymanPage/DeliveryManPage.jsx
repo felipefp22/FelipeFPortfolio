@@ -18,47 +18,46 @@ export default function DeliveryManPage({ companyOperation, getShiftOperationDat
     async function separateOrdersOnGorups() {
         const userOrders = companyOperation?.orders?.filter(order => order?.deliveryManID === localStorage.getItem('userLoggedEmail') && order?.status === 'CLOSEDWAITINGPAYMENT');
 
-        let uniqueDeliveryOrdersSequence = new Set();
-        userOrders?.forEach(order => {
-            const sequence = order?.deliveryOrdersSequence;
-            if (Array.isArray(sequence)) {
-                const sortedUniqueSequence = [...new Set(sequence)].sort();
-                const sequenceString = JSON.stringify(sortedUniqueSequence);
-                if (!uniqueDeliveryOrdersSequence.has(sequenceString)) {
-                    uniqueDeliveryOrdersSequence.add(sequenceString);
-                }
-            }
-        });
+        console.log('userOrders: ', userOrders);
+
+        const uniqueDeliveryOrdersSequence = [
+            ...new Set(userOrders?.map(o => JSON.stringify(o.deliveryOrdersSequence)))
+        ].map(s => JSON.parse(s));
+
+        console.log('uniqueDeliveryOrdersSequence: ', uniqueDeliveryOrdersSequence);
 
         let ordersGroupsTemp = [];
-        uniqueDeliveryOrdersSequence.forEach(seqString => {
-            const sequenceArray = JSON.parse(seqString);
-            const ordersFiltered = userOrders?.filter(order => {
-                const orderSequence = order?.deliveryOrdersSequence;
+        uniqueDeliveryOrdersSequence.forEach(sequenceArray => {
 
-                if (!Array.isArray(orderSequence)) {
-                    return false;
-                }
-                const orderSequenceString = JSON.stringify([...new Set(orderSequence)].sort());
+            // ❗ NÃO ALTERAR sequenceArray, usar cópia!
+            const seqString = JSON.stringify([...sequenceArray].sort());
+
+            const ordersFiltered = userOrders.filter(order => {
+                if (!Array.isArray(order.deliveryOrdersSequence)) return false;
+
+                const orderSequenceString = JSON.stringify(
+                    [...new Set(order.deliveryOrdersSequence)].sort()
+                );
+
                 return orderSequenceString === seqString;
             });
 
-            if (ordersFiltered) {
-                ordersFiltered.sort((a, b) => {
-                    const indexA = sequenceArray.indexOf(a.id);
-                    const indexB = sequenceArray.indexOf(b.id);
-                    return indexA - indexB;
-                });
-            }
+            const ordersSorted = sequenceArray.map(seqId =>
+                ordersFiltered.find(order => order.id === seqId)
+            ).filter(Boolean);
+
             ordersGroupsTemp.push({
-                deliveryOrdersSequence: sequenceArray,
-                orders: ordersFiltered
+                deliveryOrdersSequence: sequenceArray, // ORDEM ORIGINAL preservada
+                orders: ordersSorted
             });
         });
+
         setOrdersGroups(ordersGroupsTemp);
+        console.log('ordersGroupsTemp: ', ordersGroupsTemp);
     }
 
     async function goMaps(orders) {
+        console.log('ordersGroups: ', ordersGroups);
         if (!orders || orders.length === 0) {
             console.error("Orders list cannot be empty for routing.");
             return;
@@ -67,13 +66,13 @@ export default function DeliveryManPage({ companyOperation, getShiftOperationDat
         const getCoords = (order) => `${order?.customer?.lat},${order?.customer?.lng}`;
 
         const waypoints = orders
-            .slice(0, -1) 
+            .slice(0, -1)
             .map(getCoords)
             .join('|');
 
         const destination = getCoords(orders[orders.length - 1]);
 
-       let googleMapsUrl = 'https://www.google.com/maps/dir/?api=1' +
+        let googleMapsUrl = 'https://www.google.com/maps/dir/?api=1' +
             `&destination=${destination}`;
 
         if (waypoints.length > 0) {

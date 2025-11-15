@@ -49,13 +49,16 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
                 {selectedCookingOrderID.length > 0 && <div className='flexColumn fullCenter' style={{}}>
                     <span>Dispach to delivery?</span>
 
-                    {orders?.filter(order => selectedCookingOrderID?.includes(order.id)).map((order, i) => (
-                        <div key={i}>
-                            {/* <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{order} </span> */}
-                            <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: '500', color: blueOne(theme) }}>
-                                {order ? `${order?.orderNumberOnShift}` + (order?.customer ? (" - " + order?.customer.customerName.split(" ")[0]) : (" - " + order?.pickupName?.split(" ")[0] ?? "")) : ""} </span>
-                        </div>
-                    ))}
+                    {selectedCookingOrderID?.map((id, i) => {
+                            const order = orders?.find(o => o.id === id);
+
+                    return (
+                    <div key={i}>
+                        {/* <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>{order} </span> */}
+                        <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: '500', color: blueOne(theme) }}>
+                            {order ? `${order?.orderNumberOnShift}` + (order?.customer ? (" - " + order?.customer.customerName.split(" ")[0]) : (" - " + order?.pickupName?.split(" ")[0] ?? "")) : ""} </span>
+                    </div>
+                    )})}
 
                     <br />
                     <select className='inputStandart' value={deliverymanSelectedID || ""} onChange={(e) => setDeliverymanSelectedID(e.target.value)} style={{ fontSize: 16, flexGrow: 1, maxWidth: '520px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
@@ -78,7 +81,7 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
                             ))}
                         </optgroup>}
 
-                        {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").length === 0 && companyOperation?.noUserDeliveryMans?.length === 0 && <optgroup label='Please SetUp Delivery-Mans' style={{ color: redOne(theme), fontWeight: '300' }}/>}
+                        {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").length === 0 && companyOperation?.noUserDeliveryMans?.length === 0 && <optgroup label='Please SetUp Delivery-Mans' style={{ color: redOne(theme), fontWeight: '300' }} />}
                     </select>
                 </div>}
 

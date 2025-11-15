@@ -247,7 +247,7 @@ export default function MapaDelivery({ companyOperation, setHaveModalOpen, selec
       `}
         </style>
 
-        {changeStatusOrderModal && <div className='myModal underDeliveryLayout' >
+        {changeStatusOrderModal && <div className='myModal' >
           <ChangeOrderStatusModal close={() => { setSelectedCookingOrderID([]); setChangeStatusOrderModal(false); }} companyOperation={companyOperation} selectedCookingOrderID={selectedCookingOrderID}
             setSelectedCookingOrderID={setSelectedCookingOrderID} selectedOnDeliveryOrderID={[]} setSelectedOnDeliveryOrderID={[]} getShiftOperationData={getShiftOperationData} />
         </div>}
