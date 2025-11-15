@@ -182,7 +182,7 @@ export default function CompanyOperation() {
     // if (companyOperationData?.employees?.some(emp => emp.employeeEmail === localStorage.getItem("userLoggedEmail") && emp.position === "SERVER")) return "SERVER";
     if (companyOperationData?.employees?.some(emp => emp.employeeEmail === localStorage.getItem("userLoggedEmail") && emp.position === "DELIVERYMAN")) return "DELIVERYMAN";
 
-    return "COMUNUSER";
+    return "ORDINARYUSER";
   }
 
   return (
@@ -190,7 +190,9 @@ export default function CompanyOperation() {
       <div className='flexColumn' style={{ background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", overflow: "hidden", justifyContent: "center", padding: '0px 0px' }}>
 
         <div className='flexRow' style={{ height: '100%', width: '100%', flexGrow: 1, padding: '5px 5px' }}>
-          {getkindOfUserScreen() === 'COMUNUSER' &&
+
+          {/* <>------------------------------ Ordinary Users Screeens ------------------------------<> */}
+          {getkindOfUserScreen() === 'ORDINARYUSER' &&
             <div className='flexColumn' style={{ position: 'relative', height: '100%', flexGrow: 1, width: onFocus === "map" ? '0%' : onFocus === "system" ? '96%' : '50%', visibility: onFocus !== "map" ? 'visible' : 'hidden' }}>
 
               <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', marginBottom: '8px' }} >
@@ -232,9 +234,9 @@ export default function CompanyOperation() {
               {systemPageSelected === "hall" && <SystemPageHall onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
             </div>}
 
-          {isPcV && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
+          {getkindOfUserScreen() === 'ORDINARYUSER' && isPcV && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}
 
-          {getkindOfUserScreen() === 'COMUNUSER' &&
+          {getkindOfUserScreen() === 'ORDINARYUSER' &&
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: onFocus === "system" ? '0%' : onFocus === "map" ? '100%' : '50%', }}>
               <div className='flexRow spaceBetweenJC' style={{ width: '100%', padding: '0px 4px', whiteSpace: 'nowrap', }} >
                 {onFocus !== "system" && <button className='floatingButton' style={{}}
@@ -250,8 +252,10 @@ export default function CompanyOperation() {
                 <MapaDelivery companyOperation={companyOperationData} selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID} toggleSelectedCookingOrderID={toggleSelectedCookingOrderID} getShiftOperationData={async () => await getShiftOperationData()} />
               </div>
             </div>}
+          {/* <>------------------------------ END || Ordinary Users Screeens || END ------------------------------<> */}
 
 
+          {/* <>------------------------------ Delivery Man Screeens ------------------------------<> */}
           {getkindOfUserScreen() === 'DELIVERYMAN' &&
             <div className='flexColumn' style={{ position: 'relative', height: '100%', flexGrow: 1, width: onFocus === "map" ? '96%' : onFocus === "system" ? '96%' : '50%', visibility: onFocus !== "map" ? 'visible' : 'hidden' }}>
 
@@ -265,6 +269,7 @@ export default function CompanyOperation() {
 
               <DeliveryManPage companyOperation={companyOperationData} getShiftOperationData={async () => await getShiftOperationData()} />
             </div>}
+          {/* <>------------------------------ END || Delivery Man Screeens || END ------------------------------<> */}
 
         </div >
 
