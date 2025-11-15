@@ -5,6 +5,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import googleMapsLogo from '../../../../assets/googleMapsLogo.png';
 import wazeLogo from '../../../../assets/wazeLogo2.png';
+import ChoseRouteModal from './components/modals/ChoseRouteModal';
 
 
 
@@ -55,44 +56,7 @@ export default function DeliveryManPage({ companyOperation, getShiftOperationDat
         setOrdersGroups(ordersGroupsTemp);
     }
 
-    async function goMaps(orders) {
-        if (!orders || orders.length === 0) {
-            console.error("Orders list cannot be empty for routing.");
-            return;
-        }
-        const getCoords = (order) => `${order?.customer?.lat},${order?.customer?.lng}`;
 
-        const waypoints = orders
-            .slice(0, -1)
-            .map(getCoords)
-            .join('|');
-        const destination = getCoords(orders[orders.length - 1]);
-
-        let googleMapsUrl = 'https://www.google.com/maps/dir/?api=1' +
-            `&destination=${destination}`;
-        if (waypoints.length > 0) {
-            googleMapsUrl += `&waypoints=${waypoints}`;
-        }
-
-        // googleMapsUrl += `&dir_action=navigate&travelmode=driving`; // That Starts navigation immediately
-        googleMapsUrl += `&travelmode=driving`;
-        window.open(googleMapsUrl, '_blank');
-    }
-
-    async function goWaze(orders) {
-        console.log('ordersGroups: ', ordersGroups);
-        if (!orders || orders.length === 0) {
-            console.error("Orders list cannot be empty for routing.");
-            return;
-        }
-        const getCoords = (order) => `${order?.customer?.lat},${order?.customer?.lng}`;
-
-        const origin = getCoords(orders[0]);
-        const destination = getCoords(orders[orders.length - 1]);
-
-        const wazeUrl = `https://waze.com/ul?ll=${destination}&from=${origin}&navigate=yes`;
-        window.open(wazeUrl, '_blank');
-    }
 
     return (
         <>
@@ -110,13 +74,17 @@ export default function DeliveryManPage({ companyOperation, getShiftOperationDat
                         </div>
                         {sequenceOpen === index && <div className='flexRow spaceBetweenJC' style={{ gap: 50, marginTop: 10 }} >
                             <img src={googleMapsLogo} alt="Google Maps" style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "white", border: "2px solid white" }}
-                                onClick={(e) => { e.stopPropagation(); goMaps(group?.orders); }} />
+                                onClick={(e) => { e.stopPropagation(); setShowChoseRouteModal({ appToOpen: 'googleMaps', group: group });}} />
 
                             <img src={wazeLogo} alt="Waze" style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: blueOne(theme), border: "2px solid white" }}
-                                onClick={(e) => { e.stopPropagation(); goWaze(group?.orders); }} />
+                                onClick={(e) => { e.stopPropagation(); setShowChoseRouteModal({ appToOpen: 'waze', group: group });}} />
                         </div>}
                     </div>))}
             </div>
+
+            {showChoseRouteModal && <div className='myModal' >
+                <ChoseRouteModal close={() => setShowChoseRouteModal(null)} appToOpenAndGroup={showChoseRouteModal} />
+            </div>}
         </>
     );
 }
