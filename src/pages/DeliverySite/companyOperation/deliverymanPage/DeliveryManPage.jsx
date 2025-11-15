@@ -144,7 +144,7 @@ export default function DeliveryManPage({ companyOperation, getShiftOperationDat
         <>
             <div className='flexColumn' style={{ height: '100%', overflowY: 'auto', }}>
                 {ordersGroups?.map((group, index) => (
-                    <div key={index} className='transparentCanvas fullCenter' style={{ flexDirection: 'column', }} onClick={() => { setSequenceOpen(index) }} >
+                    <div key={index} className='transparentCanvas fullCenter' style={{ flexDirection: 'column', marginBottom: 10}} onClick={() => { setSequenceOpen(index) }} >
                         <div className='flexRow' style={{ marginBottom: 5 }} >
                             {group?.orders?.map((order) => (
                                 <div key={order.id} className='flexRow fullCenter'>
