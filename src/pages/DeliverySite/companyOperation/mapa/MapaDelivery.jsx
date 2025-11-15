@@ -50,7 +50,7 @@ export default function MapaDelivery({ companyOperation, setHaveModalOpen, selec
       // L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       // L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        minZoom: 13,
+        minZoom: 12,
         maxZoom: 17,
         attribution: '&copy; OpenStreetMap contributors',
       }).addTo(mapRef.current);

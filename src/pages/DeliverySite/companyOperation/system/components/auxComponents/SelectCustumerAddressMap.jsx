@@ -26,7 +26,7 @@ export default function SelectCustumerAddressMap({ lat, lng, address, setLat, se
     const [companyLat, setCompanyLat] = useState(null);
     const [companyLng, setCompanyLng] = useState(null);
     const [orders, setOrders] = useState([]);
-    const [zoom, setZoom] = useState(localStorage.getItem('mapZoomLevel') || 13);
+    const [zoom, setZoom] = useState(15);
 
     const mapRef = useRef(null); // Referência para o mapa
     const markersRef = useRef(null); // Reference to manage markers

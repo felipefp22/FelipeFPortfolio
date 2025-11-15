@@ -124,8 +124,8 @@ export default function Projects({ activeMenu }) {
                                 <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description3")}
                                     <a href="https://github.com/felipefp22/RestaurantSystem" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Java Code</a></span>
 
-                                {/* <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description4")}
-                                    <a href="https://github.com/felipefp22/FelipeFPortfolio" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)', }}>React Code</a></span> */}
+                                <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description4")}
+                                    <a href="https://github.com/felipefp22/FelipeFPortfolio" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)', }}>React Code</a></span>
                             </div>
                         </div>
                     </div>
