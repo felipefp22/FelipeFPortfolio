@@ -94,13 +94,21 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                                 </thead>
                                 <tbody >
                                     {orders && orders.length > 0 && orders.filter(order => order.status === "OPEN" && order.tableNumberOrDeliveryOrPickup === 'delivery').sort((a, b) => Date.parse(a.openOrderDateUtc + "Z") - Date.parse(b.openOrderDateUtc + "Z")).map((order, index) => (
+
                                         <tr key={order.id} className={selectedCookingOrderID?.includes(order.id) ? "table-active" : ""}
-                                            onClick={() => { setSelectedOnDeliveryOrderID([]); toggleSelectedCookingOrderID( order.id); }} style={{ cursor: "pointer" }}>
+                                            onClick={() => { setSelectedOnDeliveryOrderID([]); toggleSelectedCookingOrderID(order.id); }} style={{ cursor: "pointer" }}>
+
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName?.split(" ")[0] || "No Name"}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }}>{Math.max(0, Math.floor((Date.now() - Date.parse(order.openOrderDateUtc + "Z")) / 60000))}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px', position: 'relative' }}>
+                                                {selectedCookingOrderID?.includes(order.id) && <div className='flexRow fullCenter'
+                                                    style={{ position: 'absolute', top: 0, right: 0, width: 25, height: 25, borderRadius: '50%', backgroundColor: '#7810d3ff', border: '1px solid white', fontSize: 17, fontWeight: 'bold', color: 'white', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.52)' }}>
+                                                    {selectedCookingOrderID.indexOf(order.id) + 1}</div>}
+                                                {Math.max(0, Math.floor((Date.now() - Date.parse(order.openOrderDateUtc + "Z")) / 60000))}
+                                            </td>
                                         </tr>
                                     ))}
+
                                 </tbody>
                             </Table>
                         </div>

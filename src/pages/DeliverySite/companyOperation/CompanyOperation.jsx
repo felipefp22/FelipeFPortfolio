@@ -238,7 +238,7 @@ export default function CompanyOperation() {
               </div>
 
               <div className='flexRow' style={{ width: '100%', height: '100%', paddingTop: '8px' }} >
-                <MapaDelivery selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID} toggleSelectedCookingOrderID={toggleSelectedCookingOrderID} getShiftOperationData={async () => await getShiftOperationData()}  />
+                <MapaDelivery companyOperation={companyOperationData} selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID} toggleSelectedCookingOrderID={toggleSelectedCookingOrderID} getShiftOperationData={async () => await getShiftOperationData()}  />
               </div>
             </div>}
 

@@ -12,10 +12,9 @@ import { fontColorOne, greenOne, secondColor, secondColorInverse } from '../../.
 import ChangeOrderStatusModal from '../system/components/ChangeOrderStatusModal';
 
 
-export default function MapaDelivery({ setHaveModalOpen, selectedCookingOrderID, setSelectedCookingOrderID, toggleSelectedCookingOrderID, getShiftOperationData }) {
+export default function MapaDelivery({ companyOperation, setHaveModalOpen, selectedCookingOrderID, setSelectedCookingOrderID, toggleSelectedCookingOrderID, getShiftOperationData }) {
   const theme = useSelector((state) => state.view.theme);
   const isPcV = useSelector((state) => state.view.isPcV);
-  const companyOperation = useSelector((state) => state.companyOperation);
   const [companyLat, setCompanyLat] = useState(null);
   const [companyLng, setCompanyLng] = useState(null);
   const [orders, setOrders] = useState([]);
