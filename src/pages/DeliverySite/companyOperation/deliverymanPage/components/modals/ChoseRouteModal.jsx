@@ -57,7 +57,7 @@ export default function ChoseRouteModal({ close, appToOpenAndGroup }) {
                     {appToOpenAndGroup?.appToOpen === 'waze' && <img src={wazeLogo} alt="Waze" style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: blueOne(theme), border: "2px solid white" }} />}
                     <br />
 
-                    {appToOpenAndGroup?.appToOpen === 'googleMaps' && <div className='transparentCanvas fullCenter' style={{minWidth: '60%', flexDirection: 'column', marginBottom: 20 }} onClick={() => { goMaps(appToOpenAndGroup?.group?.orders) }} >
+                    {appToOpenAndGroup?.appToOpen === 'googleMaps' && appToOpenAndGroup?.group?.orders.length > 1 && <div className='transparentCanvas fullCenter' style={{minWidth: '60%', flexDirection: 'column', marginBottom: 20 }} onClick={() => { goMaps(appToOpenAndGroup?.group?.orders) }} >
                         <div className='flexRow' style={{ marginBottom: 5 }} >
                             {appToOpenAndGroup?.group?.orders.map((order) => (
                                 <div key={order.id} className='flexRow fullCenter'>

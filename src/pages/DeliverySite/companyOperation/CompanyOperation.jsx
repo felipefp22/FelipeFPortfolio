@@ -185,6 +185,13 @@ export default function CompanyOperation() {
     return "ORDINARYUSER";
   }
 
+  function isTableAvailable(orders, selectedTable) {
+    if (orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable) && (order.status === 'CLOSEDWAITINGPAYMENT' || order.status === 'OPEN'))) {
+      return false;
+    }
+    return true;
+  }
+
   return (
     <>
       <div className='flexColumn' style={{ background: mainColor(theme), color: fontColorOne(theme), height: "100dvh", width: "100vw", overflow: "hidden", justifyContent: "center", padding: '0px 0px' }}>
@@ -229,9 +236,9 @@ export default function CompanyOperation() {
                   {onFocus === "system" ? <p style={{ margin: 0 }}><FontAwesomeIcon icon={faArrowLeft} /><FontAwesomeIcon icon={faMapLocationDot} /></p> : <FontAwesomeIcon icon={faArrowRight} />}</button>
               </div>
 
-              {systemPageSelected === "delivery" && <SystemPageDelivery onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()}
+              {systemPageSelected === "delivery" && <SystemPageDelivery onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} isTableAvailable={isTableAvailable} 
                 selectedCookingOrderID={selectedCookingOrderID} setSelectedCookingOrderID={setSelectedCookingOrderID} toggleSelectedCookingOrderID={toggleSelectedCookingOrderID} />}
-              {systemPageSelected === "hall" && <SystemPageHall onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} />}
+              {systemPageSelected === "hall" && <SystemPageHall onFocus={onFocus} setHaveModalOpen={setHaveModalOpen} getShiftOperationData={async () => await getShiftOperationData()} isTableAvailable={isTableAvailable} />}
             </div>}
 
           {getkindOfUserScreen() === 'ORDINARYUSER' && isPcV && <div style={{ display: 'flex', height: '100%', width: 5, backgroundColor: secondColorInverse(theme), borderRadius: 50, margin: "0px 5px" }} />}

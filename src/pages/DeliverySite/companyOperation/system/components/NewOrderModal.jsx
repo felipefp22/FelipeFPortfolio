@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { blueOne, borderColorOne, borderColorTwo, greenOne, greenTwo, orangeOne, redOne } from "../../../../../theme/Colors";
 import { calculateEstimatedKm, calculatePrice } from '../../../../../redux/calculateDeliveryDistancePrice';
 
-export default function NewOrderModal({ close, companyOperation, getShiftOperationData, tableNumberSelectedBeforeModal }) {
+export default function NewOrderModal({ close, companyOperation, getShiftOperationData, tableNumberSelectedBeforeModal, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -169,7 +169,6 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
         return { km: distance, price: price };
     }
 
-
     return (
         <>
             <div className='modalInside' style={{ width: !isPcV ? "100%" : "97%", maxHeight: !isPcV ? '90%' : '80%', padding: !isPcV ? '10px' : '10px', }}>
@@ -186,7 +185,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 <option value="" disabled hidden> Table </option>
                                 {Array.from({ length: companyOperation?.numberOfTables || 0 }, (_, i) => {
                                     const tableNumber = i + 1; // tables start from 1
-                                    const disableOpt = companyOperation?.orders.some(order => Number(order.tableNumberOrDeliveryOrPickup) === Number(tableNumber));
+                                    const disableOpt = !isTableAvailable(companyOperation?.orders, tableNumber);
                                     return (
                                         <option key={tableNumber} value={tableNumber} disabled={disableOpt} style={{ backgroundColor: disableOpt ? 'black' : undefined, color: disableOpt ? 'rgba(255, 255, 255, 0.35)' : undefined }}> {tableNumber} </option>
                                     );

@@ -15,7 +15,7 @@ import OrderClosedOrPaidDetailsModal from './components/auxComponents/OrderResum
 import OrderResumeModal from './components/auxComponents/OrderResumeModal.jsx';
 import SignalRService from '../../../../services/deliveryServices/auxServices/SignalRService.jsx';
 
-export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOperationData }) {
+export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOperationData, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -53,17 +53,18 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
         return () => document.removeEventListener('contextmenu', handler);
     }, []);
 
+
     return (
         <>
             <div className='flexColumn' style={{ height: '100%', flexGrow: 1, overflowY: 'auto', }}>
                 {onFocus !== "map" && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '12px', marginBottom: '8px' }}>
-                    <button className='buttonStandart' style={{ visibility: (!companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
+                    <button className='buttonStandart' style={{ visibility: isTableAvailable(companyOperation?.orders, selectedTable) ? 'visible' : 'hidden' }}
                         onClick={() => { setNewOrderModal(true); }}>
                         {"New Order"}</button>
 
 
-                    <button className='buttonStandart' style={{ visibility: (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable)) ? 'visible' : 'hidden') }}
-                        onClick={() => { setEditOrderModal(companyOperation?.orders?.find(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable))); }}>
+                    <button className='buttonStandart' style={{ visibility: isTableAvailable(companyOperation?.orders, selectedTable) ? 'hidden' : 'visible' }}
+                        onClick={() => { setEditOrderModal(companyOperation?.orders?.find(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable) && order.status !== 'CANCELLED' && order.status !== 'PAID' )); }}>
                         {"Edit Order"}</button>
                 </div>}
 
@@ -81,7 +82,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                                 if (!matchesSearch) return null;
 
                                 let tableOnUse = false;
-                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order?.status !== "CLOSED") && (order.status === "OPEN"))) tableOnUse = "OPEN";
+                                if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "OPEN"))) tableOnUse = "OPEN";
                                 if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "CLOSEDWAITINGPAYMENT"))) tableOnUse = "CLOSEDWAITINGPAYMENT";
 
                                 let tableColorImage = tableGreen;
@@ -263,7 +264,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
             </div>
 
             {newOrderModal && <div className='myModal' >
-                <NewOrderModal close={() => { setNewOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} />
+                <NewOrderModal close={() => { setNewOrderModal(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={selectedTable} isTableAvailable={isTableAvailable} />
             </div>}
 
             {editOrderModal && <div className='myModal' >

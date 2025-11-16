@@ -14,7 +14,7 @@ import EditOrderModal from "./components/EditOrderModal.jsx";
 import OrderResumeModal from './components/auxComponents/OrderResumeModal.jsx';
 
 
-export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShiftOperationData, selectedCookingOrderID, setSelectedCookingOrderID, toggleSelectedCookingOrderID }) {
+export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShiftOperationData, selectedCookingOrderID, setSelectedCookingOrderID, toggleSelectedCookingOrderID, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
     const dispatch = useDispatch();
@@ -238,7 +238,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
             </div>}
 
             {newOrderModal && <div ref={newOrderModalRef} className='myModal' >
-                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={'delivery'} />
+                <NewOrderModal close={() => { setNewOrderModal(false); setHaveModalOpen(false); }} companyOperation={companyOperation} getShiftOperationData={getShiftOperationData} tableNumberSelectedBeforeModal={'delivery'} isTableAvailable={isTableAvailable} />
             </div>}
 
             {completeOrdersModal && <div className='myModal' >
