@@ -12,7 +12,7 @@ import { calculateEstimatedKm, calculatePrice } from '../../../../../../redux/ca
 
 
 
-export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tableNumberOrDeliveryOrPickup, orderToEdit, pickupName, customerSelected, companyOperation, getShiftOperationData }) {
+export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tableNumberOrDeliveryOrPickup, orderToEdit, pickupName, customerSelected, companyOperation, getShiftOperationData, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -318,7 +318,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             <option value="" disabled hidden> Table </option>
                             {Array.from({ length: companyOperation?.numberOfTables || 0 }, (_, i) => {
                                 const tableNumber = i + 1; // tables start from 1
-                                const disableOpt = companyOperation?.orders.some(order => Number(order.tableNumberOrDeliveryOrPickup) === Number(tableNumber));
+                                const disableOpt = !isTableAvailable(companyOperation?.orders, tableNumber);
                                 return (
                                     <option key={tableNumber} value={tableNumber} disabled={disableOpt} style={{ backgroundColor: disableOpt ? 'black' : undefined, color: disableOpt ? 'rgba(255, 255, 255, 0.35)' : undefined }}> {tableNumber} </option>
                                 );

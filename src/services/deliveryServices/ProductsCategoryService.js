@@ -41,3 +41,29 @@ export async function createProductsCategoriesService(companyID, categoryName, d
         if (error?.response) return error.response;
     }
 }
+
+export async function updateProductsCategoriesService(companyID, categoryID, categoryName, description, customOrderAllowedCandidate, customOrderPriceRuleCandidate) {
+    const postData = {
+        companyID: companyID,
+        categoryID: categoryID,
+        categoryName: categoryName,
+        description: description,
+        customOrderAllowed: customOrderAllowedCandidate,
+        customOrderPriceRule: customOrderPriceRuleCandidate,
+    };
+
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/product-category/update-category`, postData,
+            {
+                headers: {
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}

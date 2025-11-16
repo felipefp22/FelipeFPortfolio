@@ -13,7 +13,7 @@ import CloseOrFinishOrderModal from './auxComponents/CloseOrFinishOrderModal';
 
 
 
-export default function EditOrderModal({ close, companyOperation, orderToEdit, setOrderToEdit, getShiftOperationData }) {
+export default function EditOrderModal({ close, companyOperation, orderToEdit, setOrderToEdit, getShiftOperationData, isTableAvailable}) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -230,7 +230,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                         <tr key={`${index}-${i}`}>
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => removeProductToAdd(product.id)}>
+                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { }} >
                                                 <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} />
                                             </td>
                                         </tr>
@@ -257,7 +257,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
             {showChangeTableOrCustomerModal && <div className='myModal' >
                 <ChangeTableOrCustomerModal close={() => setShowChangeTableOrCustomerModal(false)} closeFromCancel={() => close()} tableNumberOrDeliveryOrPickup={tableNumberOrDeliveryOrPickup}
-                    orderToEdit={orderToEdit} pickupName={pickupName} customerSelected={customerSelected}
+                    orderToEdit={orderToEdit} pickupName={pickupName} customerSelected={customerSelected} isTableAvailable={isTableAvailable} 
                     companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
 

@@ -1,13 +1,14 @@
 import { useSelector } from "react-redux";
-import { borderColorTwo, transparentCavasTwo } from "../../../../../theme/Colors";
+import { blueOne, borderColorTwo, orangeOne, transparentCavasTwo } from "../../../../../theme/Colors";
 import { useEffect, useState } from "react";
-import { faPlus, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { faGear, faPlus, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import cutleryLogo from '../../../../../assets/cutleryLogo.png';
 import CreateProductModal from "./modals/CreateProductModal";
 import { getImageFoodService } from "../../../../../services/deliveryServices/auxServices/FoodsImagesService";
 import EditProductModal from "./modals/EditProductModal";
 import CreateProductCategoryModal from "./modals/CreateProductCategoryModal";
+import EditProductCategoryModal from './modals/EditProductCategoryModal';
 
 
 export default function CompanyProducts({ companyData, fetchCompanyData }) {
@@ -17,6 +18,7 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
     const [openStates, setOpenStates] = useState({});
 
     const [createProductCategoryModal, setCreateProductCategoryModal] = useState(false);
+    const [editProductCategoryModal, setEditProductCategoryModal] = useState(false);
     const [createProductModal, setCreateProductModalOpen] = useState(false);
     const [editProductModal, setEditProductModal] = useState(false);
 
@@ -27,6 +29,9 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
         }));
     };
 
+    useEffect(() => {
+        console.log("Company Data updated:", companyData);
+    }, [companyData]);
 
     return (
         <>
@@ -52,16 +57,21 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
                         const isOpen = openStates[index];
                         return (
                             <div key={index} style={{ marginBottom: '15px', }}>
-                                <div className='transparentCanvas' style={{ width: '100%', borderRadius: '6px', }} onClick={() => toggleOpen(index)}>
-
-                                    <img src={cutleryLogo} alt="Logo" style={{
-                                        width: isPcV ? 40 : 30, height: isPcV ? 40 : 30,
-                                        borderRadius: '50%', marginRight: 10, backgroundColor: 'rgba(0, 0, 32, 0.79)', padding: '6px',
-                                    }} />
-                                    <div className='flexRow spaceBetweenJC' style={{ width: '100%', alignItems: 'center' }}>
-                                        <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold' }}>{category?.categoryName} </span>
+                                <div className='transparentCanvas' style={{ width: '100%', borderRadius: '6px', cursor: 'default' }} >
+                                    <div className='flexRow spaceBetweenJC fullCenter' style={{ width: '100%', borderRight: '3px solid #ccc', cursor: 'pointer', height: '100%' }} onClick={() => toggleOpen(index)}>
+                                        <div className='flexRow fullCenter' >
+                                            <img src={cutleryLogo} alt="Logo" style={{
+                                                width: isPcV ? 40 : 30, height: isPcV ? 40 : 30,
+                                                borderRadius: '50%', marginRight: 10, backgroundColor: 'rgba(0, 0, 32, 0.79)', padding: '6px',
+                                            }} />
+                                            <span style={{ fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold' }}>{category?.categoryName} </span>
+                                        </div>
                                         <FontAwesomeIcon icon={isOpen ? faSquareCaretUp : faSquareCaretDown}
-                                            style={{ fontSize: isPcV ? '20px' : '16px', marginRight: isPcV ? '20px' : '5px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
+                                            style={{ fontSize: isPcV ? '20px' : '16px', borderRadius: '4px', padding: isPcV ? '5px' : '4px', opacity: 0.8 }} />
+                                    </div>
+
+                                    <div className='flexRow spaceBetweenJC' style={{ padding: '0px 15px', color: blueOne(theme) }} >
+                                        <FontAwesomeIcon icon={faGear} style={{ fontSize: isPcV ? '25px' : '22px', cursor: 'pointer' }} onClick={() => { setEditProductCategoryModal(category); }} />
                                     </div>
                                 </div>
                                 {!isOpen && <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 6px', padding: '3px 5px', borderRadius: '0px 0px 6px 6px', backgroundColor: transparentCavasTwo(theme), minHeight: '50px' }}>
@@ -104,6 +114,10 @@ export default function CompanyProducts({ companyData, fetchCompanyData }) {
 
             {createProductCategoryModal && <div className='myModal underDeliveryLayout' >
                 <CreateProductCategoryModal close={() => setCreateProductCategoryModal(false)} companyData={companyData} fetchCompanyData={() => fetchCompanyData()} />
+            </div>}
+
+            {editProductCategoryModal && <div className='myModal underDeliveryLayout' >
+                <EditProductCategoryModal close={() => setEditProductCategoryModal(false)} companyData={companyData} categoryToEdit={editProductCategoryModal} fetchCompanyData={() => fetchCompanyData()} />
             </div>}
 
             {createProductModal && <div className='myModal underDeliveryLayout' >

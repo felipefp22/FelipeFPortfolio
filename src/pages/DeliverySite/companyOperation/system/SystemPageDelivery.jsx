@@ -246,7 +246,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
             </div>}
 
             {editOrderModal && <div className='myModal' >
-                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
+                <EditOrderModal close={() => { setEditOrderModal(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} isTableAvailable={isTableAvailable} />
             </div>}
 
             {seeOrderResumeModal && <div className='myModal' >

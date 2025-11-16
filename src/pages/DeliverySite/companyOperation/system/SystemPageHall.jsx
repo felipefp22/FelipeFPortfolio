@@ -268,7 +268,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
             </div>}
 
             {editOrderModal && <div className='myModal' >
-                <EditOrderModal close={() => { setEditOrderModal(false); setSelectedPickUpOrCompletedOrCanceledOrderID(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} />
+                <EditOrderModal close={() => { setEditOrderModal(false); setSelectedPickUpOrCompletedOrCanceledOrderID(false); }} companyOperation={companyOperation} orderToEdit={editOrderModal} setOrderToEdit={setEditOrderModal} getShiftOperationData={() => getShiftOperationData()} isTableAvailable={isTableAvailable} />
             </div>}
 
             {seeOrderResumeModal && <div className='myModal' >
