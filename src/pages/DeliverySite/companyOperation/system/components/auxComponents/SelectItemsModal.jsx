@@ -6,6 +6,7 @@ import noFoodImg from "./../../../../../../assets/noFood.jpg";
 import { useSelector } from "react-redux";
 import { blueOne, borderColorTwo, fontColorOne, greenOne, greenTwo, purpleOne, redOne } from "../../../../../../theme/Colors";
 import { getImageFoodService } from "../../../../../../services/deliveryServices/auxServices/FoodsImagesService";
+import CustomItemModal from './2ndLevel/CustomItemModal';
 
 export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd }) {
     const theme = useSelector((state) => state.view.theme);
@@ -16,10 +17,9 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
     const [productsFiltered, setProductsFiltered] = useState([]);
     const [selectedProducts, setSelectedProducts] = useState([]);
-    const [createdCustomItems, setCreatedCustomItems] = useState([]);
+    const [selectedCustomItems, setSelectedCustomItems] = useState([]);
 
     const [createCustomItemModal, setCreateCustomItemModal] = useState(false);
-    const [itemsSelectedToCreateCustom, setItemsSelectedToCreateCustom] = useState([]);
 
 
     useEffect(() => {
@@ -36,10 +36,6 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
     async function addItemsToOrderAction() {
         setSelectedProductsToAdd([...selectedProductsToAdd, ...selectedProducts]);
         close();
-    }
-
-    async function addCustomItemsToOrderAction(customItem) {
-        setCreatedCustomItems(prev => [...prev, customItem]);
     }
 
     async function removeItems(productID) {
@@ -62,28 +58,10 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
         }
     }
 
-    async function handleCreateCustomItem() {
-        const customName = itemsSelectedToCreateCustom.map(item => item.name).join("/");
-        const itensIDs = itemsSelectedToCreateCustom.map(item => item.id);
-        const price = await calculatePrice();
-
-        addCustomItemsToOrderAction({ name: customName, ids: itensIDs, price: price })
-        setItemsSelectedToCreateCustom([]);
-        setCreateCustomItemModal(false);
-    }
-
     useEffect(() => {
-        console.log("createdCustomItems: ", createdCustomItems);
-    }, [createdCustomItems]);
+        console.log("selectedCustomItems: ", selectedCustomItems);
+    }, [selectedCustomItems]);
 
-    async function calculatePrice() {
-        return buttonFilter.customOrderPriceRule === 'BIGGESTPRICE' ?
-            Math.max(...itemsSelectedToCreateCustom.map(item => item.price)) : itemsSelectedToCreateCustom.map(p => p.price).reduce((a, b) => a + b, 0) / itemsSelectedToCreateCustom.length;
-    }
-    function calculatePrice() {
-        return buttonFilter.customOrderPriceRule === 'BIGGESTPRICE' ?
-            Math.max(...itemsSelectedToCreateCustom.map(item => item.price)) : itemsSelectedToCreateCustom.map(p => p.price).reduce((a, b) => a + b, 0) / itemsSelectedToCreateCustom.length;
-    }
 
     return (
         <>
@@ -139,7 +117,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                                 </tr>
                             </thead>
                             <tbody >
-                                {createdCustomItems?.map((custom, index) => (
+                                {selectedCustomItems?.map((custom, index) => (
                                     <tr key={index}>
                                         <td style={{ width: "100%", padding: '5px 5px' }}>{custom.name}</td>
                                         <td style={{ width: "40px", padding: '5px 5px' }}>{custom.price.toFixed(2)}</td>
@@ -165,58 +143,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
             </div >
 
             {createCustomItemModal && <div className='myModal' >
-                <div className='modalInside' style={{ width: !isPcV ? "100%" : "98%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', }}>
-                    <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '26px' : '20px', fontWeight: 'bold' }}>{buttonFilter.categoryName + " - " + createCustomItemModal + " Sabores"} </span>
-                    <br />
-
-                    <div className='flexColumn' style={{ width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', border: `2px solid ${borderColorTwo(theme)}` }}>
-                        <input type="text" className='inputStandart' value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
-                            style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)' }} />
-
-                        <div className='flexRow' style={{ justifyContent: 'center', width: '100%', flexWrap: 'wrap', overflowY: 'auto', }}>
-                            {productsFiltered && productsFiltered?.map((product, idx) => (
-                                <div key={idx} className='flexColumn' style={{ width: '80px', margin: 5, cursor: 'pointer', position: 'relative', }}
-                                    onClick={() => { if (!itemsSelectedToCreateCustom.some(p => p.id === product.id) && itemsSelectedToCreateCustom.length < createCustomItemModal) setItemsSelectedToCreateCustom([...itemsSelectedToCreateCustom, product]); }}>
-                                    <img src={product?.imagePath ? getImageFoodService(product?.imagePath) : noFoodImg} alt={""} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
-                                    <span style={{ fontWeight: 'bold', fontSize: "16px", textAlign: 'center', color: 'black' }}>{product?.name}</span>
-                                    {itemsSelectedToCreateCustom?.includes(product) && <div className='flexRow fullCenter'
-                                        style={{
-                                            position: 'absolute', top: -5, left: -5, width: 25, height: 25, borderRadius: '50%', backgroundColor: purpleOne(theme),
-                                            border: '1px solid white', fontSize: 17, fontWeight: 'bold', color: 'white', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.52)'
-                                        }}>
-                                        <FontAwesomeIcon icon={faCheck} /></div>}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-
-                    <div className='flexRow' style={{ marginTop: '10px', width: '100%', }}>
-                        {itemsSelectedToCreateCustom && itemsSelectedToCreateCustom?.map((product, idx) => (
-                            <div key={idx} className='flexColumn fullCenter' style={{ width: '80px', margin: 5, cursor: 'pointer', backgroundColor: 'rgba(240, 240, 240, 1)', borderRadius: 6, border: `2px solid ${borderColorTwo(theme)}`, position: 'relative' }}
-                                onClick={() => { setItemsSelectedToCreateCustom(prev => { const exists = prev.some(p => p.id === product.id); if (exists) { return prev.filter(p => p.id !== product.id); } return [...prev, product]; }); }}>
-                                <img src={product?.imagePath ? getImageFoodService(product?.imagePath) : noFoodImg} alt={""} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '5px' }} />
-                                <span style={{ fontWeight: 'bold', fontSize: "16px", textAlign: 'center', color: 'black' }}>{product?.name}</span>
-                                <div className='flexRow fullCenter'
-                                    style={{
-                                        position: 'absolute', top: -10, left: -10, width: 25, height: 25, borderRadius: '50%', backgroundColor: purpleOne(theme),
-                                        border: '1px solid white', fontSize: 17, fontWeight: 'bold', color: 'white', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.52)'
-                                    }}>
-                                    {idx + 1}</div>
-                                <span style={{ fontWeight: 'bold', fontSize: 15, textAlign: 'center', color: greenOne(theme) }}>{`$${product?.price.toFixed(2)}`}</span>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className='flexRow spaceBetweenJC' style={{ marginTop: '10px', width: '100%' }}>
-                        <button className='buttonNoBgNoBorder' onClick={() => { setCreateCustomItemModal(false); setItemsSelectedToCreateCustom([]); }} > Cancel </button>
-
-                        <button className='buttonNoBgNoBorder fontGreenTwo' type="submit" style={{ opacity: (itemsSelectedToCreateCustom?.length === createCustomItemModal) ? 1 : 0.2, cursor: (itemsSelectedToCreateCustom?.length === createCustomItemModal) ? 'pointer' : 'not-allowed', }}
-                            disabled={itemsSelectedToCreateCustom?.length !== createCustomItemModal} onClick={() => { handleCreateCustomItem(); }} >
-                            {itemsSelectedToCreateCustom?.length === createCustomItemModal && <span style={{ fontWeight: 'bold', fontSize: 15, textAlign: 'center', color: greenTwo(theme) }}>{`$${calculatePrice().toFixed(2)} `}</span>}
-                            {itemsSelectedToCreateCustom?.length === createCustomItemModal && <span style={{ fontWeight: 'bold', fontSize: 15, textAlign: 'center', color: greenTwo(theme), margin: '0px 5px' }}>{' | '}</span>}Add</button>
-                    </div>
-                </div>
+                <CustomItemModal close={() => { setInputSearchItem(''); setCreateCustomItemModal(false); }} category={buttonFilter} inputSearchItem={inputSearchItem} setInputSearchItem={setInputSearchItem} productsFiltered={productsFiltered} customSize={createCustomItemModal} setSelectedCustomItems={setSelectedCustomItems} />
             </div>}
         </>
     );
