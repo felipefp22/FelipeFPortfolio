@@ -148,7 +148,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
 
     return (
         <>
-            <div className='modalInside' style={{ width: !isPcV ? "100%" : "97%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', }}>
+            <div className='modalInside' style={{ width: !isPcV ? "100%" : "97%", maxHeight: '95%', padding: !isPcV ? '10px' : '20px', }}>
 
                 <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', }}>
                     <div className='flexColumn' style={{ alignItems: 'flex-start', width: '62%', }}>
@@ -188,7 +188,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
 
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '5px 0', marginTop: '5px' }}></div>
 
-                <div className='flexColumn' style={{ width: '100%', height: '290px', }}>
+                <div className='flexColumn' style={{ width: '100%', }}>
                     <div ref={customerSelectorDropdownRef} style={{ position: 'relative', width: '100%', margin: '3px 0px', zIndex: 5 }}>
                         <input className='inputStandart'
                             type="text"
@@ -231,7 +231,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
                     </div>
                 </div>
 
-                <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
+                <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: 10 }}>
                     <button className='buttonStandart red' style={{ marginLeft: '0px', visibility: disabled ? 'hidden' : 'visible' }} onClick={() => close()} disabled={disabled}>Cancel</button>
                     <button className='buttonStandart green' style={{ marginLeft: '0px' }} onClick={() => customerToEdit?.id ? updateCustomer() : saveCustomer()} disabled={disabled}>
                         {disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : "Save Customer"}</button>
