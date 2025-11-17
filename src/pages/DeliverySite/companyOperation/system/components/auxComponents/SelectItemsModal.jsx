@@ -34,6 +34,9 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
     }, [allCompanyProductsCategories, buttonFilter, inputSearchItem]);
 
     async function addItemsToOrderAction() {
+        const selectedProductstoPass = selectedProducts.map(prod => {
+        });
+
         setSelectedProductsToAdd([...selectedProductsToAdd, ...selectedProducts]);
         setSelectedCustomItemsToAdd([...selectedCustomItemsToAdd, ...selectedCustomItems]);
         

@@ -23,7 +23,7 @@ export async function getOrderOperation(compID) {
     }
 }
 
-export async function createOrder(compId, tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, customOrderItemsIDs, notes, deliveryDistanceKM) {
+export async function createOrder(compId, tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, notes, deliveryDistanceKM) {
 
     const postData = {
         companyID: compId,
@@ -31,7 +31,6 @@ export async function createOrder(compId, tableNumberOrDeliveryOrPickup, custome
         customerID: customerID,
         pickupName: pickupName,
         orderItemsIDs: orderItemsIDs,
-        customOrderItemsIDs: customOrderItemsIDs,
         notes: notes,
         deliveryDistanceKM: deliveryDistanceKM,
     };
@@ -80,13 +79,12 @@ export async function editOrderService(companyID, orderID, tableNumberOrDelivery
     }
 }
 
-export async function addItemsToOrderService(companyID, orderID, orderItemsIDs, customOrderItemsIDs) {
+export async function addItemsToOrderService(companyID, orderID, orderItemsIDs) {
 
     const postData = {
         companyID: companyID,
         orderID: orderID,
-        orderItemsIDs: orderItemsIDs,
-        customOrderItemsIDs: customOrderItemsIDs
+        orderItemsIDs: orderItemsIDs
     };
 
     try {
@@ -106,12 +104,12 @@ export async function addItemsToOrderService(companyID, orderID, orderItemsIDs, 
     }
 }
 
-export async function removeItemsFromOrderService(companyID, orderID, orderItemsIDs) {
+export async function removeItemsFromOrderService(companyID, orderID, ordersItemsIDs) {
 
     const postData = {
         companyID: companyID,
         orderID: orderID,
-        orderItemsIDs: orderItemsIDs,
+        ordersItemsIDs: ordersItemsIDs,
     };
 
     try {

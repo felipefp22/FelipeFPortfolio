@@ -15,8 +15,7 @@ export function DeleteItemModal({ close, companyOperation, orderToEdit, ordemIte
     async function handleRemoveItemsFromOrder() {
         setDisabled(true);
 
-        const itemToRemove = { productId: ordemItemToRemove.productId, quantity: 1 };
-        const response = await removeItemsFromOrderService(companyOperation?.companyOperationID, orderToEdit?.id, [itemToRemove]);
+        const response = await removeItemsFromOrderService(companyOperation?.companyOperationID, orderToEdit?.id, [ordemItemToRemove?.id]);
 
         if (response?.status === 200) {
             await getShiftOperationData();

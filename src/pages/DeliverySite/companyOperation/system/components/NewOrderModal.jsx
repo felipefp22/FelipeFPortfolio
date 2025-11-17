@@ -116,41 +116,18 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
         }
 
         setDisabled(true);
-
-        const itemsIdAndQuantity = Object.values(
-            selectedProductsToAdd.reduce((acc, item) => {
-                if (!acc[item.id]) {
-                    acc[item.id] = { productID: item.id, quantity: 0, productName: item.name };
-                }
-                acc[item.id].quantity += item.quantity ?? 1; // add quantity if exists, otherwise +1
-                return acc;
-            }, {})
-        );
-        const customItemsIdAndQuantity = Object.values(
-            selectedCustomItemsToAdd.reduce((acc, item) => {
-                // key that ignores order of IDs
-                const sortedKey = item.ids.slice().sort().join("|");
-
-                if (!acc[sortedKey]) {
-                    acc[sortedKey] = {
-                        productID: item.ids,                // original ids array
-                        quantity: 0,
-                        name: item.name               // optional
-                    };
-                }
-
-                acc[sortedKey].quantity += item.quantity ?? 1;
-                return acc;
-            }, {})
-        );
+        
+        const itemsIds = [
+            ...selectedProductsToAdd.map(item => ({ productsIDs: [item.id] })),
+            ...selectedCustomItemsToAdd.map(item => ({ productsIDs: item.ids }))
+        ];
 
         const response = await createOrder(
             companyOperation?.companyOperationID,
             tableNumberOrDeliveryOrPickupSelected,
             customerSelectedToNewOrder?.id,
             pickupNameInput ? pickupNameInput : customerSelectedToNewOrder?.customerName,
-            itemsIdAndQuantity,
-            customItemsIdAndQuantity,
+            itemsIds,
             " ",
             getCustomerEstimatedKm().km
         );

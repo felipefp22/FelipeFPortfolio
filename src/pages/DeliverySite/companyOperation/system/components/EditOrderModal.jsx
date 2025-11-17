@@ -84,39 +84,14 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
         console.log("selectedToADD: ", selectedProductsToAdd);
         setDisabled(true);
 
-        const itemsIdAndQuantity = Array.from(
-            selectedProductsToAdd.reduce((map, item) => {
-                if (map.has(item.id)) {
-                    map.set(item.id, map.get(item.id) + 1); // count repetitions
-                } else {
-                    map.set(item.id, 1);
-                }
-                return map;
-            }, new Map())
-        ).map(([id, quantity]) => ({ productID: id, quantity }));
+        const itemsIds = [
+            ...selectedProductsToAdd.map(item => ({ productsIDs: [item.id] })),
+            ...selectedCustomItemsToAdd.map(item => ({ productsIDs: item.ids }))
+        ];
 
-        const customItemsIdAndQuantity = Object.values(
-            selectedCustomItemsToAdd.reduce((acc, item) => {
-                // key that ignores order of IDs
-                const sortedKey = item.ids.slice().sort().join("|");
+        console.log("itemsIds:  ", itemsIds);
 
-                if (!acc[sortedKey]) {
-                    acc[sortedKey] = {
-                        productID: item.ids,                // original ids array
-                        quantity: 0,
-                        name: item.name               // optional
-                    };
-                }
-
-                acc[sortedKey].quantity += item.quantity ?? 1;
-                return acc;
-            }, {})
-        );
-
-        console.log("Aggregated products to add:", itemsIdAndQuantity);
-        console.log("Aggregated custom items to add:", customItemsIdAndQuantity);
-
-        const response = await addItemsToOrderService(companyOperation?.companyOperationID, orderToEdit.id, itemsIdAndQuantity, customItemsIdAndQuantity);
+        const response = await addItemsToOrderService(companyOperation?.companyOperationID, orderToEdit.id, itemsIds);
 
         if (response?.status === 200) {
             await getShiftOperationData();
@@ -296,16 +271,14 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                 </tr>
                             </thead>
                             <tbody>
-                                {productsAlreadyOnOrder?.flatMap((product, index) =>
-                                    Array.from({ length: product.quantity }).map((_, i) => (
-                                        <tr key={`${index}-${i}`}>
-                                            <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }}>{product.price.toFixed(2)}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { }} >
-                                                <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} onClick={() => { setShowCancelItemModal(product) }} />
-                                            </td>
-                                        </tr>
-                                    ))
+                                {productsAlreadyOnOrder?.filter(x => x.status !== 'CANCELLED').flatMap((product, index) =>
+                                    <tr key={index}>
+                                        <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
+                                        <td style={{ width: "40px", padding: '5px 5px' }}>{product.price.toFixed(2)}</td>
+                                        <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { }} >
+                                            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} onClick={() => { setShowCancelItemModal(product) }} />
+                                        </td>
+                                    </tr>
                                 )}
                             </tbody>
                         </Table>
