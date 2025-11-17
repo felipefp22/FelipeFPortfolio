@@ -8,9 +8,10 @@ import { getAllProductsCategories } from "../../../../../services/deliveryServic
 import { Spinner, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { addItemsToOrderService, editOrderService, reopenOrder } from '../../../../../services/deliveryServices/OrderService';
+import { addItemsToOrderService, editOrderService, removeItemsFromOrderService, reopenOrder } from '../../../../../services/deliveryServices/OrderService';
 import CloseOrFinishOrderModal from './auxComponents/CloseOrFinishOrderModal';
 import ChangeOrderStatusModal from './ChangeOrderStatusModal';
+import { DeleteItemModal } from './auxComponents/DeleteItemModal';
 
 
 
@@ -39,7 +40,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
     const [selectedProductsToAdd, setSelectedProductsToAdd] = useState([]);
     const [selectedCustomItemsToAdd, setSelectedCustomItemsToAdd] = useState([]);
 
-
+    const [showCancelItemModal, setShowCancelItemModal] = useState(false);
 
     async function insertOrderToEditToLocalVars() {
         if (!orderToEdit) return;
@@ -301,7 +302,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{product.price.toFixed(2)}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { }} >
-                                                <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} />
+                                                <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} onClick={() => { setShowCancelItemModal(product) }} />
                                             </td>
                                         </tr>
                                     ))
@@ -334,6 +335,10 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
             {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories}
                     selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} selectedCustomItemsToAdd={selectedCustomItemsToAdd} setSelectedCustomItemsToAdd={setSelectedCustomItemsToAdd} />
+            </div>}
+
+            {showCancelItemModal && <div ref={selectItemsModalRef} className='myModal' >
+                <DeleteItemModal close={() => setShowCancelItemModal(false)} companyOperation={companyOperation} orderToEdit={orderToEdit} ordemItemToRemove={showCancelItemModal} getShiftOperationData={getShiftOperationData} />
             </div>}
 
             {showCloseOrFinishOrderModal && <div className='myModal' >

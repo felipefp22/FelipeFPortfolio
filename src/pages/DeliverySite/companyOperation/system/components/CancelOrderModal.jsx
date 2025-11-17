@@ -37,7 +37,7 @@ export default function CancelOrder({ close, closeFromCancel, companyOperationID
 
                         <span style={{ color: 'rgba(45, 234, 28, 0.7)', fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>
                             {selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.charAt(0).toUpperCase() + selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.slice(1)}</span>
-                            
+
                         <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>
                             {selectedOrderToCancel ? `${selectedOrderToCancel?.orderNumberOnShift}` + (selectedOrderToCancel?.customer ? (" - " + selectedOrderToCancel?.customer.customerName) : (" - " + selectedOrderToCancel?.pickupName ?? "")) : ""} </span>
                     </div>
@@ -56,9 +56,9 @@ export default function CancelOrder({ close, closeFromCancel, companyOperationID
                             onClick={() => { handleCancelOrder() }} disabled={processing}>Cancel Order</button>
                     </div>}
 
-             {processing && <div className='flexRow fullCenter' style={{ width: '100%',  marginTop: '20px' }}>
-                    <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
-                </div>}
+                    {processing && <div className='flexRow fullCenter' style={{ width: '100%', marginTop: '20px' }}>
+                        <Spinner animation="border" role="status" variant="light" style={{ width: '25px', height: '25px' }} />
+                    </div>}
                 </div>
             </div>
         </>

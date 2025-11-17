@@ -106,6 +106,30 @@ export async function addItemsToOrderService(companyID, orderID, orderItemsIDs, 
     }
 }
 
+export async function removeItemsFromOrderService(companyID, orderID, orderItemsIDs) {
+
+    const postData = {
+        companyID: companyID,
+        orderID: orderID,
+        orderItemsIDs: orderItemsIDs,
+    };
+
+    try {
+        const response = await axiosInstanceRestaurantSystem.put(`/order/remove-products-on-order`, postData,
+            {
+                headers: {
+
+
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        if (error?.response) return error.response;
+    }
+}
 
 
 export async function closeOrder(compID, ordersIDs, clientSaidNoTax, discountValue, deliverymanID, deliveryOrdersSequence) {

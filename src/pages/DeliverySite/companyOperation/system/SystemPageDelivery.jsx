@@ -67,7 +67,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
             <div className='flexColumn' style={{ height: '100%', overflowY: 'auto', }}>
                 {onFocus !== "map" && <div className='flexRow' style={{ width: '100%', margin: '3px 0px' }}>
                     <button className='buttonStandart' style={{ marginLeft: '0px', }}
-                        onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); }}>New Order</button>
+                        onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setSeeCompletedOrCancelledOrders(false); }}>New Order</button>
                 </div>}
 
                 <div className='flexColumn' >

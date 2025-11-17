@@ -227,6 +227,10 @@ button:hover {
     /* optional: removes the default blue outline */
 }
 /* <> ------------------------- FONTS ------------------------- <> */
+.fontGray {
+    color: gray;
+}
+
 .fontGreen {
     color: var(--greenOne);
 }
