@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./auxComponents/SelectItemsModal";
 import ChangeTableOrCustomerModal from "./auxComponents/ChangeTableOrCustomerModal";
-import { blueOne, borderColorTwo, greenOne, greenTwo, transparentCanvasBgOne, transparentCavasTwo } from "../../../../../theme/Colors";
+import { blueOne, borderColorTwo, greenOne, greenTwo, redOne, transparentCanvasBgOne, transparentCavasTwo } from "../../../../../theme/Colors";
 import { getAllProductsCategories } from "../../../../../services/deliveryServices/ProductsCategoryService";
 import { Spinner, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { addItemsToOrderService, editOrderService, reopenOrder } from '../../../../../services/deliveryServices/OrderService';
 import CloseOrFinishOrderModal from './auxComponents/CloseOrFinishOrderModal';
+import ChangeOrderStatusModal from './ChangeOrderStatusModal';
 
 
 
@@ -78,10 +79,11 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
     }, []);
 
     async function handleAddItemsToOrder() {
-        if (selectedProductsToAdd.length === 0) return;
+        if (selectedProductsToAdd.length === 0 && selectedCustomItemsToAdd.length === 0) return;
         console.log("selectedToADD: ", selectedProductsToAdd);
         setDisabled(true);
-        const aggregated = Array.from(
+
+        const itemsIdAndQuantity = Array.from(
             selectedProductsToAdd.reduce((map, item) => {
                 if (map.has(item.id)) {
                     map.set(item.id, map.get(item.id) + 1); // count repetitions
@@ -92,13 +94,33 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
             }, new Map())
         ).map(([id, quantity]) => ({ productID: id, quantity }));
 
-        console.log("Aggregated products to add:", aggregated);
+        const customItemsIdAndQuantity = Object.values(
+            selectedCustomItemsToAdd.reduce((acc, item) => {
+                // key that ignores order of IDs
+                const sortedKey = item.ids.slice().sort().join("|");
 
-        const response = await addItemsToOrderService(companyOperation?.companyOperationID, orderToEdit.id, aggregated);
+                if (!acc[sortedKey]) {
+                    acc[sortedKey] = {
+                        productID: item.ids,                // original ids array
+                        quantity: 0,
+                        name: item.name               // optional
+                    };
+                }
+
+                acc[sortedKey].quantity += item.quantity ?? 1;
+                return acc;
+            }, {})
+        );
+
+        console.log("Aggregated products to add:", itemsIdAndQuantity);
+        console.log("Aggregated custom items to add:", customItemsIdAndQuantity);
+
+        const response = await addItemsToOrderService(companyOperation?.companyOperationID, orderToEdit.id, itemsIdAndQuantity, customItemsIdAndQuantity);
 
         if (response?.status === 200) {
             await getShiftOperationData();
             setSelectedProductsToAdd([]);
+            setSelectedCustomItemsToAdd([]);
         }
 
         setDisabled(false);
@@ -162,18 +184,21 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                             {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' ? 'Delivery' : (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' ? 'Pickup' : `Table - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`)}</span>
                     </div>
 
-                    <button className='buttonStandart green' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px' }}
-                        onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled}>Change Table/Customer</button>
+                    <button className='buttonStandart green' style={{
+                        fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', cursor: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 'not-allowed' : 'pointer',
+                        opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1
+                    }}
+                        onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT'}>Change Table/Customer</button>
                 </div>
 
-                {selectUseCustomerOrPickUpName === 'Name' && <div className='flexColumn' style={{ width: '100%', }}>
+                {selectUseCustomerOrPickUpName === 'Name' && <div className='flexColumn' style={{ width: '100%', opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1, }}>
                     <span style={{ fontWeight: "600", fontSize: isPcV ? '18px' : '16px', }}>Name:</span>
 
                     <input className='inputStandart' type="text" value={pickupName} disabled={true}
                         style={{ height: '35px', fontSize: isPcV ? '17px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
                 </div>}
 
-                {selectUseCustomerOrPickUpName === 'Customer' && <div className='flexColumn' style={{ width: '100%', }}>
+                {selectUseCustomerOrPickUpName === 'Customer' && <div className='flexColumn' style={{ width: '100%', opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1, }}>
                     <span style={{ fontWeight: "600", fontSize: isPcV ? '18px' : '16px', }}>Customer:</span>
 
                     <input className='inputStandart' type="text" value={customerSelected?.customerName + " / " + customerSelected?.phone} disabled={true}
@@ -202,14 +227,24 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
                 <div style={{ width: '100%', borderTop: '1px solid lightgray', margin: '5px 0' }} />
 
-                <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, }}>
+                <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, position: 'relative' }}>
 
-                    <div className='flexColumn' style={{ marginTop: '5px' }}>
+                    <div className='flexColumn' style={{ marginTop: '5px', }}>
+                        {orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' && <div className='flexRow fullCenter' style={{ height: '100%', width: '100%', position: 'absolute' }} >
+                            <span style={{ fontSize: 24, fontWeight: 'bold', backgroundColor: 'rgba(0,0,0, 1)', padding: '20px', borderRadius: '10px', color: redOne(theme) }}>Order Closed </span>
+                        </div>}
+
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%' }}>
-                            <button className='buttonStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                            <button className='buttonStandart'
+                                style={{
+                                    marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', cursor: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 'not-allowed' : 'pointer',
+                                    opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1
+                                }} disabled={(disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT')} onClick={() => setShowSelectItemsModal(true)} > ADD Items</button>
                         </div>
 
-                        <div style={{ backgroundColor: "white", color: "black", marginTop: '5px', borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
+                        <div style={{
+                            backgroundColor: "white", color: "black", marginTop: '5px', borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}`, opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1,
+                        }}>
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>
@@ -241,7 +276,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
                 <div style={{ width: '100%', borderTop: '1px solid lightgray', margin: '5px 0', marginTop: '7px' }} />
 
-                <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', }}>
+                <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1, }}>
                     <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', width: '100%' }}>
                         <span style={{ fontWeight: "bold", color: borderColorTwo(theme), fontSize: isPcV ? '24px' : '18px' }}>Itens Already On Order</span>
 
@@ -302,7 +337,12 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
             </div>}
 
             {showCloseOrFinishOrderModal && <div className='myModal' >
-                <CloseOrFinishOrderModal close={() => setShowCloseOrFinishOrderModal(false)} closeAll={() => close()} orderToEdit={orderToEdit} companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
+                {(orderToEdit?.tableNumberOrDeliveryOrPickup !== 'delivery' || (orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' && orderToEdit?.status !== 'OPEN')) &&
+                    <CloseOrFinishOrderModal close={() => setShowCloseOrFinishOrderModal(false)} closeAll={() => close()} orderToEdit={orderToEdit} companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />}
+
+                {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' && orderToEdit?.status === 'OPEN' &&
+                    <ChangeOrderStatusModal close={() => { close() }} companyOperation={companyOperation} selectedCookingOrderID={[orderToEdit?.id]}
+                        setSelectedCookingOrderID={() => { }} selectedOnDeliveryOrderID={[]} setSelectedOnDeliveryOrderID={() => { }} getShiftOperationData={getShiftOperationData} />}
             </div>}
         </>
     );
