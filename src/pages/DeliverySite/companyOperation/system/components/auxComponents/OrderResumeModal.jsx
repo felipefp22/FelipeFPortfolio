@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { borderColorTwo, fontColorOne, greenOne, greenTwo, redOne } from '../../../../../../theme/Colors';
-import { closeOrder, completeOrders } from '../../../../../../services/deliveryServices/OrderService';
+import { completeOrders } from '../../../../../../services/deliveryServices/OrderService';
 import { Spinner } from 'react-bootstrap';
 
 

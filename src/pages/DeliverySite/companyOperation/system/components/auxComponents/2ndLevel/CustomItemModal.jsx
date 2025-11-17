@@ -13,16 +13,16 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
     const [itemsSelectedToCreateCustom, setItemsSelectedToCreateCustom] = useState([]);
 
 
-    async function addCustomItemsToOrderAction(customItem) {
+    async function passToSelectedCustomItems(customItem) {
         setSelectedCustomItems(prev => [...prev, customItem]);
     }
 
     async function handleCreateCustomItem() {
-        const customName = itemsSelectedToCreateCustom.map(item => item.name).join("/");
-        const itensIDs = itemsSelectedToCreateCustom.map(item => item.id);
+        const customName = itemsSelectedToCreateCustom.map(item => item.name).sort().join("/");
+        const itensIDs = itemsSelectedToCreateCustom.map(item => item.id).sort();
         const price = await calculatePriceAsync();
 
-        addCustomItemsToOrderAction({ name: customName, ids: itensIDs, price: price })
+        passToSelectedCustomItems({ name: customName, ids: itensIDs, price: price })
         setItemsSelectedToCreateCustom([]);
         setInputSearchItem("");
         close();

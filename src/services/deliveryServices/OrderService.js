@@ -23,7 +23,7 @@ export async function getOrderOperation(compID) {
     }
 }
 
-export async function createOrder(compId, tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, notes, deliveryDistanceKM) {
+export async function createOrder(compId, tableNumberOrDeliveryOrPickup, customerID, pickupName, orderItemsIDs, customOrderItemsIDs, notes, deliveryDistanceKM) {
 
     const postData = {
         companyID: compId,
@@ -31,6 +31,7 @@ export async function createOrder(compId, tableNumberOrDeliveryOrPickup, custome
         customerID: customerID,
         pickupName: pickupName,
         orderItemsIDs: orderItemsIDs,
+        customOrderItemsIDs: customOrderItemsIDs,
         notes: notes,
         deliveryDistanceKM: deliveryDistanceKM,
     };
@@ -79,12 +80,13 @@ export async function editOrderService(companyID, orderID, tableNumberOrDelivery
     }
 }
 
-export async function addItemsToOrderService(companyID, orderID, itemsToADD) {
+export async function addItemsToOrderService(companyID, orderID, orderItemsIDs, customOrderItemsIDs) {
 
     const postData = {
         companyID: companyID,
         orderID: orderID,
-        orderItemsIDs: itemsToADD
+        orderItemsIDs: orderItemsIDs,
+        customOrderItemsIDs: customOrderItemsIDs
     };
 
     try {
@@ -106,11 +108,11 @@ export async function addItemsToOrderService(companyID, orderID, itemsToADD) {
 
 
 
-export async function closeOrder(compID, orderID, clientSaidNoTax, discountValue, deliverymanID, deliveryOrdersSequence) {
+export async function closeOrder(compID, ordersIDs, clientSaidNoTax, discountValue, deliverymanID, deliveryOrdersSequence) {
 
     const postData = {
         companyID: compID,
-        orderID: orderID,
+        ordersIDs: ordersIDs,
         clientSaidNoTax: clientSaidNoTax,
         discountValue: discountValue,
         deliverymanID: deliverymanID,
@@ -133,11 +135,11 @@ export async function closeOrder(compID, orderID, clientSaidNoTax, discountValue
     }
 }
 
-export async function reopenOrder(compID, orderID) {
+export async function reopenOrder(compID, ordersIDs) {
 
     const postData = {
         companyID: compID,
-        orderID: orderID
+        ordersIDs: ordersIDs
     };
     try {
         const response = await axiosInstanceRestaurantSystem.put(`/order/reopen-order`, postData,

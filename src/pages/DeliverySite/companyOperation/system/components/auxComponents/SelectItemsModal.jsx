@@ -8,7 +8,7 @@ import { blueOne, borderColorTwo, fontColorOne, greenOne, greenTwo, purpleOne, r
 import { getImageFoodService } from "../../../../../../services/deliveryServices/auxServices/FoodsImagesService";
 import CustomItemModal from './2ndLevel/CustomItemModal';
 
-export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd }) {
+export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd, selectedCustomItemsToAdd, setSelectedCustomItemsToAdd }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -35,6 +35,8 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
     async function addItemsToOrderAction() {
         setSelectedProductsToAdd([...selectedProductsToAdd, ...selectedProducts]);
+        setSelectedCustomItemsToAdd([...selectedCustomItemsToAdd, ...selectedCustomItems]);
+        
         close();
     }
 
@@ -48,20 +50,39 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
         }
     }
 
-    async function removeCustomItems(productID) {
-        const index = createdCustomItems.findIndex(p => p.id === productID);
+    async function removeCustomItems(idsToRemove) {console.log("idsToRemove: ", idsToRemove);
+        const index = selectedCustomItems.findIndex(item =>
+            arraysEqualIgnoreOrder(item.ids, idsToRemove)
+        );
 
         if (index !== -1) {
-            const newSelectedProducts = [...selectedProducts];
-            newSelectedProducts.splice(index, 1); // remove only the first occurrence
-            setSelectedProducts(newSelectedProducts);
+            const newList = [...selectedCustomItems];
+            newList.splice(index, 1); // remove just ONE
+            setSelectedCustomItems(newList);
         }
+    }
+
+    function arraysEqualIgnoreOrder(a, b) {
+        if (a.length !== b.length) return false;
+        const setA = new Set(a);
+        const setB = new Set(b);
+
+        if (setA.size !== setB.size) return false;
+
+        for (let val of setA) {
+            if (!setB.has(val)) return false;
+        }
+
+        return true;
     }
 
     useEffect(() => {
         console.log("selectedCustomItems: ", selectedCustomItems);
     }, [selectedCustomItems]);
 
+    useEffect(() => {
+        console.log("selectedProducts: ", selectedProducts);
+    }, [selectedProducts]);
 
     return (
         <>
@@ -121,7 +142,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                                     <tr key={index}>
                                         <td style={{ width: "100%", padding: '5px 5px' }}>{custom.name}</td>
                                         <td style={{ width: "40px", padding: '5px 5px' }}>{custom.price.toFixed(2)}</td>
-                                        <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                        <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.ids) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                     </tr>
                                 ))}
                                 {selectedProducts?.map((product, index) => (

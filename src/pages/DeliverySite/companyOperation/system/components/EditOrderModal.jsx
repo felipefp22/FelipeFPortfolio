@@ -13,7 +13,7 @@ import CloseOrFinishOrderModal from './auxComponents/CloseOrFinishOrderModal';
 
 
 
-export default function EditOrderModal({ close, companyOperation, orderToEdit, setOrderToEdit, getShiftOperationData, isTableAvailable}) {
+export default function EditOrderModal({ close, companyOperation, orderToEdit, setOrderToEdit, getShiftOperationData, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -36,6 +36,8 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
     const [pickupName, setPickupName] = useState(null);
 
     const [selectedProductsToAdd, setSelectedProductsToAdd] = useState([]);
+    const [selectedCustomItemsToAdd, setSelectedCustomItemsToAdd] = useState([]);
+
 
 
     async function insertOrderToEditToLocalVars() {
@@ -102,6 +104,17 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
         setDisabled(false);
     }
 
+    async function openOrderAgain() {
+        setDisabled(true);
+        const response = await reopenOrder(companyOperation?.companyOperationID, [orderToEdit.id]);
+        if (response?.status === 200) {
+            await getShiftOperationData();
+        } else {
+            alert(`Error reopening order: ${response?.data}`);
+        }
+        setDisabled(false);
+    }
+
     async function removeProductToAdd(productID) {
         const index = selectedProductsToAdd.findIndex(p => p.id === productID);
 
@@ -112,15 +125,30 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
         }
     }
 
-    async function openOrderAgain() {
-        setDisabled(true);
-        const response = await reopenOrder(companyOperation?.companyOperationID, orderToEdit.id);
-        if (response?.status === 200) {
-            await getShiftOperationData();
-        } else {
-            alert(`Error reopening order: ${response?.data}`);
+    async function removeCustomItems(idsToRemove) {
+        const index = selectedCustomItemsToAdd.findIndex(item =>
+            arraysEqualIgnoreOrder(item.ids, idsToRemove)
+        );
+
+        if (index !== -1) {
+            const newList = [...selectedCustomItemsToAdd];
+            newList.splice(index, 1); // remove just ONE
+            setSelectedCustomItemsToAdd(newList);
         }
-        setDisabled(false);
+    }
+
+    function arraysEqualIgnoreOrder(a, b) {
+        if (a.length !== b.length) return false;
+        const setA = new Set(a);
+        const setB = new Set(b);
+
+        if (setA.size !== setB.size) return false;
+
+        for (let val of setA) {
+            if (!setB.has(val)) return false;
+        }
+
+        return true;
     }
 
     return (
@@ -191,10 +219,17 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                     </tr>
                                 </thead>
                                 <tbody >
+                                    {selectedCustomItemsToAdd?.map((custom, index) => (
+                                        <tr key={index}>
+                                            <td style={{ width: "100%", padding: '5px 5px' }}>{custom?.name}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{custom?.price?.toFixed(2)}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.ids) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                        </tr>
+                                    ))}
                                     {selectedProductsToAdd?.map((product, index) => (
                                         <tr key={index}>
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{product.price.toFixed(2)}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeProductToAdd(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                         </tr>
                                     ))}
@@ -210,7 +245,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                     <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', width: '100%' }}>
                         <span style={{ fontWeight: "bold", color: borderColorTwo(theme), fontSize: isPcV ? '24px' : '18px' }}>Itens Already On Order</span>
 
-                        <button className='floatingButton' style={{ backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px', visibility: selectedProductsToAdd.length > 0 ? 'visible' : 'hidden' }} onClick={() => handleAddItemsToOrder()} >
+                        <button className='floatingButton' style={{ backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px', visibility: (selectedProductsToAdd.length > 0 || selectedCustomItemsToAdd.length > 0) ? 'visible' : 'hidden' }} onClick={() => handleAddItemsToOrder()} >
                             <FontAwesomeIcon icon={faArrowDown} flip="horizontal" />
                         </button>
                     </div>
@@ -229,7 +264,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                     Array.from({ length: product.quantity }).map((_, i) => (
                                         <tr key={`${index}-${i}`}>
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{product.price.toFixed(2)}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { }} >
                                                 <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} />
                                             </td>
@@ -257,12 +292,13 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
             {showChangeTableOrCustomerModal && <div className='myModal' >
                 <ChangeTableOrCustomerModal close={() => setShowChangeTableOrCustomerModal(false)} closeFromCancel={() => close()} tableNumberOrDeliveryOrPickup={tableNumberOrDeliveryOrPickup}
-                    orderToEdit={orderToEdit} pickupName={pickupName} customerSelected={customerSelected} isTableAvailable={isTableAvailable} 
+                    orderToEdit={orderToEdit} pickupName={pickupName} customerSelected={customerSelected} isTableAvailable={isTableAvailable}
                     companyOperation={companyOperation} getShiftOperationData={() => getShiftOperationData()} />
             </div>}
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
-                <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
+                <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories}
+                    selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} selectedCustomItemsToAdd={selectedCustomItemsToAdd} setSelectedCustomItemsToAdd={setSelectedCustomItemsToAdd} />
             </div>}
 
             {showCloseOrFinishOrderModal && <div className='myModal' >

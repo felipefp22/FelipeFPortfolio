@@ -1,6 +1,6 @@
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
 import NewCustomerModal from "./NewCustomerModal";
 import SelectItemsModal from "./auxComponents/SelectItemsModal";
@@ -35,6 +35,8 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
     const [allCompanyProductsCategories, setAllCompanyProductsCategories] = useState([]);
     const [selectedProductsToAdd, setSelectedProductsToAdd] = useState([]);
+    const [selectedCustomItemsToAdd, setSelectedCustomItemsToAdd] = useState([]);
+
 
     const [tableNumberOrDeliveryOrPickupSelected, setTableNumberOrDeliveryOrPickupSelected] = useState(tableNumberSelectedBeforeModal ?? "");
 
@@ -93,7 +95,10 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
         }
 
         if (tableNumberOrDeliveryOrPickupSelected === 'delivery') {
-            if (!customerSelectedToNewOrder) alert("Customer required to DELIVERY order");
+            if (!customerSelectedToNewOrder) {
+                alert("Customer required to DELIVERY order");
+                return;
+            }
             if (getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM) {
                 alert(`Can't Order to this customer, distance exceeds maximum(${companyOperation?.maxDeliveryDistanceKM}) delivery distance.`);
                 return;
@@ -105,7 +110,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             return;
         }
 
-        if (selectedProductsToAdd.length === 0) {
+        if (selectedProductsToAdd.length === 0 && selectedCustomItemsToAdd.length === 0) {
             alert("At least one item is required");
             return;
         }
@@ -121,6 +126,23 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                 return acc;
             }, {})
         );
+        const customItemsIdAndQuantity = Object.values(
+            selectedCustomItemsToAdd.reduce((acc, item) => {
+                // key that ignores order of IDs
+                const sortedKey = item.ids.slice().sort().join("|");
+
+                if (!acc[sortedKey]) {
+                    acc[sortedKey] = {
+                        productID: item.ids,                // original ids array
+                        quantity: 0,
+                        name: item.name               // optional
+                    };
+                }
+
+                acc[sortedKey].quantity += item.quantity ?? 1;
+                return acc;
+            }, {})
+        );
 
         const response = await createOrder(
             companyOperation?.companyOperationID,
@@ -128,6 +150,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             customerSelectedToNewOrder?.id,
             pickupNameInput ? pickupNameInput : customerSelectedToNewOrder?.customerName,
             itemsIdAndQuantity,
+            customItemsIdAndQuantity,
             " ",
             getCustomerEstimatedKm().km
         );
@@ -152,6 +175,34 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
         }
     }
 
+    async function removeCustomItems(idsToRemove) {
+        console.log("idsToRemove: ", idsToRemove);
+        const index = selectedCustomItemsToAdd.findIndex(item =>
+            arraysEqualIgnoreOrder(item.ids, idsToRemove)
+        );
+
+        if (index !== -1) {
+            const newList = [...selectedCustomItemsToAdd];
+            newList.splice(index, 1); // remove just ONE
+            setSelectedCustomItemsToAdd(newList);
+        }
+    }
+
+    function arraysEqualIgnoreOrder(a, b) {
+        if (a.length !== b.length) return false;
+        const setA = new Set(a);
+        const setB = new Set(b);
+
+        if (setA.size !== setB.size) return false;
+
+        for (let val of setA) {
+            if (!setB.has(val)) return false;
+        }
+
+        return true;
+    }
+
+
     // useEffect(() => {
     //     console.log('companyop: ', companyOperation);
     // }, [companyOperation]);
@@ -168,6 +219,10 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
         return { km: distance, price: price };
     }
+
+    useEffect(() => {
+        console.log("selectedCustomItemsToAdd------------: ", selectedCustomItemsToAdd);
+    }, [selectedCustomItemsToAdd]);
 
     return (
         <>
@@ -304,6 +359,13 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                     </tr>
                                 </thead>
                                 <tbody >
+                                    {selectedCustomItemsToAdd?.map((custom, index) => (
+                                        <tr key={index}>
+                                            <td style={{ width: "100%", padding: '5px 5px' }}>{custom?.name}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{custom?.price?.toFixed(2)}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.ids) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
+                                        </tr>
+                                    ))}
                                     {selectedProductsToAdd.map((product, index) => (
                                         <tr key={index}>
                                             <td>{product.name}</td>
@@ -332,7 +394,8 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             }
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
-                <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories} selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} />
+                <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories}
+                    selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} selectedCustomItemsToAdd={selectedCustomItemsToAdd} setSelectedCustomItemsToAdd={setSelectedCustomItemsToAdd} />
             </div>}
         </>
     );

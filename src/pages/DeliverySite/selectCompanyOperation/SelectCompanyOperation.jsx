@@ -125,7 +125,7 @@ export default function SelectCompanyOperation({ }) {
                             ))}
                         </div>
 
-                        {companiesUserWorksOn?.length > 0 && <div className='flexColumn' style={{ color: "white", minWidth: '300px', maxWidth: '100%', marginTop: '20px' }}>
+                        {companiesUserWorksOn?.length > 0 && companiesUserWorksOn?.some(x => x.position !== 'DELIVERYMAN') && <div className='flexColumn' style={{ color: "white", minWidth: '300px', maxWidth: '100%', marginTop: '20px' }}>
                             <span style={{ color: fontColorOne(theme), fontSize: isPcV ? '20px' : '16px', fontWeight: 'bold', }}>You Work on</span>
 
                             {companiesUserWorksOn?.filter(x => x.position !== 'DELIVERYMAN').map((comp, idx) => (

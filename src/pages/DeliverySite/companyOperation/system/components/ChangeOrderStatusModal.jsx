@@ -20,11 +20,7 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
         }
 
         setProcessing(true);
-        await Promise.all(
-            selectedCookingOrderID.map(orderID =>
-                closeOrder(companyOperation?.companyOperationID, orderID, false, 0, deliverymanSelectedID, selectedCookingOrderID)
-            )
-        );
+        await closeOrder(companyOperation?.companyOperationID, selectedCookingOrderID, false, 0, deliverymanSelectedID, selectedCookingOrderID)
 
         await getShiftOperationData();
         close();
@@ -33,11 +29,8 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
 
     async function openOrdersAgain() {
         setProcessing(true);
-        await Promise.all(
-            selectedOnDeliveryOrderID.map(orderID =>
-                reopenOrder(companyOperation?.companyOperationID, orderID)
-            )
-        );
+        await reopenOrder(companyOperation?.companyOperationID, selectedOnDeliveryOrderID);
+        
         await getShiftOperationData();
         close();
         setProcessing(false);

@@ -15,7 +15,7 @@ export default function CloseOrFinishOrderModal({ close, closeAll, orderToEdit, 
 
     async function dispatchOrders() {
         setDisabled(true);
-        const response = await closeOrder(companyOperation?.companyOperationID, orderToEdit?.id, noServiceTax, discountValue);
+        const response = await closeOrder(companyOperation?.companyOperationID, [orderToEdit?.id], noServiceTax, discountValue);
 
         if (response?.status === 200) {
             await getShiftOperationData();
