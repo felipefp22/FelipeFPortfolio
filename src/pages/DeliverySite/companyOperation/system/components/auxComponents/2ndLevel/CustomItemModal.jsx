@@ -7,7 +7,7 @@ import { getImageFoodService } from '../../../../../../../services/deliveryServi
 import noFoodImg from '../../../../../../../assets/noFood.jpg';
 
 
-export default function CustomItemModal({ close, category, inputSearchItem, setInputSearchItem, productsFiltered, customSize, setSelectedCustomItems }) {
+export default function CustomItemModal({ close, category, inputSearchItem, setInputSearchItem, productsFiltered, customRules, setSelectedCustomItems }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -22,10 +22,32 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
     const [addonsFiltered, setAddonsFiltered] = useState([]);
 
     useEffect(() => {
-        setAddonsFiltered(category.productOptions.filter(item =>
-            item.name.toUpperCase().includes(inputSearchAddons.toUpperCase())
-        ));
-    }, [inputSearchAddons, category.productOptions]);
+        if (category?.productOptions?.length > 0) {
+            setAddonsFiltered(category?.productOptions?.filter(item =>
+                item.name.toUpperCase().includes(inputSearchAddons.toUpperCase())
+            ));
+        } else {
+            setAddonsFiltered([]);
+        }
+    }, [inputSearchAddons, category?.productOptions]);
+
+    useEffect(() => {
+        if (customRules?.preSelectedProducts?.length > 0) {
+            customRules.preSelectedProducts.forEach(productID => {
+                const productToStart = productsFiltered?.productOptions.find(item => item.id === productID);
+                setItemsSelectedToCreateCustom(prev => [...prev, productToStart]);
+            });
+        }
+        if (customRules?.preSelectedAddons?.length > 0) {
+            customRules.preSelectedAddons.forEach(addonID => {
+                const addonToStart = category?.productOptions.find(item => item.id === addonID);
+                setAddonsSelectedToCreateCustom(prev => [...prev, addonToStart]);
+            });
+        }
+        if (customRules?.preSettedNotes) {
+            setNotesForCustomItem(customRules.preSettedNotes);
+        }
+    }, []);
 
     async function passToSelectedCustomItems(customItem) {
         setSelectedCustomItems(prev => [...prev, customItem]);
@@ -38,7 +60,7 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
         const productOptsIDs = addonsSelectedToCreateCustom.map(addon => addon.id).sort();
         const price = await calculatePriceAsync();
 
-        passToSelectedCustomItems({ name: customName, ids: itensIDs, productOptsNames: productOptsNames, productOptsIDs: productOptsIDs, price: price, notes: notesForCustomItem });
+        passToSelectedCustomItems({ name: customName, ids: itensIDs, productOptsNames: productOptsNames, productOptsIDs: productOptsIDs, price: price, notes: notesForCustomItem, customSize: customRules?.customSize });
         setNotesForCustomItem("");
         setAddonsSelectedToCreateCustom([]);
         setItemsSelectedToCreateCustom([]);
@@ -96,7 +118,7 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
     return (
         <>
             <div className='modalInside' style={{ width: !isPcV ? "100%" : "98%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', }}>
-                <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '26px' : '20px', fontWeight: 'bold' }}>{category.categoryName + " - " + customSize + " Sabores"} </span>
+                <span style={{ color: borderColorTwo(theme), fontSize: isPcV ? '26px' : '20px', fontWeight: 'bold' }}>{category.categoryName + " - " + customRules.customSize + " Sabores"} </span>
 
                 {category?.productOptions?.length > 0 && <div className='flexRow spaceBetweenJC' style={{ marginBottom: 0 }} >
                     <div className='flexRow fullCenter' style={{ width: '100%' }} >
@@ -115,9 +137,9 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
                         style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)' }} />
 
                     <div className='flexRow' style={{ justifyContent: 'center', width: '100%', flexWrap: 'wrap', overflowY: 'auto', }}>
-                        {productsFiltered && productsFiltered?.map((product, idx) => (
+                        {productsFiltered?.productOptions && productsFiltered?.productOptions.map((product, idx) => (
                             <div key={idx} className='flexColumn' style={{ width: '80px', margin: 5, cursor: 'pointer', position: 'relative', }}
-                                onClick={() => { if (itemsSelectedToCreateCustom.length < customSize) setItemsSelectedToCreateCustom([...itemsSelectedToCreateCustom, product]); }}>
+                                onClick={() => { if (itemsSelectedToCreateCustom.length < customRules.customSize) setItemsSelectedToCreateCustom([...itemsSelectedToCreateCustom, product]); }}>
 
                                 <img src={product?.imagePath ? getImageFoodService(product?.imagePath) : noFoodImg} alt={""} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
                                 <span style={{ fontWeight: 'bold', fontSize: "16px", textAlign: 'center', color: 'black' }}>{product?.name}</span>
@@ -153,7 +175,7 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
                     </div>
                 </div>}
 
-                {category?.productOptions?.length > 0 && <div className='flexRow spaceBetweenJC' style={{ marginTop: 2 }} >
+                <div className='flexRow spaceBetweenJC' style={{ marginTop: 2 }} >
                     <div className='flexRow fullCenter' style={{ width: '100%' }} >
                         <span style={{ color: fontColorOne(theme), fontSize: 15, fontWeight: 'bold', cursor: 'pointer', opacity: itemsOrNotes === 'items' ? 1 : 0.5, textDecoration: itemsOrNotes === 'items' ? 'underline' : 'none' }}
                             onClick={() => setItemsOrNotes('items')}>{'Items'} </span>
@@ -163,7 +185,7 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
                         <span style={{ color: fontColorOne(theme), fontSize: 15, fontWeight: 'bold', cursor: 'pointer', opacity: itemsOrNotes === 'notes' ? 1 : 0.5, textDecoration: itemsOrNotes === 'notes' ? 'underline' : 'none' }}
                             onClick={() => setItemsOrNotes('notes')}><FontAwesomeIcon icon={faPen} /> {'Notes'} </span>
                     </div>
-                </div>}
+                </div>
 
                 {itemsOrNotes === 'items' && <div className='flexRow' style={{ border: `1px solid ${borderColorTwo(theme)}`, borderRadius: 5, minHeight: 100 }}>
                     <div className='flexRow' style={{ width: '100%', }}>
@@ -205,13 +227,14 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
                     <textarea className='textAreaStandart' rows={4} style={{ width: '100%' }} value={notesForCustomItem} onChange={(e) => setNotesForCustomItem(e.target.value)} />
                 </div>}
 
-                <div className='flexRow spaceBetweenJC' style={{ marginTop: '10px', width: '100%' }}>
-                    <button className='buttonNoBgNoBorder' onClick={() => { close() }} > Cancel </button>
+                <div className='flexRow spaceBetweenJC' style={{ marginTop: '10px', width: '100%', alignItems: 'center' }} >
+                    {customRules?.editting && <span style={{ opacity: 0.3, fontStyle: 'italic' }}> Editing... </span>}
+                    {!customRules?.editting && <button className='buttonNoBgNoBorder' onClick={() => { close() }} > Cancel </button>}
 
-                    <button className='buttonStandart fontGreenTwo' type="submit" style={{ opacity: (itemsSelectedToCreateCustom?.length === customSize) ? 1 : 0.2, cursor: (itemsSelectedToCreateCustom?.length === customSize) ? 'pointer' : 'not-allowed', }}
-                        disabled={itemsSelectedToCreateCustom?.length !== customSize} onClick={() => { handleCreateCustomItem(); }} >
-                        {itemsSelectedToCreateCustom?.length === customSize && <span style={{ fontWeight: 'bold', fontSize: 15, textAlign: 'center', color: greenTwo(theme) }}>{`$${calculatePrice().toFixed(2)} `}</span>}
-                        {itemsSelectedToCreateCustom?.length === customSize && <span style={{ fontWeight: 'bold', fontSize: 15, textAlign: 'center', color: greenTwo(theme), margin: '0px 1px' }}>{' | '}</span>}Add</button>
+                    <button className='buttonStandart fontGreenTwo' type="submit" style={{ opacity: (itemsSelectedToCreateCustom?.length === customRules.customSize) ? 1 : 0.2, cursor: (itemsSelectedToCreateCustom?.length === customRules.customSize) ? 'pointer' : 'not-allowed', }}
+                        disabled={itemsSelectedToCreateCustom?.length !== customRules.customSize} onClick={() => { handleCreateCustomItem(); }} >
+                        {itemsSelectedToCreateCustom?.length === customRules.customSize && <span style={{ fontWeight: 'bold', fontSize: 15, textAlign: 'center', color: greenTwo(theme) }}>{`$${calculatePrice().toFixed(2)} `}</span>}
+                        {itemsSelectedToCreateCustom?.length === customRules.customSize && <span style={{ fontWeight: 'bold', fontSize: 15, textAlign: 'center', color: greenTwo(theme), margin: '0px 1px' }}>{' | '}</span>}Add</button>
                 </div>
             </div>
         </>

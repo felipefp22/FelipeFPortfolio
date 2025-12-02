@@ -35,7 +35,6 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
     const customerSelectorDropdownRef = useRef(null);
 
     const [allCompanyProductsCategories, setAllCompanyProductsCategories] = useState([]);
-    const [selectedProductsToAdd, setSelectedProductsToAdd] = useState([]);
     const [selectedCustomItemsToAdd, setSelectedCustomItemsToAdd] = useState([]);
 
 
@@ -111,17 +110,14 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             return;
         }
 
-        if (selectedProductsToAdd.length === 0 && selectedCustomItemsToAdd.length === 0) {
+        if (selectedCustomItemsToAdd.length === 0) {
             alert("At least one item is required");
             return;
         }
 
         setDisabled(true);
 
-        const itemsIds = [
-            ...selectedProductsToAdd.map(item => ({ productsIDs: [item.id] })),
-            ...selectedCustomItemsToAdd.map(item => ({ productsIDs: item.ids, productOptsIDs: item.productOptsIDs, notes: item.notes })),
-        ];
+        const itemsIds = [...selectedCustomItemsToAdd.map(item => ({ productsIDs: item.ids, productOptsIDs: item.productOptsIDs, notes: item.notes }))];
 
         const response = await createOrder(
             companyOperation?.companyOperationID,
@@ -141,16 +137,6 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
         }
 
         setDisabled(false);
-    }
-
-    async function removeProduct(productID) {
-        const index = selectedProductsToAdd.findIndex(p => p.id === productID);
-
-        if (index !== -1) {
-            const newSelectedProducts = [...selectedProductsToAdd];
-            newSelectedProducts.splice(index, 1); // remove only the first occurrence
-            setSelectedProductsToAdd(newSelectedProducts);
-        }
     }
 
     async function removeCustomItems(idsToRemove) {
@@ -347,13 +333,6 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                             <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.ids) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                         </tr>
                                     ))}
-                                    {selectedProductsToAdd.map((product, index) => (
-                                        <tr key={index}>
-                                            <td>{product.name}</td>
-                                            <td>{product.price}</td>
-                                            <td onClick={() => { removeProduct(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
-                                        </tr>
-                                    ))}
                                 </tbody>
                             </Table>
                         </div>
@@ -376,7 +355,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories}
-                    selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} selectedCustomItemsToAdd={selectedCustomItemsToAdd} setSelectedCustomItemsToAdd={setSelectedCustomItemsToAdd} />
+                    selectedCustomItemsToAdd={selectedCustomItemsToAdd} setSelectedCustomItemsToAdd={setSelectedCustomItemsToAdd} />
             </div>}
         </>
     );

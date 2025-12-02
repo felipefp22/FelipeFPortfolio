@@ -38,7 +38,6 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
     const [customerSelected, setCustomerSelected] = useState(null);
     const [pickupName, setPickupName] = useState(null);
 
-    const [selectedProductsToAdd, setSelectedProductsToAdd] = useState([]);
     const [selectedCustomItemsToAdd, setSelectedCustomItemsToAdd] = useState([]);
 
     const [showCancelItemModal, setShowCancelItemModal] = useState(false);
@@ -81,22 +80,15 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
     }, []);
 
     async function handleAddItemsToOrder() {
-        if (selectedProductsToAdd.length === 0 && selectedCustomItemsToAdd.length === 0) return;
-        console.log("selectedToADD: ", selectedProductsToAdd);
+        if (selectedCustomItemsToAdd.length === 0) return;
         setDisabled(true);
 
-        const itemsIds = [
-            ...selectedProductsToAdd.map(item => ({ productsIDs: [item.id] })),
-            ...selectedCustomItemsToAdd.map(item => ({ productsIDs: item.ids }))
-        ];
-
-        console.log("itemsIds:  ", itemsIds);
+        const itemsIds = [...selectedCustomItemsToAdd.map(item => ({ productsIDs: item.ids }))];
 
         const response = await addItemsToOrderService(companyOperation?.companyOperationID, orderToEdit.id, itemsIds);
 
         if (response?.status === 200) {
             await getShiftOperationData();
-            setSelectedProductsToAdd([]);
             setSelectedCustomItemsToAdd([]);
         }
 
@@ -112,16 +104,6 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
             alert(`Error reopening order: ${response?.data}`);
         }
         setDisabled(false);
-    }
-
-    async function removeProductToAdd(productID) {
-        const index = selectedProductsToAdd.findIndex(p => p.id === productID);
-
-        if (index !== -1) {
-            const newSelectedProducts = [...selectedProductsToAdd];
-            newSelectedProducts.splice(index, 1); // remove only the first occurrence
-            setSelectedProductsToAdd(newSelectedProducts);
-        }
     }
 
     async function removeCustomItems(idsToRemove) {
@@ -241,13 +223,6 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                             <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.ids) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                         </tr>
                                     ))}
-                                    {selectedProductsToAdd?.map((product, index) => (
-                                        <tr key={index}>
-                                            <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }}>{product.price.toFixed(2)}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeProductToAdd(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
-                                        </tr>
-                                    ))}
                                 </tbody>
                             </Table>
                         </div>
@@ -260,7 +235,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                     <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', width: '100%' }}>
                         <span style={{ fontWeight: "bold", color: borderColorTwo(theme), fontSize: isPcV ? '24px' : '18px' }}>Itens Already On Order</span>
 
-                        <button className='floatingButton' style={{ backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px', visibility: (selectedProductsToAdd.length > 0 || selectedCustomItemsToAdd.length > 0) ? 'visible' : 'hidden' }} onClick={() => handleAddItemsToOrder()} >
+                        <button className='floatingButton' style={{ backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px', visibility: (selectedCustomItemsToAdd.length > 0) ? 'visible' : 'hidden' }} onClick={() => handleAddItemsToOrder()} >
                             <FontAwesomeIcon icon={faArrowDown} flip="horizontal" />
                         </button>
                     </div>
@@ -314,7 +289,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories}
-                    selectedProductsToAdd={selectedProductsToAdd} setSelectedProductsToAdd={setSelectedProductsToAdd} selectedCustomItemsToAdd={selectedCustomItemsToAdd} setSelectedCustomItemsToAdd={setSelectedCustomItemsToAdd} />
+                selectedCustomItemsToAdd={selectedCustomItemsToAdd} setSelectedCustomItemsToAdd={setSelectedCustomItemsToAdd} />
             </div>}
 
             {showCancelItemModal && <div ref={selectItemsModalRef} className='myModal' >

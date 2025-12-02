@@ -1,4 +1,4 @@
-import { faCheck, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faNoteSticky, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { use, useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
@@ -9,7 +9,7 @@ import { getImageFoodService } from "../../../../../../services/deliveryServices
 import CustomItemModal from './2ndLevel/CustomItemModal';
 import Tooltip from '@mui/material/Tooltip';
 
-export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd, selectedCustomItemsToAdd, setSelectedCustomItemsToAdd }) {
+export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedCustomItemsToAdd, setSelectedCustomItemsToAdd }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
 
@@ -17,7 +17,6 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
     const [inputSearchItem, setInputSearchItem] = useState("")
 
     const [productsFiltered, setProductsFiltered] = useState([]);
-    const [selectedProducts, setSelectedProducts] = useState([]);
     const [selectedCustomItems, setSelectedCustomItems] = useState([]);
 
     const [createCustomItemModal, setCreateCustomItemModal] = useState(false);
@@ -26,32 +25,19 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
     useEffect(() => {
         if (buttonFilter === "All") {
             const filteredProducts = allCompanyProductsCategories?.flatMap(category => category?.products || []);
-            setProductsFiltered(filteredProducts?.filter(product => product?.name.toLowerCase().includes(inputSearchItem.toLowerCase())));
+            setProductsFiltered({ productOptions: filteredProducts?.filter(product => product?.name.toLowerCase().includes(inputSearchItem.toLowerCase())), hasOptionals: false });
         } else {
             const category = allCompanyProductsCategories?.find(cat => cat === buttonFilter);
+            console.log("category: ", category);
+
             const filteredProducts = category?.products || [];
-            setProductsFiltered(filteredProducts?.filter(product => product?.name.toLowerCase().includes(inputSearchItem.toLowerCase())));
+            setProductsFiltered({ productOptions: filteredProducts?.filter(product => product?.name.toLowerCase().includes(inputSearchItem.toLowerCase())), hasOptionals: category?.productOptions?.length > 0 ? true : false });
         }
     }, [allCompanyProductsCategories, buttonFilter, inputSearchItem]);
 
     async function addItemsToOrderAction() {
-        const selectedProductstoPass = selectedProducts.map(prod => {
-        });
-
-        setSelectedProductsToAdd([...selectedProductsToAdd, ...selectedProducts]);
         setSelectedCustomItemsToAdd([...selectedCustomItemsToAdd, ...selectedCustomItems]);
-
         close();
-    }
-
-    async function removeItems(productID) {
-        const index = selectedProducts.findIndex(p => p.id === productID);
-
-        if (index !== -1) {
-            const newSelectedProducts = [...selectedProducts];
-            newSelectedProducts.splice(index, 1); // remove only the first occurrence
-            setSelectedProducts(newSelectedProducts);
-        }
     }
 
     async function removeCustomItems(idsToRemove) {
@@ -85,10 +71,6 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
         console.log("selectedCustomItems: ", selectedCustomItems);
     }, [selectedCustomItems]);
 
-    useEffect(() => {
-        console.log("selectedProducts: ", selectedProducts);
-    }, [selectedProducts]);
-
     return (
         <>
             <div className='modalInside' style={{ width: !isPcV ? "100%" : "98%", maxHeight: '90%', padding: !isPcV ? '10px' : '20px', }}>
@@ -110,7 +92,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
                         <div className='flexRow' style={{ justifyContent: 'center', width: '100%', flexWrap: 'wrap', overflowY: 'auto', }}>
                             {buttonFilter?.customOrderAllowed && buttonFilter?.customOrderAllowed > 1 && Array.from({ length: buttonFilter.customOrderAllowed - 1 }, (_, idx) => idx + 2).map((value) => (
-                                <div key={value} className='flexColumn fullCenter' style={{ width: '80px', margin: 5, cursor: 'pointer', border: `1px solid ${borderColorTwo(theme)}`, borderRadius: 6 }} onClick={() => { setCreateCustomItemModal(value) }} >
+                                <div key={value} className='flexColumn fullCenter' style={{ width: '80px', margin: 5, cursor: 'pointer', border: `1px solid ${borderColorTwo(theme)}`, borderRadius: 6 }} onClick={() => { setCreateCustomItemModal({ customSize: value }) }} >
                                     <div className='flexRow fullCenter' style={{ padding: 15, backgroundColor: 'rgba(222, 181, 32, 0.76)', borderRadius: 6 }} >
                                         <span style={{ fontWeight: 'bold', fontSize: "16px", textAlign: 'center', color: 'black', whiteSpace: 'nowrap' }}>
                                             {'1 / ' + value}
@@ -119,8 +101,13 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                                 </div>
                             ))}
 
-                            {productsFiltered && productsFiltered?.map((product, idx) => (
-                                <div key={idx} className='flexColumn' style={{ width: '80px', margin: 5, cursor: 'pointer' }} onClick={() => { setSelectedProducts([...selectedProducts, product]); }}>
+                            {productsFiltered?.productOptions && productsFiltered?.productOptions.map((product, idx) => (
+                                <div key={idx} className='flexColumn' style={{ width: '80px', margin: 5, cursor: 'pointer' }}
+                                    onClick={() => {
+                                        if (productsFiltered?.hasOptionals) { setCreateCustomItemModal({ customSize: 1, preSelectedProducts: [product.id] }) }
+                                        else { setSelectedCustomItems(prev => [...prev, { name: product.name, ids: [product.id], productOptsNames: null, productOptsIDs: null, price: product.price, notes: "", customSize: 1, category: productsFiltered.category }]); }
+                                    }}>
+
                                     <img src={product?.imagePath ? getImageFoodService(product?.imagePath) : noFoodImg} alt={""} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px' }} />
                                     <span style={{ fontWeight: 'bold', fontSize: "16px", textAlign: 'center', color: 'black' }}>{product?.name}</span>
                                 </div>
@@ -138,6 +125,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                             <thead>
                                 <tr>
                                     <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
+                                    {/* <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faPen} /></th> */}
                                     <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
                                     <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                 </tr>
@@ -145,19 +133,14 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                             <tbody >
                                 {selectedCustomItems?.map((custom, index) => (
                                     <tr key={index}>
-                                        <Tooltip title={<>{`${custom.name}`} <br /> {`${custom?.productOptsNames ?? ''}`} <br /> {`${custom.notes ? 'Notes: ' + custom.notes : ''}`}</>}  arrow
-                                        slotProps={{ popper: { className: "neon-tooltip", modifiers: [{ name: 'offset', options: { offset: [0, -14] } }] } }}>
+                                        <Tooltip title={<>{`${custom.name}`} <br /> {`${custom?.productOptsNames ?? ''}`} <br /> {`${custom.notes ? 'Notes: ' + custom.notes : ''}`}</>} arrow
+                                            slotProps={{ popper: { className: "neon-tooltip", modifiers: [{ name: 'offset', options: { offset: [0, -14] } }] } }}>
                                             <td style={{ width: "100%", padding: '5px 5px' }} >{custom.name + (custom?.productOptsIDs?.length > 0 ? ' +' + custom?.productOptsIDs?.length : '')}</td>
                                         </Tooltip>
+                                        {/* <th style={{ width: "40px", padding: '3px 5px' }}><FontAwesomeIcon icon={faPen} style={{ color: blueOne(theme), cursor: "pointer" }}
+                                            onClick={() => { setCreateCustomItemModal({ customSize: custom.customSize, preSelectedProducts: custom.ids, preSelectedAddons: custom.productOptsIDs, preSettedNotes: custom.notes, editting: true }); removeCustomItems(custom.ids); }} /></th> */}
                                         <td style={{ width: "40px", padding: '5px 5px' }}>{custom.price.toFixed(2)}</td>
                                         <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.ids) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
-                                    </tr>
-                                ))}
-                                {selectedProducts?.map((product, index) => (
-                                    <tr key={index}>
-                                        <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
-                                        <td style={{ width: "40px", padding: '5px 5px' }}>{product.price}</td>
-                                        <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeItems(product.id) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -172,7 +155,8 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
             </div >
 
             {createCustomItemModal && <div className='myModal' >
-                <CustomItemModal close={() => { setInputSearchItem(''); setCreateCustomItemModal(false); }} category={buttonFilter} inputSearchItem={inputSearchItem} setInputSearchItem={setInputSearchItem} productsFiltered={productsFiltered} customSize={createCustomItemModal} setSelectedCustomItems={setSelectedCustomItems} />
+                <CustomItemModal close={() => { setInputSearchItem(''); setCreateCustomItemModal(false); }} category={buttonFilter} inputSearchItem={inputSearchItem} setInputSearchItem={setInputSearchItem} productsFiltered={productsFiltered} customRules={createCustomItemModal}
+                    setSelectedCustomItems={setSelectedCustomItems} />
             </div>}
         </>
     );
