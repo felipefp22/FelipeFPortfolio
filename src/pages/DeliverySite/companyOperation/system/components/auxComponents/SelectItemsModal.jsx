@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { blueOne, borderColorTwo, fontColorOne, greenOne, greenTwo, purpleOne, redOne } from "../../../../../../theme/Colors";
 import { getImageFoodService } from "../../../../../../services/deliveryServices/auxServices/FoodsImagesService";
 import CustomItemModal from './2ndLevel/CustomItemModal';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedProductsToAdd, setSelectedProductsToAdd, selectedCustomItemsToAdd, setSelectedCustomItemsToAdd }) {
     const theme = useSelector((state) => state.view.theme);
@@ -39,7 +40,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
 
         setSelectedProductsToAdd([...selectedProductsToAdd, ...selectedProducts]);
         setSelectedCustomItemsToAdd([...selectedCustomItemsToAdd, ...selectedCustomItems]);
-        
+
         close();
     }
 
@@ -53,7 +54,8 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
         }
     }
 
-    async function removeCustomItems(idsToRemove) {console.log("idsToRemove: ", idsToRemove);
+    async function removeCustomItems(idsToRemove) {
+        console.log("idsToRemove: ", idsToRemove);
         const index = selectedCustomItems.findIndex(item =>
             arraysEqualIgnoreOrder(item.ids, idsToRemove)
         );
@@ -143,7 +145,10 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                             <tbody >
                                 {selectedCustomItems?.map((custom, index) => (
                                     <tr key={index}>
-                                        <td style={{ width: "100%", padding: '5px 5px' }}>{custom.name}</td>
+                                        <Tooltip title={<>{`${custom.name}`} <br /> {`${custom?.productOptsNames ?? ''}`} <br /> {`${custom.notes ? 'Notes: ' + custom.notes : ''}`}</>}  arrow
+                                        slotProps={{ popper: { className: "neon-tooltip", modifiers: [{ name: 'offset', options: { offset: [0, -14] } }] } }}>
+                                            <td style={{ width: "100%", padding: '5px 5px' }} >{custom.name + (custom?.productOptsIDs?.length > 0 ? ' +' + custom?.productOptsIDs?.length : '')}</td>
+                                        </Tooltip>
                                         <td style={{ width: "40px", padding: '5px 5px' }}>{custom.price.toFixed(2)}</td>
                                         <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.ids) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                     </tr>

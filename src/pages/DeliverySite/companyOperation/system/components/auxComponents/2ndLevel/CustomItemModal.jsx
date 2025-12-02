@@ -34,11 +34,16 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
     async function handleCreateCustomItem() {
         const customName = itemsSelectedToCreateCustom.map(item => item.name).sort().join("/");
         const itensIDs = itemsSelectedToCreateCustom.map(item => item.id).sort();
+        const productOptsNames = addonsSelectedToCreateCustom.length > 0 ? '+' + addonsSelectedToCreateCustom.map(addon => addon.name).sort().join(", +") : '';
+        const productOptsIDs = addonsSelectedToCreateCustom.map(addon => addon.id).sort();
         const price = await calculatePriceAsync();
 
-        passToSelectedCustomItems({ name: customName, ids: itensIDs, price: price })
+        passToSelectedCustomItems({ name: customName, ids: itensIDs, productOptsNames: productOptsNames, productOptsIDs: productOptsIDs, price: price, notes: notesForCustomItem });
+        setNotesForCustomItem("");
+        setAddonsSelectedToCreateCustom([]);
         setItemsSelectedToCreateCustom([]);
         setInputSearchItem("");
+        setInputSearchAddons("");
         close();
     }
 

@@ -10,6 +10,7 @@ import { createOrder } from "../../../../../services/deliveryServices/OrderServi
 import { useSelector } from "react-redux";
 import { blueOne, borderColorOne, borderColorTwo, greenOne, greenTwo, orangeOne, redOne } from "../../../../../theme/Colors";
 import { calculateEstimatedKm, calculatePrice } from '../../../../../redux/calculateDeliveryDistancePrice';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function NewOrderModal({ close, companyOperation, getShiftOperationData, tableNumberSelectedBeforeModal, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
@@ -116,10 +117,10 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
         }
 
         setDisabled(true);
-        
+
         const itemsIds = [
             ...selectedProductsToAdd.map(item => ({ productsIDs: [item.id] })),
-            ...selectedCustomItemsToAdd.map(item => ({ productsIDs: item.ids }))
+            ...selectedCustomItemsToAdd.map(item => ({ productsIDs: item.ids, productOptsIDs: item.productOptsIDs, notes: item.notes })),
         ];
 
         const response = await createOrder(
@@ -338,7 +339,10 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 <tbody >
                                     {selectedCustomItemsToAdd?.map((custom, index) => (
                                         <tr key={index}>
-                                            <td style={{ width: "100%", padding: '5px 5px' }}>{custom?.name}</td>
+                                            <Tooltip title={<>{`${custom.name}`} <br /> {`${custom?.productOptsNames ? custom.productOptsNames : ''}`} <br /> {`${custom.notes ? 'Notes: ' + custom.notes : ''}`}</>} arrow
+                                                slotProps={{ popper: { className: "neon-tooltip", modifiers: [{ name: 'offset', options: { offset: [0, -14] } }] } }}>
+                                                <td style={{ width: "100%", padding: '5px 5px' }} >{custom.name + (custom?.productOptsIDs?.length > 0 ? ' +' + custom?.productOptsIDs?.length : '')}</td>
+                                            </Tooltip>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{custom?.price?.toFixed(2)}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.ids) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                         </tr>

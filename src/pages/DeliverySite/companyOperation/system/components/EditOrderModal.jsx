@@ -12,6 +12,7 @@ import { addItemsToOrderService, editOrderService, removeItemsFromOrderService, 
 import CloseOrFinishOrderModal from './auxComponents/CloseOrFinishOrderModal';
 import ChangeOrderStatusModal from './ChangeOrderStatusModal';
 import { DeleteItemModal } from './auxComponents/DeleteItemModal';
+import Tooltip from '@mui/material/Tooltip';
 
 
 
@@ -232,7 +233,10 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                 <tbody >
                                     {selectedCustomItemsToAdd?.map((custom, index) => (
                                         <tr key={index}>
-                                            <td style={{ width: "100%", padding: '5px 5px' }}>{custom?.name}</td>
+                                            <Tooltip title={<>{`${custom.name}`} <br /> {`${custom?.productOptsNames ?? ''}`} <br /> {`${custom.notes ? 'Notes: ' + custom.notes : ''}`}</>} arrow
+                                                slotProps={{ popper: { className: "neon-tooltip", modifiers: [{ name: 'offset', options: { offset: [0, -14] } }] } }}>
+                                                <td style={{ width: "100%", padding: '5px 5px' }} >{custom.name + (custom?.productOptsIDs?.length > 0 ? ' +' + custom?.productOptsIDs?.length : '')}</td>
+                                            </Tooltip>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{custom?.price?.toFixed(2)}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { removeCustomItems(custom.ids) }}><FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} /></td>
                                         </tr>
@@ -273,7 +277,10 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                             <tbody>
                                 {productsAlreadyOnOrder?.filter(x => x.status !== 'CANCELLED').flatMap((product, index) =>
                                     <tr key={index}>
-                                        <td style={{ width: "100%", padding: '5px 5px' }}>{product.name}</td>
+                                        <Tooltip title={<>{`${product.name}`} <br /> {`${product?.productOptions?.length > 0 ? '+' + product.productOptions.map(addon => addon.split("|")[1]).sort().join(", +") : ''}`} <br /> {`${product.notes ? 'Notes: ' + product.notes : ''}`}</>} arrow
+                                            slotProps={{ popper: { className: "neon-tooltip", modifiers: [{ name: 'offset', options: { offset: [0, -14] } }] } }}>
+                                            <td style={{ width: "100%", padding: '5px 5px' }} >{product.name + (product?.productOptions?.length > 0 ? ' +' + product?.productOptions?.length : '')}</td>
+                                        </Tooltip>
                                         <td style={{ width: "40px", padding: '5px 5px' }}>{product.price.toFixed(2)}</td>
                                         <td style={{ width: "40px", padding: '5px 5px' }} onClick={() => { }} >
                                             <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: "red" }} onClick={() => { setShowCancelItemModal(product) }} />

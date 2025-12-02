@@ -254,3 +254,24 @@ button:hover {
     justify-content: center;
     text-align: center;
 }
+
+/* <> ------------------------- TOOLTIP ------------------------- <> */
+.neon-tooltip {}
+
+.neon-tooltip .MuiTooltip-tooltip {
+  background-color: var(--secondColor);
+  color: var(--fontColorOne);
+  font-weight: 400;
+  border: 2px solid var(--borderColorTwo);
+  box-shadow: 0 0 1px var(--borderColorTwo), 0 0 5px var(--borderColorTwo);
+  line-height: 1.9;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+/* Optional: Arrow styling */
+.neon-tooltip .MuiTooltip-arrow {
+  color: var(--borderColorTwo);
+  filter: drop-shadow(0px 0px 10px var(--borderColorTwo));
+}
