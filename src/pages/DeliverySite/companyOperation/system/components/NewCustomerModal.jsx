@@ -8,10 +8,12 @@ import SelectCustumerAddressMap from "./auxComponents/SelectCustumerAddressMap";
 import { searchAddress } from "../../../../../services/deliveryServices/auxServices/mapService";
 import { borderColorTwo } from "../../../../../theme/Colors";
 import { calculateEstimatedKm, calculatePrice } from '../../../../../redux/calculateDeliveryDistancePrice';
+import { useTranslation } from 'react-i18next';
 
 export default function NewCustomerModal({ close, companyOperation, customerToEdit, fetchCustomers }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
+    const { t, i18n } = useTranslation();
 
     const [disabled, setDisabled] = useState(false);
 
@@ -152,7 +154,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
 
                 <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', }}>
                     <div className='flexColumn' style={{ alignItems: 'flex-start', width: '62%', }}>
-                        <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', }}>Customer Name</span>
+                        <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', }}>{t('rSys.customerDefaults.customerName')}</span>
                         <input className='inputStandart' type="text" value={name} onChange={(e) => setName(e.target.value)}
                             style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black' }} />
                     </div>
@@ -160,7 +162,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
                     <div style={{ width: '3%' }}></div>
 
                     <div className='flexColumn' style={{ alignItems: 'flex-start', width: '35%', }}>
-                        <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', }}>Phone</span>
+                        <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', }}>{t('rSys.customerDefaults.customerPhone')}</span>
                         <input className='inputStandart' type="text" value={phone} onChange={(e) => setPhone(e.target.value)}
                             style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'white', color: 'black', textAlign: 'left' }} />
                     </div>
@@ -168,20 +170,20 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
 
                 <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', }}>
                     <div className='flexColumn' style={{ alignItems: 'flex-start', width: '77%', }}>
-                        <span style={{ fontWeight: "600", marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>Customer Address</span>
+                        <span style={{ fontWeight: "600", marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>{t('rSys.customerDefaults.customerAdrress')}</span>
                         <input className='inputStandart' type="text" value={address ?? ""} onChange={(e) => setAddress(e.target.value)} disabled={true}
                             style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'lightgray', color: 'black' }} />
                     </div>
                     <div style={{ width: '3%' }}></div>
                     <div className='flexColumn' style={{ width: '20%' }}>
-                        <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>Number</span>
+                        <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>{t('rSys.customerDefaults.customerAddressNumber')}</span>
                         <input className='inputStandart' type="text" value={addressNumber} onChange={(e) => setAddressNumber(e.target.value)} disabled={!lat || !lng || !address}
                             style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: (!lat || !lng || !address) ? 'lightgray' : 'white', color: 'black', textAlign: 'right' }} />
                     </div>
                 </div>
 
                 <div className='flexColumn' style={{ alignItems: 'flex-start', width: '100%', }}>
-                    <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>Complement</span>
+                    <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>{t('rSys.customerDefaults.customerAddressComplement')}</span>
                     <input className='inputStandart' type="text" value={complement} onChange={(e) => setComplement(e.target.value)} disabled={!lat || !lng || !address}
                         style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: (!lat || !lng || !address) ? 'lightgray' : 'white', color: 'black' }} />
                 </div>
@@ -197,7 +199,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
                             onKeyDown={e => { if (e.key === "Enter") { if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current); findAddress(); } }}
                             // onFocus={() => setShowAddressSelectorDropdown(true)}
                             onBlur={() => { setSearchAddressInput(""); setShowAddressSelectorDropdown(false); }}
-                            placeholder="Search address"
+                            placeholder={t('rSys.addressDefaults.searchAddressPlaceHolder')}
                             disabled={disabled}
                             style={{ width: '100%', paddingLeft: '10px', }}
                         />
@@ -232,9 +234,9 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
                 </div>
 
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: 10 }}>
-                    <button className='buttonStandart red' style={{ marginLeft: '0px', visibility: disabled ? 'hidden' : 'visible' }} onClick={() => close()} disabled={disabled}>Cancel</button>
+                    <button className='buttonStandart red' style={{ marginLeft: '0px', visibility: disabled ? 'hidden' : 'visible' }} onClick={() => close()} disabled={disabled}>{t('buttons.cancel')}</button>
                     <button className='buttonStandart green' style={{ marginLeft: '0px' }} onClick={() => customerToEdit?.id ? updateCustomer() : saveCustomer()} disabled={disabled}>
-                        {disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : "Save Customer"}</button>
+                        {disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : t('buttons.saveCustomer')}</button>
                 </div>
             </div>
 

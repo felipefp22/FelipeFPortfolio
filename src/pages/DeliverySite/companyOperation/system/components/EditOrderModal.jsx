@@ -13,12 +13,14 @@ import CloseOrFinishOrderModal from './auxComponents/CloseOrFinishOrderModal';
 import ChangeOrderStatusModal from './ChangeOrderStatusModal';
 import { DeleteItemModal } from './auxComponents/DeleteItemModal';
 import Tooltip from '@mui/material/Tooltip';
+import { useTranslation } from 'react-i18next';
 
 
 
 export default function EditOrderModal({ close, companyOperation, orderToEdit, setOrderToEdit, getShiftOperationData, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
+    const { t, i18n } = useTranslation();
 
     const [disabled, setDisabled] = useState(false);
 
@@ -138,27 +140,27 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
                 <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', width: '100%', }}>
                     <div className='flexColumn' style={{ textAlign: 'left', justifyContent: 'space-between', }}>
-                        <span style={{ fontWeight: "600", fontSize: isPcV ? '18px' : '16px', }}>{`Order [ ${orderToEdit?.orderNumberOnShift} ]`}</span>
+                        <span style={{ fontWeight: "600", fontSize: isPcV ? '18px' : '16px', }}>{`${t('rSys.words.order')} [ ${orderToEdit?.orderNumberOnShift} ]`}</span>
                         <span style={{ fontWeight: "600", fontSize: isPcV ? '16px' : '14px', color: greenTwo(theme) }}>
-                            {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' ? 'Delivery' : (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' ? 'Pickup' : `Table - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`)}</span>
+                            {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' ? t('rSys.words.delivery') : (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' ? t('rSys.words.pickup') : `${t('rSys.words.table')} - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`)}</span>
                     </div>
 
                     <button className='buttonStandart green' style={{
                         fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', cursor: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 'not-allowed' : 'pointer',
                         opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1
                     }}
-                        onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT'}>Change Table/Customer</button>
+                        onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT'}>{t('buttons.changeTableOrCustomer')}</button>
                 </div>
 
                 {selectUseCustomerOrPickUpName === 'Name' && <div className='flexColumn' style={{ width: '100%', opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1, }}>
-                    <span style={{ fontWeight: "600", fontSize: isPcV ? '18px' : '16px', }}>Name:</span>
+                    <span style={{ fontWeight: "600", fontSize: isPcV ? '18px' : '16px', }}>{t('rSys.words.name')}:</span>
 
                     <input className='inputStandart' type="text" value={pickupName} disabled={true}
                         style={{ height: '35px', fontSize: isPcV ? '17px' : '16px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
                 </div>}
 
                 {selectUseCustomerOrPickUpName === 'Customer' && <div className='flexColumn' style={{ width: '100%', opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1, }}>
-                    <span style={{ fontWeight: "600", fontSize: isPcV ? '18px' : '16px', }}>Customer:</span>
+                    <span style={{ fontWeight: "600", fontSize: isPcV ? '18px' : '16px', }}>{t('rSys.words.customer')}:</span>
 
                     <input className='inputStandart' type="text" value={customerSelected?.customerName + " / " + customerSelected?.phone} disabled={true}
                         style={{ fontSize: isPcV ? '17px' : '14px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', margin: '3px 0px', }} />
@@ -198,7 +200,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                                 style={{
                                     marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', cursor: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 'not-allowed' : 'pointer',
                                     opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1
-                                }} disabled={(disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT')} onClick={() => setShowSelectItemsModal(true)} > ADD Items</button>
+                                }} disabled={(disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT')} onClick={() => setShowSelectItemsModal(true)} >{t('buttons.addItems')}</button>
                         </div>
 
                         <div style={{
@@ -207,8 +209,8 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                             <Table responsive="sm" >
                                 <thead>
                                     <tr>
-                                        <th th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
-                                        <th th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                        <th th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.items')}</th>
+                                        <th th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.price')}</th>
                                         <th th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                     </tr>
                                 </thead>
@@ -244,8 +246,8 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                         <Table responsive="sm" >
                             <thead>
                                 <tr>
-                                    <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
-                                    <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                    <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.items')}</th>
+                                    <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.price')}</th>
                                     <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                 </tr>
                             </thead>
@@ -269,14 +271,14 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
                     <button className='buttonStandart' onClick={() => close()} disabled={disabled}>{disabled ?
-                        <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Done'}</button>
+                        <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : t('buttons.done')}</button>
 
                     <div className='flexRow fullCenter' >
                         {(orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') &&
                             <button className='buttonStandart green' style={{ marginRight: 5 }} onClick={() => { openOrderAgain() }} disabled={disabled}>{'Reopen'}</button>}
 
                         {(orderToEdit?.status === 'OPEN' || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') &&
-                            <button className='buttonStandart green' onClick={() => setShowCloseOrFinishOrderModal(true)} disabled={disabled}>{orderToEdit?.status === 'OPEN' ? 'Close Order' : 'Finish Order'}</button>}
+                            <button className='buttonStandart green' onClick={() => setShowCloseOrFinishOrderModal(true)} disabled={disabled}>{orderToEdit?.status === 'OPEN' ? t('buttons.closeOrder') : t('buttons.finishOrders')}</button>}
                     </div>
                 </div>
             </div>

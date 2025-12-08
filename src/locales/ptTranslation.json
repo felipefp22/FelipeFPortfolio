@@ -1,33 +1,110 @@
 {
-  "skills": {
-    "title": "Tecnologias",
-    "content": ""
-  },
-  "aboutMe": {
-    "title": "Sobre Mim",
-    "content": "Desenvolvedor com principal atuação no Backend Java-Spring Boot. \n\n Atuo no desenvolvimento de soluções completas e APIs para manuseio de dados com segurança, autenticação integrada com logins em redes sociais, site e aplicativo operacional, integração com meios de pagamento, pipelines para hospedagem em nuvem e deploy automatizado. \n\n Conhecimentos em Java, C#, HTML, CSS, React, React Native, JavaScript, SQL, NoSQL, Containers (Docker e Kubernetes), Azure Cloud Computing, Google Cloud, Git, GitHub Actions, Postman, Insomnia. \n\n Planejamento de arquitetura moderna preparado para fácil implementação de updates futuros. Bancos de dados eficientes com indexações pontuais para garantia de performance, tanto de leitura quanto de escrita. Experiente em identificar loops desnecessários (over loops) e otimizar processos. \n\n Pós-Graduação - Arquitetura e Desenvolvimento JAVA"
-  },
-  "projects": {
-    "title": "Projetos",
-    "content": "Here you can showcase your projects.",
-    "projectsIWorkedOn": "Projetos Entregues",
-    "portfolioProjects": "Projetos Portfólio",
-    "myHealth": {
-      "title": "minha-saude.com",
-      "description": "Site voltado para ser uma Rede Social de Saúde, desenvolvido para cliente, onde desenvolvi a solução completa. \n\n Foi desenvolvida API em Java, frontend em React (adaptativo para Web e Mobile), pipeline de deploy automatizado na Azure Cloud para a API, e FTP para deploy do site no cPanel, banco de dados Postgres na nuvem. Logins com redes sociais, pagamento assinatura premium.  \n\n O site tem como objetivo ser uma rede social onde o usuário pode acompanhar sua saúde, marcar consultas, exames, medicamentos e ter um histórico médico completo.",
-      "description2": "Ver Site: "
+  "port": {
+    "skills": {
+      "title": "Tecnologias",
+      "content": ""
     },
-    "restaurantDelivery": {
-      "title": "Restaurante Delivery",
-      "description1": "Este é um aplicativo desenvolvido para apresentar meus códigos em operação. Totalmente adaptativo para Web e Mobile. \n\n Um site/aplicativo para sistema de restaurante, onde a API foi desenvolvida para operar um sistema completo, e aqui no site foi implementada a seção de entregas (delivery), com mapa para auxílio na roteirização de entregas. \n\n",
-      "description2": "Ver Projeto: ",
-      "description3": "Código Backend: ",
-      "description4": "Código Frontend: "
+    "aboutMe": {
+      "title": "Sobre Mim",
+      "content": "Desenvolvedor com principal atuação no Backend Java-Spring Boot. \n\n Atuo no desenvolvimento de soluções completas e APIs para manuseio de dados com segurança, autenticação integrada com logins em redes sociais, site e aplicativo operacional, integração com meios de pagamento, pipelines para hospedagem em nuvem e deploy automatizado. \n\n Conhecimentos em Java, C#, HTML, CSS, React, React Native, JavaScript, SQL, NoSQL, Containers (Docker e Kubernetes), Azure Cloud Computing, Google Cloud, Git, GitHub Actions, Postman, Insomnia. \n\n Planejamento de arquitetura moderna preparado para fácil implementação de updates futuros. Bancos de dados eficientes com indexações pontuais para garantia de performance, tanto de leitura quanto de escrita. Experiente em identificar loops desnecessários (over loops) e otimizar processos. \n\n Pós-Graduação - Arquitetura e Desenvolvimento JAVA"
+    },
+    "projects": {
+      "title": "Projetos",
+      "content": "Here you can showcase your projects.",
+      "projectsIWorkedOn": "Projetos Entregues",
+      "portfolioProjects": "Projetos Portfólio",
+      "myHealth": {
+        "title": "minha-saude.com",
+        "description": "Site voltado para ser uma Rede Social de Saúde, desenvolvido para cliente, onde desenvolvi a solução completa. \n\n Foi desenvolvida API em Java, frontend em React (adaptativo para Web e Mobile), pipeline de deploy automatizado na Azure Cloud para a API, e FTP para deploy do site no cPanel, banco de dados Postgres na nuvem. Logins com redes sociais, pagamento assinatura premium.  \n\n O site tem como objetivo ser uma rede social onde o usuário pode acompanhar sua saúde, marcar consultas, exames, medicamentos e ter um histórico médico completo.",
+        "description2": "Ver Site: "
+      },
+      "restaurantDelivery": {
+        "title": "Restaurante Delivery",
+        "description1": "Este é um aplicativo desenvolvido para apresentar meus códigos em operação. Totalmente adaptativo para Web e Mobile. \n\n Um site/aplicativo para sistema de restaurante, onde a API foi desenvolvida para operar um sistema completo, e aqui no site foi implementada a seção de entregas (delivery), com mapa para auxílio na roteirização de entregas. \n\n",
+        "description2": "Ver Projeto: ",
+        "description3": "Código Backend: ",
+        "description4": "Código Frontend: "
+      }
+    },
+    "contacts": {
+      "title": "Contatos",
+      "content": "Aqui você pode mostrar seus contatos."
     }
   },
-  "contacts": {
-    "title": "Contatos",
-    "content": "Aqui você pode mostrar seus contatos."
+  "rSys": {
+    "delMap": {
+      "waitingTime": "Tempo de Espera",
+      "restaurantIconAlt": "Restaurante"
+    },
+    "delSysPage": {
+      "ordersCooking": "Pedidos em Preparação",
+      "ordersOnDelivery": "Pedidos em Entrega",
+      "completedDeliveryOrders": "Pedidos Delivery Concluídos",
+      "cancelledDeliveryOrders": "Pedidos Delivery Cancelados"
+    },
+    "hallSysPage": {
+      "waitingPickup": "Aguardando Retirada",
+      "completedOrders": "Pedidos Concluídos",
+      "cancelledOrders": "Pedidos Cancelados"
+    },
+    "placeHolders": {
+      "filterItemsPlaceholder": "Pesquise Itens",
+      "searchCustomerPlaceHolder": "Pesquise Cliente por Nome ou Telefone"
+    },
+    "words": {
+      "num": "Num",
+      "customer": "Cliente",
+      "minutes": "Minutos",
+      "status": "Status",
+      "items": "Itens",
+      "price": "Preço",
+      "name": "Nome",
+      "table": "Mesa",
+      "pickup": "Retirada",
+      "delivery": "Delivery",
+      "order": "Pedido"
+    },
+    "itemsDefaults": {
+      "all": "Tudo",
+      "itensToAdd": "Itens para Add"
+    },
+    "customerDefaults": {
+      "select": "Selecione",
+      "customerName": "Nome Cliente",
+      "customerAdrress": "Endereço Cliente",
+      "customerAddressNumber": "Número",
+      "customerAddressComplement": "Complemento",
+      "customerPhone": "Telefone"
+    },
+    "addressDefaults": {
+      "searchAddressPlaceHolder": "Pesquise Endereço",
+      "distance": "Distância",
+      "aboveIdeal": "⚠️Além do Ideal "
+    }
+  },
+  "buttons": {
+    "newOrder": "Novo Pedido",
+    "editOrder": "Editar Pedido",
+    "saveOrder": "Salvar Pedido",
+    "cancelOrder": "Cancelar Pedido",
+    "closeOrder": "Fechar Pedido",
+    "finishOrders": "Finalizar Pedidos",
+    "newCustomer": "Novo Cliente",
+    "editCustomer": "Editar Cliente",
+    "saveCustomer": "Salvar Cliente",
+    "changeTableOrCustomer": "Alterar Mesa/Cliente",
+    "changeNameOrCustomer": "Alterar Nome/Cliente",
+    "changeTableOrPickupOrDelivery": "Alterar Mesa/Retirada/Delivery",
+    "name": "Nome",
+    "customer": "Cliente",
+    "addItems": "Add Itens",
+    "table": "Mesa",
+    "Pickup": "Retirada",
+    "Delivery": "Delivery",
+    "done": "Feito",
+    "return": "Voltar",
+    "cancel": "Cancelar",
+    "save": "Salvar"
   },
   "login": "Entrar",
   "logout": "Sair",

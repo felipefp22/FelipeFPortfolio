@@ -9,12 +9,14 @@ import { blueOne, borderColorOne, borderColorTwo, greenOne, greenTwo, orangeOne,
 import { Spinner } from "react-bootstrap";
 import { editOrderService } from "../../../../../../services/deliveryServices/OrderService";
 import { calculateEstimatedKm, calculatePrice } from '../../../../../../redux/calculateDeliveryDistancePrice';
+import { useTranslation } from 'react-i18next';
 
 
 
 export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tableNumberOrDeliveryOrPickup, orderToEdit, pickupName, customerSelected, companyOperation, getShiftOperationData, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
+    const { t, i18n } = useTranslation();
 
     const [disabled, setDisabled] = useState(false);
     const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
@@ -170,7 +172,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
 
                         {!editNameCustomer && !editTable && <button className='buttonStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', whiteSpace: 'nowrap', }}
-                            onClick={() => { setEditNameCustomer(true) }} disabled={disabled}>Change Name/Customer</button>}
+                            onClick={() => { setEditNameCustomer(true) }} disabled={disabled}>{t('buttons.changeNameOrCustomer')}</button>}
 
 
                         {editNameCustomer && <div style={{ display: 'flex', flexDirection: 'row', }}>
@@ -287,7 +289,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                         onClick={() => { }} disabled={disabled}>New customer</button>
 
                     {!editTable && !editNameCustomer && <button className='buttonStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', marginBottom: '20px', whiteSpace: 'nowrap', }}
-                        onClick={() => { setEditTable(true) }} disabled={disabled}>Change Table/PickUp/Delivery</button>}
+                        onClick={() => { setEditTable(true) }} disabled={disabled}>{t('buttons.changeTableOrPickupOrDelivery')}</button>}
 
 
                     {editTable && <div className='flexRow'>
@@ -342,9 +344,9 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                 <div className='flexColumn' style={{ textAlign: 'left', flex: 1, width: "100%", }}>
                     <div className='flexColumn' style={{ width: '100%', flexWrap: 'wrap', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', fontSize: isPcV ? '17px' : '14px', }}>
-                            <button className='buttonStandart' style={{ marginLeft: '0px', visibility: (editNameCustomer || editTable) ? 'hidden' : 'visible' }} onClick={() => close()} disabled={disabled}>Done</button>
+                            <button className='buttonStandart' style={{ marginLeft: '0px', visibility: (editNameCustomer || editTable) ? 'hidden' : 'visible' }} onClick={() => close()} disabled={disabled}>{t('buttons.done')}</button>
 
-                            <button className='buttonStandart' style={{ color: redOne(theme), marginLeft: '0px', visibility: (editNameCustomer || editTable) ? 'hidden' : 'visible' }} onClick={() => setShowCancelOrderModal(true)} disabled={disabled}>Cancel Order</button>
+                            <button className='buttonStandart' style={{ color: redOne(theme), marginLeft: '0px', visibility: (editNameCustomer || editTable) ? 'hidden' : 'visible' }} onClick={() => setShowCancelOrderModal(true)} disabled={disabled}>{t('buttons.cancelOrder')}</button>
                             {/* <button className='buttonStandart green' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: isPcV ? '17px' : '14px', }}
                                 onClick={() => close} disabled={disabled}>
                                 {disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', margin: '0 0px', }} /> : 'Save'}</button> */}

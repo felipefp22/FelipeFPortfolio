@@ -39,7 +39,7 @@ export default function Contacts({ activeMenu }) {
 
                             <img src={mailLogo} alt="Logo" style={{ width: 70, borderRadius: '6px', marginRight: '10px' }} />
                             <span style={{ fontWeight: 'bold', fontSize: isPcV ? '22px' : '19px', marginBottom: '5px' }}>{email}</span>
-                            {/* <span>{t("projects.myHealth.description")}</span> */}
+                            {/* <span>{t("port.projects.myHealth.description")}</span> */}
 
                             {copiedEmailMsg && <div style={{ display: 'flex', flexDirection: 'row', position: 'absolute', top: 60, padding: 20, backgroundColor: 'rgba(255, 255, 255, 0.3)', borderRadius: '6px', 
                                 alignItems: 'center', animation: 'fadeInOut 20s' }}>
@@ -54,7 +54,7 @@ export default function Contacts({ activeMenu }) {
 
                             <img src={whatsAppLogo} alt="Logo" style={{ width: 70, borderRadius: '6px', marginRight: '10px' }} />
                             <span style={{ fontWeight: 'bold', fontSize: isPcV ? '22px' : '19px', marginBottom: '5px' }}>{phone}</span>
-                            {/* <span>{t("projects.myHealth.description")}</span> */}
+                            {/* <span>{t("port.projects.myHealth.description")}</span> */}
                         </div>
                     </div>
                 </div>
@@ -63,12 +63,12 @@ export default function Contacts({ activeMenu }) {
                 {!isPcV && <div style={{ height: '3px', backgroundColor: 'white', margin: '20px 0px' }} />}
 
                 <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'center', width: isPcV ? '50%' : '100%' }} >
-                    <span style={{ fontWeight: 'bold', fontSize: isPcV ? '26px' : '21px', textDecoration: 'underline' }} >{t("projects.portfolioProjects")}</span>
+                    <span style={{ fontWeight: 'bold', fontSize: isPcV ? '26px' : '21px', textDecoration: 'underline' }} >{t("port.projects.portfolioProjects")}</span>
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }} >
-                        <span style={{ fontWeight: 'bold', fontSize: isPcV ? '22px' : '19px', marginBottom: '5px' }}>{t("projects.restaurantDelivery.title")}</span>
+                        <span style={{ fontWeight: 'bold', fontSize: isPcV ? '22px' : '19px', marginBottom: '5px' }}>{t("port.projects.restaurantDelivery.title")}</span>
                         <img src={restaurantSystemPhoto} alt="Logo" style={{ width: isPcV ? 300 : 80, marginBottom: '15px' }} />
-                        <span>{t("projects.restaurantDelivery.description")}</span>
+                        <span>{t("port.projects.restaurantDelivery.description")}</span>
                     </div>
                 </div> */}
             </div >

@@ -28,10 +28,10 @@ export default function Projects({ activeMenu }) {
             <div style={{ display: 'flex', flexDirection: isPcV ? 'row' : 'column', alignContent: 'left', textAlign: 'left', fontSize: isPcV ? '20px' : '18px', fontWeight: '400' }} >
 
                 <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'center', width: isPcV ? '50%' : '100%' }} >
-                    <span style={{ fontWeight: 'bold', fontSize: isPcV ? '26px' : '21px', textDecoration: 'underline' }}>{t("projects.projectsIWorkedOn")}</span>
+                    <span style={{ fontWeight: 'bold', fontSize: isPcV ? '26px' : '21px', textDecoration: 'underline' }}>{t("port.projects.projectsIWorkedOn")}</span>
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }} >
-                        <span style={{ fontWeight: 'bold', fontSize: isPcV ? '22px' : '19px', marginBottom: '5px', cursor: 'pointer' }} onClick={() => window.open("https://minha-saude.com", "_blank")}>{t("projects.myHealth.title")}</span>
+                        <span style={{ fontWeight: 'bold', fontSize: isPcV ? '22px' : '19px', marginBottom: '5px', cursor: 'pointer' }} onClick={() => window.open("https://minha-saude.com", "_blank")}>{t("port.projects.myHealth.title")}</span>
                         <img src={minhaSaudePhoto} alt="Logo" style={{ width: isPcV ? 300 : 250, marginBottom: '15px', cursor: 'pointer', borderRadius: '6px' }}
                             onClick={() => window.open("https://minha-saude.com", "_blank")} />
 
@@ -64,11 +64,11 @@ export default function Projects({ activeMenu }) {
 
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left', textAlign: 'center', justifyContent: 'left', fontSize: isPcV ? '20px' : '16px' }} >
 
-                            <span style={{ whiteSpace: "pre-line" }} >{t("projects.myHealth.description")}</span>
+                            <span style={{ whiteSpace: "pre-line" }} >{t("port.projects.myHealth.description")}</span>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', justifyContent: 'left', marginTop: '15px' }} >
-                            <span style={{ whiteSpace: "pre-line", }}> {t("projects.myHealth.description2")}
+                            <span style={{ whiteSpace: "pre-line", }}> {t("port.projects.myHealth.description2")}
                                 <a href={"https://minha-saude.com"} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Link</a></span>
                         </div>
                     </div>
@@ -78,10 +78,10 @@ export default function Projects({ activeMenu }) {
                 {!isPcV && <div style={{ height: '3px', backgroundColor: 'rgba(255, 255, 255, 0.6)', margin: '20px 0px' }} />}
 
                 <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'center', width: isPcV ? '50%' : '100%' }} >
-                    <span style={{ fontWeight: 'bold', fontSize: isPcV ? '26px' : '21px', textDecoration: 'underline' }} >{t("projects.portfolioProjects")}</span>
+                    <span style={{ fontWeight: 'bold', fontSize: isPcV ? '26px' : '21px', textDecoration: 'underline' }} >{t("port.projects.portfolioProjects")}</span>
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }} >
-                        <span style={{ fontWeight: 'bold', fontSize: isPcV ? '22px' : '19px', marginBottom: '5px', cursor: 'pointer', }} onClick={() => window.open("https://felipefp22.github.io/FelipeFPortfolio/delivery/", "_blank")}>{t("projects.restaurantDelivery.title")}</span>
+                        <span style={{ fontWeight: 'bold', fontSize: isPcV ? '22px' : '19px', marginBottom: '5px', cursor: 'pointer', }} onClick={() => window.open("https://felipefp22.github.io/FelipeFPortfolio/delivery/", "_blank")}>{t("port.projects.restaurantDelivery.title")}</span>
                         <img src={restaurantSystemPhoto} alt="Logo" style={{ width: isPcV ? 300 : 250, marginBottom: '15px', cursor: 'pointer', borderRadius: '6px' }}
                             onClick={() => { navigate(`/FelipeFPortfolio/delivery/`); }} />
 
@@ -113,18 +113,18 @@ export default function Projects({ activeMenu }) {
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left', textAlign: 'center', justifyContent: 'left', fontSize: isPcV ? '20px' : '16px' }} >
-                            <span style={{ whiteSpace: "pre-line", }}>{t("projects.restaurantDelivery.description1")}</span>
+                            <span style={{ whiteSpace: "pre-line", }}>{t("port.projects.restaurantDelivery.description1")}</span>
 
                             <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', justifyContent: 'left' }} >
-                                <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description2")}
+                                <span style={{ whiteSpace: "pre-line", }}> - {t("port.projects.restaurantDelivery.description2")}
                                     {/* <a href={`${window.location.origin}/FelipeFPortfolio/delivery/`} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Link</a></span> */}
                                     <a onClick={() => navigate(`/FelipeFPortfolio/delivery/`)} style={{ color: 'rgba(70, 181, 255, 1)' }}>Link</a></span>
 
 
-                                <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description3")}
+                                <span style={{ whiteSpace: "pre-line", }}> - {t("port.projects.restaurantDelivery.description3")}
                                     <a href="https://github.com/felipefp22/RestaurantSystem" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)' }}>Java Code</a></span>
 
-                                <span style={{ whiteSpace: "pre-line", }}> - {t("projects.restaurantDelivery.description4")}
+                                <span style={{ whiteSpace: "pre-line", }}> - {t("port.projects.restaurantDelivery.description4")}
                                     <a href="https://github.com/felipefp22/FelipeFPortfolio" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(70, 181, 255, 1)', }}>React Code</a></span>
                             </div>
                         </div>

@@ -11,10 +11,12 @@ import { useSelector } from "react-redux";
 import { blueOne, borderColorOne, borderColorTwo, greenOne, greenTwo, orangeOne, redOne } from "../../../../../theme/Colors";
 import { calculateEstimatedKm, calculatePrice } from '../../../../../redux/calculateDeliveryDistancePrice';
 import Tooltip from '@mui/material/Tooltip';
+import { useTranslation } from 'react-i18next';
 
 export default function NewOrderModal({ close, companyOperation, getShiftOperationData, tableNumberSelectedBeforeModal, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
+    const { t, i18n } = useTranslation();
 
     const [disabled, setDisabled] = useState(false);
     const [showNewCustomerModal, setShowNewCustomerModal] = useState(false);
@@ -195,7 +197,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", }}>
                     <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '10px', alignItems: 'center' }}>
                         <button className='buttonStandart' style={{ height: '35px', fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 10px' : '0px 6px', }}
-                            onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
+                            onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>{t('buttons.newCustomer')}</button>
 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'left', }}>
                             <select className={`buttonStandart ${((!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) && tableNumberOrDeliveryOrPickupSelected) && 'green')}`}
@@ -213,30 +215,30 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
                             <button className={`buttonStandart ${tableNumberOrDeliveryOrPickupSelected === 'pickup' && 'green'}`}
                                 style={{ fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px', }}
-                                onClick={() => { setTableNumberOrDeliveryOrPickupSelected('pickup'); setSelectUseCustomerOrPickUpName(customerSelectedToNewOrder ? 'Customer' : 'Name') }} disabled={disabled}>PickUp</button>
+                                onClick={() => { setTableNumberOrDeliveryOrPickupSelected('pickup'); setSelectUseCustomerOrPickUpName(customerSelectedToNewOrder ? 'Customer' : 'Name') }} disabled={disabled}>{t('buttons.Pickup')}</button>
 
                             <button className={`buttonStandart ${tableNumberOrDeliveryOrPickupSelected === 'delivery' && 'green'}`}
                                 style={{ fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px', }}
-                                onClick={() => { setTableNumberOrDeliveryOrPickupSelected('delivery'); setSelectUseCustomerOrPickUpName('Customer') }} disabled={disabled}>Delivery</button>
+                                onClick={() => { setTableNumberOrDeliveryOrPickupSelected('delivery'); setSelectUseCustomerOrPickUpName('Customer') }} disabled={disabled}>{t('buttons.Delivery')}</button>
                         </div>
                     </div>
 
                     <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', marginBottom: 2, marginTop: 2 }} >
-                        {tableNumberOrDeliveryOrPickupSelected === 'delivery' && <span style={{ fontWeight: "600" }}>Customer</span>}
+                        {tableNumberOrDeliveryOrPickupSelected === 'delivery' && <span style={{ fontWeight: "600" }}>{t('buttons.customer')}</span>}
                         {tableNumberOrDeliveryOrPickupSelected !== 'delivery' && <select className='inputStandart' value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
                             style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'left', }} >
-                            <option value='' disabled hidden> Select </option>
-                            <option value={'Customer'}> {'Customer'} </option>
-                            <option value={'Name'}> {'Name'} </option>
+                            <option value='' disabled hidden>{t('rSys.customerDefaults.select')}</option>
+                            <option value={'Customer'}> {t('buttons.customer')} </option>
+                            <option value={'Name'}> {t('buttons.name')} </option>
                         </select>}
 
                         {customerSelectedToNewOrder && selectUseCustomerOrPickUpName === 'Customer' && <button className={`buttonStandart`}
                             style={{ fontSize: isPcV ? '17px' : '14px', height: '28px', padding: isPcV ? '0px 10px' : '0px 6px', }}
-                            onClick={() => { setShowNewCustomerModal(customerSelectedToNewOrder) }} disabled={disabled}><FontAwesomeIcon icon={faPen} /><span style={{ fontWeight: "600" }}> Edit Customer</span></button>}
+                            onClick={() => { setShowNewCustomerModal(customerSelectedToNewOrder) }} disabled={disabled}><FontAwesomeIcon icon={faPen} /><span style={{ fontWeight: "600" }}>{t('buttons.editCustomer')}</span></button>}
                     </div>
 
                     {selectUseCustomerOrPickUpName === 'Name' && <div>
-                        <span style={{ fontWeight: "600", padding: '10px 0px', }}>Name:</span>
+                        <span style={{ fontWeight: "600", padding: '10px 0px', }}>{t('buttons.name')}:</span>
 
                         <input className='inputStandart' type="text" value={pickupNameInput} onChange={(e) => setPickupNameInput(e.target.value)}
                             style={{ height: '35px', fontSize: isPcV ? '18px' : '16px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', margin: '10px 0px', }} />
@@ -250,7 +252,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                                 onChange={e => setCustomerInputToSearch(e.target.value)}
                                 onFocus={() => setShowCustomerSelectorDropdown(true)}
                                 onBlur={() => { setCustomerInputToSearch(""); setShowCustomerSelectorDropdown(false); }}
-                                placeholder="Search Customer by Name or Phone"
+                                placeholder={t('rSys.placeHolders.searchCustomerPlaceHolder')}
                                 disabled={disabled}
                                 style={{ height: '35px', backgroundColor: 'white', color: 'black', width: '100%', paddingLeft: '10px', borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                             />
@@ -274,7 +276,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                         </div>
                         <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', }}>
                             <div className='flexColumn' style={{ width: '62%', }}>
-                                <span style={{ fontWeight: "600" }}>Customer Address</span>
+                                <span style={{ fontWeight: "600" }}>{t('rSys.customerDefaults.customerAdrress')}</span>
                                 <input className='inputStandart' type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
                                     style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', }} />
                             </div>
@@ -282,17 +284,17 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                             <div style={{ width: '3%' }}></div>
 
                             <div className='flexColumn' style={{ width: '35%' }}>
-                                <span style={{ fontWeight: "600", whiteSpace: 'nowrap', }}>Phone</span>
+                                <span style={{ fontWeight: "600", whiteSpace: 'nowrap', }}>{t('rSys.customerDefaults.customerPhone')}</span>
                                 <input className='inputStandart' value={customerSelectedToNewOrder ? customerSelectedToNewOrder?.phone : ""} disabled={true}
                                     style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                         </div>
 
                         {customerSelectedToNewOrder && <div className='flexRow fullCenter' style={{ margin: '3px 0px', }} >
-                            <span style={{ fontWeight: "600", }}>Distance:</span>
+                            <span style={{ fontWeight: "600", }}>{t('rSys.addressDefaults.distance')}:</span>
                             <span style={{ fontWeight: "600", color: blueOne(theme), marginLeft: 5 }}>{getCustomerEstimatedKm().km + " Km"}</span>
                             {getCustomerEstimatedKm().km >= companyOperation?.maxRecommendedDistanceKM && getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: orangeOne(theme), marginLeft: 2 }}>
-                                {'⚠️Above Ideal '}</span>}
+                                {t('rSys.addressDefaults.aboveIdeal')}</span>}
                             {getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: blueOne(theme), marginLeft: 2 }}>
                                 {'🚫'}</span>}
                             {getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", color: greenTwo(theme), marginLeft: 5 }}>{'$' + getCustomerEstimatedKm().price}</span>}
@@ -310,15 +312,15 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', marginTop: '5px', }}>
                     <div className='flexColumn' style={{ flexWrap: 'wrap', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', }}>
-                            <button className='buttonStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>ADD Items</button>
+                            <button className='buttonStandart' style={{ marginLeft: '0px', height: '30px', fontSize: isPcV ? '17px' : '14px', }} onClick={() => setShowSelectItemsModal(true)} disabled={disabled}>{t('buttons.addItems')}</button>
                         </div>
-                        <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Items</span>
+                        <span style={{ fontWeight: "bold", marginBottom: '5px' }}>{t('rSys.words.items')}</span>
                         <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                             <Table responsive="sm" >
                                 <thead >
                                     <tr>
-                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.items')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.price')}</th>
                                         <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                     </tr>
                                 </thead>
@@ -341,10 +343,10 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
 
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
-                    <button className='buttonStandart' style={{}} onClick={() => close()} disabled={disabled}>Cancel</button>
+                    <button className='buttonStandart' style={{}} onClick={() => close()} disabled={disabled}>{t('buttons.cancel')}</button>
 
                     <button className='buttonStandart green' style={{}}
-                        onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : 'Save Order'}</button>
+                        onClick={() => saveOrder()} disabled={disabled}>{disabled ? <Spinner animation="border" role="status" variant="light" style={{ width: '22px', height: '22px', }} /> : t('buttons.saveOrder')}</button>
                 </div>
             </div >
 

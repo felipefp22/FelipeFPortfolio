@@ -8,10 +8,12 @@ import { blueOne, borderColorTwo, fontColorOne, greenOne, greenTwo, purpleOne, r
 import { getImageFoodService } from "../../../../../../services/deliveryServices/auxServices/FoodsImagesService";
 import CustomItemModal from './2ndLevel/CustomItemModal';
 import Tooltip from '@mui/material/Tooltip';
+import { useTranslation } from 'react-i18next';
 
 export default function SelectItemsModal({ close, allCompanyProductsCategories, setAllCompanyProductsCategories, selectedCustomItemsToAdd, setSelectedCustomItemsToAdd }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
+    const { t, i18n } = useTranslation();
 
     const [buttonFilter, setButtonFilter] = useState("All");
     const [inputSearchItem, setInputSearchItem] = useState("")
@@ -78,7 +80,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, width: "100%", marginBottom: '10px', }}>
                     <div className='flexRow' style={{ justifyContent: 'left', width: '100%', marginBottom: '10px', flexWrap: 'wrap' }}>
                         <button className='buttonStandart blue' style={{ marginLeft: '0px', border: buttonFilter === "All" ? "1px solid white" : "none" }}
-                            onClick={() => setButtonFilter("All")}>All</button>
+                            onClick={() => setButtonFilter("All")}>{t('rSys.itemsDefaults.all')}</button>
 
                         {allCompanyProductsCategories && allCompanyProductsCategories?.map((category) => (
                             <button key={category?.id} className='buttonStandart blue' style={{ marginLeft: '0px', border: buttonFilter === category ? "1px solid white" : "none" }}
@@ -87,7 +89,7 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                     </div>
 
                     <div className='flexColumn' style={{ width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', border: `2px solid ${borderColorTwo(theme)}` }}>
-                        <input type="text" className='inputStandart' value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
+                        <input type="text" className='inputStandart' value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder={t('rSys.placeHolders.filterItemsPlaceholder')}
                             style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)' }} />
 
                         <div className='flexRow' style={{ justifyContent: 'center', width: '100%', flexWrap: 'wrap', overflowY: 'auto', }}>
@@ -119,14 +121,14 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                 <div style={{ width: '100%', borderTop: '1px solid lightgray', margin: '5px 0' }}></div>
 
                 <div className='flexColumn' style={{ width: '100%', flexWrap: 'wrap', textAlign: 'left' }}>
-                    <span style={{ fontWeight: "bold", marginBottom: '5px' }}>Itens to Add</span>
+                    <span style={{ fontWeight: "bold", marginBottom: '5px' }}>{t('rSys.itemsDefaults.itensToAdd')}</span>
                     <div style={{ backgroundColor: "white", color: "black", borderRadius: '10px', width: '100%', height: '200px', overflow: 'auto', border: `2px solid ${borderColorTwo(theme)}` }}>
                         <Table responsive="sm" >
                             <thead>
                                 <tr>
-                                    <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Item</th>
+                                    <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.items')}</th>
                                     {/* <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faPen} /></th> */}
-                                    <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Price</th>
+                                    <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.price')}</th>
                                     <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}><FontAwesomeIcon icon={faTrash} /></th>
                                 </tr>
                             </thead>
@@ -149,8 +151,8 @@ export default function SelectItemsModal({ close, allCompanyProductsCategories, 
                 </div>
 
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '15px' }}>
-                    <button className='buttonStandart red' onClick={() => close()}>Cancel</button>
-                    <button className='buttonStandart green' onClick={() => { addItemsToOrderAction(); }}>Add items</button>
+                    <button className='buttonStandart red' onClick={() => close()}>{t('buttons.cancel')}</button>
+                    <button className='buttonStandart green' onClick={() => { addItemsToOrderAction(); }}>{t('buttons.addItems')}</button>
                 </div>
             </div >
 

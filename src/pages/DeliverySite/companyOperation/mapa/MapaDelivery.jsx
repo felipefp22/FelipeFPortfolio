@@ -10,11 +10,13 @@ import { useSelector } from 'react-redux';
 import "leaflet/dist/leaflet.css";
 import { fontColorOne, greenOne, secondColor, secondColorInverse } from '../../../../theme/Colors';
 import ChangeOrderStatusModal from '../system/components/ChangeOrderStatusModal';
+import { useTranslation } from 'react-i18next';
 
 
 export default function MapaDelivery({ companyOperation, setHaveModalOpen, selectedCookingOrderID, setSelectedCookingOrderID, toggleSelectedCookingOrderID, getShiftOperationData }) {
   const theme = useSelector((state) => state.view.theme);
   const isPcV = useSelector((state) => state.view.isPcV);
+  const { t, i18n } = useTranslation();
   const [companyLat, setCompanyLat] = useState(null);
   const [companyLng, setCompanyLng] = useState(null);
   const [orders, setOrders] = useState([]);
@@ -64,7 +66,7 @@ export default function MapaDelivery({ companyOperation, setHaveModalOpen, selec
       });
       L.marker([companyLat, companyLng], { icon: restaurantIcon })
         .addTo(mapRef.current)
-        .bindPopup('RESTAURANTE');
+        .bindPopup(t('rSys.delMap.restaurantIconAlt'));
       //------------------------------
       // Marcadores lugares de entrega
 
@@ -204,7 +206,7 @@ export default function MapaDelivery({ companyOperation, setHaveModalOpen, selec
               padding: '3px', textAlign: 'center', position: 'absolute', left: -4, top: -34, backgroundColor: secondColor(theme), borderRadius: '3px', borderTop: '4px solid #eaa37a47', borderLeft: '4px solid #eaa37a47',
               borderRight: '4px solid #eaa37a47', color: fontColorOne(theme),
             }}>
-              <span style={{ fontWeight: 'bold', fontSize: '16px' }}>Waiting Time</span>
+              <span style={{ fontWeight: 'bold', fontSize: '16px' }}>{t('rSys.delMap.waitingTime')}</span>
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'nowrap', margin: '5px 5px', alignItems: 'center', justifyContent: 'center' }}><div className='divMapaDeliveryPoint' style={{ backgroundColor: selectMarkerColor(3) }}></div> <span> 1-5  </span></div>

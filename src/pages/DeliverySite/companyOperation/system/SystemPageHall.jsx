@@ -14,10 +14,12 @@ import EditOrderModal from "./components/EditOrderModal.jsx";
 import OrderClosedOrPaidDetailsModal from './components/auxComponents/OrderResumeModal.jsx';
 import OrderResumeModal from './components/auxComponents/OrderResumeModal.jsx';
 import SignalRService from '../../../../services/deliveryServices/auxServices/SignalRService.jsx';
+import { useTranslation } from 'react-i18next';
 
 export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOperationData, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
+    const { t, i18n } = useTranslation();
 
     const [newOrderModal, setNewOrderModal] = useState(false);
     const [editOrderModal, setEditOrderModal] = useState(false);
@@ -60,12 +62,12 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                 {onFocus !== "map" && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '12px', marginBottom: '8px' }}>
                     <button className='buttonStandart' style={{ visibility: isTableAvailable(companyOperation?.orders, selectedTable) ? 'visible' : 'hidden' }}
                         onClick={() => { setNewOrderModal(true); }}>
-                        {"New Order"}</button>
+                        {t('buttons.newOrder')}</button>
 
 
                     <button className='buttonStandart' style={{ visibility: isTableAvailable(companyOperation?.orders, selectedTable) ? 'hidden' : 'visible' }}
                         onClick={() => { setEditOrderModal(companyOperation?.orders?.find(order => String(order.tableNumberOrDeliveryOrPickup) === String(selectedTable) && order.status !== 'CANCELLED' && order.status !== 'PAID' )); }}>
-                        {"Edit Order"}</button>
+                        {t('buttons.editOrder')}</button>
                 </div>}
 
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'auto' }}>
@@ -131,7 +133,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
 
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
-                            <span style={{ color: fontColorOne(theme), fontSize: '24px', fontWeight: 'bold', }}>Waiting PickUp</span>
+                            <span style={{ color: fontColorOne(theme), fontSize: '24px', fontWeight: 'bold', }}>{t('rSys.hallSysPage.waitingPickup')}</span>
 
                             <button className='floatingButton greenTwo' style={{
                                 marginRight: '5px',
@@ -146,9 +148,9 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                             <Table responsive="sm" >
                                 <thead style={{ position: "sticky", zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.num')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.customer')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.status')}</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -193,7 +195,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
-                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>Completed Orders</span>
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>{t('rSys.hallSysPage.completedOrders')}</span>
                                 <FontAwesomeIcon style={{ marginLeft: '3px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
                         </div>
@@ -202,9 +204,9 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                             <Table responsive="sm" >
                                 <thead style={{ position: "sticky", zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.num')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.customer')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.status')}</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -225,7 +227,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
-                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>Canceled Orders</span>
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>{t('rSys.hallSysPage.cancelledOrders')}</span>
                                 <FontAwesomeIcon style={{ marginLeft: '3px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
                             <button className='floatingButton blue' style={{
@@ -240,9 +242,9 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                             <Table responsive="sm" >
                                 <thead style={{ position: "sticky", zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.num')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.customer')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.status')}</th>
                                     </tr>
                                 </thead>
                                 <tbody >

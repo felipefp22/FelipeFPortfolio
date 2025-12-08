@@ -1,33 +1,110 @@
 {
-  "skills": {
-    "title": "Skills",
-    "content": ""
-  },
-  "aboutMe": {
-    "title": "About Me",
-    "content": "Developer with primary focus on Backend Java-Spring Boot. \n\n I work on developing complete solutions and APIs for secure data handling, authentication integrated with social network logins, operational website and application, integration with payment methods, pipelines for cloud hosting, and automated deployment. Payment methods, Social media logins. \n\n Knowledge in Java, C#, HTML, CSS, React, React Native, JavaScript, SQL, NoSQL, Containers (Docker and Kubernetes), Azure Cloud Computing, Google Cloud, Git, GitHub Actions, Postman, and Insomnia. \n\n Planning of modern architecture prepared for easy implementation of future updates. Efficient databases with targeted indexing to ensure performance for both reading and writing. Experienced in identifying unnecessary loops (over loops) and optimizing processes. \n\n Postgraduate Degree - Architecture and JAVA Development"
-  },
-  "projects": {
-    "title": "Projects",
-    "content": "Here you can showcase your projects.",
-    "projectsIWorkedOn": "Delivered Projects",
-    "portfolioProjects": "Portfolio Projects",
-    "myHealth": {
-      "title": "minha-saude.com",
-      "description": "Website designed to be a Health Social Network, developed for a client, where I created the complete solution. \n\n A Java API was developed, frontend in React (adaptive for Web and Mobile), automated deployment pipeline on Azure Cloud for the API, and FTP for website deployment on cPanel, with a Postgres database in the cloud.  \n\n The website aims to be a social network where users can monitor their health, schedule appointments, exams, medications, and have a complete medical history.",
-      "description2": "View Site: "
+  "port": {
+    "skills": {
+      "title": "Skills",
+      "content": ""
     },
-    "restaurantDelivery": {
-      "title": "Restaurant Delivery",
-      "description1": "This is an application developed to showcase my code in operation. Fully adaptive for Web and Mobile. \n\n A website/application for a restaurant system, where the API was developed to run a complete system, and here on the site, the delivery section was implemented, with a map to assist in delivery route planning. \n\n",
-      "description2": "View Project: ",
-      "description3": "Backend code: ",
-      "description4": "Frontend code: "
+    "aboutMe": {
+      "title": "About Me",
+      "content": "Developer with primary focus on Backend Java-Spring Boot. \n\n I work on developing complete solutions and APIs for secure data handling, authentication integrated with social network logins, operational website and application, integration with payment methods, pipelines for cloud hosting, and automated deployment. Payment methods, Social media logins. \n\n Knowledge in Java, C#, HTML, CSS, React, React Native, JavaScript, SQL, NoSQL, Containers (Docker and Kubernetes), Azure Cloud Computing, Google Cloud, Git, GitHub Actions, Postman, and Insomnia. \n\n Planning of modern architecture prepared for easy implementation of future updates. Efficient databases with targeted indexing to ensure performance for both reading and writing. Experienced in identifying unnecessary loops (over loops) and optimizing processes. \n\n Postgraduate Degree - Architecture and JAVA Development"
+    },
+    "projects": {
+      "title": "Projects",
+      "content": "Here you can showcase your projects.",
+      "projectsIWorkedOn": "Delivered Projects",
+      "portfolioProjects": "Portfolio Projects",
+      "myHealth": {
+        "title": "minha-saude.com",
+        "description": "Website designed to be a Health Social Network, developed for a client, where I created the complete solution. \n\n A Java API was developed, frontend in React (adaptive for Web and Mobile), automated deployment pipeline on Azure Cloud for the API, and FTP for website deployment on cPanel, with a Postgres database in the cloud.  \n\n The website aims to be a social network where users can monitor their health, schedule appointments, exams, medications, and have a complete medical history.",
+        "description2": "View Site: "
+      },
+      "restaurantDelivery": {
+        "title": "Restaurant Delivery",
+        "description1": "This is an application developed to showcase my code in operation. Fully adaptive for Web and Mobile. \n\n A website/application for a restaurant system, where the API was developed to run a complete system, and here on the site, the delivery section was implemented, with a map to assist in delivery route planning. \n\n",
+        "description2": "View Project: ",
+        "description3": "Backend code: ",
+        "description4": "Frontend code: "
+      }
+    },
+    "contacts": {
+      "title": "Contacts",
+      "content": "Here you can showcase your contacts."
     }
   },
-  "contacts": {
-    "title": "Contacts",
-    "content": "Here you can showcase your contacts."
+  "rSys": {
+    "delMap": {
+      "waitingTime": "Waiting Time",
+      "restaurantIconAlt": "Restaurant"
+    },
+    "delSysPage": {
+      "ordersCooking": "Orders Cooking",
+      "ordersOnDelivery": "Orders On Delivery",
+      "completedDeliveryOrders": "Completed Delivery Orders",
+      "cancelledDeliveryOrders": "Cancelled Delivery Orders"
+    },
+    "hallSysPage": {
+      "waitingPickup": "Waiting Pickup",
+      "completedOrders": "Completed Orders",
+      "cancelledOrders": "Cancelled Orders"
+    },
+    "placeHolders": {
+      "filterItemsPlaceholder": "Filter Items",
+      "searchCustomerPlaceHolder": "Search Customer by Name or Phone"
+    },
+    "words": {
+      "num": "Num",
+      "customer": "Customer",
+      "minutes": "Minutes",
+      "status": "Status",
+      "items": "Items",
+      "price": "Price",
+      "name": "Name",
+      "table": "Table",
+      "pickup": "Pickup",
+      "delivery": "Delivery",
+      "order": "Order"
+    },
+    "itemsDefaults": {
+      "all": "All",
+      "itensToAdd": "Items to Add"
+    },
+    "customerDefaults": {
+      "select": "Select",
+      "customerName": "Customer Name",
+      "customerAdrress": "Customer Address",
+      "customerAddressNumber": "Number",
+      "customerAddressComplement": "Complement",
+      "customerPhone": "Phone"
+    },
+    "addressDefaults": {
+      "searchAddressPlaceHolder": "Search Address",
+      "distance": "Distance",
+      "aboveIdeal": "⚠️Above Ideal "
+    }
+  },
+  "buttons": {
+    "newOrder": "New Order",
+    "editOrder": "Edit Order",
+    "saveOrder": "Save Order",
+    "cancelOrder": "Cancel Order",
+    "closeOrder": "Close Order",
+    "finishOrders": "Finish Orders",
+    "newCustomer": "New Customer",
+    "editCustomer": "Edit Customer",
+    "saveCustomer": "Save Customer",
+    "changeTableOrCustomer": "Change Table/Customer",
+    "changeNameOrCustomer": "Change Name/Customer",
+    "changeTableOrPickupOrDelivery": "Change Table/Pickup/Delivery",
+    "name": "Name",
+    "customer": "Customer",
+    "addItems": "Add Items",
+    "table": "Table",
+    "Pickup": "Pickup",
+    "Delivery": "Delivery",
+    "done": "Done",
+    "return": "Return",
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "login": "Login",
   "logout": "Logout",

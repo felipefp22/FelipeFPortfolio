@@ -23,75 +23,75 @@ export default function AboutMe( { activeMenu } ) {
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left', fontSize: isPcV ? '26px' : '18px', fontWeight: '600' }} >
-                {/* <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isPcV ? '30px' : '20px', fontWeight: '700' }}>{t("skills.title")}</span> */}
+                {/* <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isPcV ? '30px' : '20px', fontWeight: '700' }}>{t("port.skills.title")}</span> */}
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={javaLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={javaLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(255, 255, 255, 1)' }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"Java"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"Java"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={springBootLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={springBootLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"SpringBoot"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"SpringBoot"}</span>}
                 </div>
 
                 {/* <div style={{ height: '3px', backgroundColor: 'white', marginBottom: '20px' }} /> */}
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={cSharpLogo} alt="Logo" style={{  width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={cSharpLogo} alt="Logo" style={{  width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(18, 14, 14, 1)' }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"C#"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"C#"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={sqlLogo} alt="Logo" style={{  width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={sqlLogo} alt="Logo" style={{  width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", backgroundColor: 'white' }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"SQL"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"SQL"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={mongoDbLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={mongoDbLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(164, 211, 159, 1)' }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"NoSQL"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"NoSQL"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={azureLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={azureLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", backgroundColor: 'white', }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"Azure"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"Azure"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={gitHubLogo} alt="Logo" style={{  width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={gitHubLogo} alt="Logo" style={{  width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", backgroundColor: 'black' }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"GitHub Actions"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"GitHub Actions"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={reactLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={reactLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", animation: "spin 10s linear infinite" }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"React"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"React"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={reactNativeLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={reactNativeLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", backgroundColor: 'rgba(0, 0, 0, 1)', animation: "spin-reverse 10s linear infinite" }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"React Native"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"React Native"}</span>}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'left', marginBottom: '20px' }} >
-                    <img src={dockerLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("skills.title")) ? 40 : 35,
+                    <img src={dockerLogo} alt="Logo" style={{ width: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35, height: isPcV ? 50 : (!isPcV && activeMenu === t("port.skills.title")) ? 40 : 35,
                          borderRadius: '50%', border: "2px solid white", backgroundColor: 'white', }} />
-                    {(isPcV || (!isPcV && activeMenu === t("skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"Docker"}</span>}
+                    {(isPcV || (!isPcV && activeMenu === t("port.skills.title"))) && <span style={{ marginLeft: isPcV ? '20px' : '10px' }}>{"Docker"}</span>}
                 </div>
             </div>
-            {(isPcV || (!isPcV && activeMenu === t("aboutMe.title"))) &&  <div style={{ width: '3px', backgroundColor: 'white', margin: isPcV ? '0px 30px' : '0px 10px' }} />}
+            {(isPcV || (!isPcV && activeMenu === t("port.aboutMe.title"))) &&  <div style={{ width: '3px', backgroundColor: 'white', margin: isPcV ? '0px 30px' : '0px 10px' }} />}
 
-            {(isPcV || (!isPcV && activeMenu === t("aboutMe.title"))) && <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left', fontSize: isPcV ? '26px' : '18px', fontWeight: '700' }} >
-                <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isPcV ? '30px' : '20px' }}>{t("aboutMe.title")}</span>
-                <p style={{ whiteSpace: 'pre-line', fontSize: '18px', fontWeight: '400', lineHeight: '1.5' }}>{t("aboutMe.content")}</p>
+            {(isPcV || (!isPcV && activeMenu === t("port.aboutMe.title"))) && <div style={{ display: 'flex', flexDirection: 'column', alignContent: 'left', textAlign: 'left', fontSize: isPcV ? '26px' : '18px', fontWeight: '700' }} >
+                <span style={{ marginBottom: '20px', textDecoration: 'underline', fontSize: isPcV ? '30px' : '20px' }}>{t("port.aboutMe.title")}</span>
+                <p style={{ whiteSpace: 'pre-line', fontSize: '18px', fontWeight: '400', lineHeight: '1.5' }}>{t("port.aboutMe.content")}</p>
             </div>}
         </>
     );

@@ -12,11 +12,13 @@ import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServi
 import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import EditOrderModal from "./components/EditOrderModal.jsx";
 import OrderResumeModal from './components/auxComponents/OrderResumeModal.jsx';
+import { useTranslation } from 'react-i18next';
 
 
 export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShiftOperationData, selectedCookingOrderID, setSelectedCookingOrderID, toggleSelectedCookingOrderID, isTableAvailable }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
+    const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     const [newOrderModal, setNewOrderModal] = useState(false);
     const newOrderModalRef = useRef(null);
@@ -67,13 +69,13 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
             <div className='flexColumn' style={{ height: '100%', overflowY: 'auto', }}>
                 {onFocus !== "map" && <div className='flexRow' style={{ width: '100%', margin: '3px 0px' }}>
                     <button className='buttonStandart' style={{ marginLeft: '0px', }}
-                        onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setSeeCompletedOrCancelledOrders(false); }}>New Order</button>
+                        onClick={() => { setNewOrderModal(true); setHaveModalOpen(true); setSelectedCookingOrderID([]); setSelectedOnDeliveryOrderID([]); setSeeCompletedOrCancelledOrders(false); }}>{t('buttons.newOrder')}</button>
                 </div>}
 
                 <div className='flexColumn' >
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
-                            <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders Cooking</span>
+                            <span style={{ fontSize: '24px', fontWeight: 'bold', }}>{t('rSys.delSysPage.ordersCooking')}</span>
 
                             {requesterIsOwnerOrManagerOrSupervisor && <button className='floatingButton greenTwo' style={{
                                 marginRight: '5px',
@@ -87,9 +89,9 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                             <Table responsive="sm" >
                                 <thead style={{ position: "sticky", zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Minutes</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.num')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.customer')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.minutes')}</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -116,7 +118,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
 
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
-                            <span style={{ fontSize: '24px', fontWeight: 'bold', }}>Orders on Delivery</span>
+                            <span style={{ fontSize: '24px', fontWeight: 'bold', }}>{t('rSys.delSysPage.ordersOnDelivery')}</span>
 
                             <button className='floatingButton' style={{
                                 backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px',
@@ -131,9 +133,9 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                             <Table responsive="sm" >
                                 <thead style={{ position: "sticky", top: 0, zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Minutes</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.num')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.customer')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.minutes')}</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -156,7 +158,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center' }} onClick={() => setSeeCompletedOrders(!seeCompletedOrders)}>
-                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>Completed Delivery Orders</span>
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>{t('rSys.delSysPage.completedDeliveryOrders')}</span>
 
                                 <FontAwesomeIcon style={{ marginLeft: '5px', fontSize: '22px', opacity: 0.8 }} icon={seeCompletedOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
@@ -173,9 +175,9 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                             <Table responsive="sm" >
                                 <thead style={{ position: "sticky", zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.num')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.customer')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.minutes')}</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -195,7 +197,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                     {onFocus !== "map" && <div className='flexColumn' style={{ textAlign: 'left', marginBottom: '5px', }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginBottom: '8px', }}>
                             <div className='flexRow' style={{ alignItems: 'center' }} onClick={() => setSeeCanceledOrders(!seeCanceledOrders)}>
-                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>Canceled Delivery Orders</span>
+                                <span style={{ color: theme === "LIGHT" ? fontColorOne(theme) : borderColorTwo(theme), fontSize: '20px', fontWeight: 'bold', }}>{t('rSys.delSysPage.cancelledDeliveryOrders')}</span>
 
                                 <FontAwesomeIcon style={{ marginLeft: '3px', fontSize: '22px', opacity: 0.8 }} icon={seeCanceledOrders ? faSquareCaretUp : faSquareCaretDown} />
                             </div>
@@ -211,9 +213,9 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                             <Table responsive="sm" >
                                 <thead style={{ position: "sticky", zIndex: 2, }}>
                                     <tr>
-                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>Num</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Customer</th>
-                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>Status</th>
+                                        <th style={{ width: "100%", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.num')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.customer')}</th>
+                                        <th style={{ width: "40px", backgroundColor: 'lightgray', padding: '3px 5px' }}>{t('rSys.words.minutes')}</th>
                                     </tr>
                                 </thead>
                                 <tbody >

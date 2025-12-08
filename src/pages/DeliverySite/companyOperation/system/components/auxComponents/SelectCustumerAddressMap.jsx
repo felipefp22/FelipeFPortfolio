@@ -6,6 +6,7 @@ import 'leaflet-control-geocoder';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 import { calculateEstimatedKm, calculatePrice } from '../../../../../../redux/calculateDeliveryDistancePrice';
 import { blueOne, greenTwo, orangeOne, redOne } from '../../../../../../theme/Colors';
+import { useTranslation } from 'react-i18next';
 
 const restaurantIcon = L.icon({
     iconUrl: restaurantLogo,
@@ -23,6 +24,7 @@ const addressIcon = L.icon({
 export default function SelectCustumerAddressMap({ lat, lng, address, setLat, setLng, companyOperation, setSearchAddressInput, showAddressSelectorDropdown }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
+    const { t, i18n } = useTranslation();
     const [companyLat, setCompanyLat] = useState(null);
     const [companyLng, setCompanyLng] = useState(null);
     const [orders, setOrders] = useState([]);
@@ -112,10 +114,10 @@ export default function SelectCustumerAddressMap({ lat, lng, address, setLat, se
                 <div id="mapa" style={{ width: '100%', height: '100%', minHeight: 0, cursor: 'pointer', zIndex: 4 }} />
             </div>
             <div className='flexRow fullCenter' style={{ margin: '3px 0px', }} >
-                <span style={{ fontWeight: "600", }}>Distance:</span>
+                <span style={{ fontWeight: "600", }}>{t('rSys.addressDefaults.distance')}:</span>
                 <span style={{ fontWeight: "600", color: blueOne(theme), marginLeft: 5 }}>{getCustomerEstimatedKm().km ? getCustomerEstimatedKm().km + " Km" : "0"}</span>
                 {getCustomerEstimatedKm().km >= companyOperation?.maxRecommendedDistanceKM && getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: orangeOne(theme), marginLeft: 2 }}>
-                    {'⚠️Above Ideal '}</span>}
+                    {t('rSys.addressDefaults.aboveIdeal')}</span>}
                 {getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: blueOne(theme), marginLeft: 2 }}>
                     {'🚫'}</span>}
                 {getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", color: greenTwo(theme), marginLeft: 5 }}>{'$' + getCustomerEstimatedKm().price}</span>}
