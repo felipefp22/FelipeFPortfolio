@@ -3,12 +3,14 @@ import { cancelOrder } from "../../../../../services/deliveryServices/OrderServi
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { orangeOne, redOne } from "../../../../../theme/Colors";
+import { useTranslation } from 'react-i18next';
 
 
 export default function CancelOrder({ close, closeFromCancel, companyOperationID, selectedOrderToCancel, getShiftOperationData }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
     const orders = useSelector((state) => state.companyOperation.orders);
+    const { t, i18n } = useTranslation();
 
     const [processing, setProcessing] = useState(false);
     const [adminPassword, setAdminPassword] = useState("");
@@ -33,9 +35,10 @@ export default function CancelOrder({ close, closeFromCancel, companyOperationID
             <div className='modalInside' style={{ width: 'auto', padding: '20px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", fontSize: !isPcV ? '20px' : '26px', fontWeight: 'bold' }}>
                 <div>
                     <div className='flexColumn fullCenter' >
-                        <span>Cancel Order?</span>
+                        <span>{t('rSys.phrases.cancelOrder')}?</span>
 
                         <span style={{ color: 'rgba(45, 234, 28, 0.7)', fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>
+                            {(selectedOrderToCancel?.tableNumberOrDeliveryOrPickup !== 'delivery' && selectedOrderToCancel?.tableNumberOrDeliveryOrPickup !== 'pickup') ? t('rSys.words.table') + " " : ""}
                             {selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.charAt(0).toUpperCase() + selectedOrderToCancel?.tableNumberOrDeliveryOrPickup.slice(1)}</span>
 
                         <span style={{ fontSize: !isPcV ? '16px' : '22px', fontWeight: '500' }}>
@@ -43,17 +46,17 @@ export default function CancelOrder({ close, closeFromCancel, companyOperationID
                     </div>
 
                     <div className='flexColumn fullCenter' >
-                        <input className='inputStandart' onFocus={(e) => e.target.setAttribute("autoComplete", "none")} style={{ width: '90%', textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
-                            placeholder="Enter Admin Password" />
-                        <span style={{ fontSize: '14px', color: 'rgba(200,200,200, 1)' }}>* If never Setted, default password "1234"</span>
+                        <input className='inputStandart' onFocus={(e) => e.target.setAttribute("autoComplete", "none")} style={{ width: '90%', textAlign: "center", fontSize: isPcV ? '20px' : '16px' }} type="password" value={adminPassword} 
+                        onChange={(e) => { setAdminPassword(e.target.value); }} placeholder={t('rSys.placeHolders.enterAdminPassword')} />
+                        <span style={{ fontSize: '14px', color: 'rgba(200,200,200, 1)' }}>{t('rSys.phrases.defaultPasswordMsg')}</span>
                     </div>
 
                     {!processing && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '20px' }}>
                         <button className='buttonStandart' style={{ background: 'none', border: "none", color: 'gray', fontSize: '16px' }}
-                            onClick={() => { close(); }} disabled={processing}>Return</button>
+                            onClick={() => { close(); }} disabled={processing}>{t('buttons.return')}</button>
 
                         <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme), fontSize: '16px' }}
-                            onClick={() => { handleCancelOrder() }} disabled={processing}>Cancel Order</button>
+                            onClick={() => { handleCancelOrder() }} disabled={processing}>{t('buttons.cancelOrder')}</button>
                     </div>}
 
                     {processing && <div className='flexRow fullCenter' style={{ width: '100%', marginTop: '20px' }}>

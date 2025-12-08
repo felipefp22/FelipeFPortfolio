@@ -169,7 +169,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px',
                             visibility: editNameCustomer ? (selectUseCustomerOrPickUpName === 'Customer' ? 'visible' : 'hidden') : 'hidden'
                         }}
-                            onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>New customer</button>
+                            onClick={() => setShowNewCustomerModal(true)} disabled={disabled}>{t('buttons.newCustomer')}</button>
 
                         {!editNameCustomer && !editTable && <button className='buttonStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', whiteSpace: 'nowrap', }}
                             onClick={() => { setEditNameCustomer(true) }} disabled={disabled}>{t('buttons.changeNameOrCustomer')}</button>}
@@ -191,17 +191,17 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
                 {editNameCustomer && <div style={{ marginBottom: '5px' }}>
                     <div className='flexRow spaceBetweenJC' style={{ width: '100%' }}>
-                        {tableNumberOrDeliveryOrPickup === 'delivery' && <span style={{ fontWeight: "600" }}>Customer</span>}
+                        {tableNumberOrDeliveryOrPickup === 'delivery' && <span style={{ fontWeight: "600" }}>{t('rSys.words.customer')}</span>}
                         {tableNumberOrDeliveryOrPickup !== 'delivery' && <select className='inputStandart' value={selectUseCustomerOrPickUpName || ''} placeholder="Table" onChange={(e) => setSelectUseCustomerOrPickUpName(e.target.value)}
                             style={{ minWidth: '30px', maxWidth: '90px', height: '30px', padding: '0px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'left', }} >
-                            <option value='' disabled hidden> Select </option>
-                            <option value={'Customer'}> {'Customer'} </option>
-                            <option value={'Name'}> {'Name'} </option>
+                            <option value='' disabled hidden> {t('rSys.words.select')} </option>
+                            <option value={'Customer'}> {t('rSys.words.customer')} </option>
+                            <option value={'Name'}> {t('rSys.words.name')} </option>
                         </select>}
 
                         {selectUseCustomerOrPickUpName === 'Customer' && newCustomerCandidate && <button className={`buttonStandart`}
                             style={{ fontSize: isPcV ? '17px' : '14px', height: '28px', padding: isPcV ? '0px 10px' : '0px 6px', }}
-                            onClick={() => { setShowNewCustomerModal(newCustomerCandidate); }} disabled={disabled}><FontAwesomeIcon icon={faPen} /><span style={{ fontWeight: "600" }}> Edit Customer</span></button>}
+                            onClick={() => { setShowNewCustomerModal(newCustomerCandidate); }} disabled={disabled}><FontAwesomeIcon icon={faPen} /><span style={{ fontWeight: "600" }}>{t('buttons.editCustomer')}</span></button>}
                     </div>
                 </div>}
 
@@ -218,7 +218,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                 {selectUseCustomerOrPickUpName === 'Customer' && <div>
                     <div ref={customerSelectorDropdownRef} style={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%' }}>
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%' }}>
-                            {!editNameCustomer && <span style={{ fontWeight: "600", padding: '0px 0px', }}>Customer:</span>}
+                            {!editNameCustomer && <span style={{ fontWeight: "600", padding: '0px 0px', }}>{t('rSys.words.customer')}:</span>}
                         </div>
 
                         <input
@@ -227,7 +227,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             onChange={e => setCustomerInputToSearch(e.target.value)}
                             onFocus={() => setShowCustomerSelectorDropdown(true)}
                             onBlur={() => { setCustomerInputToSearch(""); setShowCustomerSelectorDropdown(false); }}
-                            placeholder={editNameCustomer ? "Search Customer by Name or Phone" : "Select Customer"}
+                            placeholder={editNameCustomer ? t('rSys.placeHolders.searchCustomerPlaceHolder') : t('rSys.placeHolders.selectCustomer')}
                             disabled={disabled || !editNameCustomer}
                             style={{ height: '35px', backgroundColor: editNameCustomer ? 'white' : 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, borderRadius: '5px', marginTop: '5px', border: 'none', borderRadius: "3px", border: `1px solid ${borderColorTwo(theme)}` }}
                         />
@@ -253,13 +253,13 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
                         <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', }}>
                             <div className='flexColumn' style={{ width: '69%', }}>
-                                <span style={{ fontWeight: "600", marginBottom: '5px' }}>Customer Address</span>
+                                <span style={{ fontWeight: "600", marginBottom: '5px' }}>{t('rSys.customerDefaults.customerAddress')}</span>
                                 <input className='inputStandart' type="text" value={!editNameCustomer ? (customerSelected?.address) : (newCustomerCandidate ? newCustomerCandidate.address + ", " + newCustomerCandidate.addressNumber : "")} disabled={true}
                                     style={{ height: '25px', fontSize: isPcV ? '18px' : '15px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
                             <div style={{ width: '3%' }}></div>
                             <div className='flexColumn' style={{ width: '28%' }}>
-                                <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>Phone</span>
+                                <span style={{ fontWeight: "600", whiteSpace: 'nowrap', marginBottom: '5px' }}>{t('rSys.customerDefaults.customerPhone')}</span>
                                 <input className='inputStandart' value={!editNameCustomer ? (customerSelected?.phone) : (newCustomerCandidate ? newCustomerCandidate?.phone : "")} disabled={true}
                                     style={{ height: '25px', fontSize: isPcV ? '18px' : '15px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', margin: 0, overflowX: 'auto', }} />
                             </div>
@@ -267,7 +267,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                     </div>
 
                     <div className='flexRow fullCenter' style={{ margin: '3px 0px', }} >
-                        <span style={{ fontWeight: "600", }}>Distance:</span>
+                        <span style={{ fontWeight: "600", }}>{t('rSys.addressDefaults.distance')}:</span>
                         <span style={{ fontWeight: "600", color: blueOne(theme), marginLeft: 5 }}>{getCustomerEstimatedKm().km ? getCustomerEstimatedKm().km + " Km" : "0"}</span>
                         {getCustomerEstimatedKm().km >= companyOperation?.maxRecommendedDistanceKM && getCustomerEstimatedKm().km < companyOperation?.maxDeliveryDistanceKM && <span style={{ fontWeight: "600", padding: '0px 0px', color: orangeOne(theme), marginLeft: 2 }}>
                             {'⚠️Above Ideal '}</span>}
@@ -286,7 +286,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
                 <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '8px', }}>
                     <button className='buttonStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', visibility: 'hidden' }}
-                        onClick={() => { }} disabled={disabled}>New customer</button>
+                        onClick={() => { }} disabled={disabled}>{t('buttons.newCustomer')}</button>
 
                     {!editTable && !editNameCustomer && <button className='buttonStandart' style={{ fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', marginBottom: '20px', whiteSpace: 'nowrap', }}
                         onClick={() => { setEditTable(true) }} disabled={disabled}>{t('buttons.changeTableOrPickupOrDelivery')}</button>}
@@ -306,7 +306,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
                 {!editTable && <div className='flexRow' style={{ justifyContent: 'center', width: '100%', marginBottom: '10px', alignItems: 'center' }}>
                     <span style={{ fontWeight: "600", fontSize: isPcV ? '32px' : '26px', color: greenTwo(theme), }}>
-                        {tableNumberOrDeliveryOrPickup === 'delivery' ? 'Delivery' : (tableNumberOrDeliveryOrPickup === 'pickup' ? 'Pickup' : `Table ${tableNumberOrDeliveryOrPickup}`)} </span>
+                        {tableNumberOrDeliveryOrPickup === 'delivery' ? t('rSys.words.delivery') : (tableNumberOrDeliveryOrPickup === 'pickup' ? t('rSys.words.pickup') : `${t('rSys.words.table')} ${tableNumberOrDeliveryOrPickup}`)} </span>
                 </div>}
 
                 {editTable && <div className='flexRow' style={{ justifyContent: 'center', width: '100%', marginBottom: '10px', alignItems: 'center' }}>
@@ -317,7 +317,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                                 minWidth: '60px', maxWidth: '120px', height: '35px', padding: '5px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`,
                                 backgroundColor: (!isNaN(Number(newTableCandidate)) && newTableCandidate) ? greenOne(theme) : '', appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none',
                             }} >
-                            <option value="" disabled hidden> Table </option>
+                            <option value="" disabled hidden>{t('rSys.words.table')}</option>
                             {Array.from({ length: companyOperation?.numberOfTables || 0 }, (_, i) => {
                                 const tableNumber = i + 1; // tables start from 1
                                 const disableOpt = !isTableAvailable(companyOperation?.orders, tableNumber);
@@ -331,13 +331,13 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px',
                             backgroundColor: newTableCandidate === 'pickup' ? greenOne(theme) : ''
                         }}
-                            onClick={() => { setNewTableCandidate('pickup'); }} disabled={disabled}>PickUp</button>
+                            onClick={() => { setNewTableCandidate('pickup'); }} disabled={disabled}>{t('rSys.words.pickup')}</button>
                         <button className='buttonStandart' style={{
                             fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px',
                             backgroundColor: newTableCandidate === 'delivery' ? greenOne(theme) : ''
                         }}
                             onClick={() => { if (orderToEdit?.customer) setNewTableCandidate('delivery'); else { alert('For delivery ADD Customer first.'); setSelectUseCustomerOrPickUpName('Customer'); setEditTable(false); setEditNameCustomer(true); } }}
-                            disabled={disabled}>Delivery</button>
+                            disabled={disabled}>{t('rSys.words.delivery')}</button>
                     </div>
                 </div>}
 

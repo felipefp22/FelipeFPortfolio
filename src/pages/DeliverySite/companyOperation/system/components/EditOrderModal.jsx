@@ -192,7 +192,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
                     <div className='flexColumn' style={{ marginTop: '5px', }}>
                         {orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' && <div className='flexRow fullCenter' style={{ height: '100%', width: '100%', position: 'absolute' }} >
-                            <span style={{ fontSize: 24, fontWeight: 'bold', backgroundColor: 'rgba(0,0,0, 1)', padding: '20px', borderRadius: '10px', color: redOne(theme) }}>Order Closed </span>
+                            <span style={{ fontSize: 24, fontWeight: 'bold', backgroundColor: 'rgba(0,0,0, 1)', padding: '20px', borderRadius: '10px', color: redOne(theme) }}>{t('rSys.phrases.orderClosed')}</span>
                         </div>}
 
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%' }}>
@@ -235,7 +235,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1, }}>
                     <div className='flexRow spaceBetweenJC' style={{ alignItems: 'center', width: '100%' }}>
-                        <span style={{ fontWeight: "bold", color: borderColorTwo(theme), fontSize: isPcV ? '24px' : '18px' }}>Itens Already On Order</span>
+                        <span style={{ fontWeight: "bold", color: borderColorTwo(theme), fontSize: isPcV ? '24px' : '18px' }}>{t('rSys.phrases.itemsAlreadyOnOrder')}</span>
 
                         <button className='floatingButton' style={{ backgroundColor: 'rgba(22, 111, 163, 1)', marginRight: '5px', visibility: (selectedCustomItemsToAdd.length > 0) ? 'visible' : 'hidden' }} onClick={() => handleAddItemsToOrder()} >
                             <FontAwesomeIcon icon={faArrowDown} flip="horizontal" />
@@ -275,7 +275,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
                     <div className='flexRow fullCenter' >
                         {(orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') &&
-                            <button className='buttonStandart green' style={{ marginRight: 5 }} onClick={() => { openOrderAgain() }} disabled={disabled}>{'Reopen'}</button>}
+                            <button className='buttonStandart green' style={{ marginRight: 5 }} onClick={() => { openOrderAgain() }} disabled={disabled}>{t('buttons.reopenOrder')}</button>}
 
                         {(orderToEdit?.status === 'OPEN' || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') &&
                             <button className='buttonStandart green' onClick={() => setShowCloseOrFinishOrderModal(true)} disabled={disabled}>{orderToEdit?.status === 'OPEN' ? t('buttons.closeOrder') : t('buttons.finishOrders')}</button>}

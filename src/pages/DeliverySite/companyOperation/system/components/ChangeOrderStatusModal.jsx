@@ -3,11 +3,13 @@ import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { closeOrder, reopenOrder } from "../../../../../services/deliveryServices/OrderService";
 import { blueOne, fontColorOne, greenOne, redOne } from "../../../../../theme/Colors";
+import { useTranslation } from 'react-i18next';
 
 export default function ChangeOrderStatusModal({ close, companyOperation, selectedCookingOrderID, setSelectedCookingOrderID, selectedOnDeliveryOrderID, setSelectedOnDeliveryOrderID, getShiftOperationData, }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
     const orders = useSelector((state) => state.companyOperation.orders);
+    const { t } = useTranslation();
 
     const [processing, setProcessing] = useState(false);
     const [deliverymanSelectedID, setDeliverymanSelectedID] = useState(null);
@@ -40,7 +42,7 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
         <>
             <div className='modalInside' style={{ maxWidth: isPcV ? "80%" : "85%", maxHeight: isPcV ? "90%" : "95%", fontSize: !isPcV ? '18px' : '22px', fontWeight: 'bold' }}>
                 {selectedCookingOrderID.length > 0 && <div className='flexColumn fullCenter' style={{}}>
-                    <span>Dispach to delivery?</span>
+                    <span>{t('rSys.phrases.dispachToDelivery')}</span>
 
                     {selectedCookingOrderID?.map((id, i) => {
                             const order = orders?.find(o => o.id === id);
@@ -55,8 +57,8 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
 
                     <br />
                     <select className='inputStandart' value={deliverymanSelectedID || ""} onChange={(e) => setDeliverymanSelectedID(e.target.value)} style={{ fontSize: 16, flexGrow: 1, maxWidth: '520px', padding: '5px', borderRadius: '6px', textAlign: 'center' }} >
-                        {!deliverymanSelectedID && <option value="">Select Delivery-Man</option>}
-                        {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").length > 0 && <optgroup label="Registered Users" style={{ color: blueOne(theme) }}>
+                        {!deliverymanSelectedID && <option value="">{t('rSys.placeHolders.selectDeliveryMan')}</option>}
+                        {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").length > 0 && <optgroup label={t('rSys.phrases.registeredUsers')} style={{ color: blueOne(theme) }}>
                             {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").map((value, index) => (
                                 <option key={index} value={value.employeeEmail} style={{ color: fontColorOne(theme) }}>
                                     {value.employeeEmail}
@@ -66,7 +68,7 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
 
                         {companyOperation?.employees?.filter(employee => employee.position === "DELIVERYMAN").length > 0 && companyOperation?.noUserDeliveryMans?.length > 0 && <optgroup />}
 
-                        {companyOperation?.noUserDeliveryMans?.length > 0 && <optgroup label="Unregistered Users" style={{ color: blueOne(theme) }}>
+                        {companyOperation?.noUserDeliveryMans?.length > 0 && <optgroup label={t('rSys.phrases.unregisteredUsers')} style={{ color: blueOne(theme) }}>
                             {companyOperation?.noUserDeliveryMans?.map((value, index) => (
                                 <option key={index} value={value} style={{ color: fontColorOne(theme) }}>
                                     {value}
@@ -79,7 +81,7 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
                 </div>}
 
                 {selectedOnDeliveryOrderID.length > 0 && <div>
-                    <span>Reopen Orders?</span>
+                    <span>{t('rSys.phrases.reopenOrders')}?</span>
 
                     {orders?.filter(order => selectedOnDeliveryOrderID?.includes(order.id)).map((order, i) => (
                         <div key={i}>
@@ -92,10 +94,10 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
 
                 {!processing && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: 15 }}>
                     <button className='buttonNoBgNoBorder fontRed' style={{ marginRight: '100px', fontSize: '16px' }}
-                        onClick={() => { close(); }} disabled={processing}>Cancel</button>
+                        onClick={() => { close(); }} disabled={processing}>{t('buttons.cancel')}</button>
 
                     <button className='buttonNoBgNoBorder fontGreen' style={{ fontSize: '16px' }}
-                        onClick={() => { if (selectedCookingOrderID.length > 0) dispatchOrders(); if (selectedOnDeliveryOrderID.length > 0) openOrdersAgain(); }} disabled={processing}>Yes</button>
+                        onClick={() => { if (selectedCookingOrderID.length > 0) dispatchOrders(); if (selectedOnDeliveryOrderID.length > 0) openOrdersAgain(); }} disabled={processing}>{t('buttons.ok')}</button>
                 </div>}
 
                 {processing && <div className='flexRow fullCenter' style={{ width: '100%', marginTop: 15 }}>

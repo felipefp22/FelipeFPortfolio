@@ -203,7 +203,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                             <select className={`buttonStandart ${((!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) && tableNumberOrDeliveryOrPickupSelected) && 'green')}`}
                                 value={!isNaN(Number(tableNumberOrDeliveryOrPickupSelected)) ? tableNumberOrDeliveryOrPickupSelected : ""} placeholder="Table" onChange={(e) => setTableNumberOrDeliveryOrPickupSelected(Number(e.target.value))}
                                 style={{ height: '35px', padding: '5px', borderRadius: '6px', fontSize: isPcV ? '17px' : '14px', textAlign: 'center', border: `1px solid ${borderColorOne(theme)}`, }} >
-                                <option value="" disabled hidden> Table </option>
+                                <option value="" disabled hidden>{t('rSys.words.table')}</option>
                                 {Array.from({ length: companyOperation?.numberOfTables || 0 }, (_, i) => {
                                     const tableNumber = i + 1; // tables start from 1
                                     const disableOpt = !isTableAvailable(companyOperation?.orders, tableNumber);
@@ -276,7 +276,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
                         </div>
                         <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', }}>
                             <div className='flexColumn' style={{ width: '62%', }}>
-                                <span style={{ fontWeight: "600" }}>{t('rSys.customerDefaults.customerAdrress')}</span>
+                                <span style={{ fontWeight: "600" }}>{t('rSys.customerDefaults.customerAddress')}</span>
                                 <input className='inputStandart' type="text" value={customerSelectedToNewOrder ? customerSelectedToNewOrder.address + ", " + customerSelectedToNewOrder.addressNumber : ""} disabled={true}
                                     style={{ height: '25px', fontSize: isPcV ? '15px' : '12px', backgroundColor: 'lightgray', color: 'black', width: '100%', paddingLeft: '10px', overflowX: 'auto', }} />
                             </div>

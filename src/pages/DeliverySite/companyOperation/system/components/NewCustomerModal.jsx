@@ -170,7 +170,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
 
                 <div className='flexRow' style={{ width: '100%', flexWrap: 'wrap', }}>
                     <div className='flexColumn' style={{ alignItems: 'flex-start', width: '77%', }}>
-                        <span style={{ fontWeight: "600", marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>{t('rSys.customerDefaults.customerAdrress')}</span>
+                        <span style={{ fontWeight: "600", marginBottom: '5px', fontSize: isPcV ? '16px' : '14px', }}>{t('rSys.customerDefaults.customerAddress')}</span>
                         <input className='inputStandart' type="text" value={address ?? ""} onChange={(e) => setAddress(e.target.value)} disabled={true}
                             style={{ height: '30px', width: '100%', paddingLeft: '10px', backgroundColor: 'lightgray', color: 'black' }} />
                     </div>

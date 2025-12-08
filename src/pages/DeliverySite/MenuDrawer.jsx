@@ -8,17 +8,27 @@ import { borderColorTwo, fontColorOne, mainColor, secondColor, secondColorInvers
 import { setProfileTheme } from "../../services/deliveryServices/AUserService.js";
 import { setTheme } from '../../redux/viewSlice.js';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+import brazilFlag from '../../assets/brazilFlag.png'
+import usaFlag from '../../assets/usaFlag.png';
+
 
 export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMessage }) {
     const navigate = useNavigate();
     const isPcV = useSelector((state) => state.view.isPcV);
     const dispatch = useDispatch();
     const theme = useSelector((state) => state.view.theme);
+    const { t, i18n } = useTranslation();
 
     const dropdownProfileRef = useRef(null);
 
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const [profilePhoto, setProfilePhoto] = useState(localStorage.getItem('userLoggedProfilePhoto') || null);
+
+    const changeLanguage = (lang) => {
+        i18n.changeLanguage(lang);
+    };
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -107,6 +117,20 @@ export default function MenuDrawer({ drawerOpen, setDrawerOpen, setShowLogOutMes
                             </div>
                             <hr style={{ margin: "3px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`, }} />
                         </div>
+
+                        <div className='flexColumn fullCenter' style={{ marginTop: '20px' }}>
+                            <div className='flexRow' >
+                                <div className='flexRow' style={{ cursor: 'pointer', alignItems: 'center', marginRight: '20px' }} onClick={() => changeLanguage('pt')} >
+                                    <img src={brazilFlag} alt="Logo" style={{ width: isPcV ? 40 : 30, height: isPcV ? 40 : 30, borderRadius: '50%', border: i18n.language?.split("-")[0] === 'pt' ? "2px solid white" : "2px solid transparent" }} />
+                                    <h4 style={{ marginLeft: '10px', textDecoration: i18n.language?.split("-")[0] === 'pt' ? 'underline' : 'none' }}>{"PT"}</h4>
+                                </div>
+                                <div className='flexRow' style={{ cursor: 'pointer', alignItems: 'center', }} onClick={() => changeLanguage('en')}>
+                                    <img src={usaFlag} alt="Logo" style={{ width: isPcV ? 40 : 30, height: isPcV ? 40 : 30, borderRadius: '50%', border: i18n.language?.split("-")[0] === 'en' ? "2px solid white" : "2px solid transparent" }} />
+                                    <h4 style={{ marginLeft: '10px', textDecoration: i18n.language?.split("-")[0] === 'en' ? 'underline' : 'none', }}>{"EN"}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style={{ margin: "10px 0", border: "none", borderTop: `5px solid ${borderColorTwo(theme)}`, }} />
 
                         {/* 
                         {isAdmMasterAuthenticated &&
