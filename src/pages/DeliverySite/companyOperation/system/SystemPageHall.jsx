@@ -3,13 +3,14 @@ import { Table } from "react-bootstrap";
 import NewOrderModal from "./components/NewOrderModal.jsx";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faSquareCaretDown, faSquareCaretUp } from "@fortawesome/free-solid-svg-icons";
-import { blueOne, borderColorTwo, fontColorOne, greenTwo, } from "../../../../theme/Colors.js";
+import { faCheck, faCircle, faDollar, faLock, faPen, faSquareCaretDown, faSquareCaretUp, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { blueOne, borderColorTwo, fontColorOne, greenOne, greenTwo, redOne, } from "../../../../theme/Colors.js";
 import { isOwnerOrManagerOrSupervisor } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import { isOwnerOrManager } from "../../../../services/deliveryServices/auxServices/IsOwnerOrManegerService,js";
 import tableGreen from "../../../../assets/tableGreen.png";
 import tableYellow from "../../../../assets/tableYellow.png";
 import tableRed from "../../../../assets/tableRed.png";
+import tableBlue from "../../../../assets/tableBlue.png";
 import EditOrderModal from "./components/EditOrderModal.jsx";
 import OrderClosedOrPaidDetailsModal from './components/auxComponents/OrderResumeModal.jsx';
 import OrderResumeModal from './components/auxComponents/OrderResumeModal.jsx';
@@ -55,6 +56,18 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
         return () => document.removeEventListener('contextmenu', handler);
     }, []);
 
+    function getStatusIconOrAbreviates(status) {
+        switch (status) {
+            case "OPEN":
+                return <span style={{ color: greenOne(theme), fontWeight: 'bold' }}><FontAwesomeIcon icon={faCircle} /></span>;
+            case "CLOSEDWAITINGPAYMENT":
+                return <span style={{ color: redOne(theme), fontWeight: 'bold' }}><FontAwesomeIcon icon={faLock} /></span>;
+            case "PAID":
+                return <span style={{ color: greenOne(theme), fontWeight: 'bold' }}> <FontAwesomeIcon icon={faCheck} /></span>;
+            case "CANCELLED":
+                return <span style={{ color: redOne(theme), fontWeight: 'bold' }}><FontAwesomeIcon icon={faXmark} /></span>;
+        }
+    }
 
     return (
         <>
@@ -87,8 +100,8 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
                                 if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "OPEN"))) tableOnUse = "OPEN";
                                 if (companyOperation?.orders?.some(order => String(order.tableNumberOrDeliveryOrPickup) === String(tableNumber) && (order.status === "CLOSEDWAITINGPAYMENT"))) tableOnUse = "CLOSEDWAITINGPAYMENT";
 
-                                let tableColorImage = tableGreen;
-                                if (tableOnUse === "OPEN") tableColorImage = tableYellow;
+                                let tableColorImage = tableBlue;
+                                if (tableOnUse === "OPEN") tableColorImage = tableGreen;
                                 if (tableOnUse === "CLOSEDWAITINGPAYMENT") tableColorImage = tableRed;
 
                                 function openEditOrNewOrderModal() {
@@ -181,7 +194,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
 
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName ?? (order.pickupName ?? "No Name")}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.status === "CLOSEDWAITINGPAYMENT" ? "CLOSE" : order?.status}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{getStatusIconOrAbreviates(order.status)}</td>
                                             {/* <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td> */}
                                         </tr>
                                     ))}
@@ -216,7 +229,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
 
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName ?? (order.pickupName ?? "No Name")}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.status}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px'}}>{getStatusIconOrAbreviates(order.status)}</td>
                                             {/* <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td> */}
                                         </tr>
                                     ))}
@@ -254,7 +267,7 @@ export default function SystemPageHall({ onFocus, setHaveModalOpen, getShiftOper
 
                                             <td style={{ width: "100%", padding: '5px 5px' }}>{order.orderNumberOnShift}</td>
                                             <td style={{ width: "40px", padding: '5px 5px' }}>{order.customer?.customerName || "No Name"}</td>
-                                            <td style={{ width: "40px", padding: '5px 5px' }}>{order.status}</td>
+                                            <td style={{ width: "40px", padding: '5px 5px' }}>{getStatusIconOrAbreviates(order.status)}</td>
                                             {/* <td>{Math.floor((Date.now() - Date.parse(order.closedWaitingPaymentAtUtc + "Z")) / 60000)}</td> */}
                                         </tr>
                                     ))}
