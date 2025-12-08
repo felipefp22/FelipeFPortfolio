@@ -9,7 +9,7 @@ export default function PortfolioPage() {
     const isPcV = useSelector((state) => state.view.isPcV);
     const { t, i18n } = useTranslation();
 
-    const menus = isPcV ? [t("port.aboutMe.title"), t("port.projects.title"), t("contacts.title")] : [t("port.port.skills.title"), t("port.aboutMe.title"), t("port.projects.title"), t("contacts.title")];
+    const menus = isPcV ? [t("port.aboutMe.title"), t("port.projects.title"), t("port.contacts.title")] : [t("port.skills.title"), t("port.aboutMe.title"), t("port.projects.title"), t("port.contacts.title")];
     const [active, setActive] = useState(0);
 
     // --- KEYBOARD navigation ---
@@ -85,7 +85,7 @@ export default function PortfolioPage() {
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'left', padding: '20px', minHeight: '500px' }} >
                     {(menus[active] === t("port.aboutMe.title") || menus[active] === t("port.skills.title")) && <AboutMe activeMenu={menus[active]} />}
                     {menus[active] === t("port.projects.title") && <Projects />}
-                    {menus[active] === t("contacts.title") && <Contacts />}
+                    {menus[active] === t("port.contacts.title") && <Contacts />}
                 </div>
             </div>
 

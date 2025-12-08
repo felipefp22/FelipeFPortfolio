@@ -64,6 +64,9 @@
       "delivery": "Delivery",
       "order": "Pedido"
     },
+    "phrases": {
+
+    },
     "itemsDefaults": {
       "all": "Tudo",
       "itensToAdd": "Itens para Add"
