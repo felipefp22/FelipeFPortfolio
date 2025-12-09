@@ -24,7 +24,7 @@ export default function CancelOrder({ close, closeFromCancel, companyOperationID
             getShiftOperationData();
             closeFromCancel();
         } else {
-            alert(`Error cancelling order ${response?.data ?? ''}`);
+            alert(`${t('rSys.alert.error_cancelling_order')} ${response?.data ?? ''}`);
         }
 
         setProcessing(false);

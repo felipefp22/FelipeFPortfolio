@@ -17,7 +17,7 @@ export default function ChangeOrderStatusModal({ close, companyOperation, select
 
     async function dispatchOrders() {
         if (!deliverymanSelectedID) {
-            alert("Please select a Delivery-Man");
+            alert(t('rSys.alert.select_delivery_man'));
             return;
         }
 

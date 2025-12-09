@@ -106,10 +106,10 @@ export default function CompanyOperation() {
         dispatch(changeNoUserDeliveryMans(companyOperationData?.noUserDeliveryMans || []));
 
       } else {
-        alert("You need to open a shift to operate on this company.");
+        alert(t('rSys.alert.need_open_shift'));
       }
     } else {
-      alert("Error fetching company operation data from server");
+      alert(t('rSys.alert.error_fetch_company_operation'));
     }
   }
 
@@ -125,7 +125,7 @@ export default function CompanyOperation() {
 
       updateShiftfData(shiftOperationData);
     } else {
-      // alert("Error fetching orders operation data");
+      // alert(t('rSys.alert.error_fetch_orders_operation'));
     }
   }
 

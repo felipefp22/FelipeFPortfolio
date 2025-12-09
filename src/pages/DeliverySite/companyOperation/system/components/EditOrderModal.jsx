@@ -103,7 +103,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
         if (response?.status === 200) {
             await getShiftOperationData();
         } else {
-            alert(`Error reopening order: ${response?.data}`);
+            alert(`${t('rSys.alert.error_reopening_order')}: ${response?.data}`);
         }
         setDisabled(false);
     }

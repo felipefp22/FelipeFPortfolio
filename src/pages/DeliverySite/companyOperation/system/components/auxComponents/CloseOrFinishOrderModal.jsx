@@ -23,7 +23,7 @@ export default function CloseOrFinishOrderModal({ close, closeAll, orderToEdit, 
             await getShiftOperationData();
             close();
         } else {
-            alert(`Error closing order: ${response?.data}`);
+            alert(t('rSys.error_closing_order') + response?.data);
         }
         setDisabled(false);
     }
@@ -37,7 +37,7 @@ export default function CloseOrFinishOrderModal({ close, closeAll, orderToEdit, 
             await getShiftOperationData();
             closeAll();
         } else {
-            alert(`Error closing order: ${response?.data}`);
+            alert(t('rSys.error_closing_order') + response?.data);
         }
         setDisabled(false);
     }

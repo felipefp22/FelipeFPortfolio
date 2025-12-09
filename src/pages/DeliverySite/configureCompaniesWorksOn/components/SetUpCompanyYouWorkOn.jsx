@@ -6,12 +6,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCompanyOperation } from "../../../../services/deliveryServices/CompanySevice";
 import CompanyProfile from "../../configureCompaniesOwner/components/internalComponents/CompanyProfile";
+import { useTranslation } from 'react-i18next';
 
 
 export default function SetUpCompanyYouWorkOn({ fetchUserInfos }) {
     const navigate = useNavigate();
     const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
+    const { t } = useTranslation();
+
     const location = useLocation();
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);
@@ -35,7 +38,7 @@ export default function SetUpCompanyYouWorkOn({ fetchUserInfos }) {
 
             console.log("Company operation data fetched:", companyOperationData);
         } else {
-            alert("Error fetching company operation data from server");
+            alert(t('rSys.error_fetching_company_data'));
         }
     }
 

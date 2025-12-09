@@ -92,28 +92,28 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
 
     async function saveOrder() {
         if (!tableNumberOrDeliveryOrPickupSelected) {
-            alert("TableNumber/Delivery/Pickup option required");
+            alert(t('rSys.errors.table_delivery_pickup_required'));
             return;
         }
 
         if (tableNumberOrDeliveryOrPickupSelected === 'delivery') {
             if (!customerSelectedToNewOrder) {
-                alert("Customer required to DELIVERY order");
+                alert(t('rSys.errors.customer_required_delivery'));
                 return;
             }
             if (getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM) {
-                alert(`Can't Order to this customer, distance exceeds maximum(${companyOperation?.maxDeliveryDistanceKM}) delivery distance.`);
+                alert(t('rSys.errors.distance_exceeds_limit') + `(${companyOperation?.maxDeliveryDistanceKM}).`);
                 return;
             }
         }
 
         if (tableNumberOrDeliveryOrPickupSelected === 'pickup' && !customerSelectedToNewOrder && !pickupNameInput) {
-            alert("PickUp Name or Customer required to PICKUP order");
+            alert(t('rSys.errors.pickup_name_or_customer_required'));
             return;
         }
 
         if (selectedCustomItemsToAdd.length === 0) {
-            alert("At least one item is required");
+            alert(t('rSys.errors.at_least_one_item_required'));
             return;
         }
 
@@ -135,7 +135,7 @@ export default function NewOrderModal({ close, companyOperation, getShiftOperati
             await getShiftOperationData();
             close();
         } else {
-            alert("Error creating order, try again later");
+            alert(t('rSys.error_creating_order'));
         }
 
         setDisabled(false);

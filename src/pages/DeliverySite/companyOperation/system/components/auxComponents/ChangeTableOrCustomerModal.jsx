@@ -95,7 +95,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
         if (tableNumberOrDeliveryOrPickup === 'delivery') {
             if (getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM) {
-                alert(`Can't Order to this customer, distance exceeds maximum(${companyOperation?.maxDeliveryDistanceKM}) delivery distance.`);
+                alert(t('rSys.errors.distance_exceeds_limit') + companyOperation?.maxDeliveryDistanceKM);
                 setEditNameCustomer(false);
                 return;
             }
@@ -111,7 +111,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
             setNewPickupNameCandidate(null);
             setEditNameCustomer(false);
         } else {
-            alert(`Error changing name/customer: ${response?.data}`);
+            alert(t('rSys.error_changing_name_customer') + response?.data);
         }
 
         setDisabled(false);
@@ -125,7 +125,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
 
         if (newTableCandidate === 'delivery') {
             if (getCustomerEstimatedKm().km >= companyOperation?.maxDeliveryDistanceKM) {
-                alert(`Can't Order to this customer, distance exceeds maximum(${companyOperation?.maxDeliveryDistanceKM}) delivery distance.`);
+                alert(t('rSys.errors.distance_exceeds_limit') + companyOperation?.maxDeliveryDistanceKM);
                 setEditTable(false);
                 return;
             }
@@ -139,7 +139,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
             setNewTableCandidate(response.data.tableNumberOrDeliveryOrPickup);
             setEditTable(false);
         } else {
-            alert(`Error changing table/pickup/delivery: ${response?.data}`);
+            alert(t('rSys.error_changing_table_delivery_pickup') + response?.data);
         }
 
         setDisabled(false);
@@ -336,7 +336,7 @@ export default function ChangeTableOrCustomerModal({ close, closeFromCancel, tab
                             fontSize: isPcV ? '17px' : '14px', height: '35px', marginLeft: '2px', padding: isPcV ? '0px 10px' : '0px 6px',
                             backgroundColor: newTableCandidate === 'delivery' ? greenOne(theme) : ''
                         }}
-                            onClick={() => { if (orderToEdit?.customer) setNewTableCandidate('delivery'); else { alert('For delivery ADD Customer first.'); setSelectUseCustomerOrPickUpName('Customer'); setEditTable(false); setEditNameCustomer(true); } }}
+                            onClick={() => { if (orderToEdit?.customer) setNewTableCandidate('delivery'); else { alert(t('rSys.delivery_add_customer_first')); setSelectUseCustomerOrPickUpName('Customer'); setEditTable(false); setEditNameCustomer(true); } }}
                             disabled={disabled}>{t('rSys.words.delivery')}</button>
                     </div>
                 </div>}

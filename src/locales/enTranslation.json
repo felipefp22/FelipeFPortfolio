@@ -77,7 +77,7 @@
       "paid": "Paid",
       "cancelled": "Cancelled"
     },
-    "phrases":{
+    "phrases": {
       "itemsAlreadyOnOrder": "Items already on order",
       "orderClosed": "Order Closed",
       "cancelOrder": "Cancel Order",
@@ -111,6 +111,31 @@
       "searchAddressPlaceHolder": "Search Address",
       "distance": "Distance",
       "aboveIdeal": "⚠️Above Ideal "
+    },
+    "alert": {
+      "need_open_shift": "You need to open a shift to operate on this company.",
+      "error_fetch_company_operation": "Error fetching company operation data from server.",
+      "error_fetch_orders_operation": "Error fetching orders operation data.",
+      "error_cancelling_order": "Error cancelling order ${response?.data ?? ''}",
+      "select_delivery_man": "Please select a Delivery-Man.",
+      "error_reopening_order": "Error reopening order.",
+      "invalid_admin_password": "Invalid Admin Password.",
+      "server_error_close_shift": "Server error closing shift, try again.",
+      "please_fill_all_fields": "Please fill in all fields.",
+      "error_creating_customer": "Error creating customer: ",
+      "error_updating_customer": "Error updating customer: ",
+      "table_delivery_pickup_required": "TableNumber/Delivery/Pickup option required.",
+      "customer_required_delivery": "Customer required for DELIVERY order.",
+      "distance_exceeds_limit": "Can't order to this customer, distance exceeds maximum delivery distance: ",
+      "pickup_name_or_customer_required": "PickUp Name or Customer required for PICKUP order.",
+      "at_least_one_item_required": "At least one item is required.",
+      "error_creating_order": "Error creating order, try again later.",
+      "error_changing_name_customer": "Error changing name/customer: ",
+      "error_changing_table_delivery_pickup": "Error changing table/pickup/delivery: ",
+      "delivery_add_customer_first": "For delivery, add Customer first.",
+      "error_closing_order": "Error closing order: ",
+      "error_updating_company_data": "Error updating company data on server.",
+      "error_updating_chain_data": "Error updating chain data on server."
     }
   },
   "buttons": {

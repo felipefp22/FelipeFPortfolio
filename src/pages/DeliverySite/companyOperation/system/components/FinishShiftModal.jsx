@@ -25,9 +25,9 @@ export default function FinishShiftModal({ close, finishShift, companySelected, 
             finishShift();
         } else {
             if (response.data === "invalidAdminPassword") {
-                alert("Invalid Admin Password.");
+                alert(t('rSys.alert.invalid_admin_password'));
             } else {
-                alert("Server error close shift, try again.");
+                alert(t('rSys.alert.server_error_close_shift'));
             }
         }
 

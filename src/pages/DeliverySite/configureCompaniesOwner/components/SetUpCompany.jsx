@@ -39,7 +39,7 @@ export default function SetUpCompany({ }) {
 
             console.log("Company operation data fetched:", companyOperationData);
         } else {
-            alert("Error fetching company operation data from server");
+            alert(`t('rSys.error_fetching_company_data') + response?.data`);
         }
     }
 

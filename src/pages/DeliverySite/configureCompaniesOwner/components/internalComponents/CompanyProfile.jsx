@@ -8,11 +8,13 @@ import { updateCompanyService } from "../../../../../services/deliveryServices/C
 import { Spinner } from "react-bootstrap";
 import EditCompanyAddressModal from "./modals/EditCompanyAddressModal";
 import QuitCompanyModal from "./modals/QuitCompanyModal";
+import { useTranslation } from 'react-i18next';
 
 
 export default function CompanyProfile({ companyData, fetchCompanyData, fetchUserInfos }) {
     const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
+    const { t } = useTranslation();
 
     const [seeImageBig, setSeeImageBig] = useState(false);
 
@@ -80,7 +82,7 @@ export default function CompanyProfile({ companyData, fetchCompanyData, fetchUse
             if (response?.status === 200) {
                 fetchCompanyData();
             } else {
-                alert(`Error updating company data on server ${response?.data}`);
+                alert(t('rSys.error_updating_company_data') + response?.data);
             }
             setDisable(false);
         }

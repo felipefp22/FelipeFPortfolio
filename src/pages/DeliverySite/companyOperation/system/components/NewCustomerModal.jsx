@@ -75,7 +75,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
 
     async function saveCustomer() {
         if (!name || !phone || !address || !addressNumber || !city || !state || !zipCode || !lat || !lng) {
-            alert("Please fill in all fields");
+            alert(t('rSys.please_fill_all_fields'));
             return;
         }
 
@@ -85,14 +85,14 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
             fetchCustomers(response?.data?.id);
             close();
         } else {
-            alert("Error creating customer: ", response?.data);
+            alert(t('rSys.error_creating_customer') + response?.data);
         }
         setDisabled(false);
     }
 
     async function updateCustomer() {
         if (!name || !phone || !address || !addressNumber || !city || !state || !zipCode || !lat || !lng) {
-            alert("Please fill in all fields");
+            alert(t('rSys.please_fill_all_fields'));
             return;
         }
 
@@ -104,7 +104,7 @@ export default function NewCustomerModal({ close, companyOperation, customerToEd
                 fetchCustomers(response?.data?.id);
                 close();
             } else {
-                alert("Error updating customer: ", response?.data);
+                alert(t('rSys.error_updating_customer') + response?.data);
             }
         }
         setDisabled(false);

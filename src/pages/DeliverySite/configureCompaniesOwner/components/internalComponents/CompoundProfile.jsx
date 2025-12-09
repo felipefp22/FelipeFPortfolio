@@ -6,11 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "react-bootstrap";
 import { updateCompoundService } from "../../../../../services/deliveryServices/CompoundService";
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 
 export default function CompoundProfile({ compoundSelectedData, fetchUserInfos }) {
     const isPcV = useSelector((state) => state.view.isPcV);
     const theme = useSelector((state) => state.view.theme);
+    const { t } = useTranslation();
 
     const [seeImageBig, setSeeImageBig] = useState(false);
 
@@ -47,7 +50,7 @@ export default function CompoundProfile({ compoundSelectedData, fetchUserInfos }
                 fetchUserInfos();
             } else {
                 getDatasFromCompoundData();
-                alert("Error updating compound data on server");
+                alert(t('rSys.error_updating_compound_data'));
             }
             setDisable(false);
         }
