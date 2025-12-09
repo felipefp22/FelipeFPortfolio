@@ -135,7 +135,7 @@
       "delivery_add_customer_first": "Para delivery, adicione o Cliente primeiro.",
       "distance_exceeds_maximum": "A distância excede o máximo permitido: ",
       "error_closing_order": "Erro ao fechar pedido: ",
-      "error_updating_company_data": "Erro ao atualizar dados da empresa no servidor.",
+      "error_updating_company_data": "Erro ao atualizar dados da empresa no servidor."
     }
   },
   "buttons": {
