@@ -33,6 +33,7 @@ import SystemPageHall from './system/SystemPageHall.jsx';
 import { verifyNewOrderPrints } from '../../../services/deliveryServices/auxServices/PrintService.js';
 import SignalRService from '../../../services/deliveryServices/auxServices/SignalRService.jsx';
 import DeliveryManPage from './deliverymanPage/DeliveryManPage.jsx';
+import { useTranslation } from 'react-i18next';
 
 export default function CompanyOperation() {
   const navigate = useNavigate();
@@ -40,6 +41,8 @@ export default function CompanyOperation() {
   const dispatch = useDispatch();
   const isPcV = useSelector((state) => state.view.isPcV);
   const companyOperationData = useSelector((state) => state.companyOperation);
+  const { t } = useTranslation();
+
   const [signalRAlreadyCharged, setSignalRAlreadyCharged] = useState(false);
   const [lastShiftOperationUpdate, setLastShiftOperationUpdate] = useState(null);
 
@@ -213,11 +216,11 @@ export default function CompanyOperation() {
                       <Dropdown.Menu align="end" style={{ borderRadius: "6px", }}>
                         {requesterAreOwnerOrManager && <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer", marginBottom: "8px" }} onClick={() => { setShowFinishShiftMessage(true); setShowDropdownSystemOptionsRed(false); }}>
                           <FontAwesomeIcon icon={faLock} flip='horizontal' style={{ color: blueOne(theme) }} />
-                          <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Finish Shift</span>
+                          <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>{t('buttons.finishShift')}</span>
                         </div>}
                         <div style={{ paddingLeft: "10px", textAlign: "left", cursor: "pointer" }} onClick={() => { setShowLeaveCompanyMessage(true); setShowDropdownSystemOptionsRed(false); }}>
                           <FontAwesomeIcon icon={faRightFromBracket} flip='horizontal' style={{ color: "red" }} />
-                          <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>Leave</span>
+                          <span style={{ fontSize: '16px', fontWeight: 'bold', marginLeft: '5px' }}>{t('buttons.leave')}</span>
                         </div>
                       </Dropdown.Menu>
                     </Dropdown>

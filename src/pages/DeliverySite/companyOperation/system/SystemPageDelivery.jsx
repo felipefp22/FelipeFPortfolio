@@ -167,7 +167,7 @@ export default function SystemPageDelivery({ onFocus, setHaveModalOpen, getShift
                                 visibility: ((selectedCookingOrderID.length === 0 && selectedOnDeliveryOrderID.length > 0)) ? 'visible' : 'hidden'
                             }}
                                 onClick={() => setCompleteOrdersModal(true)}>
-                                <span>Finish</span>
+                                <span>{t('buttons.finish')}</span>
                             </button>
                         </div>
 

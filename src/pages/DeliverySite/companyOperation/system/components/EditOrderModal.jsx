@@ -145,11 +145,12 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                             {orderToEdit?.tableNumberOrDeliveryOrPickup === 'delivery' ? t('rSys.words.delivery') : (orderToEdit?.tableNumberOrDeliveryOrPickup === 'pickup' ? t('rSys.words.pickup') : `${t('rSys.words.table')} - ${orderToEdit?.tableNumberOrDeliveryOrPickup}`)}</span>
                     </div>
 
-                    <button className='buttonStandart green' style={{
-                        fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', cursor: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 'not-allowed' : 'pointer',
-                        opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1
-                    }}
-                        onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT'}>{t('buttons.changeTableOrCustomer')}</button>
+                    <Tooltip title={orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' ? t('rSys.phrases.orderClosedReopenToEdit') : ''} arrow slotProps={{ popper: { className: "neon-tooltip", modifiers: [{ name: 'offset', options: { offset: [0, -14] } }] } }}>
+                        <button className='buttonStandart green' style={{
+                            fontSize: isPcV ? '17px' : '14px', padding: isPcV ? '0px 5px' : '0px 3px', cursor: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 'not-allowed' : 'pointer',
+                            opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1
+                        }}
+                            onClick={() => { setShowChangeTableOrCustomerModal(true) }} disabled={disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT'}>{t('buttons.changeTableOrCustomer')}</button></Tooltip>
                 </div>
 
                 {selectUseCustomerOrPickUpName === 'Name' && <div className='flexColumn' style={{ width: '100%', opacity: (disabled || orderToEdit?.status === 'CLOSEDWAITINGPAYMENT') ? 0.5 : 1, }}>
@@ -191,9 +192,12 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
                 <div className='flexColumn' style={{ justifyContent: 'left', textAlign: 'left', flex: 1, position: 'relative' }}>
 
                     <div className='flexColumn' style={{ marginTop: '5px', }}>
-                        {orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' && <div className='flexRow fullCenter' style={{ height: '100%', width: '100%', position: 'absolute' }} >
-                            <span style={{ fontSize: 24, fontWeight: 'bold', backgroundColor: 'rgba(0,0,0, 1)', padding: '20px', borderRadius: '10px', color: redOne(theme) }}>{t('rSys.phrases.orderClosed')}</span>
-                        </div>}
+                        {orderToEdit?.status === 'CLOSEDWAITINGPAYMENT' &&
+                            <Tooltip title={t('rSys.phrases.orderClosedReopenToEdit')} arrow slotProps={{ popper: { className: "neon-tooltip", modifiers: [{ name: 'offset', options: { offset: [0, -14] } }] } }}>
+                                <div className='flexRow fullCenter' style={{ height: '100%', width: '100%', position: 'absolute' }} >
+                                    <span style={{ fontSize: 24, fontWeight: 'bold', backgroundColor: 'rgba(0,0,0, 1)', padding: '20px', borderRadius: '10px', color: redOne(theme) }}>{t('rSys.phrases.orderClosed')}</span>
+                                </div>
+                            </Tooltip>}
 
                         <div className='flexRow spaceBetweenJC' style={{ width: '100%' }}>
                             <button className='buttonStandart'
@@ -291,7 +295,7 @@ export default function EditOrderModal({ close, companyOperation, orderToEdit, s
 
             {showSelectItemsModal && <div ref={selectItemsModalRef} className='myModal' >
                 <SelectItemsModal close={() => setShowSelectItemsModal(false)} allCompanyProductsCategories={allCompanyProductsCategories} setAllCompanyProductsCategories={setAllCompanyProductsCategories}
-                selectedCustomItemsToAdd={selectedCustomItemsToAdd} setSelectedCustomItemsToAdd={setSelectedCustomItemsToAdd} />
+                    selectedCustomItemsToAdd={selectedCustomItemsToAdd} setSelectedCustomItemsToAdd={setSelectedCustomItemsToAdd} />
             </div>}
 
             {showCancelItemModal && <div ref={selectItemsModalRef} className='myModal' >

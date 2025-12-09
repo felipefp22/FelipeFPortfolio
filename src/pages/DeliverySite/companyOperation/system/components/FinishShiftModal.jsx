@@ -4,12 +4,14 @@ import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { blueOne, greenOne, orangeOne, redOne } from "../../../../../theme/Colors";
 import { endShift, openNewShift } from "../../../../../services/deliveryServices/ShiftService";
+import { useTranslation } from 'react-i18next';
 
 
 export default function FinishShiftModal({ close, finishShift, companySelected, requesterAreOwnerOrManager }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
     const currentShiftData = useSelector((state) => state.companyOperation.currentShift);
+    const { t } = useTranslation();
 
     const [processing, setProcessing] = useState(false);
     const [adminPassword, setAdminPassword] = useState("");
@@ -49,24 +51,24 @@ export default function FinishShiftModal({ close, finishShift, companySelected, 
             <div className='modalInside' style={{ width: 'auto', padding: '10px', maxWidth: !isPcV ? "95%" : "80%", maxHeight: !isPcV ? "95%" : "90%", fontSize: !isPcV ? '20px' : '26px', fontWeight: 'bold' }}>
                 {requesterAreOwnerOrManager && <div className='flexColumn fullCenter'>
                     <div className='flexColumn fullCenter' style={{ marginBottom: '20px', lineHeight: 1.8 }}>
-                        <span >Finish Shift?</span>
+                        <span >{t('rSys.phrases.finishShift')}?</span>
 
-                        <span style={{ fontSize: '15px' }}> {"From - "} <span style={{ color: blueOne(theme) }}>{formatDateToDayMonth(currentShiftData?.startTimeUTC)}</span></span>
-                        <span style={{ fontSize: '15px' }}> {"To - "} <span style={{ color: blueOne(theme) }}>{formatDateToDayMonth(new Date(Date.now() + new Date().getTimezoneOffset() * 60000))}</span></span>
+                        <span style={{ fontSize: '15px' }}> {t('rSys.words.from')} - <span style={{ color: blueOne(theme) }}>{formatDateToDayMonth(currentShiftData?.startTimeUTC)}</span></span>
+                        <span style={{ fontSize: '15px' }}> {t('rSys.words.till')} - <span style={{ color: blueOne(theme) }}>{formatDateToDayMonth(new Date(Date.now() + new Date().getTimezoneOffset() * 60000))}</span></span>
                     </div>
 
                     <div className='flexColumn fullCenter'>
                         <input className='inputStandart' style={{ textAlign: "center" }} type="password" value={adminPassword} onChange={(e) => { setAdminPassword(e.target.value); }}
-                            placeholder="Enter Admin Password" />
-                        <span style={{ fontSize: '14px', color: 'rgba(200,200,200,0.7)' }}>* If never Setted, default password "1234"</span>
+                            placeholder={t('placeHolders.enterAdminPassword')} />
+                        <span style={{ fontSize: '14px', color: 'rgba(200,200,200,0.7)' }}>{t('rSys.phrases.defaultPasswordMsg')}</span>
                     </div>
 
                     {!processing && <div className='flexRow spaceBetweenJC' style={{ width: '100%', marginTop: '10px' }}>
                         <button className='buttonStandart' style={{ background: 'none', border: "none", color: redOne(theme), fontSize: '16px' }}
-                            onClick={() => { close(); }} disabled={processing}>Return</button>
+                            onClick={() => { close(); }} disabled={processing}>{t('buttons.return')}</button>
 
                         <button className='buttonStandart' style={{ background: 'none', border: "none", color: greenOne(theme), fontSize: '16px' }}
-                            onClick={() => { handleFinishShift() }} disabled={processing}>Finish Shift</button>
+                            onClick={() => { handleFinishShift() }} disabled={processing}>{t('buttons.finishShift')}</button>
                     </div>}
 
                     {processing && <div className='flexRow'>

@@ -5,12 +5,13 @@ import { useSelector } from 'react-redux';
 import { borderColorTwo, fontColorOne, greenOne, greenTwo, purpleOne } from '../../../../../../../theme/Colors';
 import { getImageFoodService } from '../../../../../../../services/deliveryServices/auxServices/FoodsImagesService';
 import noFoodImg from '../../../../../../../assets/noFood.jpg';
+import { useTranslation } from 'react-i18next';
 
 
 export default function CustomItemModal({ close, category, inputSearchItem, setInputSearchItem, productsFiltered, customRules, setSelectedCustomItems }) {
     const theme = useSelector((state) => state.view.theme);
     const isPcV = useSelector((state) => state.view.isPcV);
-
+    const { t } = useTranslation();
     const [itemsSelectedToCreateCustom, setItemsSelectedToCreateCustom] = useState([]);
     const [addonsSelectedToCreateCustom, setAddonsSelectedToCreateCustom] = useState([]);
     const [notesForCustomItem, setNotesForCustomItem] = useState("");
@@ -123,17 +124,17 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
                 {category?.productOptions?.length > 0 && <div className='flexRow spaceBetweenJC' style={{ marginBottom: 0 }} >
                     <div className='flexRow fullCenter' style={{ width: '100%' }} >
                         <span style={{ color: fontColorOne(theme), fontSize: 15, fontWeight: 'bold', cursor: 'pointer', opacity: tasteOrAddons === 'taste' ? 1 : 0.5, textDecoration: tasteOrAddons === 'taste' ? 'underline' : 'none' }}
-                            onClick={() => setTasteOrAddons('taste')}>{'Tastes'} </span>
+                            onClick={() => setTasteOrAddons('taste')}>{t('rSys.words.tastes')} </span>
                     </div>
 
                     <div className='flexRow fullCenter' style={{ width: '100%' }} >
                         <span style={{ color: fontColorOne(theme), fontSize: 15, fontWeight: 'bold', cursor: 'pointer', opacity: tasteOrAddons === 'addons' ? 1 : 0.5, textDecoration: tasteOrAddons === 'addons' ? 'underline' : 'none' }}
-                            onClick={() => setTasteOrAddons('addons')}>{'Add-ons'} </span>
+                            onClick={() => setTasteOrAddons('addons')}>{t('rSys.words.addons')} </span>
                     </div>
                 </div>}
 
                 {tasteOrAddons === 'taste' && <div className='flexColumn' style={{ width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', border: `2px solid ${borderColorTwo(theme)}` }}>
-                    <input type="text" className='inputStandart' value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder="Filter Item"
+                    <input type="text" className='inputStandart' value={inputSearchItem} onChange={(e) => setInputSearchItem(e.target.value.toUpperCase())} placeholder={t('rSys.placeHolders.filterItemsPlaceholder')}
                         style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)' }} />
 
                     <div className='flexRow' style={{ justifyContent: 'center', width: '100%', flexWrap: 'wrap', overflowY: 'auto', }}>
@@ -154,7 +155,7 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
                     </div>
                 </div>}
                 {tasteOrAddons === 'addons' && <div className='flexColumn' style={{ width: '100%', height: '300px', backgroundColor: 'rgba(255, 255, 255, 1)', borderRadius: '5px', border: `2px solid ${borderColorTwo(theme)}` }}>
-                    <input type="text" className='inputStandart' value={inputSearchAddons} onChange={(e) => setInputSearchAddons(e.target.value.toUpperCase())} placeholder="Filter Item"
+                    <input type="text" className='inputStandart' value={inputSearchAddons} onChange={(e) => setInputSearchAddons(e.target.value.toUpperCase())} placeholder={t('rSys.placeHolders.filterItemsPlaceholder')}
                         style={{ width: '100%', backgroundColor: 'white', color: 'black', boxShadow: '1px 2px 6px rgba(0, 0, 0, 0.1)' }} />
 
                     <div className='flexRow' style={{ justifyContent: 'center', width: '100%', flexWrap: 'wrap', overflowY: 'auto', }}>
@@ -178,12 +179,12 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
                 <div className='flexRow spaceBetweenJC' style={{ marginTop: 2 }} >
                     <div className='flexRow fullCenter' style={{ width: '100%' }} >
                         <span style={{ color: fontColorOne(theme), fontSize: 15, fontWeight: 'bold', cursor: 'pointer', opacity: itemsOrNotes === 'items' ? 1 : 0.5, textDecoration: itemsOrNotes === 'items' ? 'underline' : 'none' }}
-                            onClick={() => setItemsOrNotes('items')}>{'Items'} </span>
+                            onClick={() => setItemsOrNotes('items')}>{t('rSys.words.items')} </span>
                     </div>
 
                     <div className='flexRow fullCenter' style={{ width: '100%' }} >
                         <span style={{ color: fontColorOne(theme), fontSize: 15, fontWeight: 'bold', cursor: 'pointer', opacity: itemsOrNotes === 'notes' ? 1 : 0.5, textDecoration: itemsOrNotes === 'notes' ? 'underline' : 'none' }}
-                            onClick={() => setItemsOrNotes('notes')}><FontAwesomeIcon icon={faPen} /> {'Notes'} </span>
+                            onClick={() => setItemsOrNotes('notes')}><FontAwesomeIcon icon={faPen} /> {t('rSys.words.notes')} </span>
                     </div>
                 </div>
 
@@ -228,8 +229,8 @@ export default function CustomItemModal({ close, category, inputSearchItem, setI
                 </div>}
 
                 <div className='flexRow spaceBetweenJC' style={{ marginTop: '10px', width: '100%', alignItems: 'center' }} >
-                    {customRules?.editting && <span style={{ opacity: 0.3, fontStyle: 'italic' }}> Editing... </span>}
-                    {!customRules?.editting && <button className='buttonNoBgNoBorder' onClick={() => { close() }} > Cancel </button>}
+                    {customRules?.editting && <span style={{ opacity: 0.3, fontStyle: 'italic' }}>{t('rSys.words.editing')}</span>}
+                    {!customRules?.editting && <button className='buttonNoBgNoBorder' onClick={() => { close() }} > {t('buttons.cancel')} </button>}
 
                     <button className='buttonStandart fontGreenTwo' type="submit" style={{ opacity: (itemsSelectedToCreateCustom?.length === customRules.customSize) ? 1 : 0.2, cursor: (itemsSelectedToCreateCustom?.length === customRules.customSize) ? 'pointer' : 'not-allowed', }}
                         disabled={itemsSelectedToCreateCustom?.length !== customRules.customSize} onClick={() => { handleCreateCustomItem(); }} >

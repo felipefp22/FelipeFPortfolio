@@ -65,17 +65,35 @@
       "table": "Table",
       "pickup": "Pickup",
       "delivery": "Delivery",
-      "order": "Order"
+      "order": "Order",
+      "from": "From",
+      "till": "Till",
+      "tastes": "Tastes",
+      "addons": "Add-ons",
+      "notes": "Notes",
+      "editing...": "Editing...",
+      "open": "Open",
+      "closed": "Closed",
+      "paid": "Paid",
+      "cancelled": "Cancelled"
     },
     "phrases":{
       "itemsAlreadyOnOrder": "Items already on order",
       "orderClosed": "Order Closed",
       "cancelOrder": "Cancel Order",
+      "orderClosedReopenToEdit": "Order closed. Reopen to edit.",
+      "finishOrder": "Finish Order",
       "defaultPasswordMsg": "* If never Setted, default password '1234'",
       "dispachToDelivery": "Dispatch to Delivery",
       "unregisteredUsers": "Unregistered Users",
       "registeredUsers": "Registered Users",
-      "reopenOrders": "Reopen Orders"
+      "reopenOrders": "Reopen Orders",
+      "finishShift": "Finish Shift",
+      "leaveCompany": "Leave Company",
+      "deliveryTax": "Delivery Tax",
+      "serviceFee": "Service Fee",
+      "totalPrice": "Total Price",
+      "noFee": "No Fee"
     },
     "itemsDefaults": {
       "all": "All",
@@ -101,6 +119,7 @@
     "saveOrder": "Save Order",
     "cancelOrder": "Cancel Order",
     "closeOrder": "Close Order",
+    "finishOrder": "Finish Order",
     "finishOrders": "Finish Orders",
     "reopenOrder": "Reopen",
     "newCustomer": "New Customer",
@@ -119,7 +138,10 @@
     "ok": "Ok",
     "return": "Return",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "finishShift": "Finish Shift",
+    "leave": "Leave",
+    "finish": "Finish"
   },
   "login": "Login",
   "logout": "Logout",

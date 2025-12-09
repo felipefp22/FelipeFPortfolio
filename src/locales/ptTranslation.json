@@ -65,17 +65,35 @@
       "table": "Mesa",
       "pickup": "Retirada",
       "delivery": "Delivery",
-      "order": "Pedido"
+      "order": "Pedido",
+      "from": "De",
+      "till": "Até",
+      "tastes": "Sabores",
+      "addons": "Adicionais",
+      "notes": "Observações",
+      "editing...": "Editando...",
+      "open": "Aberto",
+      "closed": "Fechado",
+      "paid": "Pago",
+      "cancelled": "Cancelado"
     },
     "phrases": {
       "itemsAlreadyOnOrder": "Itens já no pedido",
       "orderClosed": "Pedido Fechado",
       "cancelOrder": "Cancelar Pedido",
+      "orderClosedReopenToEdit": "Pedido fechado. Reabra para editar.",
+      "finishOrder": "Finalizar Pedido",
       "defaultPasswordMsg": "* Se nunca definido, senha padrão '1234'",
       "dispachToDelivery": "Despachar para Entrega",
       "unregisteredUsers": "Usuários Não Registrados",
       "registeredUsers": "Usuários Registrados",
-      "reopenOrders": "Reabrir Pedidos"
+      "reopenOrders": "Reabrir Pedidos",
+      "finishShift": "Finalizar Turno",
+      "leaveCompany": "Deixar da Empresa",
+      "deliveryTax": "Taxa de Entrega",
+      "serviceFee": "Taxa de Serviço",
+      "totalPrice": "Preço Total",
+      "noFee": "Sem Taxa"
     },
     "itemsDefaults": {
       "all": "Tudo",
@@ -101,6 +119,7 @@
     "saveOrder": "Salvar Pedido",
     "cancelOrder": "Cancelar Pedido",
     "closeOrder": "Fechar Pedido",
+    "finishOrder": "Finalizar Pedido",
     "finishOrders": "Finalizar Pedidos",
     "reopenOrder": "Reabrir",
     "newCustomer": "Novo Cliente",
@@ -119,7 +138,10 @@
     "ok": "Ok",
     "return": "Voltar",
     "cancel": "Cancelar",
-    "save": "Salvar"
+    "save": "Salvar",
+    "finishShift": "Finalizar Turno",
+    "leave": "Sair",
+    "finish": "Finalizar"
   },
   "login": "Entrar",
   "logout": "Sair",
